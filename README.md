@@ -7,9 +7,11 @@ Give-it-to-me is an app which simplifies my father's life on managing his cellar
 ## Teachers
 
 [Full-Stack Redux Tutorial](http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html)
+
 [react-redux-socketio-chat](https://github.com/raineroviir/react-redux-socketio-chat)
 
 [Gaearon](https://github.com/gaearon)
+
 [Kombucha](https://github.com/kombucha)
 
 ### Docker
