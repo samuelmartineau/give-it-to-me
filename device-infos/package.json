@@ -1,0 +1,16 @@
+{
+  "name": "device-infos",
+  "version": "1.0.0",
+  "description": "Express middleware for getting device informations before server side rendering",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Martineau",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "object-assign": "^4.0.1"
+  }
+}
