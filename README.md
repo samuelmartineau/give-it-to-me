@@ -14,6 +14,11 @@ Give-it-to-me is an app which simplifies my father's life on managing his cellar
 
 [Kombucha](https://github.com/kombucha)
 
+### Dependencies
+
+First install either [GraphicsMagick](http://www.graphicsmagick.org/) or [ImageMagick](http://www.imagemagick.org/script/index.php).
+
+
 ### Docker
 
 ```
