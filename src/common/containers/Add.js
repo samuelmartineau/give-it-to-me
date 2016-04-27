@@ -2,19 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Paper } from 'material-ui';
 
+import CellarSchema from '../components/CellarSchema';
+
 class Add extends Component {
-  render() {
+    render() {
     return (
-        <Paper zDepth={1} >
-            Add
-        </Paper>
+        <div>
+            <CellarSchema {...this.props} />
+            <Paper zDepth={1} >
+                Add
+            </Paper>
+        </div>
     );
-  }
+    }
 }
 
-function mapStateToProps(state) {
-    return {
-        wines: state.cellar.wines
-    };
-}
-export default connect(mapStateToProps)(Add);
+export default connect(state => ({
+    wines: state.cellar.wines
+}))(Add);
