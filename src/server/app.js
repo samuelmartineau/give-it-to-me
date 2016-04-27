@@ -10,12 +10,14 @@ import bodyParser from 'body-parser';
 import { RouterContext, match } from 'react-router';
 
 import config from '../../config';
+import * as serverConstants from '../common/constants/server';
 import createServerStore from './store';
 import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
 import DevTools from '../common/containers/DevTools';
 import routes from '../common/routes';
 import deviceInfos from '../../device-infos';
+import pictureRoutes from './routes/picture';
 
 const store = createServerStore();
 
@@ -26,13 +28,17 @@ store.dispatch({type: 'ADD_WINE', wine: {name: 'Château Franc Mayne'}});
 // API REST
 // =============================================================================
 const app = express();
-app.use(skip(config.API_BASE_URL, cookieParser()));
-app.use(skip(config.API_BASE_URL, bodyParser.urlencoded({extended: true})));
-app.use(skip(config.API_BASE_URL, deviceInfos({timeout: 2000})));
-app.use(skip(config.API_BASE_URL, fakeWindow()));
+app.use(skip(serverConstants.API_BASE_URL, cookieParser()));
+app.use(skip(serverConstants.API_BASE_URL, bodyParser.urlencoded({extended: true})));
+app.use(skip(serverConstants.API_BASE_URL, deviceInfos({timeout: 2000})));
+app.use(skip(serverConstants.API_BASE_URL, fakeWindow()));
 app.use('/', express.static(path.join(__dirname, '..', '..', 'dist')));
 const serverHttp = Server(app);
 serverHttp.listen(config.PORT, () => logger.info(`Server started on port ${config.PORT}`));
+
+const pictureRouter = express.Router();
+pictureRoutes(pictureRouter);
+app.use(serverConstants.API_BASE_URL, pictureRouter);
 
 app.get('/*', (req, res) => {
     match({ routes, location: req.url}, (err, redirectLocation, renderProps) => {

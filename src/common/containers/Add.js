@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Paper } from 'material-ui';
 
 import CellarSchema from '../components/CellarSchema';
+import UploadPicture from '../components/UploadPicture';
 
 class Add extends Component {
     render() {
@@ -12,6 +13,7 @@ class Add extends Component {
             <Paper zDepth={1} >
                 Add
             </Paper>
+            <UploadPicture {...this.props} />
         </div>
     );
     }

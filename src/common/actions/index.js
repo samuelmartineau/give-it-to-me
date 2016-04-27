@@ -1,11 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
-import config from '../../../config';
-import routes from '../../server/routes';
+import * as serverConstants from '../constants/server';
+import * as types from '../constants/ActionTypes';
 
 export function setState(state) {
   return {
-    type: 'SET_STATE',
+    type: types.SET_STATE,
     state
   };
 }
@@ -19,9 +19,9 @@ function uploadPicture() {
 export function uploadWinePicture(picture) {
     return dispatch => {
         const data = new FormData();
-        data.append(config.UPLOADS.FILE_NAME, picture);
+        data.append(serverConstants.PICTURE_UPLOAD.FILE_NAME, picture);
         dispatch(uploadPicture());
-        return fetch(config.API_BASE_URL + routes.PICTURE, {
+        return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.PICTURE].join(''), {
             method: 'post',
             body: data
         })

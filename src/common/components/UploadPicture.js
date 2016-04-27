@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
 
-import * as actions from '../actions/actions';
+import {uploadWinePicture} from '../actions';
 
 export default class UploadPicture extends Component {
     onDrop(files) {
         const { dispatch } = this.props;
         const winePicture = files[0];
-        dispatch(actions.uploadWinePicture(winePicture));
+        dispatch(uploadWinePicture(winePicture));
     }
 
     render() {
@@ -19,4 +19,4 @@ export default class UploadPicture extends Component {
     }
 }
 
-CellarSchema.propTypes = { dispatch: PropTypes.func.isRequired };
+UploadPicture.propTypes = { dispatch: PropTypes.func.isRequired };
