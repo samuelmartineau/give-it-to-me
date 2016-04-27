@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, hashHistory} from 'react-router';
+import {Router, Route, browserHistory} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import io from 'socket.io-client';
@@ -33,7 +33,7 @@ ReactDOM.render(
     <div>
         <Router
             children={routes}
-            history={hashHistory}
+            history={browserHistory}
             onUpdate={() => window.scrollTo(0, 0)}
         />
         {process.env.NODE_ENV !== 'production' && <DevTools />}
