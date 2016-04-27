@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import configureStore from '../common/store/configureStore';
-import {setState, setConnectionState} from '../common/actions';
+import {setState} from '../common/actions';
 import DevTools from '../common/containers/DevTools';
 import routes from '../common/routes';
 import config from '../../config';
