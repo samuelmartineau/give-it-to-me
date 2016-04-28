@@ -17,10 +17,12 @@ module.exports = function(router) {
                 return generateBlur(tempFilePath);
             })
             .then(blur => {
-                res.json({
-                    tempFilePath: thumbnailPath,
-                    blur: blur
-                });
+                setTimeout((() => {
+                    res.json({
+                        tempFilePath: thumbnailPath,
+                        blur: blur
+                    });
+                }), 5000);
             })
             .catch(error => {
                 logger.error('error during picture processing', error);
