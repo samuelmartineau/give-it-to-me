@@ -1,14 +1,16 @@
 import { UPLOAD_PICTURE, RECEIVE_PICTURE_INFOS } from '../constants/ActionTypes';
 
-export default function(state = {isUploading: true}, action) {
+export default function(state = {isUploading: false, isUploaded: false}, action) {
     switch (action.type) {
         case UPLOAD_PICTURE:
             return {...state,
-                isUploading: state.isUploading ? true : false
+                isUploading: true
             };
         case RECEIVE_PICTURE_INFOS:
             return {...state,
-                ...action.json
+                ...action.json,
+                isUploading: false,
+                isUploaded: true
             };
         default:
             return state;

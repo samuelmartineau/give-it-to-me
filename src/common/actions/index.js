@@ -39,7 +39,6 @@ export function uploadWinePicture(picture) {
             return dispatch(receivePictureInfos(json))
         })
         .catch(error => {
-            debugger
             throw error;
         });
     };
