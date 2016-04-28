@@ -16,6 +16,13 @@ function uploadPicture() {
     };
 }
 
+function receivePictureInfos(json) {
+  return {
+    type: types.RECEIVE_PICTURE_INFOS,
+    json
+  }
+}
+
 export function uploadWinePicture(picture) {
     return dispatch => {
         const data = new FormData();
@@ -25,9 +32,15 @@ export function uploadWinePicture(picture) {
             method: 'post',
             body: data
         })
-            .catch(error => {
-                debugger
-                throw error;
-            });
+        .then(response => {
+            return response.json()
+        })
+        .then(json => {
+            return dispatch(receivePictureInfos(json))
+        })
+        .catch(error => {
+            debugger
+            throw error;
+        });
     };
 }
