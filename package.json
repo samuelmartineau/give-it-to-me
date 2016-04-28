@@ -47,6 +47,7 @@
     "lodash": "^4.11.1",
     "material-ui": "^0.14.4",
     "multer": "^1.1.0",
+    "node-uuid": "^1.4.7",
     "react": "0.14.7",
     "react-addons-pure-render-mixin": "0.14.7",
     "react-addons-test-utils": "0.14.7",
