@@ -7,10 +7,10 @@ import * as serverConstants from '../../common/constants/server';
 
 const gm = subClass({imageMagick: true});
 
-export function generateThumbnail(sourcePath) {
+export function generateThumbnail(sourcePath, extension) {
     return new Promise(
         function(resolve, reject) {
-            var tmpFileName = path.join(config.UPLOADS_TMP_DIRECTORY, uuid.v1());
+            var tmpFileName = path.join(config.UPLOADS_TMP_DIRECTORY, [uuid.v1(), extension].join(''));
             gm(sourcePath)
                 .resize(serverConstants.PICTURE_UPLOAD.THUMBNAIL.WIDTH, serverConstants.PICTURE_UPLOAD.THUMBNAIL.HEIGHT, '^')
                 .noProfile()

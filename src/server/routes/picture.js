@@ -1,4 +1,5 @@
 import multer from 'multer';
+import path from 'path';
 
 import logger from '../utils/logger';
 import config from '../../../config';
@@ -11,7 +12,7 @@ module.exports = function(router) {
 
     router.post(serverConstants.ROUTES.PICTURE, upload.single(serverConstants.PICTURE_UPLOAD.FILE_NAME), (req, res) => {
         let thumbnailPath;
-        generateThumbnail(req.file.path)
+        generateThumbnail(req.file.path, path.extname(req.file.originalname))
             .then(tempFilePath => {
                 thumbnailPath = tempFilePath;
                 return generateBlur(tempFilePath);
