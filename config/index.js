@@ -7,6 +7,7 @@ module.exports = {
         host: process.env.HOST,
         database: process.env.DATABASE
     },
+    IS_HEROKU: process.env.HEROKU,
     debug: !process.env.production,
     PORT: 3000,
     URL: 'localhost',

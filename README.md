@@ -39,7 +39,13 @@ npm run dev
 
 ### Production
 
-TODO
+#### Heroku
+
+Set an environement variable for mockgoose *HEROKU=true*
+
+#### Home
+
+private stuff
 
 ## Todos
 * include reset less file render server side
