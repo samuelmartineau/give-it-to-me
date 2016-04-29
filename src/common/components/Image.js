@@ -19,6 +19,7 @@ export default class Image extends Component {
 
     componentDidMount() {
         this.scrollFunction = this.trottleScroll.bind(this);
+        this.handleScroll();
         window.addEventListener('scroll', this.scrollFunction);
     }
 
@@ -28,14 +29,16 @@ export default class Image extends Component {
 
     trottleScroll = throttle(this.handleScroll, DEFAULT_THROTTLE_WAIT);
 
-    handleScroll(event) {
+    handleScroll() {
         const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
         const windowHeight = window.innerHeight;
         if(rect.top <= windowHeight) {
             window.removeEventListener('scroll', this.scrollFunction);
-            this.setState({
-              url: this.props.src
-            });
+            setTimeout((() => {
+                this.setState({
+                  url: this.props.src
+                });
+            }), 1000);
         }
     }
 

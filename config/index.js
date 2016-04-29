@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
     DB: {
         user: process.env.USER,
@@ -9,7 +11,7 @@ module.exports = {
     PORT: 3000,
     URL: 'localhost',
     LOGGER_FILE_PATH: 'all-logs.log',
-    UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
     DIST: 'dist',
+    UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
     BUNDLE_FILENAME: 'bundle.js'
 };

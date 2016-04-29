@@ -13,14 +13,14 @@ export default class UploadPicture extends Component {
     }
 
     render() {
-        const {isUploaded, isUploading, blur, tempFilePath} = this.props.upload;
+        const {isUploaded, isUploading, blur, tmpThumbnail} = this.props.upload;
         let render;
 
         if (isUploaded) {
             render = <Image
                         width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
                         height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-                        src={tempFilePath}
+                        src={tmpThumbnail}
                         lazyLoader={blur}
                     />
         } else if (isUploading) {

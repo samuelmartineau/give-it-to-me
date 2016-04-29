@@ -6,24 +6,33 @@ import config from '../../../config';
 import * as serverConstants from '../../common/constants/server';
 import {generateThumbnail, generateBlur} from '../services/picture';
 
-const upload = multer({ dest: config.UPLOADS_TMP_DIRECTORY });
+const storage = multer.diskStorage({
+    destination: path.join(config.DIST, config.UPLOADS_TMP_DIRECTORY),
+    filename: function(req, file, cb) {
+        cb(null, file.originalname);
+    }
+})
+
+const upload = multer({ storage: storage });
 
 module.exports = function(router) {
 
     router.post(serverConstants.ROUTES.PICTURE, upload.single(serverConstants.PICTURE_UPLOAD.FILE_NAME), (req, res) => {
-        let thumbnailPath;
-        generateThumbnail(req.file.path, path.extname(req.file.originalname))
-            .then(tempFilePath => {
-                thumbnailPath = tempFilePath;
-                return generateBlur(tempFilePath);
+        let thumbnailFile;
+        const fileExtension = path.extname(req.file.originalname);
+        generateThumbnail(req.file.path, fileExtension)
+            .then(thumbnail => {
+                thumbnailFile = thumbnail.name;
+                return generateBlur(thumbnail.path);
             })
             .then(blur => {
                 setTimeout((() => {
                     res.json({
-                        tempFilePath: thumbnailPath,
+                        tmpThumbnail: path.join(config.UPLOADS_TMP_DIRECTORY, thumbnailFile),
+                        tmpPicture: path.join(config.UPLOADS_TMP_DIRECTORY, [req.file.originalname, fileExtension].join('')),
                         blur: blur
                     });
-                }), 5000);
+                }), 1000);
             })
             .catch(error => {
                 logger.error('error during picture processing', error);
