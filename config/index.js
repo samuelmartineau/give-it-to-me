@@ -9,5 +9,7 @@ module.exports = {
     PORT: 3000,
     URL: 'localhost',
     LOGGER_FILE_PATH: 'all-logs.log',
-    UPLOADS_TMP_DIRECTORY: 'temp_uploads/'
+    UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
+    DIST: 'dist',
+    BUNDLE_FILENAME: 'bundle.js'
 };
