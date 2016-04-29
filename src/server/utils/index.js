@@ -1,4 +1,4 @@
-export function renderFullPage(html, initialState) {
+export function renderFullPage(html, initialState, bundleFilename) {
     return `
         <!doctype html>
         <html lang="fr">
@@ -14,7 +14,7 @@ export function renderFullPage(html, initialState) {
             <script>
               window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
             </script>
-            <script src="/bundle.js"></script>
+            <script src="/${bundleFilename}"></script>
           </body>
         </html>
         `;

@@ -8,6 +8,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { RouterContext, match } from 'react-router';
+import compression from 'compression';
 
 import config from '../../config';
 import * as serverConstants from '../common/constants/server';
@@ -28,6 +29,7 @@ store.dispatch({type: 'ADD_WINE', wine: {name: 'Château Franc Mayne'}});
 // API REST
 // =============================================================================
 const app = express();
+app.use(compression())
 app.use(skip(serverConstants.API_BASE_URL, cookieParser()));
 app.use(skip(serverConstants.API_BASE_URL, bodyParser.urlencoded({extended: true})));
 app.use(skip(serverConstants.API_BASE_URL, deviceInfos({timeout: 2000})));
@@ -60,7 +62,7 @@ app.get('/*', (req, res) => {
 
             const finalState = store.getState();
             const html = renderToString(InitialView);
-            res.status(200).end(renderFullPage(html, finalState));
+            res.status(200).end(renderFullPage(html, finalState, config.BUNDLE_FILENAME));
     }
     });
 });
