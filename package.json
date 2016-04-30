@@ -48,6 +48,7 @@
     "cookie-parser": "^1.4.1",
     "cookies-js": "^1.2.2",
     "d3": "^3.5.16",
+    "device-infos": "./device-infos",
     "express": "^4.13.4",
     "gm": "^1.22.0",
     "http": "0.0.0",

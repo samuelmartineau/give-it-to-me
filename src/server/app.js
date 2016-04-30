@@ -9,15 +9,14 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { RouterContext, match } from 'react-router';
 import compression from 'compression';
+import deviceInfos from 'device-infos';
 
 import config from '../../config';
 import * as serverConstants from '../common/constants/server';
 import createServerStore from './store';
 import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
-import DevTools from '../common/containers/DevTools';
 import routes from '../common/routes';
-import deviceInfos from '../../device-infos';
 import pictureRoutes from './routes/picture';
 
 const store = createServerStore();
