@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 import {uploadWinePicture} from '../actions';
 import {PICTURE_UPLOAD} from '../constants/server';
@@ -24,7 +25,7 @@ export default class UploadPicture extends Component {
                         lazyLoader={blur}
                     />
         } else if (isUploading) {
-            render = <div>Is Loading...</div>
+            render = <CircularProgress />
         } else {
             render = <Dropzone onDrop={::this.onDrop} multiple={false} accept="image/*">
               <div>Try dropping some files here, or click to select files to upload.</div>
