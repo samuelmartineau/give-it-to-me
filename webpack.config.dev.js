@@ -1,5 +1,6 @@
 var webpack = require('webpack'),
-    path = require('path');
+    path = require('path'),
+    CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var config = require('./config');
 
@@ -14,6 +15,7 @@ module.exports = {
         filename: config.BUNDLE_FILENAME
     },
     plugins: [
+        new CopyWebpackPlugin([{ from: 'assets'}]),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
