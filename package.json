@@ -24,7 +24,6 @@
   "homepage": "https://github.com/samuelmartineau/give-it-to-me",
   "devDependencies": {
     "babel-cli": "6.5.1",
-    "babel-core": "6.5.1",
     "babel-loader": "6.2.2",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
@@ -43,6 +42,7 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "babel-core": "6.5.1",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",
