@@ -9,7 +9,7 @@ module.exports = {
     },
     IS_HEROKU: process.env.HEROKU,
     debug: !process.env.production,
-    PORT: 3000,
+    PORT: process.env.PORT || 3000,
     URL: 'localhost',
     LOGGER_FILE_PATH: 'all-logs.log',
     DIST: 'dist',
