@@ -39,6 +39,37 @@ npm run dev
 
 ### Production
 
+#### Codeship
+
+##### Build
+
+
+```
+nvm install 5
+npm install
+npm run build-codeship
+```
+
+##### Deploy
+
+```
+mkdir deploy
+mv package.json deploy/
+mv .babelrc deploy/
+mv device-infos deploy/
+mv config deploy/
+mv src deploy/
+mv dist deploy/
+cd deploy
+git init
+git config --global user.email "martineau.samuel.1990+codeship@gmail.com"
+git config --global user.name "Samuel Martineau(codeship)"
+git remote add origin git@github.com:samuelmartineau/give-it-to-me.git
+git add .
+git commit -m "codeship deploy"
+git push -f origin master
+```
+
 #### Heroku
 
 Set an environement variable for mockgoose *HEROKU=true*
