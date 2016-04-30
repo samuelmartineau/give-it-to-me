@@ -49,7 +49,5 @@ private stuff
 
 ## Todos
 * include reset less file render server side
-* gzip production mode
 * display devices already connected on welcomePage (useragent)
-* lazy-load-your-images-with-coloor [lazy-load](http://krasimirtsonev.com/blog/article/lazy-load-your-images-with-coloor)
 * match mistake in query (ie: aoc) [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
