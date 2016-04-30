@@ -6,9 +6,7 @@ var config = require('./config');
 
 module.exports = {
     devtool: 'source-map',
-    entry: [
-        './src/client/index.js'
-    ],
+    entry: './src/client/index.js',
     output: {
         path: path.resolve(__dirname, config.DIST),
         publicPath: '/',
