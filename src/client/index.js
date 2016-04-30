@@ -13,7 +13,7 @@ import routes from '../common/routes';
 import config from '../../config';
 
 const initialState = window.__INITIAL_STATE__;
-const socket = io(`${location.protocol}//${location.hostname}:${config.PORT}`);
+const socket = io(`${location.protocol}//${location.hostname}:${__SOCKET_PORT__}`);
 const rootElement = document.getElementById('react');
 
 const store = configureStore(initialState);
