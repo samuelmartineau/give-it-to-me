@@ -25,9 +25,6 @@
   "devDependencies": {
     "babel-cli": "6.5.1",
     "babel-loader": "6.2.2",
-    "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
     "clean-webpack-plugin": "^0.1.9",
     "eslint-plugin-react": "^5.0.1",
     "jsdom": "8.0.4",
@@ -43,6 +40,8 @@
   },
   "dependencies": {
     "babel-core": "6.5.1",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",
