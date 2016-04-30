@@ -12,8 +12,10 @@ import DevTools from '../common/containers/DevTools';
 import routes from '../common/routes';
 import config from '../../config';
 
+console.log('samm', `${location.protocol}//${location.hostname}:${__SOCKET_PORT__}`);
+
 const initialState = window.__INITIAL_STATE__;
-const socket = io(`http://${config.URL}:${config.PORT}`);
+const socket = io(`${location.protocol}//${location.hostname}:${config.PORT}`);
 const rootElement = document.getElementById('react');
 
 const store = configureStore(initialState);

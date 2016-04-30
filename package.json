@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config ./webpack.config.dev.js --colors --watch & nodemon src/server",
+    "build-codeship": "NODE_ENV=production HEROKU=true webpack --config ./webpack.config.prod.js",
     "build": "NODE_ENV=production webpack --config ./webpack.config.prod.js",
     "start": "node src/server/index.js"
   },
