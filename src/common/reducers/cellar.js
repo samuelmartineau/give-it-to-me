@@ -1,13 +1,11 @@
 import { SET_STATE} from '../constants/ActionTypes';
 
-function setState(state, newState) {
-  return {...state};
-}
-
-export default function(state = {}, action) {
+export default function(state = {wines: []}, action) {
   switch (action.type) {
       case SET_STATE:
-          return setState(state, action.state);
+          return {...state,
+              wines: [...action.state.cellar.wines]
+          };
       default:
           return state;
   }
