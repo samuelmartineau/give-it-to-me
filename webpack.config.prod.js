@@ -1,6 +1,7 @@
 var webpack = require('webpack'),
     path = require('path'),
-    CleanWebpackPlugin = require('clean-webpack-plugin');
+    CleanWebpackPlugin = require('clean-webpack-plugin'),
+    CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var config = require('./config');
 
@@ -13,6 +14,7 @@ module.exports = {
         filename: config.BUNDLE_FILENAME
     },
     plugins: [
+        new CopyWebpackPlugin([{ from: 'assets'}]),
         new CleanWebpackPlugin([config.DIST], {verbose: true}),
         new webpack.DefinePlugin({
             'process.env': {
