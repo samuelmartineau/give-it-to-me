@@ -16,7 +16,7 @@ const initialState = window.__INITIAL_STATE__;
 const socket = io(`${location.protocol}//${location.hostname}:${__SOCKET_PORT__}`);
 const rootElement = document.getElementById('react');
 
-const store = configureStore(initialState);
+const store = configureStore(initialState, socket);
 
 // Needed for onTouchTap
 // Can go away when react 1.0 release
@@ -24,9 +24,10 @@ const store = configureStore(initialState);
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-socket.on('state', state =>
-  store.dispatch(setState(state))
-);
+socket.on('state', state => {
+    console.log('yeahh new state', state);
+    store.dispatch(setState(state))
+});
 
 ReactDOM.render(
   <Provider store={store}>
