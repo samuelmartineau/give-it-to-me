@@ -23,6 +23,13 @@ function receivePictureInfos(json) {
   }
 }
 
+function addWine(wine) {
+    return {
+        type: types.ADD_WINE,
+        wine
+    };
+}
+
 export function uploadWinePicture(picture) {
     return dispatch => {
         const data = new FormData();
@@ -41,5 +48,15 @@ export function uploadWinePicture(picture) {
         .catch(error => {
             throw error;
         });
+    };
+}
+
+export function createWine(wine) {
+    return {
+        meta: {
+            remote: true
+        },
+        type: types.ADD_WINE,
+        data: wine
     };
 }
