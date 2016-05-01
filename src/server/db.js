@@ -1,7 +1,10 @@
-import mongoose from 'mongoose';
+import mongooseCore from 'mongoose';
+import Promise from 'bluebird';
 
 import config from '../../config';
 import logger from './utils/logger';
+
+const mongoose = Promise.promisifyAll(mongooseCore);
 
 mongoose.set('debug', config.debug);
 
