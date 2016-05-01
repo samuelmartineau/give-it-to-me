@@ -1,5 +1,6 @@
 import Action from '../models/Action';
 import logger from '../utils/logger';
+import config from '../../../config';
 
 export default function(store) {
     return (data) => {
@@ -10,5 +11,8 @@ export default function(store) {
             logger.error(error);
         });
 
+        if (config.IS_HEROKU) {
+            store.dispatch(data);
+        }
     }
 }

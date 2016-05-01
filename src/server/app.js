@@ -26,13 +26,7 @@ const store = createServerStore();
 
 global.navigator = { navigator: 'all' };
 
-// INIT STATE FROM DB
-// =============================================================================
-Action.find().then(actions => {
-    actions.forEach(action => {
-        store.dispatch(action.toObject());
-    });
-
+function startApp() {
     // API REST
     // =============================================================================
     const app = express();
@@ -87,9 +81,21 @@ Action.find().then(actions => {
         socket.on('action', handleAction(store));
     });
     // =============================================================================
+}
 
+// INIT STATE FROM DB
+// =============================================================================
+if (config.IS_HEROKU) {
+    startApp();
+} else {
+    Action.find().then(actions => {
+        actions.forEach(action => {
+            store.dispatch(action.toObject());
+        });
+        startApp();
+    });
+}
 
-});
 // =============================================================================
 
 process.on('uncaughtException', err => {

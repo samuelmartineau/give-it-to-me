@@ -16,10 +16,7 @@ mongoose.connection
         logger.info('Connected to mongo server.');
     });
 
-if (config.IS_HEROKU) {
-    require('mockgoose')(mongoose).then(function() {
-    	mongoose.connect('mongodb://example.com/TestingDB');
-    });
-} else {
+
+if (!config.IS_HEROKU) {
     mongoose.connect(`mongodb://${config.DB.user}:${config.DB.password}@${config.DB.host}/${config.DB.database}`);
 }
