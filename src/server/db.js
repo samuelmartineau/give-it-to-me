@@ -17,7 +17,9 @@ mongoose.connection
     });
 
 if (config.IS_HEROKU) {
-    require('mockgoose')(mongoose);
+    require('mockgoose')(mongoose).then(function() {
+    	mongoose.connect('mongodb://example.com/TestingDB');
+    });
+} else {
+    mongoose.connect(`mongodb://${config.DB.user}:${config.DB.password}@${config.DB.host}/${config.DB.database}`);
 }
-
-mongoose.connect(`mongodb://${config.DB.user}:${config.DB.password}@${config.DB.host}/${config.DB.database}`);
