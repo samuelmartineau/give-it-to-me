@@ -17,8 +17,8 @@ class Welcome extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-      wines: state.cellar.wines
-  }
+    return {
+        wines: state.cellar.wines
+    }
 }
 export default connect(mapStateToProps)(Welcome)
