@@ -3,14 +3,16 @@ import thunk from 'redux-thunk';
 
 import DevTools from '../containers/DevTools';
 import promiseMiddleware from '../middleware/promiseMiddleware';
+import remoteActionMiddleware from '../middleware/remoteActionMiddleware';
 import rootReducer from '../reducers';
 
-const finalCreateStore = compose(
-    applyMiddleware(thunk, promiseMiddleware),
-    DevTools.instrument()
-)(createStore);
+export default function configureStore(initialState, socket) {
+    const finalCreateStore = compose(
+        applyMiddleware(thunk, promiseMiddleware),
+        applyMiddleware(remoteActionMiddleware(socket)),
+        DevTools.instrument()
+    )(createStore);
 
-export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
 
   if (module.hot) {
