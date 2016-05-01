@@ -25,7 +25,6 @@ const store = configureStore(initialState, socket);
 injectTapEventPlugin();
 
 socket.on('state', state => {
-    console.log('yeahh new state', state);
     store.dispatch(setState(state))
 });
 
