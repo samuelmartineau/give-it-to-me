@@ -7,6 +7,7 @@ import Cookies from 'cookies-js';
 
 import {LARGE_SCREEN_MIN} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
+import customTheme from '../styles/theme';
 
 const SelectableList = SelectableContainerEnhance(List);
 
@@ -19,13 +20,23 @@ export default class App extends ResizingComponent {
       router: PropTypes.object.isRequired
     }
 
+    static childContextTypes = {
+        muiTheme: PropTypes.object
+    }
+
+    getChildContext() {
+        return {
+            muiTheme: getMuiTheme(customTheme),
+        };
+    }
+
     constructor(props, context) {
       context.debounceWait = 300;
       super(props, context);
       let largeScreen = isLargeScreen();
 
       this.state = {
-        muiTheme: getMuiTheme(),
+        muiTheme: getMuiTheme(customTheme),
         isLargeScreen: largeScreen,
         navDrawerOpen: largeScreen,
         mobileNav: false
