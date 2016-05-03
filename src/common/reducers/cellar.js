@@ -1,11 +1,9 @@
 import { SET_STATE} from '../constants/ActionTypes';
 
-export default function(state = {wines: []}, action) {
+export default function(state = {wines: [], selectedCells: [], selectableCells: []}, action) {
   switch (action.type) {
       case SET_STATE:
-          return {...state,
-              wines: [...action.state.cellar.wines]
-          };
+          return {...action.state};
       default:
           return state;
   }

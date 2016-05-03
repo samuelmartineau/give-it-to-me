@@ -13,8 +13,13 @@ import {
 
 export default class CellarSchema extends Component {
 
+    selectBox() {
+        debugger
+    }
+
     render() {
       let svgContainer = ReactFauxDOM.createElement('svg');
+      let boxId = 0;
       svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
 
       CELLAR_SCHEMA.forEach(row => {
@@ -28,10 +33,8 @@ export default class CellarSchema extends Component {
               .attr('stroke-width', BOX_BORDER_SIZE)
               .attr('stroke', BOX_BORDER_COLOR)
               .attr('fill', BOX_COLOR)
-              .on('click', function(d,i) {
-                d3.select(this).style('fill', 'red');
-                d3.event.stopPropagation();
-              });
+              .on('click', this.selectBox.bind(this, boxId));
+          boxId++;
         });
       });
 
@@ -43,4 +46,8 @@ export default class CellarSchema extends Component {
     }
 }
 
-CellarSchema.propTypes = { wines: PropTypes.array.isRequired };
+CellarSchema.propTypes = {
+    wines: PropTypes.array.isRequired,
+    selectedCells: PropTypes.array.isRequired,
+    selectableCells: PropTypes.array.isRequired
+};

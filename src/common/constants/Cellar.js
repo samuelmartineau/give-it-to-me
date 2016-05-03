@@ -4,344 +4,319 @@ export const BOX_BORDER_SIZE = 1;
 
 export const CELL_SIZE = 4;
 
-export const ONE_CELL_WIDTH = CELL_SIZE;
-export const ONE_CELL_HEIGHT = CELL_SIZE;
+const ONE_CELL_WIDTH_CELLS = 1;
+const ONE_CELL_HEIGHT_CELLS = 1;
 
-export const FULL_BOX_WIDTH = 4*CELL_SIZE;
-export const FULL_BOX_HEIGHT = 3*CELL_SIZE;
+export const ONE_CELL_WIDTH = ONE_CELL_WIDTH_CELLS * CELL_SIZE;
+export const ONE_CELL_HEIGHT = ONE_CELL_HEIGHT_CELLS * CELL_SIZE;
 
-export const HALF_BOX_WIDTH = 2*CELL_SIZE;
+const FULL_BOX_WIDTH_CELLS = 4;
+const FULL_BOX_HEIGHT_CELLS = 3;
 
-export const THIRD_BOX_WIDTH = 3*CELL_SIZE;
+export const FULL_BOX_WIDTH = FULL_BOX_WIDTH_CELLS * CELL_SIZE;
+export const FULL_BOX_HEIGHT = FULL_BOX_HEIGHT_CELLS * CELL_SIZE;
+
+const HALF_BOX_WIDTH_CELLS = 2;
+const HALF_BOX_HEIGHT_CELLS = 3;
+
+export const HALF_BOX_WIDTH = HALF_BOX_WIDTH_CELLS * CELL_SIZE;
+export const HALF_BOX_HEIGHT = HALF_BOX_HEIGHT_CELLS * CELL_SIZE;
+
+const THIRD_BOX_WIDTH_CELLS = 3;
+const THIRD_BOX_HEIGHT_CELLS = 3;
+
+export const THIRD_BOX_WIDTH = THIRD_BOX_WIDTH_CELLS * CELL_SIZE;
+export const THIRD_BOX_HEIGHT = THIRD_BOX_HEIGHT_CELLS * CELL_SIZE;
 
 export const CANVAS_WIDTH = 5*CELL_SIZE + 12*FULL_BOX_WIDTH;
 export const CANVAS_HEIGHT = 5*FULL_BOX_HEIGHT;
 
+export const BOXES_SIZES = {
+    ONE_CELL: {
+        width: ONE_CELL_WIDTH,
+        height: ONE_CELL_HEIGHT,
+        cells: ONE_CELL_WIDTH_CELLS * ONE_CELL_HEIGHT_CELLS
+    },
+    FULL_BOX: {
+        width: FULL_BOX_WIDTH,
+        height: FULL_BOX_HEIGHT,
+        cells: FULL_BOX_WIDTH_CELLS * FULL_BOX_HEIGHT_CELLS
+    },
+    THIRD_BOX: {
+        width: THIRD_BOX_WIDTH,
+        height: THIRD_BOX_HEIGHT,
+        cells: THIRD_BOX_WIDTH_CELLS * THIRD_BOX_HEIGHT_CELLS
+    },
+    HALF_BOX: {
+        width: HALF_BOX_WIDTH,
+        height: HALF_BOX_HEIGHT,
+        cells: HALF_BOX_WIDTH_CELLS * HALF_BOX_HEIGHT_CELLS
+    }
+}
 export const CELLAR_SCHEMA = [
-  [{
-    x: 0,
-    y: 2*CELL_SIZE,
-    width: ONE_CELL_WIDTH,
-    height: ONE_CELL_HEIGHT
-  }, {
-    x: CELL_SIZE,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 2*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 3*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 4*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 5*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 6*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 7*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 8*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 9*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 10*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 11*FULL_BOX_WIDTH,
-    y: 0,
-    width: FULL_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }, {
-    x: CELL_SIZE + 12*FULL_BOX_WIDTH,
-    y: 0,
-    width: HALF_BOX_WIDTH,
-    height: FULL_BOX_HEIGHT
-  }], [{
-      x: 0,
-      y: FULL_BOX_HEIGHT,
-      width: THIRD_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
+    [{
+        x: 0,
+        y: 2 * CELL_SIZE,
+        ...BOXES_SIZES['ONE_CELL']
     }, {
-      x: THIRD_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 2*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 3*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 4*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 5*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 6*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 7*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 8*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 9*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 10*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }, {
-      x: THIRD_BOX_WIDTH + 11*FULL_BOX_WIDTH,
-      y: FULL_BOX_HEIGHT,
-      width: FULL_BOX_WIDTH,
-      height: FULL_BOX_HEIGHT
-    }], [{
         x: CELL_SIZE,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
         x: CELL_SIZE + FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 2*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 3*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 4*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 5*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 6*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 7*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 8*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 9*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 10*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 11*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }, {
-        x: CELL_SIZE + 12*FULL_BOX_WIDTH,
-        y: 2*FULL_BOX_HEIGHT,
-        width: FULL_BOX_WIDTH,
-        height: FULL_BOX_HEIGHT
-      }], [{
-          x: 3*CELL_SIZE,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 2*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 3*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 4*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 5*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 6*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 7*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 8*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 9*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 10*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 11*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: FULL_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }, {
-          x: 3*CELL_SIZE + 12*FULL_BOX_WIDTH,
-          y: 3*FULL_BOX_HEIGHT,
-          width: HALF_BOX_WIDTH,
-          height: FULL_BOX_HEIGHT
-        }], [{
-            x: 5*CELL_SIZE,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 2*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 3*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 4*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 5*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 6*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 7*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 8*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 9*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 10*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }, {
-            x: 5*CELL_SIZE + 11*FULL_BOX_WIDTH,
-            y: 4*FULL_BOX_HEIGHT,
-            width: FULL_BOX_WIDTH,
-            height: FULL_BOX_HEIGHT
-          }]
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 2 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 3 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 4 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 5 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 6 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 7 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 8 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 9 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 10 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 11 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 12 * FULL_BOX_WIDTH,
+        y: 0,
+        ...BOXES_SIZES['HALF_BOX']
+    }],
+    [{
+        x: 0,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['THIRD_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 2 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 3 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 4 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 5 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 6 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 7 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 8 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 9 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 10 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: THIRD_BOX_WIDTH + 11 * FULL_BOX_WIDTH,
+        y: FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }],
+    [{
+        x: CELL_SIZE,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 2 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 3 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 4 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 5 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 6 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 7 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 8 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 9 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 10 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 11 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: CELL_SIZE + 12 * FULL_BOX_WIDTH,
+        y: 2 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }],
+    [{
+        x: 3 * CELL_SIZE,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 3 * CELL_SIZE + 12 * FULL_BOX_WIDTH,
+        y: 3 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['HALF_BOX']
+    }],
+    [{
+        x: 5 * CELL_SIZE,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }, {
+        x: 5 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
+        y: 4 * FULL_BOX_HEIGHT,
+        ...BOXES_SIZES['FULL_BOX']
+    }]
 ];

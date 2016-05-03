@@ -95,7 +95,6 @@ if (config.IS_HEROKU) {
         startApp();
     });
 }
-
 // =============================================================================
 
 process.on('uncaughtException', err => {
