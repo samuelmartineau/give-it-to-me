@@ -26,7 +26,7 @@ export default class App extends ResizingComponent {
 
     getChildContext() {
         return {
-            muiTheme: getMuiTheme(customTheme),
+            muiTheme: getMuiTheme(customTheme, { userAgent: false}),
         };
     }
 
@@ -36,7 +36,7 @@ export default class App extends ResizingComponent {
       let largeScreen = isLargeScreen();
 
       this.state = {
-        muiTheme: getMuiTheme(customTheme),
+        muiTheme: getMuiTheme(customTheme, { userAgent: false}),
         isLargeScreen: largeScreen,
         navDrawerOpen: largeScreen,
         mobileNav: false
@@ -66,7 +66,7 @@ export default class App extends ResizingComponent {
             appBar: {
                 position: 'fixed',
                 // Needed to overlap the examples
-                zIndex: this.state.muiTheme.zIndex.appBar + 1,
+                zIndex: this.state.isLargeScreen ? this.state.muiTheme.zIndex.navDrawer + 1 : this.state.muiTheme.zIndex.appBar + 1,
                 top: 0,
             },
             root: {
@@ -81,6 +81,7 @@ export default class App extends ResizingComponent {
             }
         };
         if (this.state.isLargeScreen) {
+            styles.root.paddingLeft = 256;
             styles.content = Object.assign(styles.content, styles.contentWhenMedium);
         }
 
@@ -97,11 +98,6 @@ export default class App extends ResizingComponent {
         if (isLargeScreen) {
             docked = true;
             showMenuIconButton = false;
-
-            styles.navDrawer = {
-                zIndex: styles.appBar.zIndex - 1,
-            };
-            styles.root.paddingLeft = 256;
         }
 
         return(
