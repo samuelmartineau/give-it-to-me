@@ -7,7 +7,6 @@ import {ADD_WINE} from '../actions';
 
 export default function(store) {
     return (action) => {
-        console.log('sam', action)
         switch (action.type) {
             case ADD_WINE:
                 action.data.id = uuid.v1();

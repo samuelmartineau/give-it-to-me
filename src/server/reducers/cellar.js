@@ -6,14 +6,14 @@ import { CELLAR_SCHEMA } from '../../common/constants/Cellar';
 let boxId = 0,
     selectableCells = [];
 
-CELLAR_SCHEMA.forEach(row => {
-  row.forEach(box => {
+/*
+CELLAR_SCHEMA.forEach(box => {
       [...Array(box.cells).keys()].forEach(cellId => {
           selectableCells.push([boxId, cellId]);
       });
       boxId++;
-  });
 });
+*/
 
 const selectedCells = selectableCells.shift();
 

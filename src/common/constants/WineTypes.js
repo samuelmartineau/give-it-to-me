@@ -1,7 +1,8 @@
 export const WINE_TYPES = {
   RED: {
     label: 'Rouge',
-    types: ['REGULAR', 'SPARKLING', 'DRY']
+    types: ['REGULAR', 'SPARKLING', 'DRY'],
+    color: '#009688'
   },
   WHITE: {
     label: 'Blanc',
