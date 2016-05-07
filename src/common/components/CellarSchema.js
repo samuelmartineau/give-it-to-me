@@ -17,6 +17,7 @@ function drawBottle(svgElement, type, box, cell) {
     const bottleInfos = getBottleInfos(box, cell);
     d3.select(svgElement)
         .append('circle')
+        .attr('pointer-events', 'none')
         .attr('cx', bottleInfos.cx)
         .attr('cy', bottleInfos.cy)
         .attr('r', bottleInfos.radius)
