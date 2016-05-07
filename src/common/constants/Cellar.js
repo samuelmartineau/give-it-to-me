@@ -120,55 +120,55 @@ export const CELLAR_SCHEMA = [
         ...BOXES_SIZES['HALF_BOX']
     },
     {
-        x: 0,
+        x: 2 * BOX_BORDER_SIZE,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['THIRD_BOX']
     }, {
-        x: THIRD_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 2 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 2 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 3 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 3 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 4 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 4 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 5 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 5 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 6 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 6 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 7 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 7 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 8 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 8 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 9 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 9 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 10 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 10 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: THIRD_BOX_WIDTH + 11 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 11 * FULL_BOX_WIDTH,
         y: FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     },
@@ -226,104 +226,104 @@ export const CELLAR_SCHEMA = [
         ...BOXES_SIZES['FULL_BOX']
     },
     {
-        x: 3 * CELL_SIZE,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 3 * CELL_SIZE + 12 * FULL_BOX_WIDTH,
+        x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 12 * FULL_BOX_WIDTH,
         y: 3 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['HALF_BOX']
     },
     {
-        x: 5 * CELL_SIZE,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }, {
-        x: 5 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
+        x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
         y: 4 * FULL_BOX_HEIGHT,
         ...BOXES_SIZES['FULL_BOX']
     }
