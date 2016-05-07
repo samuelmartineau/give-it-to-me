@@ -20,6 +20,6 @@ class Add extends Component {
 }
 
 export default connect(state => ({
-    wines: state.cellar.wines,
+    ...state.cellar,
     upload: state.upload
 }))(Add);

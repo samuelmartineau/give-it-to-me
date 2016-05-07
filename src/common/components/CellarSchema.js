@@ -8,17 +8,36 @@ import {
     BOX_BORDER_SIZE,
     BOX_BORDER_COLOR,
     CANVAS_WIDTH,
-    CANVAS_HEIGHT
+    CANVAS_HEIGHT,
+    getBottleInfos
 } from '../constants/Cellar';
+import {WINE_TYPES} from '../constants/WineTypes';
+
+function drawBottle(svgElement, type, box, cell) {
+    const bottleInfos = getBottleInfos(box, cell);
+    d3.select(svgElement)
+        .append('circle')
+        .attr('cx', bottleInfos.cx)
+        .attr('cy', bottleInfos.cy)
+        .attr('r', bottleInfos.radius)
+        // .attr('stroke-width', BOX_BORDER_SIZE)
+        // .attr('stroke', BOX_BORDER_COLOR)
+        .attr('fill', WINE_TYPES[type].color)
+}
 
 export default class CellarSchema extends Component {
 
+    selectBox() {
+        debugger
+    }
+
     render() {
+        const {wines} = this.props;
       let svgContainer = ReactFauxDOM.createElement('svg');
+      let boxId = 0;
       svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
 
-      CELLAR_SCHEMA.forEach(row => {
-        row.forEach(box => {
+      CELLAR_SCHEMA.forEach(box => {
           d3.select(svgContainer)
               .append('rect')
               .attr('x', box.x)
@@ -28,11 +47,14 @@ export default class CellarSchema extends Component {
               .attr('stroke-width', BOX_BORDER_SIZE)
               .attr('stroke', BOX_BORDER_COLOR)
               .attr('fill', BOX_COLOR)
-              .on('click', function(d,i) {
-                d3.select(this).style('fill', 'red');
-                d3.event.stopPropagation();
-              });
-        });
+              .on('click', this.selectBox.bind(this, boxId));
+          boxId++;
+      });
+
+      wines.forEach(wine => {
+         wine.bottles.forEach(bottle => {
+            drawBottle(svgContainer, wine.type, bottle.box, bottle.cell);
+         });
       });
 
       return (
@@ -43,4 +65,8 @@ export default class CellarSchema extends Component {
     }
 }
 
-CellarSchema.propTypes = { wines: PropTypes.array.isRequired };
+CellarSchema.propTypes = {
+    wines: PropTypes.array.isRequired,
+    selectedCells: PropTypes.array.isRequired,
+    selectableCells: PropTypes.array.isRequired
+};

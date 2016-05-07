@@ -79,6 +79,5 @@ Set an environement variable for mockgoose *HEROKU=true*
 private stuff
 
 ## Todos
-* include reset less file render server side
 * display devices already connected on welcomePage (useragent)
 * match mistake in query (ie: aoc) [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
