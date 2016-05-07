@@ -1,5 +1,5 @@
-import Spacing from 'material-ui/lib/styles/spacing';
+import {spacing} from 'material-ui/styles';
 
 export const paper = {
-    marginBottom: Spacing.desktopGutter
+    marginBottom: spacing.desktopGutter
 };

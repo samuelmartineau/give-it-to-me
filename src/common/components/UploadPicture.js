@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
-import CircularProgress from 'material-ui/lib/circular-progress';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import {uploadWinePicture} from '../actions';
 import {PICTURE_UPLOAD} from '../constants/server';

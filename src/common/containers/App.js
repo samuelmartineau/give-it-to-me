@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
-import { LeftNav, AppBar, MenuItem, List, ListItem} from 'material-ui';
-import {getMuiTheme} from 'material-ui/lib/styles/theme-manager';
-import Spacing from 'material-ui/lib/styles/spacing';
-import {SelectableContainerEnhance} from 'material-ui/lib/hoc/selectable-enhance';
+import { AppBar, MenuItem, List, ListItem, MakeSelectable} from 'material-ui';
+import Drawer from 'material-ui/Drawer';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {spacing} from 'material-ui/styles';
 import Cookies from 'cookies-js';
 
 import {LARGE_SCREEN_MIN} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
 import customTheme from '../styles/theme';
 
-const SelectableList = SelectableContainerEnhance(List);
+const SelectableList = MakeSelectable(List);
 
 let isLargeScreen = function() {
     return window.innerWidth >= LARGE_SCREEN_MIN;
@@ -70,14 +70,14 @@ export default class App extends ResizingComponent {
                 top: 0,
             },
             root: {
-                paddingTop: Spacing.desktopKeylineIncrement,
+                paddingTop: spacing.desktopKeylineIncrement,
                 minHeight: 400,
             },
             content: {
-                margin: Spacing.desktopGutter,
+                margin: spacing.desktopGutter,
             },
             contentWhenMedium: {
-                margin: `${Spacing.desktopGutter * 2}px ${Spacing.desktopGutter * 3}px`,
+                margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
             }
         };
         if (this.state.isLargeScreen) {
@@ -113,7 +113,7 @@ export default class App extends ResizingComponent {
                 style={styles.appBar}
                 showMenuIconButton={showMenuIconButton}
               />
-              <LeftNav
+              <Drawer
                 style={styles.navDrawer}
                 docked={docked}
                 open={this.state.navDrawerOpen}
@@ -121,14 +121,15 @@ export default class App extends ResizingComponent {
               >
                 <AppBar title="Menu" showMenuIconButton={false} />
                 <SelectableList
-                    subheader=""
-                    valueLink={{value: this.state.selectedIndex, requestChange: this.handleRequestChangeList.bind(this)}} >
+                    value={this.state.selectedIndex}
+                    onChange={this.handleRequestChangeList.bind(this)}
+                    >
                   <ListItem primaryText="Home" value="/" />
                   <ListItem primaryText="Ajouter" value="/add" />
                   <ListItem primaryText="Chercher" value="/search" />
                   <ListItem primaryText="Supprimer" value="/remove" />
                 </SelectableList>
-              </LeftNav>
+              </Drawer>
               <section className="main-content" style={prepareStyles(styles.root)}>
                 <div style={prepareStyles(styles.content)}>
                     {children}
