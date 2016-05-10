@@ -9,3 +9,4 @@ shell.exec('git checkout release');
 shell.exec('git fetch');
 shell.exec('git rebase origin/dev');
 shell.exec('git push origin release');
+shell.exec('git checkout dev');
