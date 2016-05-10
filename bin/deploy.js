@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var shell = require('shelljs');
 
-shell.exec('[npm version', process.argv[2]].join(''));
+shell.exec(['npm version', process.argv[2]].join(''));
 shell.exec('git push origin dev');
 
 shell.exec('git checkout release');
