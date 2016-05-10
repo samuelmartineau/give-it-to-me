@@ -5,12 +5,14 @@ import { Paper } from 'material-ui';
 import CellarSchema from '../components/CellarSchema';
 import * as paperStyle from '../styles/paper';
 import WineAddingForm from '../components/WineAddingForm';
+import CellsSelectors from '../components/CellsSelectors';
 
 class Add extends Component {
     render() {
         return (
             <div>
                 <CellarSchema {...this.props} />
+                <CellsSelectors {...this.props}/>
                 <Paper zDepth={1} style={paperStyle.paper}>
                   <WineAddingForm {...this.props} />
                 </Paper>

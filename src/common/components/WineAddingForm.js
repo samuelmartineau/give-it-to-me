@@ -1,13 +1,26 @@
 import React, {Component, PropTypes} from 'react';
-import { TextField, FlatButton } from 'material-ui';
+import { TextField, RaisedButton, Badge, IconButton } from 'material-ui';
 
 import * as actions from '../actions';
 import UploadPicture from '../components/UploadPicture';
 
 export default class WineAddingForm extends Component {
     handleAddWine() {
-        const { dispatch } = this.props;
-        const wine = { name: this.state.name };
+        const { dispatch, selectedCells } = this.props;
+        const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
+            const cellList = selectedCells[boxId];
+            cellList.forEach(cellId => {
+                bottles.push({
+                    box: boxId,
+                    cell: cellId
+                })
+            });
+            return bottles;
+        }, []);
+        const wine = {
+            name: this.state.name,
+            bottles: wineBottles
+         };
         dispatch(actions.createWine(wine));
     }
 
@@ -24,9 +37,10 @@ export default class WineAddingForm extends Component {
               floatingLabelText="Nom"
               onChange={::this.handleNameChange}
             />
-            <FlatButton
+            <RaisedButton
               label="Ajouter"
               onClick={this.handleAddWine.bind(this)}
+              primary={true}
             />
             <UploadPicture {...this.props} />
           </div>
@@ -36,5 +50,7 @@ export default class WineAddingForm extends Component {
 
 WineAddingForm.propTypes = {
     wines: PropTypes.array.isRequired,
+    selectedCells: PropTypes.object.isRequired,
+    selectableCells: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
 }

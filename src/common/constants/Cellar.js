@@ -1,5 +1,6 @@
 export const BOX_COLOR = '#d3414a';
 export const BOX_BORDER_COLOR = '#992f2f';
+export const SELECTED_COLOR = '#2196F3';
 export const BOX_BORDER_SIZE = 1;
 
 export const CELL_SIZE = 4;

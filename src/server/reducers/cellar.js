@@ -1,21 +1,10 @@
-import findIndex from 'lodash.findindex';
-
 import {ADD_WINE} from '../actions';
+
 import { CELLAR_SCHEMA } from '../../common/constants/Cellar';
 
 let boxId = 0,
-    selectableCells = [];
-
-/*
-CELLAR_SCHEMA.forEach(box => {
-      [...Array(box.cells).keys()].forEach(cellId => {
-          selectableCells.push([boxId, cellId]);
-      });
-      boxId++;
-});
-*/
-
-const selectedCells = selectableCells.shift();
+    selectableCells = {},
+    selectedCells;
 
 const removeItem = (list, index) => {
     return list
@@ -23,21 +12,43 @@ const removeItem = (list, index) => {
             .concat(list.slice(index + 1));
 };
 
-export default function reducer(state = {wines: [], selectedCells: selectedCells, selectableCells: selectableCells}, action) {
+CELLAR_SCHEMA.forEach(box => {
+    selectableCells[boxId] = Array(box.cells)
+        .fill()
+        .map((_, cellId) => cellId);
+    boxId++;
+});
+
+export default function reducer(state = {wines: [], selectedCells: {}, selectableCells: selectableCells}, action) {
     switch (action.type) {
         case ADD_WINE:
-            let newSelectableCells = state.selectableCells,
-                selectedCells;
-            action.data.bottles.forEach(bottle => {
-                const index = findIndex(state.selectableCells, function(item) { return bottle[0] === item[0] && bottle[1] === item[1]; });
-                newSelectableCells = removeItem(newSelectableCells, index);
+            let newSelectableCells = {...selectableCells};
+            let newSelectedCells = {};
+            const bottles = action.data.bottles.forEach(bottle => {
+                const newList = removeItem(newSelectableCells[bottle.box], newSelectableCells[bottle.box].indexOf(bottle.cell));
+                if (newList.length) {
+                    newSelectableCells[bottle.box] = newList;
+                } else {
+                    delete newSelectableCells[bottle.box];
+                }
             });
-            selectedCells = newSelectableCells.shift();
+            const selectableBoxes = Object.keys(newSelectableCells);
+            if (newSelectedCells[selectableBoxes[0]]) {
+                newSelectedCells[selectableBoxes[0]] = [...newSelectedCells[selectableBoxes[0]], newSelectableCells[selectableBoxes[0]].shift()]
+            } else {
+                newSelectedCells[selectableBoxes[0]] = [newSelectableCells[selectableBoxes[0]].shift()]
+            }
+            if (!newSelectableCells[selectableBoxes[0]].length) {
+                delete newSelectableCells[selectableBoxes[0]];
+            }
+
+            // remove me
+            action.data.type = 'RED';
 
             return {...state,
                 wines: [...state.wines, action.data],
                 selectableCells: newSelectableCells,
-                selectedCells: selectedCells
+                selectedCells: newSelectedCells
             };
         default:
             return state;

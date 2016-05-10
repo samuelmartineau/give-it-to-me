@@ -9,11 +9,13 @@ import {
     BOX_BORDER_COLOR,
     CANVAS_WIDTH,
     CANVAS_HEIGHT,
+    SELECTED_COLOR,
     getBottleInfos
 } from '../constants/Cellar';
 import {WINE_TYPES} from '../constants/WineTypes';
+import * as actions from '../actions';
 
-function drawBottle(svgElement, type, box, cell) {
+function drawBottle(svgElement, color, box, cell) {
     const bottleInfos = getBottleInfos(box, cell);
     d3.select(svgElement)
         .append('circle')
@@ -21,24 +23,29 @@ function drawBottle(svgElement, type, box, cell) {
         .attr('cx', bottleInfos.cx)
         .attr('cy', bottleInfos.cy)
         .attr('r', bottleInfos.radius)
-        // .attr('stroke-width', BOX_BORDER_SIZE)
-        // .attr('stroke', BOX_BORDER_COLOR)
-        .attr('fill', WINE_TYPES[type].color)
+        .attr('fill', color)
 }
 
 export default class CellarSchema extends Component {
 
-    selectBox() {
-        debugger
+    selectBox(boxId) {
+        const {selectableCells, dispatch, selectedCells} = this.props;
+        const isBoxSelectable = selectableCells[boxId];
+        const isBoxAlreadySelected = selectedCells[boxId];
+
+        if (!isBoxSelectable || isBoxAlreadySelected) {
+            return;
+        }
+        dispatch(actions.selectBox(boxId));
     }
 
     render() {
-        const {wines} = this.props;
-      let svgContainer = ReactFauxDOM.createElement('svg');
-      let boxId = 0;
-      svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
+        const {wines, selectedCells} = this.props;
+        let svgContainer = ReactFauxDOM.createElement('svg');
+        let boxId = 0;
+        svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
 
-      CELLAR_SCHEMA.forEach(box => {
+        CELLAR_SCHEMA.forEach(box => {
           d3.select(svgContainer)
               .append('rect')
               .attr('x', box.x)
@@ -50,24 +57,29 @@ export default class CellarSchema extends Component {
               .attr('fill', BOX_COLOR)
               .on('click', this.selectBox.bind(this, boxId));
           boxId++;
-      });
+        });
 
-      wines.forEach(wine => {
-         wine.bottles.forEach(bottle => {
-            drawBottle(svgContainer, wine.type, bottle.box, bottle.cell);
-         });
-      });
+        wines.forEach(wine => {
+            wine.bottles.forEach(bottle => {
+                drawBottle(svgContainer, WINE_TYPES[wine.type].color, bottle.box, bottle.cell);
+            });
+        });
 
-      return (
+        Object.keys(selectedCells).forEach(box => {
+            selectedCells[box].forEach(cell => {
+                drawBottle(svgContainer, SELECTED_COLOR, box, cell);
+            });
+        });
+        return (
           <div>
             {svgContainer.toReact()}
           </div>
-      );
+        );
     }
 }
 
 CellarSchema.propTypes = {
     wines: PropTypes.array.isRequired,
-    selectedCells: PropTypes.array.isRequired,
-    selectableCells: PropTypes.array.isRequired
+    selectedCells: PropTypes.object.isRequired,
+    selectableCells: PropTypes.object.isRequired
 };

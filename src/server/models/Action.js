@@ -1,5 +1,9 @@
-import mongoose from 'mongoose';
+import mongooseCore from 'mongoose';
+import Promise from 'bluebird';
+
 import * as types from '../actions';
+
+const mongoose = Promise.promisifyAll(mongooseCore);
 
 const actionTypes = Object.keys(types);
 

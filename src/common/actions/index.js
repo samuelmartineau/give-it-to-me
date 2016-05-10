@@ -60,3 +60,10 @@ export function createWine(wine) {
         data: wine
     };
 }
+
+export function selectBox(boxId) {
+    return {
+        type: types.SELECT_BOX,
+        boxId
+    };
+}
