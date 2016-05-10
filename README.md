@@ -42,7 +42,7 @@ npm run dev
 Run:
 
 ```
-npm run deploy [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease| from-git]
+npm run deploy -- [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease| from-git]
 ```
 
 ### Production
