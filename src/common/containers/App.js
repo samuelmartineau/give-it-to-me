@@ -8,6 +8,8 @@ import Cookies from 'cookies-js';
 import {LARGE_SCREEN_MIN} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
 import customTheme from '../styles/theme';
+import {version} from '../styles/version';
+import {VERSION} from '../constants/global';
 
 const SelectableList = MakeSelectable(List);
 
@@ -125,6 +127,9 @@ export default class App extends ResizingComponent {
                   <ListItem primaryText="Chercher" value="/search" />
                   <ListItem primaryText="Supprimer" value="/remove" />
                 </SelectableList>
+                <div style={version}>
+                    {VERSION}
+                </div>
               </Drawer>
               <section className="main-content" style={prepareStyles(styles.root)}>
                 <div style={prepareStyles(styles.content)}>

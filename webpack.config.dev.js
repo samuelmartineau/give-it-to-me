@@ -30,6 +30,9 @@ module.exports = {
             test: /\.js?$/,
             exclude: /node_modules/,
             loader: 'react-hot!babel'
+        }, {
+            test: /\.json?$/,
+            loader: 'json'
         }]
     },
     resolve: {
