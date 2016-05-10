@@ -9,7 +9,6 @@ import {LARGE_SCREEN_MIN} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
 import customTheme from '../styles/theme';
 import {version} from '../styles/version';
-import {VERSION} from '../constants/global';
 
 const SelectableList = MakeSelectable(List);
 
@@ -128,7 +127,7 @@ export default class App extends ResizingComponent {
                   <ListItem primaryText="Supprimer" value="/remove" />
                 </SelectableList>
                 <div style={version}>
-                    {VERSION}
+                    {window.__CURRENT_VERSION__}
                 </div>
               </Drawer>
               <section className="main-content" style={prepareStyles(styles.root)}>

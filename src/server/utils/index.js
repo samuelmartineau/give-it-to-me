@@ -1,3 +1,5 @@
+import {version} from '../../../package.json'
+
 export function renderFullPage(html, initialState, bundleFilename) {
     return `
         <!doctype html>
@@ -12,7 +14,8 @@ export function renderFullPage(html, initialState, bundleFilename) {
           <body>
             <container id="react"><div>${html}</div></container>
             <script>
-              window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+              window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+              window.__CURRENT_VERSION__ = '${version}';
             </script>
             <script src="/${bundleFilename}"></script>
           </body>
@@ -33,6 +36,7 @@ export function skip(path, middleware) {
 export function fakeWindow() {
     return (req, res, next) => {
         global.window = {
+            __CURRENT_VERSION__: version,
             innerWidth: req.headers.WS_WIDTH, // comes from device-infos middleware
             addEventListener: () => {}
         };
