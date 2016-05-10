@@ -10,7 +10,8 @@
     "dev": "webpack --config ./webpack.config.dev.js --colors --watch & nodemon src/server",
     "build-codeship": "NODE_ENV=production HEROKU=true webpack --config ./webpack.config.prod.js",
     "build": "NODE_ENV=production webpack --config ./webpack.config.prod.js",
-    "start": "node src/server/index.js"
+    "start": "node src/server/index.js",
+    "deploy": "bin/deploy.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "redux-devtools": "^3.2.0",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
+    "shelljs": "^0.7.0",
     "webpack": "1.12.14",
     "webpack-dev-server": "1.14.1",
     "webpack-hot-middleware": "^2.10.0"

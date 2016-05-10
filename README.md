@@ -37,6 +37,14 @@ db.createUser({ user: 'Vin', pwd: 'Diesel', roles: [ { role: "readWrite", db: "g
 npm run dev
 ```
 
+#### Deploy
+
+Run:
+
+```
+npm run deploy [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease| from-git]
+```
+
 ### Production
 
 #### Codeship
