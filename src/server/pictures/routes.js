@@ -4,7 +4,7 @@ import path from 'path';
 import logger from '../utils/logger';
 import config from '../../../config';
 import * as serverConstants from '../../common/constants/server';
-import {generateThumbnail, generateBlur} from '../services/picture';
+import {generateThumbnail, generateBlur} from './services';
 
 const storage = multer.diskStorage({
     destination: path.join(config.DIST, config.UPLOADS_TMP_DIRECTORY),

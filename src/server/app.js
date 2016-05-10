@@ -17,7 +17,7 @@ import createServerStore from './store';
 import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
 import routes from '../common/routes';
-import pictureRoutes from './routes/picture';
+import pictureRoutes from './pictures/routes';
 import handleAction from './services/handleAction';
 import Action from './models/Action';
 import './db';
