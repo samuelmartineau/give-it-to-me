@@ -11,7 +11,7 @@ export default class CellsSelectors extends Component {
           <div>
             {
                 Object.keys(selectedCells).map((box, index) => {
-                     return <CellsSelector key={index} boxId={parseInt(box)} selectedCells={selectedCells[box]} selectableCells={selectableCells} />
+                     return <CellsSelector key={index} {...this.props} boxId={parseInt(box)} />
                   })
               }
           </div>
