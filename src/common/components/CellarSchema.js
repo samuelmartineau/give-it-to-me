@@ -32,11 +32,14 @@ export default class CellarSchema extends Component {
         const {selectableCells, dispatch, selectedCells} = this.props;
         const isBoxSelectable = selectableCells[boxId];
         const isBoxAlreadySelected = selectedCells[boxId];
-
-        if (!isBoxSelectable || isBoxAlreadySelected) {
+        if (!isBoxSelectable) {
             return;
+        } else if (isBoxAlreadySelected && Object.keys(selectedCells).length > 1) {
+            dispatch(actions.unselectBox(boxId));
+        } else {
+            dispatch(actions.selectBox(boxId));
         }
-        dispatch(actions.selectBox(boxId));
+
     }
 
     render() {

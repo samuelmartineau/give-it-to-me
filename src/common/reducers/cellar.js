@@ -1,20 +1,44 @@
-import { SET_STATE, SELECT_BOX} from '../constants/ActionTypes';
+import { SET_STATE, SELECT_BOX, UNSELECT_BOX} from '../constants/ActionTypes';
+
+function selectBox(state, boxId) {
+    let newSelectedCells = {...state.selectedCells};
+    let newSelectableCells = {...state.selectableCells};
+    newSelectedCells[boxId] = [newSelectableCells[boxId].shift()]
+    if (!newSelectableCells[boxId].length) {
+        delete newSelectableCells[boxId];
+    }
+    return {...state,
+        selectableCells: newSelectableCells,
+        selectedCells: newSelectedCells
+    };
+}
+
+function unselectBox(state, boxId) {
+    let newSelectedCells = {...state.selectedCells};
+    let newSelectableCells = {...state.selectableCells};
+
+    if (!newSelectableCells[boxId]) {
+        newSelectableCells[boxId] = [...state.selectedCells[boxId]].sort();
+    } else {
+        newSelectableCells[boxId] = newSelectableCells[boxId].concat(state.selectedCells[boxId]).sort();
+    }
+
+    delete newSelectedCells[boxId];
+
+    return {...state,
+        selectableCells: newSelectableCells,
+        selectedCells: newSelectedCells
+    };
+}
 
 export default function(state = {wines: [], selectedCells: {}, selectableCells: {}}, action) {
     switch (action.type) {
         case SET_STATE:
             return {...state, ...action.state};
         case SELECT_BOX:
-            let newSelectedCells = {...state.selectedCells};
-            let newSelectableCells = {...state.selectableCells};
-            newSelectedCells[action.boxId] = [newSelectableCells[action.boxId].shift()]
-            if (!newSelectableCells[action.boxId].length) {
-                delete newSelectableCells[action.boxId];
-            }
-            return {...state,
-                selectableCells: newSelectableCells,
-                selectedCells: newSelectedCells
-            };
+            return selectBox(state, action.boxId);
+        case UNSELECT_BOX:
+            return unselectBox(state, action.boxId);
         default:
             return state;
     }

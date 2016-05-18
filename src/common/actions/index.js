@@ -67,3 +67,10 @@ export function selectBox(boxId) {
         boxId
     };
 }
+
+export function unselectBox(boxId) {
+    return {
+        type: types.UNSELECT_BOX,
+        boxId
+    };
+}
