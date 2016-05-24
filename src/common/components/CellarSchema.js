@@ -10,21 +10,11 @@ import {
     CANVAS_WIDTH,
     CANVAS_HEIGHT,
     SELECTED_COLOR,
-    getBottleInfos
+    getBottleInfos,
+    drawBottle
 } from '../constants/Cellar';
 import {WINE_TYPES} from '../constants/WineTypes';
 import * as actions from '../actions';
-
-function drawBottle(svgElement, color, box, cell) {
-    const bottleInfos = getBottleInfos(box, cell);
-    d3.select(svgElement)
-        .append('circle')
-        .attr('pointer-events', 'none')
-        .attr('cx', bottleInfos.cx)
-        .attr('cy', bottleInfos.cy)
-        .attr('r', bottleInfos.radius)
-        .attr('fill', color)
-}
 
 export default class CellarSchema extends Component {
 

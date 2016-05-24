@@ -13,7 +13,7 @@ const removeItem = (list, index) => {
 };
 
 CELLAR_SCHEMA.forEach(box => {
-    selectableCells[boxId] = Array(box.cells)
+    selectableCells[boxId] = Array(box.schema.reduce((x, y) => x * y, 1))
         .fill()
         .map((_, cellId) => cellId);
     boxId++;
@@ -24,6 +24,7 @@ function doAction(state, action) {
     actions[ADD_WINE] = () => {
         let newSelectableCells = {...selectableCells};
         let newSelectedCells = {};
+        const wines = [...state.wines, action.data];
         const bottles = action.data.bottles.forEach(bottle => {
             const newList = removeItem(newSelectableCells[bottle.box], newSelectableCells[bottle.box].indexOf(bottle.cell));
             if (newList.length) {
@@ -32,6 +33,7 @@ function doAction(state, action) {
                 delete newSelectableCells[bottle.box];
             }
         });
+
         const selectableBoxes = Object.keys(newSelectableCells);
         if (newSelectedCells[selectableBoxes[0]]) {
             newSelectedCells[selectableBoxes[0]] = [...newSelectedCells[selectableBoxes[0]], newSelectableCells[selectableBoxes[0]].shift()]
@@ -42,13 +44,24 @@ function doAction(state, action) {
             delete newSelectableCells[selectableBoxes[0]];
         }
 
+        const bottlesByBoxes = wines.reduce((acc, wine) => {
+            wine.bottles.forEach(bottle => {
+                if (!acc[bottle.box]) {
+                    acc[bottle.box] = [];
+                }
+                acc[bottle.box].push({cell: bottle.cell, type: wine.type});
+            });
+            return acc;
+        }, {});
+
         // remove me
         action.data.type = 'RED';
 
         return {...state,
-            wines: [...state.wines, action.data],
+            wines: wines,
             selectableCells: newSelectableCells,
-            selectedCells: newSelectedCells
+            selectedCells: newSelectedCells,
+            bottlesByBoxes: bottlesByBoxes
         };
     };
 
@@ -59,6 +72,6 @@ function doAction(state, action) {
     return actions[action.type]();
 }
 
-export default function reducer(state = {wines: [], selectedCells: {}, selectableCells: selectableCells}, action) {
+export default function reducer(state = {bottlesByBoxes: {}, wines: [], selectedCells: {}, selectableCells: selectableCells}, action) {
     return doAction(state, action);
 }

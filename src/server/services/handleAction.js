@@ -7,13 +7,13 @@ import {ADD_WINE} from '../actions';
 
 export default function(store) {
     return (action) => {
-        switch (action.type) {
-            case ADD_WINE:
-                action.data.id = uuid.v1();
-        }
+        let actions = {};
+        actions[ADD_WINE] = () => {action.data.id = uuid.v1();}
+
+        action[action.type]();
 
         let newAction = new Action(action);
-        newAction.save().then(()=> {
+        newAction.save().then(() => {
             store.dispatch(action);
         }).catch(error => {
             logger.error(error);

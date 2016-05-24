@@ -1,5 +1,9 @@
 import { SET_STATE, SELECT_BOX, UNSELECT_BOX} from '../constants/ActionTypes';
 
+function setState(state, boxId) {
+    return {...state, ...action.state};
+}
+
 function selectBox(state, boxId) {
     let newSelectedCells = {...state.selectedCells};
     let newSelectableCells = {...state.selectableCells};
@@ -33,7 +37,7 @@ function unselectBox(state, boxId) {
 
 function doAction(state, action) {
     const actions = {};
-    actions[SET_STATE] = () => {return {...state, ...action.state };};
+    actions[SET_STATE] = () => setState(state, action.boxId);
     actions[SELECT_BOX] = () => selectBox(state, action.boxId);
     actions[UNSELECT_BOX] = () => unselectBox(state, action.boxId);
 
@@ -44,6 +48,6 @@ function doAction(state, action) {
     return actions[action.type]();
 }
 
-export default function(state = {wines: [], selectedCells: {}, selectableCells: {}}, action) {
+export default function(state = {bottlesByBoxes: {}, wines: [], selectedCells: {}, selectableCells: {}}, action) {
     return doAction(state, action);
 }

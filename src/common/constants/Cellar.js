@@ -1,7 +1,10 @@
+import d3 from 'd3';
+
 export const BOX_COLOR = '#d3414a';
 export const BOX_BORDER_COLOR = '#992f2f';
 export const SELECTED_COLOR = '#2196F3';
 export const BOX_BORDER_SIZE = 1;
+export const CELL_BORDER_SIZE = 0.2;
 
 export const CELL_SIZE = 4;
 
@@ -11,8 +14,8 @@ const ONE_CELL_HEIGHT_CELLS = 1;
 export const ONE_CELL_WIDTH = ONE_CELL_WIDTH_CELLS * CELL_SIZE + 2 * BOX_BORDER_SIZE;
 export const ONE_CELL_HEIGHT = ONE_CELL_HEIGHT_CELLS * CELL_SIZE + 2 * BOX_BORDER_SIZE;
 
-const FULL_BOX_WIDTH_CELLS = 4;
-const FULL_BOX_HEIGHT_CELLS = 3;
+export const FULL_BOX_WIDTH_CELLS = 4;
+export const FULL_BOX_HEIGHT_CELLS = 3;
 
 export const FULL_BOX_WIDTH = FULL_BOX_WIDTH_CELLS * CELL_SIZE + 2 * BOX_BORDER_SIZE;
 export const FULL_BOX_HEIGHT = FULL_BOX_HEIGHT_CELLS * CELL_SIZE + 2 * BOX_BORDER_SIZE;
@@ -32,34 +35,47 @@ export const THIRD_BOX_HEIGHT = THIRD_BOX_HEIGHT_CELLS * CELL_SIZE + 2 * BOX_BOR
 export const CANVAS_WIDTH = 4 * BOX_BORDER_SIZE + 5*ONE_CELL_WIDTH + 12*FULL_BOX_WIDTH;
 export const CANVAS_HEIGHT = 5*FULL_BOX_HEIGHT;
 
-export const getBottleInfos = function(box, cell) {
+export const getBottleInfos = (box, cell) => {
     return {
         cx: BOX_BORDER_SIZE + CELLAR_SCHEMA[box].x + Math.floor(cell/3) * CELL_SIZE + CELL_SIZE / 2,
         cy: BOX_BORDER_SIZE + CELLAR_SCHEMA[box].y + (cell % 3) * CELL_SIZE + CELL_SIZE / 2,
+        cxRelative: Math.floor(cell/3) * CELL_SIZE + CELL_SIZE / 2,
+        cyRelative: (cell % 3) * CELL_SIZE + CELL_SIZE / 2,
         radius: CELL_SIZE / 2
     }
 };
+
+export const drawBottle = (svgElement, color, box, cell, isBoxSchema) => {
+    const bottleInfos = getBottleInfos(box, cell);
+    d3.select(svgElement)
+        .append('circle')
+        .attr('pointer-events', 'none')
+        .attr('cx', isBoxSchema ? bottleInfos.cxRelative : bottleInfos.cx)
+        .attr('cy',  isBoxSchema ? bottleInfos.cyRelative : bottleInfos.cy)
+        .attr('r', bottleInfos.radius)
+        .attr('fill', color)
+}
 
 export const BOXES_SIZES = {
     ONE_CELL: {
         width: ONE_CELL_WIDTH,
         height: ONE_CELL_HEIGHT,
-        cells: ONE_CELL_WIDTH_CELLS * ONE_CELL_HEIGHT_CELLS
+        schema: [ONE_CELL_WIDTH_CELLS, ONE_CELL_HEIGHT_CELLS]
     },
     FULL_BOX: {
         width: FULL_BOX_WIDTH,
         height: FULL_BOX_HEIGHT,
-        cells: FULL_BOX_WIDTH_CELLS * FULL_BOX_HEIGHT_CELLS
+        schema: [FULL_BOX_WIDTH_CELLS, FULL_BOX_HEIGHT_CELLS]
     },
     THIRD_BOX: {
         width: THIRD_BOX_WIDTH,
         height: THIRD_BOX_HEIGHT,
-        cells: THIRD_BOX_WIDTH_CELLS * THIRD_BOX_HEIGHT_CELLS
+        schema: [THIRD_BOX_WIDTH_CELLS, THIRD_BOX_HEIGHT_CELLS]
     },
     HALF_BOX: {
         width: HALF_BOX_WIDTH,
         height: HALF_BOX_HEIGHT,
-        cells: HALF_BOX_WIDTH_CELLS * HALF_BOX_HEIGHT_CELLS
+        schema: [HALF_BOX_WIDTH_CELLS, HALF_BOX_HEIGHT_CELLS]
     }
 }
 export const CELLAR_SCHEMA = [

@@ -5,6 +5,8 @@ import MenuItem from 'material-ui/MenuItem';
 
 import * as paperStyle from '../styles/paper';
 import * as actions from '../actions';
+import BoxSchema from './BoxSchema';
+import * as cellSelectorStyle from '../styles/cellSelector';
 
 export default class CellsSelector extends Component {
 
@@ -22,14 +24,12 @@ export default class CellsSelector extends Component {
                                     .map(boxId => parseInt(boxId))
                                     .concat([boxId])
                                     .sort((a, b) => a - b);
-
         return (
-            <Paper zDepth={1}>
+            <Paper zDepth={1} style={cellSelectorStyle.cellSelector} >
                 <SelectField value={boxId} onChange={this.selectBox.bind(this)}>
                     {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id} />)}
                 </SelectField>
-                <p>{this.props.boxId}</p>
-                {currentSelectedCells.map((cell, index) => <span key={index}>{cell}</span>)}
+                <BoxSchema {...this.props} />
             </Paper>
         );
     }

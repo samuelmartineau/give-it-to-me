@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import CellsSelector from './CellsSelector';
+import * as cellSelectorStyle from '../styles/cellSelector';
 
 export default class CellsSelectors extends Component {
 
@@ -8,7 +9,7 @@ export default class CellsSelectors extends Component {
         const {selectedCells, selectableCells} = this.props;
 
         return (
-          <div>
+          <div style={cellSelectorStyle.cellSelectorContainer}>
             {
                 Object.keys(selectedCells).map((box, index) => {
                      return <CellsSelector key={index} {...this.props} boxId={parseInt(box)} />
