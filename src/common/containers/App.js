@@ -125,6 +125,7 @@ export default class App extends ResizingComponent {
                   <ListItem primaryText="Ajouter" value="/add" />
                   <ListItem primaryText="Chercher" value="/search" />
                   <ListItem primaryText="Supprimer" value="/remove" />
+                  <ListItem primaryText="Panier" value="/basket" />
                 </SelectableList>
                 <div style={version}>
                     {window.__CURRENT_VERSION__}
