@@ -10,7 +10,9 @@ export default function(store) {
         let actions = {};
         actions[ADD_WINE] = () => {action.data.id = uuid.v1();}
 
-        action[action.type]();
+        if (typeof actions[action.type] === 'function') {
+            actions[action.type]();
+        }
 
         let newAction = new Action(action);
         newAction.save().then(() => {
