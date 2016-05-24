@@ -31,15 +31,19 @@ function unselectBox(state, boxId) {
     };
 }
 
-export default function(state = {wines: [], selectedCells: {}, selectableCells: {}}, action) {
-    switch (action.type) {
-        case SET_STATE:
-            return {...state, ...action.state};
-        case SELECT_BOX:
-            return selectBox(state, action.boxId);
-        case UNSELECT_BOX:
-            return unselectBox(state, action.boxId);
-        default:
-            return state;
+function doAction(state, action) {
+    const actions = {};
+    actions[SET_STATE] = () => {return {...state, ...action.state };};
+    actions[SELECT_BOX] = () => selectBox(state, action.boxId);
+    actions[UNSELECT_BOX] = () => unselectBox(state, action.boxId);
+
+    if (typeof actions[action.type] !== 'function') {
+        return state;
     }
+
+    return actions[action.type]();
+}
+
+export default function(state = {wines: [], selectedCells: {}, selectableCells: {}}, action) {
+    return doAction(state, action);
 }
