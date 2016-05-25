@@ -4,11 +4,21 @@ import ReactFauxDOM from 'react-faux-dom';
 
 import {SELECTED_COLOR, drawBottle, CELLAR_SCHEMA, CELL_SIZE, BOX_BORDER_COLOR, CELL_BORDER_SIZE, BOX_COLOR, FULL_BOX_WIDTH_CELLS} from '../constants/Cellar';
 import {WINE_TYPES} from '../constants/WineTypes';
+import * as actions from '../actions';
 
 export default class BoxSchema extends Component {
 
     selectCell(cellId) {
-        debugger
+        const {selectableCells, dispatch, selectedCells, boxId} = this.props;
+        const isCellSelectable = selectableCells[boxId].indexOf(cellId) > -1;
+        const isCellAlreadySelected = selectedCells[boxId].indexOf(cellId) > -1;
+        if (!isCellSelectable) {
+            return;
+        } else if (isCellAlreadySelected) {
+            dispatch(actions.unselectCell(boxId, cellId));
+        } else {
+            dispatch(actions.selectCell(boxId, cellId));
+        }
     }
 
     render() {

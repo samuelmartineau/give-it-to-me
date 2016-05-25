@@ -1,19 +1,14 @@
 import {ADD_WINE} from '../actions';
 
 import { CELLAR_SCHEMA } from '../../common/constants/Cellar';
+import { removeItem } from '../../common/constants/global';
 
 let boxId = 0,
-    selectableCells = {},
+    availableCells = {},
     selectedCells;
 
-const removeItem = (list, index) => {
-    return list
-            .slice(0, index)
-            .concat(list.slice(index + 1));
-};
-
 CELLAR_SCHEMA.forEach(box => {
-    selectableCells[boxId] = Array(box.schema.reduce((x, y) => x * y, 1))
+    availableCells[boxId] = Array(box.schema.reduce((x, y) => x * y, 1))
         .fill()
         .map((_, cellId) => cellId);
     boxId++;
@@ -22,24 +17,28 @@ CELLAR_SCHEMA.forEach(box => {
 function doAction(state, action) {
     const actions = {};
     actions[ADD_WINE] = () => {
-        let newSelectableCells = {...selectableCells};
+        let newAvailableCells = {...state.availableCells};
         let newSelectedCells = {};
+
+        // remove me
+        action.data.type = 'RED';
+
         const wines = [...state.wines, action.data];
         const bottles = action.data.bottles.forEach(bottle => {
-            const newList = removeItem(newSelectableCells[bottle.box], newSelectableCells[bottle.box].indexOf(bottle.cell));
+            const newList = removeItem(newAvailableCells[bottle.box], newAvailableCells[bottle.box].indexOf(bottle.cell));
+
             if (newList.length) {
-                newSelectableCells[bottle.box] = newList;
+                newAvailableCells[bottle.box] = newList;
             } else {
-                delete newSelectableCells[bottle.box];
+                let {[bottle.box]: omit, ...res} = newAvailableCells
+                newAvailableCells = res;
             }
         });
 
+        let newSelectableCells = {...newAvailableCells}
         const selectableBoxes = Object.keys(newSelectableCells);
-        if (newSelectedCells[selectableBoxes[0]]) {
-            newSelectedCells[selectableBoxes[0]] = [...newSelectedCells[selectableBoxes[0]], newSelectableCells[selectableBoxes[0]].shift()]
-        } else {
-            newSelectedCells[selectableBoxes[0]] = [newSelectableCells[selectableBoxes[0]].shift()]
-        }
+        newSelectedCells[selectableBoxes[0]] = [newAvailableCells[selectableBoxes[0]].slice(0,1)[0]];
+
         if (!newSelectableCells[selectableBoxes[0]].length) {
             delete newSelectableCells[selectableBoxes[0]];
         }
@@ -54,14 +53,12 @@ function doAction(state, action) {
             return acc;
         }, {});
 
-        // remove me
-        action.data.type = 'RED';
-
         return {...state,
             wines: wines,
+            availableCells: newAvailableCells,
+            bottlesByBoxes: bottlesByBoxes,
             selectableCells: newSelectableCells,
-            selectedCells: newSelectedCells,
-            bottlesByBoxes: bottlesByBoxes
+            selectedCells: newSelectedCells
         };
     };
 
@@ -72,6 +69,6 @@ function doAction(state, action) {
     return actions[action.type]();
 }
 
-export default function reducer(state = {bottlesByBoxes: {}, wines: [], selectedCells: {}, selectableCells: selectableCells}, action) {
+export default function reducer(state = {bottlesByBoxes: {}, wines: [], availableCells: availableCells, selectedCells: {}}, action) {
     return doAction(state, action);
 }

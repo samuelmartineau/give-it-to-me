@@ -14,15 +14,13 @@ export default function(store) {
             actions[action.type]();
         }
 
-        let newAction = new Action(action);
-        newAction.save().then(() => {
-            store.dispatch(action);
-        }).catch(error => {
-            logger.error(error);
-        });
-
         if (config.IS_HEROKU) {
             store.dispatch(action);
+        } else {
+            let newAction = new Action(action);
+            newAction.save().then(() => {
+                store.dispatch(action);
+            });
         }
     }
 }

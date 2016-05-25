@@ -93,6 +93,8 @@ if (config.IS_HEROKU) {
             store.dispatch(action.toObject());
         });
         startApp();
+    }).catch(error => {
+        logger.error(error);
     });
 }
 // =============================================================================

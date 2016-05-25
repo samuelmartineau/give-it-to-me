@@ -8,8 +8,8 @@ export default class WineAddingForm extends Component {
     handleAddWine() {
         const { dispatch, selectedCells } = this.props;
         const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
-            const cellList = selectedCells[boxId];
-            cellList.forEach(cellId => {
+            const cellsList = selectedCells[boxId];
+            cellsList.forEach(cellId => {
                 bottles.push({
                     box: boxId,
                     cell: cellId
