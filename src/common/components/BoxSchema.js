@@ -27,6 +27,7 @@ export default class BoxSchema extends Component {
         const bottles = bottlesByBoxes[boxId] || [];
         const canvasWidth = box.schema[0] * CELL_SIZE;
         const canvasHeigh = box.schema[1] * CELL_SIZE;
+        const isCellClickable = true;
         let svgContainer = ReactFauxDOM.createElement('svg');
         svgContainer.style.setProperty('width', '100%');
         svgContainer.style.setProperty('height', '100%');
@@ -47,6 +48,7 @@ export default class BoxSchema extends Component {
                           .attr('width', CELL_SIZE)
                           .attr('height', CELL_SIZE)
                           .attr('stroke-width', CELL_BORDER_SIZE)
+                          .classed('pointer', isCellClickable)
                           .attr('stroke', BOX_BORDER_COLOR)
                           .attr('fill', BOX_COLOR)
                           .on('click', this.selectCell.bind(this, cellId));
