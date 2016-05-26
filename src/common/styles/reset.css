@@ -49,3 +49,7 @@ table {
 a img {
 	border: none;
 }
+
+.pointer {
+	cursor: pointer;
+}

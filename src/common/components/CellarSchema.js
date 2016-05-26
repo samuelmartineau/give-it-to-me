@@ -19,36 +19,44 @@ import * as actions from '../actions';
 export default class CellarSchema extends Component {
 
     selectBox(boxId) {
-        const {selectableCells, dispatch, selectedCells} = this.props;
-        const isBoxSelectable = selectableCells[boxId];
+        const {dispatch, selectedCells} = this.props;
         const isBoxAlreadySelected = selectedCells[boxId];
-        if (!isBoxSelectable) {
-            return;
-        } else if (isBoxAlreadySelected && Object.keys(selectedCells).length > 1) {
+        if (isBoxAlreadySelected && Object.keys(selectedCells).length > 1) {
             dispatch(actions.unselectBox(boxId));
         } else {
             dispatch(actions.selectBox(boxId));
         }
-
     }
 
     render() {
-        const {wines, selectedCells} = this.props;
+        const {wines, selectedCells, availableCells, selectableCells} = this.props;
         let svgContainer = ReactFauxDOM.createElement('svg');
         let boxId = 0;
         svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
 
         CELLAR_SCHEMA.forEach(box => {
-          d3.select(svgContainer)
-              .append('rect')
+            const moreThanOneBoxSeltected = Object.keys(selectedCells).length > 1;
+            const notAlreadySelected = !selectedCells[boxId];
+            const isBoxClickable = availableCells[boxId] && moreThanOneBoxSeltected || notAlreadySelected;
+
+            let svgBox = d3.select(svgContainer)
+                .append('rect');
+
+            svgBox
               .attr('x', box.x)
               .attr('y', box.y)
               .attr('width', box.width)
               .attr('height', box.height)
               .attr('stroke-width', BOX_BORDER_SIZE)
+              .classed('pointer', isBoxClickable)
               .attr('stroke', BOX_BORDER_COLOR)
-              .attr('fill', BOX_COLOR)
-              .on('click', this.selectBox.bind(this, boxId));
+              .attr('fill', BOX_COLOR);
+
+          if (isBoxClickable) {
+              svgBox
+                .on('click', this.selectBox.bind(this, boxId));
+          }
+
           boxId++;
         });
 
@@ -74,5 +82,6 @@ export default class CellarSchema extends Component {
 CellarSchema.propTypes = {
     wines: PropTypes.array.isRequired,
     selectedCells: PropTypes.object.isRequired,
-    selectableCells: PropTypes.object.isRequired
+    selectableCells: PropTypes.object.isRequired,
+    availableCells: PropTypes.object.isRequired,
 };
