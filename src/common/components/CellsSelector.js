@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import { Paper } from 'material-ui';
+import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentClose from 'material-ui/svg-icons/navigation/close';
 
 import * as paperStyle from '../styles/paper';
 import * as actions from '../actions';
@@ -14,6 +16,11 @@ export default class CellsSelector extends Component {
         const {dispatch, boxId} = this.props
         dispatch(actions.unselectBox(boxId));
         dispatch(actions.selectBox(value));
+    }
+
+    unselectBox() {
+        const {dispatch, boxId} = this.props
+        dispatch(actions.unselectBox(boxId));
     }
 
     render() {
@@ -29,6 +36,13 @@ export default class CellsSelector extends Component {
                 <SelectField value={boxId} onChange={this.selectBox.bind(this)}>
                     {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id} />)}
                 </SelectField>
+                {
+                    Object.keys(selectedCells).length > 1
+                    ? <FloatingActionButton style={cellSelectorStyle.cellSelectorCloseButton} mini={true} secondary={true} onClick={this.unselectBox.bind(this)}>
+                        <ContentClose />
+                    </FloatingActionButton>
+                    : null
+                }
                 <BoxSchema {...this.props} />
             </Paper>
         );

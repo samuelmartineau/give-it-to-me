@@ -4,3 +4,6 @@ export const RECEIVE_PICTURE_INFOS = 'RECEIVE_PICTURE_INFOS';
 export const ADD_WINE = 'ADD_WINE';
 export const SELECT_BOX = 'SELECT_BOX';
 export const UNSELECT_BOX = 'UNSELECT_BOX';
+export const SELECT_CELL = 'SELECT_CELL';
+export const UNSELECT_CELL = 'UNSELECT_CELL';
+export const SELECT_NEXT_BOX = 'SELECT_NEXT_BOX';

@@ -74,3 +74,25 @@ export function unselectBox(boxId) {
         boxId
     };
 }
+
+export function selectCell(boxId, cellId) {
+    return {
+        type: types.SELECT_CELL,
+        boxId,
+        cellId
+    };
+}
+
+export function unselectCell(boxId, cellId) {
+    return {
+        type: types.UNSELECT_CELL,
+        boxId,
+        cellId
+    };
+}
+
+export function selectNextBox() {
+    return {
+        type: types.SELECT_NEXT_BOX
+    };
+}

@@ -19,7 +19,8 @@ let initSelectableCells = {...availableCells};
 const initSelectableBoxes = Object.keys({...availableCells});
 initSelectedCells[initSelectableBoxes[0]] = [availableCells[initSelectableBoxes[0]].slice(0,1)[0]];
 initSelectableCells[initSelectableBoxes[0]] = removeItem(availableCells[initSelectableBoxes[0]], 0);
-
+let {['0']: omit, ...res} = initSelectableCells;
+initSelectableCells = res;
 
 function doAction(state, action) {
     const actions = {};

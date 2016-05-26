@@ -10,11 +10,8 @@ export default class BoxSchema extends Component {
 
     selectCell(cellId) {
         const {selectableCells, dispatch, selectedCells, boxId} = this.props;
-        const isCellSelectable = selectableCells[boxId].indexOf(cellId) > -1;
         const isCellAlreadySelected = selectedCells[boxId].indexOf(cellId) > -1;
-        if (!isCellSelectable) {
-            return;
-        } else if (isCellAlreadySelected) {
+        if (isCellAlreadySelected) {
             dispatch(actions.unselectCell(boxId, cellId));
         } else {
             dispatch(actions.selectCell(boxId, cellId));
@@ -22,12 +19,11 @@ export default class BoxSchema extends Component {
     }
 
     render() {
-        const {wines, selectedCells, boxId, bottlesByBoxes} = this.props;
+        const {wines, selectedCells, boxId, bottlesByBoxes, availableCells} = this.props;
         const box = CELLAR_SCHEMA[boxId];
         const bottles = bottlesByBoxes[boxId] || [];
         const canvasWidth = box.schema[0] * CELL_SIZE;
         const canvasHeigh = box.schema[1] * CELL_SIZE;
-        const isCellClickable = true;
         let svgContainer = ReactFauxDOM.createElement('svg');
         svgContainer.style.setProperty('width', '100%');
         svgContainer.style.setProperty('height', '100%');
@@ -41,21 +37,28 @@ export default class BoxSchema extends Component {
             .forEach((_, xIndex) => {
                 Array(box.schema[1]).fill()
                     .forEach((_, yIndex) => {
-                      d3.select(svgContainer)
-                          .append('rect')
-                          .attr('x', xIndex * CELL_SIZE)
-                          .attr('y', yIndex * CELL_SIZE)
-                          .attr('width', CELL_SIZE)
-                          .attr('height', CELL_SIZE)
-                          .attr('stroke-width', CELL_BORDER_SIZE)
-                          .classed('pointer', isCellClickable)
-                          .attr('stroke', BOX_BORDER_COLOR)
-                          .attr('fill', BOX_COLOR)
-                          .on('click', this.selectCell.bind(this, cellId));
-                      cellId++;
+                        const isCellAvailable = availableCells[boxId].indexOf(cellId) > -1;
+                        const moreThanOneCellSeltected = selectedCells[boxId].length > 1;
+                        const notAlreadySelected = selectedCells[boxId].indexOf(cellId) === -1;
+                        const isCellClickable = isCellAvailable && (moreThanOneCellSeltected || notAlreadySelected);
+                        const cursor = isCellClickable ? 'pointer' : 'not-allowed';
+                        const box = d3.select(svgContainer).append('rect');
+
+                        box.attr('x', xIndex * CELL_SIZE)
+                            .attr('y', yIndex * CELL_SIZE)
+                            .attr('width', CELL_SIZE)
+                            .attr('height', CELL_SIZE)
+                            .attr('stroke-width', CELL_BORDER_SIZE)
+                            .attr('style', `cursor: ${cursor}`)
+                            .attr('stroke', BOX_BORDER_COLOR)
+                            .attr('fill', BOX_COLOR)
+
+                        if (isCellClickable) {
+                            box.on('click', this.selectCell.bind(this, cellId));
+                        }
+                        cellId++;
                     });
             });
-
 
         bottles.forEach(bottle => {
             drawBottle(svgContainer, WINE_TYPES[bottle.type].color, boxId, bottle.cell, true);
@@ -76,6 +79,7 @@ export default class BoxSchema extends Component {
 BoxSchema.propTypes = {
     boxId: PropTypes.number.isRequired,
     bottlesByBoxes: PropTypes.object.isRequired,
+    availableCells: PropTypes.object.isRequired,
     selectedCells: PropTypes.object.isRequired,
     selectableCells: PropTypes.object.isRequired
 };

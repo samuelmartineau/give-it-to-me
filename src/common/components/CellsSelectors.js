@@ -1,21 +1,41 @@
 import React, {Component, PropTypes} from 'react';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 import CellsSelector from './CellsSelector';
 import * as cellSelectorStyle from '../styles/cellSelector';
+import * as actions from '../actions';
 
 export default class CellsSelectors extends Component {
+
+    selectNextBox() {
+        const {dispatch} = this.props
+        dispatch(actions.selectNextBox());
+    }
 
     render() {
         const {selectedCells, selectableCells} = this.props;
 
         return (
-          <div style={cellSelectorStyle.cellSelectorContainer}>
-            {
-                Object.keys(selectedCells).map((box, index) => {
-                     return <CellsSelector key={index} {...this.props} boxId={parseInt(box)} />
-                  })
-              }
-          </div>
+            <div>
+                <div style={cellSelectorStyle.cellSelectorAddButton}>
+                    <RaisedButton
+                        onClick={this.selectNextBox.bind(this)}
+                        label="Ajouter une caisse"
+                        labelPosition="after"
+                        primary={true}
+                        icon={<ContentAdd />}
+                        />
+                </div>
+                <div style={cellSelectorStyle.cellSelectorContainer}>
+                  {
+                      Object.keys(selectedCells).map((box, index) => {
+                          return <CellsSelector key={index} {...this.props} boxId={parseInt(box)} />
+                      })
+                  }
+                </div>
+            </div>
         );
     }
 }

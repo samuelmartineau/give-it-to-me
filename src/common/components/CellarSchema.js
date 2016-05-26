@@ -37,10 +37,9 @@ export default class CellarSchema extends Component {
         CELLAR_SCHEMA.forEach(box => {
             const moreThanOneBoxSeltected = Object.keys(selectedCells).length > 1;
             const notAlreadySelected = !selectedCells[boxId];
-            const isBoxClickable = availableCells[boxId] && moreThanOneBoxSeltected || notAlreadySelected;
-
-            let svgBox = d3.select(svgContainer)
-                .append('rect');
+            const isBoxClickable = availableCells[boxId] && (moreThanOneBoxSeltected || notAlreadySelected);
+            const cursor = isBoxClickable ? 'pointer' : 'not-allowed';
+            let svgBox = d3.select(svgContainer).append('rect');
 
             svgBox
               .attr('x', box.x)
@@ -48,13 +47,12 @@ export default class CellarSchema extends Component {
               .attr('width', box.width)
               .attr('height', box.height)
               .attr('stroke-width', BOX_BORDER_SIZE)
-              .classed('pointer', isBoxClickable)
+              .attr('style', `cursor: ${cursor}`)
               .attr('stroke', BOX_BORDER_COLOR)
               .attr('fill', BOX_COLOR);
 
           if (isBoxClickable) {
-              svgBox
-                .on('click', this.selectBox.bind(this, boxId));
+              svgBox.on('click', this.selectBox.bind(this, boxId));
           }
 
           boxId++;
