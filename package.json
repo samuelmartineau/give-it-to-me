@@ -1,6 +1,6 @@
 {
   "name": "give-it-to-me",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "engines": {
     "node": "5.10.1"
   },
