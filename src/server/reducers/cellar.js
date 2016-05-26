@@ -14,6 +14,13 @@ CELLAR_SCHEMA.forEach(box => {
     boxId++;
 });
 
+let initSelectedCells = {};
+let initSelectableCells = {...availableCells};
+const initSelectableBoxes = Object.keys({...availableCells});
+initSelectedCells[initSelectableBoxes[0]] = [availableCells[initSelectableBoxes[0]].slice(0,1)[0]];
+initSelectableCells[initSelectableBoxes[0]] = removeItem(availableCells[initSelectableBoxes[0]], 0);
+
+
 function doAction(state, action) {
     const actions = {};
     actions[ADD_WINE] = () => {
@@ -35,12 +42,15 @@ function doAction(state, action) {
             }
         });
 
-        let newSelectableCells = {...newAvailableCells}
+        let newSelectableCells = {...newAvailableCells};
         const selectableBoxes = Object.keys(newSelectableCells);
         newSelectedCells[selectableBoxes[0]] = [newAvailableCells[selectableBoxes[0]].slice(0,1)[0]];
 
-        if (!newSelectableCells[selectableBoxes[0]].length) {
-            delete newSelectableCells[selectableBoxes[0]];
+        if (newAvailableCells[selectableBoxes[0]].length === 1) {
+            let {[boxId]: omit, ...res} = newSelectableCells
+            newSelectableCells = res;
+        } else {
+            newSelectableCells[selectableBoxes[0]] = removeItem(newAvailableCells[selectableBoxes[0]], 0);
         }
 
         const bottlesByBoxes = wines.reduce((acc, wine) => {
@@ -69,6 +79,6 @@ function doAction(state, action) {
     return actions[action.type]();
 }
 
-export default function reducer(state = {bottlesByBoxes: {}, wines: [], availableCells: availableCells, selectedCells: {}}, action) {
+export default function reducer(state = {bottlesByBoxes: {}, wines: [], availableCells: availableCells, selectableCells: initSelectableCells, selectedCells: initSelectedCells}, action) {
     return doAction(state, action);
 }

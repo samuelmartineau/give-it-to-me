@@ -13,9 +13,11 @@ function selectBox(state, boxId) {
     let newSelectableCells = {...state.selectableCells};
     newSelectedCells[boxId] = [state.availableCells[boxId].slice(0,1)[0]];
 
-    if (!newSelectableCells[boxId].length) {
+    if (state.availableCells[boxId].length === 1) {
         let {[boxId]: omit, ...res} = newSelectableCells
         newSelectableCells = res;
+    } else {
+        newSelectableCells[boxId] = removeItem(state.availableCells[boxId], 0);
     }
 
     return {...state,
