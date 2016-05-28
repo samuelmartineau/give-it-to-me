@@ -12,6 +12,24 @@ import {version} from '../styles/version';
 
 const SelectableList = MakeSelectable(List);
 
+const menuItems = [
+    {primaryText: 'Home', value: '/', title: 'Dashboard'},
+    {primaryText: 'Ajouter', value: '/add', title: 'Ajouter une bouteille'},
+    {primaryText: 'Chercher', value: '/search', title: 'Retrouver une bouteille'},
+    {primaryText: 'Supprimer', value: '/remove', title: 'Supprimer une bouteille'},
+    {primaryText: 'Panier', value: '/basket', title: 'Panier'}
+];
+
+function getPageTitle(items, router) {
+    const find = items.filter(item => {
+        return router.isActive(item.value, true);
+    });
+    if (!find.length) {
+        throw new Error('URL doesn\'t match any route');
+    }
+    return find[0].title;
+}
+
 let isLargeScreen = function() {
     return window.innerWidth >= LARGE_SCREEN_MIN;
 }
@@ -93,6 +111,7 @@ export default class App extends ResizingComponent {
         const { location, children} = this.props;
         const { prepareStyles } = this.state.muiTheme;
         const styles = this.getStyles();
+        const pageTitle = getPageTitle(menuItems, this.context.router);
         let docked = false;
         let showMenuIconButton = true;
 
@@ -121,11 +140,7 @@ export default class App extends ResizingComponent {
                     value={location.pathname}
                     onChange={this.handleRequestChangeList.bind(this)}
                     >
-                  <ListItem primaryText="Home" value="/" />
-                  <ListItem primaryText="Ajouter" value="/add" />
-                  <ListItem primaryText="Chercher" value="/search" />
-                  <ListItem primaryText="Supprimer" value="/remove" />
-                  <ListItem primaryText="Panier" value="/basket" />
+                  {menuItems.map((item, index) => <ListItem key={index} primaryText={item.primaryText} value={item.value} />)}
                 </SelectableList>
                 <div style={version}>
                     {window.__CURRENT_VERSION__}
@@ -133,6 +148,7 @@ export default class App extends ResizingComponent {
               </Drawer>
               <section className="main-content" style={prepareStyles(styles.root)}>
                 <div style={prepareStyles(styles.content)}>
+                    <h1>{pageTitle}</h1>
                     {children}
                 </div>
               </section>
