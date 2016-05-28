@@ -7,7 +7,7 @@ export const WINE_TYPES = {
   WHITE: {
     label: 'Blanc',
     types: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
-    color: '#132F17'
+    color: '#326D3B'
   },
   CHAMPAGNE: {
     label: 'Champagne',
