@@ -93,15 +93,14 @@ export default class App extends ResizingComponent {
                 minHeight: 400,
             },
             content: {
-                margin: spacing.desktopGutter,
-            },
-            contentWhenMedium: {
-                margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
+                margin: '0.5em',
             }
         };
         if (this.state.isLargeScreen) {
             styles.root.paddingLeft = 256;
-            styles.content = Object.assign(styles.content, styles.contentWhenMedium);
+            styles.content = {
+                margin: '2em'
+            };
         }
 
         return styles;

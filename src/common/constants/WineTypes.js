@@ -2,35 +2,43 @@ export const WINE_TYPES = {
   RED: {
     label: 'Rouge',
     types: ['REGULAR', 'SPARKLING', 'DRY'],
-    color: '#009688'
+    color: '#490404'
   },
   WHITE: {
     label: 'Blanc',
-    types: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY']
+    types: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
+    color: '#132F17'
   },
   CHAMPAGNE: {
     label: 'Champagne',
-    types: ['REGULAR', 'PINK']
+    types: ['REGULAR', 'PINK'],
+    color: '#B3B19B'
   }
 };
 
 export const WINE_CATEGORIES = {
   REGULAR: {
-    label: ''
+    label: 'normal',
+    image: '/textures/regular.jpg'
   },
   SPARKLING: {
-    label: 'effervescent'
+    label: 'effervescent',
+    image: '/textures/sparkling.jpg'
   },
   LIQUOROUS: {
-    label: 'liquoreux'
+    label: 'liquoreux',
+    image: '/textures/liquorous.jpg'
   },
   SOFT: {
-    label: 'moelleux'
+    label: 'moelleux',
+    image: '/textures/soft.jpg'
   },
   DRY: {
-    label: 'sec'
+    label: 'sec',
+    image: '/textures/dry.jpg'
   },
   PINK: {
-    label: 'rosé'
+    label: 'rosé',
+    image: '/textures/pink.jpg'
   }
 };

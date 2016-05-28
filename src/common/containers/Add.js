@@ -11,11 +11,11 @@ class Add extends Component {
     render() {
         return (
             <div>
+                <Paper zDepth={1} style={paperStyle.paper}>
+                    <WineAddingForm {...this.props} />
+                </Paper>
                 <CellarSchema {...this.props} />
                 <CellsSelectors {...this.props}/>
-                <Paper zDepth={1} style={paperStyle.paper}>
-                  <WineAddingForm {...this.props} />
-                </Paper>
             </div>
         );
     }
