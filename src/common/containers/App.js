@@ -90,7 +90,7 @@ export default class App extends ResizingComponent {
     }
     render() {
         const {navDrawerOpen, isLargeScreen} = this.state;
-        const { location, children } = this.props;
+        const { location, children} = this.props;
         const { prepareStyles } = this.state.muiTheme;
         const styles = this.getStyles();
         let docked = false;
@@ -118,7 +118,7 @@ export default class App extends ResizingComponent {
               >
                 <AppBar title="Menu" showMenuIconButton={false} />
                 <SelectableList
-                    value={this.state.selectedIndex}
+                    value={location.pathname}
                     onChange={this.handleRequestChangeList.bind(this)}
                     >
                   <ListItem primaryText="Home" value="/" />
