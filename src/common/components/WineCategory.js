@@ -3,7 +3,7 @@ import tinycolor from 'tinycolor2';
 
 import * as wineTypeStyle from '../styles/wineType';
 
-export default ({wineCategory, onWineCategoryChange, categorySelected}) => {
+const wineCategory = ({wineCategory, onWineCategoryChange, categorySelected}) => {
     const computeStyle = {...wineTypeStyle.wineCategory};
     const computeStyleImage = {...wineTypeStyle.wineCategoryImage};
     computeStyleImage.backgroundImage = `url('${wineCategory.image}')`;
@@ -24,3 +24,11 @@ export default ({wineCategory, onWineCategoryChange, categorySelected}) => {
         </div>
     );
 };
+
+wineCategory.propTypes = {
+    wineCategory: PropTypes.object.isRequired,
+    categorySelected: PropTypes.string.isRequired,
+    onWineCategoryChange: PropTypes.func.isRequired
+}
+
+export default wineCategory;

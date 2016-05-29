@@ -4,7 +4,7 @@ import * as bottleTypeStyle from '../styles/bottleType';
 import {BOTTLE_TYPES} from '../constants/BottleTypes';
 import BottleType from './BottleType';
 
-export default ({onBottleTypeChange, typeSelected}) => {
+const BottleTypeSelectors = ({onBottleTypeChange, typeSelected}) => {
     const bottleTypes = Object.keys(BOTTLE_TYPES).map(key => {
         return {value: key, ...BOTTLE_TYPES[key]};
     });
@@ -19,3 +19,10 @@ export default ({onBottleTypeChange, typeSelected}) => {
         </div>
     );
 };
+
+BottleTypeSelectors.propTypes = {
+  typeSelected: PropTypes.string.isRequired,
+  onBottleTypeChange: PropTypes.func.isRequired
+}
+
+export default BottleTypeSelectors;

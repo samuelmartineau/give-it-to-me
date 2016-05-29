@@ -3,10 +3,9 @@ import tinycolor from 'tinycolor2';
 
 import * as bottleTypeStyle from '../styles/bottleType';
 import {BOTTLE_TYPES} from '../constants/BottleTypes';
-import BottleType from './BottleType';
 const items = Object.keys(BOTTLE_TYPES).length;
 
-export default ({bottleType, onBottleTypeChange, typeSelected}) => {
+const BottleType = ({bottleType, onBottleTypeChange, typeSelected}) => {
     let bottleDrawCompute = {...bottleTypeStyle.bottleDraw};
     const percent = 50 + Math.floor((parseInt(bottleType.value) + 1) / items * 50);
     bottleDrawCompute.width = `${percent}%`;
@@ -30,3 +29,11 @@ export default ({bottleType, onBottleTypeChange, typeSelected}) => {
         </div>
     );
 };
+
+BottleType.propTypes = {
+  bottleType: PropTypes.object.isRequired,
+  typeSelected: PropTypes.string.isRequired,
+  onBottleTypeChange: PropTypes.func.isRequired
+}
+
+export default BottleType;

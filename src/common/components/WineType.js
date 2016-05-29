@@ -3,7 +3,7 @@ import tinycolor from 'tinycolor2';
 
 import * as wineTypeStyle from '../styles/wineType';
 
-export default ({wineType, onWineTypeChange, typeSelected}) => {
+const WineType = ({wineType, onWineTypeChange, typeSelected}) => {
     const computeStyle = {...wineTypeStyle.wineType};
     if (wineType.value === typeSelected) {
         computeStyle.background = wineType.color;
@@ -23,3 +23,11 @@ export default ({wineType, onWineTypeChange, typeSelected}) => {
         </div>
     );
 };
+
+WineType.propTypes = {
+    wineType: PropTypes.object.isRequired,
+    typeSelected: PropTypes.string.isRequired,
+    onWineTypeChange: PropTypes.func.isRequired
+}
+
+export default WineType;
