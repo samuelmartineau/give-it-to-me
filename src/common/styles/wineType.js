@@ -22,6 +22,11 @@ export const wineTypeBefore = {
     paddingTop: '100%'
 };
 
+export const titleText = {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
+};
+
 export const title = {
     position: 'absolute',
     top: 0,

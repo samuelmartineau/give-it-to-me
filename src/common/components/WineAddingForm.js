@@ -4,7 +4,9 @@ import { TextField, RaisedButton, Badge, IconButton } from 'material-ui';
 import * as actions from '../actions';
 import UploadPicture from './UploadPicture';
 import WineTypeSelectors from './WineTypeSelectors';
-import {WINE_TYPES, WINE_CATEGORIES} from '../constants/WineTypes';
+import BottleTypeSelectors from './BottleTypeSelectors';
+import {WINE_TYPES, WINE_CATEGORIES, DEFAULT_TYPE, DEFAULT_CATEGORY} from '../constants/WineTypes';
+import * as BottleTypes from '../constants/BottleTypes';
 
 export default class WineAddingForm extends Component {
     constructor(props) {
@@ -12,8 +14,9 @@ export default class WineAddingForm extends Component {
 
       this.state = {
         name: '',
-        wineType: Object.keys(WINE_TYPES)[0],
-        wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[0]].types[0]
+        wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
+        wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[DEFAULT_TYPE]].categories[DEFAULT_CATEGORY],
+        bottleType: BottleTypes.DEFAULT_TYPE.toString()
       };
     }
 
@@ -42,13 +45,19 @@ export default class WineAddingForm extends Component {
     handleWineType(wineType) {
         this.setState({
             wineType: wineType.value,
-            wineCategory: WINE_TYPES[wineType.value].types[0]
+            wineCategory: WINE_TYPES[wineType.value].categories[0]
         });
     }
 
     handleWineCategory(wineCategory) {
         this.setState({
             wineCategory: wineCategory.value
+        });
+    }
+
+    handleBottleType(bottleType) {
+        this.setState({
+            bottleType: bottleType.value
         });
     }
 
@@ -71,6 +80,10 @@ export default class WineAddingForm extends Component {
                 onWineCategoryChange={this.handleWineCategory.bind(this)}
                 typeSelected={this.state.wineType}
                 categorySelected={this.state.wineCategory}/>
+            <BottleTypeSelectors
+                onBottleTypeChange={this.handleBottleType.bind(this)}
+                typeSelected={this.state.bottleType}
+                />
             <UploadPicture {...this.props} />
             <RaisedButton
               label="Ajouter"

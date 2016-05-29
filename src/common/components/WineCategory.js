@@ -17,7 +17,7 @@ export default ({wineCategory, onWineCategoryChange, categorySelected}) => {
     return (
         <div style={computeStyle} onClick={onWineCategoryChange.bind(null, wineCategory)}>
             <div style={wineTypeStyle.title}>
-                <span>{wineCategory.label}</span>
+                <span style={wineTypeStyle.titleText}>{wineCategory.label}</span>
             </div>
             <div style={computeStyleImage} />
             <div style={wineTypeStyle.wineCategoryBefore}/>

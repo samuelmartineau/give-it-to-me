@@ -9,6 +9,7 @@ import {LARGE_SCREEN_MIN} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
 import customTheme from '../styles/theme';
 import {version} from '../styles/version';
+import {title} from '../styles/pageTitle';
 
 const SelectableList = MakeSelectable(List);
 
@@ -147,7 +148,7 @@ export default class App extends ResizingComponent {
               </Drawer>
               <section className="main-content" style={prepareStyles(styles.root)}>
                 <div style={prepareStyles(styles.content)}>
-                    <h1>{pageTitle}</h1>
+                    <h1 style={title}>{pageTitle}</h1>
                     {children}
                 </div>
               </section>

@@ -9,7 +9,7 @@ export default ({onWineTypeChange, typeSelected, categorySelected, onWineCategor
     const types = Object.keys(WINE_TYPES).map(type => {
         return {...WINE_TYPES[type], ...{value: type}};
     });
-    const categories = WINE_TYPES[typeSelected].types.map(category => {
+    const categories = WINE_TYPES[typeSelected].categories.map(category => {
         return {value: category, ...WINE_CATEGORIES[category]};
     });
 
