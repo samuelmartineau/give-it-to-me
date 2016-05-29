@@ -88,4 +88,3 @@ private stuff
 
 ## Todos
 * display devices already connected on welcomePage (useragent)
-* match mistake in query (ie: aoc) [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)

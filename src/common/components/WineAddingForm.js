@@ -5,8 +5,18 @@ import * as actions from '../actions';
 import UploadPicture from './UploadPicture';
 import WineTypeSelectors from './WineTypeSelectors';
 import BottleTypeSelectors from './BottleTypeSelectors';
+import AutoComplete from './AutoComplete';
 import {WINE_TYPES, WINE_CATEGORIES, DEFAULT_TYPE, DEFAULT_CATEGORY} from '../constants/WineTypes';
 import * as BottleTypes from '../constants/BottleTypes';
+import {WineFamilies} from '../constants/WineFamilies';
+import {noTilde} from '../constants/global';
+import fuzzy from 'fuzzy';
+
+const wineFamilies = Object.keys(WineFamilies).map(id => {return {
+    id: id,
+    name: WineFamilies[id],
+    searchKey: noTilde(WineFamilies[id].toLowerCase()).replace('-', ' ')
+}});
 
 export default class WineAddingForm extends Component {
     constructor(props) {
@@ -84,6 +94,24 @@ export default class WineAddingForm extends Component {
                 onBottleTypeChange={this.handleBottleType.bind(this)}
                 typeSelected={this.state.bottleType}
                 />
+            <AutoComplete
+                displayContentItem = {(item) => <div>{item.name}</div>}
+                onItemClicked = {() => {}}
+                onClearButtonClicked = {() => {}}
+                displaySelectedItemInField = {(item) => item.name}
+                selectionMode={true}
+                filter = { (searchEntry) => {
+                    if (searchEntry.length > 2) {
+                        const searchFormated = noTilde(searchEntry.toLowerCase())
+                            .replace('-', ' ')
+                            .trim()
+                        return fuzzy
+                                .filter(searchFormated, wineFamilies, {extract: el => el.searchKey})
+                                .map(result => result.original)
+                    }
+                    return [];
+                }}
+            />
             <UploadPicture {...this.props} />
             <RaisedButton
               label="Ajouter"
