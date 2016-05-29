@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Menu, MenuItem, TextField, IconButton, FontIcon} from 'material-ui';
 import ContentClose from 'material-ui/svg-icons/navigation/close';
 
-import * as autocompleteStyle from '../styles/autocomplete';
+import * as autoCompleteStyle from '../styles/AutoComplete';
 
 export default class AutoComplete extends Component {
 
@@ -41,7 +41,7 @@ export default class AutoComplete extends Component {
         const {selectionMode = false, filter, displayContentItem, onItemClicked, onClearButtonClicked} = this.props;
         let filteredItems = filter(this.state.searchEntry);
         return (
-          <div style={autocompleteStyle.autocomplete}>
+          <div style={autoCompleteStyle.autocomplete}>
               <TextField
                   value={this.state.textField}
                   fullWidth={true}
@@ -53,7 +53,7 @@ export default class AutoComplete extends Component {
                   selectionMode && this.state.itemSelected &&
                   <IconButton
                     onClick={() => {this.onClearInput(); onClearButtonClicked();}}
-                    style={autocompleteStyle.clearButton}
+                    style={autoCompleteStyle.clearButton}
                     touch={true}>
                     <ContentClose />
                   </IconButton>
