@@ -1,44 +1,59 @@
 export const WINE_TYPES = {
-  RED: {
-    label: 'Rouge',
-    types: ['REGULAR', 'SPARKLING', 'DRY'],
-    color: '#490404'
-  },
-  WHITE: {
-    label: 'Blanc',
-    types: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
-    color: '#326D3B'
-  },
-  CHAMPAGNE: {
-    label: 'Champagne',
-    types: ['REGULAR', 'PINK'],
-    color: '#B3B19B'
-  }
+    RED: {
+        label: 'Rouge',
+        categories: ['REGULAR', 'SPARKLING', 'DRY'],
+        color: '#490404'
+    },
+    WHITE: {
+        label: 'Blanc',
+        categories: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
+        color: '#326D3B'
+    },
+    CHAMPAGNE: {
+        label: 'Champagne',
+        categories: ['BRUT', 'BLANC_DE_BLANCS', 'BLANC_DE_NOIRS', 'PINK'],
+        color: '#B3B19B'
+    }
 };
 
 export const WINE_CATEGORIES = {
-  REGULAR: {
-    label: 'normal',
-    image: '/textures/regular.jpg'
-  },
-  SPARKLING: {
-    label: 'effervescent',
-    image: '/textures/sparkling.jpg'
-  },
-  LIQUOROUS: {
-    label: 'liquoreux',
-    image: '/textures/liquorous.jpg'
-  },
-  SOFT: {
-    label: 'moelleux',
-    image: '/textures/soft.jpg'
-  },
-  DRY: {
-    label: 'sec',
-    image: '/textures/dry.jpg'
-  },
-  PINK: {
-    label: 'rosé',
-    image: '/textures/pink.jpg'
-  }
+    REGULAR: {
+        label: 'normal',
+        image: '/textures/regular.jpg'
+    },
+    SPARKLING: {
+        label: 'effervescent',
+        image: '/textures/sparkling.jpg'
+    },
+    LIQUOROUS: {
+        label: 'liquoreux',
+        image: '/textures/liquorous.jpg'
+    },
+    SOFT: {
+        label: 'moelleux',
+        image: '/textures/soft.jpg'
+    },
+    DRY: {
+        label: 'sec',
+        image: '/textures/dry.jpg'
+    },
+    PINK: {
+        label: 'rosé',
+        image: '/textures/pink.jpg'
+    },
+    BRUT: {
+        label: 'brut',
+        image: '/textures/brut.jpg'
+    },
+    BLANC_DE_BLANCS: {
+        label: 'blanc de blancs',
+        image: '/textures/blanc_de_blancs.jpg'
+    },
+    BLANC_DE_NOIRS: {
+        label: 'blanc de noirs',
+        image: '/textures/blanc_de_noirs.jpg'
+    }
 };
+
+export const DEFAULT_TYPE = 0;
+export const DEFAULT_CATEGORY = 0;
