@@ -13,7 +13,7 @@ const wineFamilies = Object.keys(WineFamilies).map(id => {return {
     searchKey: noTilde(WineFamilies[id].toLowerCase()).replace('-', ' ')
 }});
 
-const FieldsStep = ({name, onNameChange}) => {
+const FieldsStep = ({name, onNameChange, onWineFamilyChange, defaultWineFamily}) => {
     return (
         <div>
             <TextField
@@ -22,9 +22,10 @@ const FieldsStep = ({name, onNameChange}) => {
               onChange={onNameChange}
             />
             <AutoComplete
+                defaultItem = {defaultWineFamily}
                 displayContentItem = {(item) => <div>{item.name}</div>}
-                onItemClicked = {() => {}}
-                onClearButtonClicked = {() => {}}
+                onItemClicked = {onWineFamilyChange}
+                onClearButtonClicked = {onWineFamilyChange}
                 displaySelectedItemInField = {(item) => item.name}
                 selectionMode={true}
                 filter = { (searchEntry) => {

@@ -16,9 +16,32 @@ import TypesStep from '../components/AddSteps/TypesStep';
 import PictureStep from '../components/AddSteps/PictureStep';
 import PositionStep from '../components/AddSteps/PositionStep';
 
+const STEPS = [{
+    label: 'Informations',
+    disableNext: (state) => {
+        const {
+            name,
+            wineFamily
+        } = state;
+        return !name || !wineFamily;
+    }
+}, {
+    label: 'Type',
+    disableNext: (state) => false
+}, {
+    label: 'Photo',
+    disableNext: (state, props) => {
+        return !props.upload.isUploaded;
+    }
+}, {
+    label: 'Position',
+    disableNext: (state) => {
+        return false;
+    }
+}];
+
 class Add extends Component {
     state = {
-      finished: false,
       stepIndex: 0,
       name: '',
       wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
@@ -73,12 +96,21 @@ class Add extends Component {
         });
     }
 
+    handleWineFamilyChange(wineFamily) {
+        this.setState({
+            wineFamily: wineFamily
+        });
+    }
+
     handleNext = () => {
         const {stepIndex} = this.state;
-        this.setState({
-            stepIndex: stepIndex + 1,
-            finished: stepIndex >= 3,
-        });
+        if (stepIndex === STEPS.length - 1) {
+            this.handleAddWine();
+        } else {
+            this.setState({
+                stepIndex: stepIndex + 1,
+            });
+        }
     };
 
     handlePrev = () => {
@@ -88,18 +120,19 @@ class Add extends Component {
         }
     }
 
- getStepContent(stepIndex) {
-     const {name, wineType, wineCategory, bottleType} = this.state;
-   switch (stepIndex) {
-     case 0:
-       return (
-           <FieldsStep
+    getStepContent(stepIndex) {
+        const {name, wineType, wineCategory, bottleType, wineFamily} = this.state;
+        let cases = [];
+        cases.push(
+            <FieldsStep
             name={name}
-            onNameChange={this.handleNameChange.bind(this)}/>
-       )
-     case 1:
-       return (
-           <TypesStep
+            onNameChange={this.handleNameChange.bind(this)}
+            onWineFamilyChange={this.handleWineFamilyChange.bind(this)}
+            defaultWineFamily={wineFamily}
+            />
+        );
+        cases.push(
+            <TypesStep
             handleWineType={this.handleWineType.bind(this)}
             handleWineCategory={this.handleWineCategory.bind(this)}
             handleBottleType={this.handleBottleType.bind(this)}
@@ -107,70 +140,45 @@ class Add extends Component {
             wineCategory={wineCategory}
             bottleType={bottleType}
             />
-       )
-     case 2:
-       return (
-         <PictureStep {...this.props}/>
-       );
-     case 3:
-       return (
-           <PositionStep {...this.props}/>
-       );
-   }
- }
+        );
+        cases.push(
+            <PictureStep {...this.props}/>
+        );
+        cases.push(
+            <PositionStep {...this.props}/>
+        );
+
+        return cases[stepIndex];
+    }
 
 
     render() {
-        const {finished, stepIndex} = this.state;
+        const {stepIndex} = this.state;
         const contentStyle = {margin: '0 16px'};
 
         return (
             <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
           <Stepper activeStep={stepIndex}>
-            <Step>
-              <StepLabel>Informations</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Type</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Photo</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Position</StepLabel>
-            </Step>
+            {STEPS.map((step, index) => <Step key={index}>
+              <StepLabel>{step.label}</StepLabel>
+            </Step>)}
           </Stepper>
           <div style={contentStyle}>
-            {finished ? (
-              <p>
-                <a
-                  href="#"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    this.setState({stepIndex: 0, finished: false});
-                  }}
-                >
-                  Click here
-                </a> to reset the example.
-              </p>
-            ) : (
-              <div>
-                <div>{this.getStepContent(stepIndex)}</div>
-                <div style={{marginTop: 12}}>
-                  <FlatButton
-                    label="Back"
-                    disabled={stepIndex === 0}
-                    onTouchTap={this.handlePrev}
-                    style={{marginRight: 12}}
-                  />
-                  <RaisedButton
-                    label={stepIndex === 2 ? 'Finish' : 'Next'}
-                    primary={true}
-                    onTouchTap={this.handleNext}
-                  />
-                </div>
-              </div>
-            )}
+          <div>{this.getStepContent(stepIndex)}</div>
+          <div style={{marginTop: 12}}>
+            <FlatButton
+              label="Back"
+              disabled={stepIndex === 0}
+              onTouchTap={this.handlePrev}
+              style={{marginRight: 12}}
+            />
+            <RaisedButton
+              label={stepIndex === STEPS.length - 1 ? 'Sauvegarder' : 'Suivant'}
+              primary={true}
+              disabled={STEPS[stepIndex].disableNext(this.state, this.props)}
+              onTouchTap={this.handleNext}
+            />
+          </div>
           </div>
         </div>
         );

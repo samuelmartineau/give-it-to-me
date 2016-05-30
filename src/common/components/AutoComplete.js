@@ -15,6 +15,14 @@ export default class AutoComplete extends Component {
         };
         this.onItemSelected = this.onItemSelected.bind(this);
         this.onClearInput = this.onClearInput.bind(this);
+        const {defaultItem, onItemClicked, selectionMode, displaySelectedItemInField} = props;
+        if (defaultItem) {
+            this.state = {...this.state, ...{
+                itemSelected: selectionMode ? true : false,
+                textField: selectionMode ? displaySelectedItemInField(defaultItem) : '',
+                searchEntry: ''
+            }};
+        }
     }
 
     onEntry(e) {
@@ -29,7 +37,8 @@ export default class AutoComplete extends Component {
     }
 
     onItemSelected(item) {
-        const {selectionMode, displaySelectedItemInField} = this.props;
+        const {selectionMode, displaySelectedItemInField, onItemClicked} = this.props;
+        onItemClicked(item);
         this.setState({
             itemSelected: selectionMode ? true : false,
             textField: selectionMode ? displaySelectedItemInField(item) : '',
@@ -38,7 +47,7 @@ export default class AutoComplete extends Component {
     }
 
     render () {
-        const {selectionMode = false, filter, displayContentItem, onItemClicked, onClearButtonClicked} = this.props;
+        const {selectionMode = false, filter, displayContentItem, onClearButtonClicked} = this.props;
         let filteredItems = filter(this.state.searchEntry);
         return (
           <div style={autoCompleteStyle.autocomplete}>
@@ -62,7 +71,7 @@ export default class AutoComplete extends Component {
                     <Menu disableAutoFocus={true}>
                         {filteredItems.map((item, index) => <MenuItem
                             key={index}
-                            children={ displayContentItem(item)}
+                            children={displayContentItem(item)}
                             onClick={this.onItemSelected.bind(this, item, index)}
                             />)}
                     </Menu>
