@@ -44,7 +44,6 @@ export default class AutoComplete extends Component {
           <div style={autoCompleteStyle.autocomplete}>
               <TextField
                   value={this.state.textField}
-                  fullWidth={true}
                   floatingLabelText="Sélectionnez l'AOC"
                   disabled={ selectionMode && this.state.itemSelected }
                   onChange={this.onEntry.bind(this)}
