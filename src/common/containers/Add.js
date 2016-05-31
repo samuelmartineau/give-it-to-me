@@ -55,7 +55,8 @@ class Add extends ResizingComponent {
     }
 
     handleAddWine() {
-        const { dispatch, selectedCells } = this.props;
+        const { dispatch, selectedCells, blur, tmpPicture, tmpThumbnail } = this.props;
+        const {name, bottleType, wineCategory, wineFamily, wineType} = this.props;
         const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
             const cellsList = selectedCells[boxId];
             cellsList.forEach(cellId => {
@@ -68,7 +69,14 @@ class Add extends ResizingComponent {
         }, []);
         const wine = {
             name: this.state.name,
-            bottles: wineBottles
+            bottles: wineBottles,
+            bottleType: bottleType,
+            wineCategory: wineCategory,
+            wineFamily: wineFamily.id,
+            wineType: wineType,
+            blur: blur,
+            tmpPicture: tmpPicture,
+            tmpThumbnail: tmpThumbnail
          };
         dispatch(actions.createWine(wine));
         this.setState({
