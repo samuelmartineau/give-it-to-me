@@ -60,7 +60,7 @@ export default class AutoComplete extends Component {
               {
                   selectionMode && this.state.itemSelected &&
                   <IconButton
-                    onClick={() => {this.onClearInput(); onClearButtonClicked();}}
+                    onTouchTap={() => {this.onClearInput(); onClearButtonClicked();}}
                     style={autoCompleteStyle.clearButton}
                     touch={true}>
                     <ContentClose />
@@ -72,7 +72,7 @@ export default class AutoComplete extends Component {
                         {filteredItems.map((item, index) => <MenuItem
                             key={index}
                             children={displayContentItem(item)}
-                            onClick={this.onItemSelected.bind(this, item, index)}
+                            onTouchTap={this.onItemSelected.bind(this, item, index)}
                             />)}
                     </Menu>
               }
