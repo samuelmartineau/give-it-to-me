@@ -5,7 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {spacing} from 'material-ui/styles';
 import Cookies from 'cookies-js';
 
-import {LARGE_SCREEN_MIN} from '../constants/global';
+import {isLargeScreen} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
 import customTheme from '../styles/theme';
 import {version} from '../styles/version';
@@ -29,10 +29,6 @@ function getPageTitle(items, router) {
         throw new Error('URL doesn\'t match any route');
     }
     return find[0].title;
-}
-
-let isLargeScreen = function() {
-    return window.innerWidth >= LARGE_SCREEN_MIN;
 }
 
 export default class App extends ResizingComponent {

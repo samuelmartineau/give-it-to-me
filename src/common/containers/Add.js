@@ -2,12 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
+import { Step, Stepper, StepLabel, StepContent, } from 'material-ui/Stepper';
 
+import {isLargeScreen} from '../constants/global';
 import * as actions from '../actions';
 import {WINE_TYPES, WINE_CATEGORIES, DEFAULT_TYPE, DEFAULT_CATEGORY} from '../constants/WineTypes';
 import * as BottleTypes from '../constants/BottleTypes';
@@ -15,6 +12,7 @@ import FieldsStep from '../components/AddSteps/FieldsStep';
 import TypesStep from '../components/AddSteps/TypesStep';
 import PictureStep from '../components/AddSteps/PictureStep';
 import PositionStep from '../components/AddSteps/PositionStep';
+import ResizingComponent from '../components/ResizingComponent';
 
 const STEPS = [{
     label: 'Informations',
@@ -40,13 +38,20 @@ const STEPS = [{
     }
 }];
 
-class Add extends Component {
+class Add extends ResizingComponent {
     state = {
       stepIndex: 0,
       name: '',
       wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
       wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[DEFAULT_TYPE]].categories[DEFAULT_CATEGORY],
-      bottleType: BottleTypes.DEFAULT_TYPE.toString()
+      bottleType: BottleTypes.DEFAULT_TYPE.toString(),
+      orientation: isLargeScreen() ? 'horizontal' : 'vertical'
+    }
+
+    updateLayout() {
+        this.setState({
+            orientation: isLargeScreen() ? 'horizontal' : 'vertical'
+        });
     }
 
     handleAddWine() {
@@ -120,6 +125,30 @@ class Add extends Component {
         }
     }
 
+    renderStepActions(step) {
+        const {stepIndex, orientation} = this.state;
+        const isVertical = orientation === 'vertical';
+        const nextButton = <RaisedButton
+            label={stepIndex === STEPS.length - 1 ? 'Sauvegarder' : 'Suivant'}
+            primary={true}
+            disabled={STEPS[stepIndex].disableNext(this.state, this.props)}
+            onTouchTap={this.handleNext}
+        />;
+        const previousButton = <FlatButton
+            label="Retour"
+            disabled={stepIndex === 0}
+            onTouchTap={this.handlePrev}
+            style={{marginRight: 12}}
+        />;
+
+        return (
+            <div style={{margin: '12px 0'}}>
+                {isVertical ? nextButton : previousButton}
+                {isVertical && step > 0 ? previousButton : !isVertical ? nextButton : null}
+            </div>
+        );
+    }
+
     getStepContent(stepIndex) {
         const {name, wineType, wineCategory, bottleType, wineFamily} = this.state;
         let cases = [];
@@ -151,36 +180,34 @@ class Add extends Component {
         return cases[stepIndex];
     }
 
-
     render() {
-        const {stepIndex} = this.state;
+        const {stepIndex, orientation} = this.state;
+        const isVertical = orientation === 'vertical';
         const contentStyle = {margin: '0 16px'};
+        const stepContent = this.getStepContent(stepIndex);
 
         return (
             <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-          <Stepper activeStep={stepIndex}>
-            {STEPS.map((step, index) => <Step key={index}>
-              <StepLabel>{step.label}</StepLabel>
-            </Step>)}
-          </Stepper>
-          <div style={contentStyle}>
-          <div>{this.getStepContent(stepIndex)}</div>
-          <div style={{marginTop: 12}}>
-            <FlatButton
-              label="Back"
-              disabled={stepIndex === 0}
-              onTouchTap={this.handlePrev}
-              style={{marginRight: 12}}
-            />
-            <RaisedButton
-              label={stepIndex === STEPS.length - 1 ? 'Sauvegarder' : 'Suivant'}
-              primary={true}
-              disabled={STEPS[stepIndex].disableNext(this.state, this.props)}
-              onTouchTap={this.handleNext}
-            />
-          </div>
-          </div>
-        </div>
+                <Stepper activeStep={stepIndex} orientation={orientation} >
+                    {STEPS.map((step, index) => <Step key={index}>
+                        <StepLabel>{step.label}</StepLabel>
+                        { isVertical ?
+                            <StepContent className="fix-me">
+                              {stepContent}
+                              {this.renderStepActions(stepIndex)}
+                            </StepContent> : <span style={{display: 'none'}}/>
+                        }
+                    </Step>)}
+                </Stepper>
+                {
+                    !isVertical &&
+                    <div style={contentStyle}>
+                        {stepContent}
+                        {this.renderStepActions(stepIndex)}
+                    </div>
+                }
+
+            </div>
         );
     }
 }

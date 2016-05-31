@@ -68,7 +68,7 @@ export default class AutoComplete extends Component {
               }
               {
                 !!filteredItems.length &&
-                    <Menu disableAutoFocus={true}>
+                    <Menu disableAutoFocus={true} style={{overflowY: 'scroll', maxHeight: '250px', background: 'rgba(158, 158, 158, 0.3)'}}>
                         {filteredItems.map((item, index) => <MenuItem
                             key={index}
                             children={displayContentItem(item)}

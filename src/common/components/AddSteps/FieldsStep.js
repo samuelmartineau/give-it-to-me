@@ -10,7 +10,7 @@ import {WineFamilies} from '../../constants/WineFamilies';
 const wineFamilies = Object.keys(WineFamilies).map(id => {return {
     id: id,
     name: WineFamilies[id],
-    searchKey: noTilde(WineFamilies[id].toLowerCase()).replace('-', ' ')
+    searchKey: noTilde(WineFamilies[id].toLowerCase()).replace(/-/g, ' ')
 }});
 
 const FieldsStep = ({name, onNameChange, onWineFamilyChange, defaultWineFamily}) => {
@@ -22,6 +22,7 @@ const FieldsStep = ({name, onNameChange, onWineFamilyChange, defaultWineFamily})
               onChange={onNameChange}
             />
             <AutoComplete
+                debounced = {true}
                 defaultItem = {defaultWineFamily}
                 displayContentItem = {(item) => <div>{item.name}</div>}
                 onItemClicked = {onWineFamilyChange}
@@ -31,7 +32,7 @@ const FieldsStep = ({name, onNameChange, onWineFamilyChange, defaultWineFamily})
                 filter = { (searchEntry) => {
                     if (searchEntry.length > 2) {
                         const searchFormated = noTilde(searchEntry.toLowerCase())
-                            .replace('-', ' ')
+                            .replace(/-/g, ' ')
                             .trim()
                         return fuzzy
                                 .filter(searchFormated, wineFamilies, {extract: el => el.searchKey})
@@ -40,6 +41,7 @@ const FieldsStep = ({name, onNameChange, onWineFamilyChange, defaultWineFamily})
                     return [];
                 }}
             />
+            <div style={{marginBottom: '100px'}}/>
         </div>
     );
 };

@@ -12,3 +12,7 @@ export const noTilde = (s) => {
     }
     return s.replace (/[\u0300-\u036F]/g, '');
 };
+
+export const isLargeScreen = () => {
+    return window.innerWidth >= LARGE_SCREEN_MIN;
+};
