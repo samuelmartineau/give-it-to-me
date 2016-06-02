@@ -5,19 +5,34 @@ winston.emitErrs = true;
 let logger = new winston.Logger({
     transports: [
         new winston.transports.File({
+            name: 'info-to-file',
             level: 'info',
-            filename: config.LOGGER_FILE_PATH,
-            handleExceptions: true,
-            json: true,
-            maxsize: 5242880, //5MB
-            maxFiles: 5,
-            colorize: false
+            prettyPrint: true,
+            filename: config.LOGGER_INFO_FILE_PATH,
+            maxsize: 5242880
         }),
         new winston.transports.Console({
-            level: 'debug',
+            name: 'info-to-terminal',
+            level: 'info',
+            prettyPrint: true,
+            colorize: true,
+            silent: false,
+            timestamp: false
+        }),
+        new winston.transports.Console({
+            name: 'error-to-terminal',
+            level: 'error',
             handleExceptions: true,
-            json: false,
-            colorize: true
+            prettyPrint: true,
+            colorize: true,
+            silent: false,
+            timestamp: false
+        }),
+        new winston.transports.File({
+            name: 'error-to-file',
+            level: 'error',
+            filename: config.LOGGER_ERROR_FILE_PATH,
+            handleExceptions: true
         })
     ],
     exitOnError: false

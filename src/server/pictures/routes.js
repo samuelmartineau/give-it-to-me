@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 export default function (router) {
-
     router.post(serverConstants.ROUTES.PICTURE, upload.single(serverConstants.PICTURE_UPLOAD.FILE_NAME), (req, res) => {
         let thumbnailFile;
         const fileExtension = path.extname(req.file.originalname);

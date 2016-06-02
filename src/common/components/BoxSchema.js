@@ -61,7 +61,7 @@ export default class BoxSchema extends Component {
             });
 
         bottles.forEach(bottle => {
-            drawBottle(svgContainer, WINE_TYPES[bottle.type].color, boxId, bottle.cell, true);
+            drawBottle(svgContainer, WINE_TYPES[bottle.wineType].color, boxId, bottle.cell, true);
         });
 
         selectedCells[boxId].forEach(cell => {

@@ -38,8 +38,8 @@ const STEPS = [{
     }
 }];
 
-class Add extends ResizingComponent {
-    state = {
+function getInitialState() {
+    return {
       stepIndex: 0,
       name: '',
       wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
@@ -47,6 +47,10 @@ class Add extends ResizingComponent {
       bottleType: BottleTypes.DEFAULT_TYPE.toString(),
       orientation: isLargeScreen() ? 'horizontal' : 'vertical'
     }
+}
+
+class Add extends ResizingComponent {
+    state = getInitialState()
 
     updateLayout() {
         this.setState({
@@ -56,12 +60,12 @@ class Add extends ResizingComponent {
 
     handleAddWine() {
         const { dispatch, selectedCells, blur, tmpPicture, tmpThumbnail } = this.props;
-        const {name, bottleType, wineCategory, wineFamily, wineType} = this.props;
+        const {name, bottleType, wineCategory, wineFamily, wineType} = this.state;
         const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
             const cellsList = selectedCells[boxId];
             cellsList.forEach(cellId => {
                 bottles.push({
-                    box: boxId,
+                    box: parseInt(boxId),
                     cell: cellId
                 })
             });
@@ -79,9 +83,7 @@ class Add extends ResizingComponent {
             tmpThumbnail: tmpThumbnail
          };
         dispatch(actions.createWine(wine));
-        this.setState({
-            name: ''
-        });
+        this.setState({...getInitialState(), wineFamily: ''});
     }
 
     handleWineType(wineType) {
@@ -191,7 +193,6 @@ class Add extends ResizingComponent {
     render() {
         const {stepIndex, orientation} = this.state;
         const isVertical = orientation === 'vertical';
-        const contentStyle = {margin: '0 16px'};
         const stepContent = this.getStepContent(stepIndex);
 
         return (
@@ -209,7 +210,7 @@ class Add extends ResizingComponent {
                 </Stepper>
                 {
                     !isVertical &&
-                    <div style={contentStyle}>
+                    <div style={{margin: '0 16px'}}>
                         {stepContent}
                         {this.renderStepActions(stepIndex)}
                     </div>

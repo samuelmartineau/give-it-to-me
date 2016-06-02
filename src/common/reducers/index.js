@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux';
-import {reducer as formReducer} from 'redux-form';
 
 import cellar from './cellar';
 import upload from './upload';
+import notification from './notification';
 
 const rootReducer = combineReducers({
   cellar,
   upload,
-  formReducer
+  notification
 });
 
 export default rootReducer;

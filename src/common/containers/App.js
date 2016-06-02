@@ -7,6 +7,7 @@ import Cookies from 'cookies-js';
 
 import {isLargeScreen} from '../constants/global';
 import ResizingComponent from '../components/ResizingComponent';
+import Notification from './Notification';
 import customTheme from '../styles/theme';
 import {version} from '../styles/version';
 import {title} from '../styles/pageTitle';
@@ -146,6 +147,7 @@ export default class App extends ResizingComponent {
                 <div style={prepareStyles(styles.content)}>
                     <h1 style={title}>{pageTitle}</h1>
                     {children}
+                    <Notification />
                 </div>
               </section>
             </div>

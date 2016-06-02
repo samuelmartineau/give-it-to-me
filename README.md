@@ -22,13 +22,7 @@ First install either [GraphicsMagick](http://www.graphicsmagick.org/) or [ImageM
 ### Docker
 
 ```
-docker run -p 27017:27017 --restart=always --name gitm-mongo -d mongo --auth
-
-docker exec -it gitm-mongo mongo admin
-db.createUser({ user: 'root', pwd: 'root', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] });
-db.auth('root', 'root')
-use gitm
-db.createUser({ user: 'Vin', pwd: 'Diesel', roles: [ { role: "readWrite", db: "gitm" } ] });
+docker run --restart=always --name some-rethink -d rethinkdb
 ```
 
 ### Development

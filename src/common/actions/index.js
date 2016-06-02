@@ -96,3 +96,11 @@ export function selectNextBox() {
         type: types.SELECT_NEXT_BOX
     };
 }
+
+
+export function setNotification(state) {
+  return {
+    type: types.SET_NOTIFICATION,
+    state
+  };
+}
