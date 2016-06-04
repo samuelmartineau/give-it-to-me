@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import SocketIo from 'socket.io';
+import fs from 'fs';
 import {Server} from 'http';
 import express from 'express';
 import path from 'path';
@@ -19,11 +20,20 @@ import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
 import routes from '../common/routes';
 import pictureRoutes from './pictures/routes';
-import {getCellar, onCellarChange} from './cellar/service';
+import {getCellar, onCellarChange} from './cellar/services';
 import handleAction from './cellar/handleAction';
 import './utils/db';
 
-global.navigator = { navigator: 'all' };
+if (!fs.existsSync(config.UPLOADS_PERM)){
+    fs.mkdirSync(config.UPLOADS_PERM);
+}
+
+Object.defineProperties(global, {
+            navigator: {
+                writable: false,
+                userAgent: 'all'
+            }
+        });
 
 // API REST
 // =============================================================================
@@ -33,7 +43,9 @@ app.use(skip(serverConstants.API_BASE_URL, cookieParser()));
 app.use(skip(serverConstants.API_BASE_URL, bodyParser.urlencoded({extended: true})));
 app.use(skip(serverConstants.API_BASE_URL, deviceInfos({timeout: 1000})));
 app.use(skip(serverConstants.API_BASE_URL, fakeWindow()));
-app.use('/', express.static(path.join(__dirname, '..', '..', 'dist')));
+app.use('/', express.static(path.join(__dirname, '..', '..', config.DIST)));
+app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_PERM)));
+app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_TMP_DIRECTORY)));
 const serverHttp = Server(app);
 serverHttp.listen(config.PORT, () => logger.info(`Server started on port ${config.PORT}`));
 
@@ -92,7 +104,7 @@ io.on('connection', (socket) => {
                 acknowledgements({
                     type: action.type,
                     success: false,
-                    error: error
+                    ...error
                 });
             });
     });

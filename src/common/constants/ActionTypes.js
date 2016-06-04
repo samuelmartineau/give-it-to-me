@@ -8,3 +8,5 @@ export const UNSELECT_BOX = 'UNSELECT_BOX';
 export const SELECT_CELL = 'SELECT_CELL';
 export const UNSELECT_CELL = 'UNSELECT_CELL';
 export const SELECT_NEXT_BOX = 'SELECT_NEXT_BOX';
+export const RESET_UPLOAD = 'RESET_UPLOAD';
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';

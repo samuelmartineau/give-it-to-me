@@ -69,7 +69,12 @@ export const getCellar = () => {
         .then(wines => {
             return computeCellar(wines);
         })
-        .catch(error => {logger.error('Error getting Cellar', error)});
+        .catch(error => {
+            logger.error('Error getting Cellar', error);
+            return Promise.reject({
+                message: 'Probleme lors de l\'ajout dans la base de données'
+            });
+        });
 }
 
 export const addWine = (wine) => {
@@ -77,10 +82,19 @@ export const addWine = (wine) => {
         .then(conn => {
             return r
                 .table(config.DB.tables.WINE)
-                .insert(wine)
-                .run(conn);
+                .insert({...wine, timestamp: new Date()})
+                .run(conn)
+                .then(() => ({
+                    message: 'Vin ajouté avec succés'
+                }));
         })
-        .catch(error => {logger.error('Error adding Wine', error)});
+
+        .catch(error => {
+            logger.error('Error adding Wine', error);
+            return Promise.reject({
+                message: 'Probleme lors de l\'ajout dans la base de données'
+            });
+        });
 }
 
 export const onCellarChange = (cb) => {

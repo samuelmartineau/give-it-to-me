@@ -59,7 +59,8 @@ class Add extends ResizingComponent {
     }
 
     handleAddWine() {
-        const { dispatch, selectedCells, blur, tmpPicture, tmpThumbnail } = this.props;
+        const { dispatch, selectedCells } = this.props;
+        const { blur, thumbnailFileName, pictureFileName } = this.props.upload;
         const {name, bottleType, wineCategory, wineFamily, wineType} = this.state;
         const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
             const cellsList = selectedCells[boxId];
@@ -73,45 +74,45 @@ class Add extends ResizingComponent {
         }, []);
         const wine = {
             name: this.state.name,
-            bottles: wineBottles,
-            bottleType: bottleType,
-            wineCategory: wineCategory,
             wineFamily: wineFamily.id,
-            wineType: wineType,
-            blur: blur,
-            tmpPicture: tmpPicture,
-            tmpThumbnail: tmpThumbnail
+            bottles: wineBottles,
+            bottleType,
+            wineCategory,
+            wineType,
+            blur,
+            thumbnailFileName,
+            pictureFileName
          };
         dispatch(actions.createWine(wine));
         this.setState({...getInitialState(), wineFamily: ''});
     }
 
-    handleWineType(wineType) {
+    handleWineType = (wineType) => {
         this.setState({
             wineType: wineType.value,
             wineCategory: WINE_TYPES[wineType.value].categories[0]
         });
     }
 
-    handleWineCategory(wineCategory) {
+    handleWineCategory = (wineCategory) => {
         this.setState({
             wineCategory: wineCategory.value
         });
     }
 
-    handleBottleType(bottleType) {
+    handleBottleType = (bottleType) => {
         this.setState({
             bottleType: bottleType.value
         });
     }
 
-    handleNameChange(event) {
+    handleNameChange = (event) => {
         this.setState({
             name: event.target.value
         });
     }
 
-    handleWineFamilyChange(wineFamily) {
+    handleWineFamilyChange = (wineFamily) => {
         this.setState({
             wineFamily: wineFamily
         });
@@ -135,7 +136,7 @@ class Add extends ResizingComponent {
         }
     }
 
-    renderStepActions(step) {
+    renderStepActions = (step) => {
         const {stepIndex, orientation} = this.state;
         const isVertical = orientation === 'vertical';
         const nextButton = <RaisedButton
@@ -159,22 +160,22 @@ class Add extends ResizingComponent {
         );
     }
 
-    getStepContent(stepIndex) {
+    getStepContent = (stepIndex) => {
         const {name, wineType, wineCategory, bottleType, wineFamily} = this.state;
         let cases = [];
         cases.push(
             <FieldsStep
             name={name}
-            onNameChange={this.handleNameChange.bind(this)}
-            onWineFamilyChange={this.handleWineFamilyChange.bind(this)}
+            onNameChange={this.handleNameChange}
+            onWineFamilyChange={this.handleWineFamilyChange}
             defaultWineFamily={wineFamily}
             />
         );
         cases.push(
             <TypesStep
-            handleWineType={this.handleWineType.bind(this)}
-            handleWineCategory={this.handleWineCategory.bind(this)}
-            handleBottleType={this.handleBottleType.bind(this)}
+            handleWineType={this.handleWineType}
+            handleWineCategory={this.handleWineCategory}
+            handleBottleType={this.handleBottleType}
             wineType={wineType}
             wineCategory={wineCategory}
             bottleType={bottleType}

@@ -1,10 +1,9 @@
-import { SET_NOTIFICATION } from '../constants/ActionTypes';
+import { SET_NOTIFICATION, HIDE_NOTIFICATION } from '../constants/ActionTypes';
 
 function doAction(state, action) {
     const actions = {};
-    actions[SET_NOTIFICATION] = (state, action) => {
-        return {...action.state, open: true};
-    };
+    actions[SET_NOTIFICATION] = (state, action) => ({...action.state, open: true});
+    actions[HIDE_NOTIFICATION] = () => ({open: false});
 
     if (typeof actions[action.type] !== 'function') {
         return state;
@@ -13,6 +12,6 @@ function doAction(state, action) {
     return actions[action.type](state, action);
 }
 
-export default function(state = {}, action) {
+export default (state = {}, action) => {
     return doAction(state, action);
 }

@@ -97,10 +97,21 @@ export function selectNextBox() {
     };
 }
 
-
 export function setNotification(state) {
   return {
     type: types.SET_NOTIFICATION,
     state
+  };
+}
+
+export function hideNotification() {
+  return {
+    type: types.HIDE_NOTIFICATION
+  };
+}
+
+export function resetUpload() {
+  return {
+    type: types.RESET_UPLOAD
   };
 }

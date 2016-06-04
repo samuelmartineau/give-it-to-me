@@ -7,15 +7,15 @@ import * as serverConstants from '../../common/constants/server';
 import {generateThumbnail, generateBlur} from './services';
 
 const storage = multer.diskStorage({
-    destination: path.join(config.DIST, config.UPLOADS_TMP_DIRECTORY),
+    destination: path.join(config.UPLOADS_TMP_DIRECTORY),
     filename: function(req, file, cb) {
         cb(null, file.originalname);
     }
-})
+});
 
 const upload = multer({ storage: storage });
 
-export default function (router) {
+export default router => {
     router.post(serverConstants.ROUTES.PICTURE, upload.single(serverConstants.PICTURE_UPLOAD.FILE_NAME), (req, res) => {
         let thumbnailFile;
         const fileExtension = path.extname(req.file.originalname);
@@ -25,13 +25,11 @@ export default function (router) {
                 return generateBlur(thumbnail.path);
             })
             .then(blur => {
-                setTimeout((() => {
-                    res.json({
-                        tmpThumbnail: path.join(config.UPLOADS_TMP_DIRECTORY, thumbnailFile),
-                        tmpPicture: path.join(config.UPLOADS_TMP_DIRECTORY, [req.file.originalname, fileExtension].join('')),
-                        blur: blur
-                    });
-                }), 1000);
+                res.json({
+                    thumbnailFileName: thumbnailFile,
+                    pictureFileName: req.file.originalname,
+                    blur: blur
+                });
             })
             .catch(error => {
                 logger.error('error during picture processing', error);

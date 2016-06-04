@@ -15,6 +15,7 @@ module.exports = {
     LOGGER_INFO_FILE_PATH: 'info-logs.log',
     LOGGER_ERROR_FILE_PATH: 'error-logs.log',
     DIST: 'dist',
+    UPLOADS_PERM: 'uploads',
     UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
     BUNDLE_FILENAME: 'bundle.js'
 };

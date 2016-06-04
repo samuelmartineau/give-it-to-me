@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 
+import * as actions from '../actions';
+
 class Notification extends Component {
 
     state = {
@@ -9,18 +11,21 @@ class Notification extends Component {
     }
 
     handleRequestClose() {
-        // todo dispatch notification reset
+        const {dispatch} = this.props;
+        dispatch(actions.hideNotification());
     }
 
     render() {
         const {success, message = '', open = false} = this.props;
+        const backgroundColor = success ? 'green' : 'red';
 
         return (
             <Snackbar
+              bodyStyle={{backgroundColor}}
               open={open}
               message={message}
-              autoHideDuration={4000}
-              onRequestClose={this.handleRequestClose}
+              autoHideDuration={6000}
+              onRequestClose={this.handleRequestClose.bind(this)}
             />
         );
     }
