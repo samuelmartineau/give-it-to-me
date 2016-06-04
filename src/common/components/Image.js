@@ -34,11 +34,9 @@ export default class Image extends Component {
         const windowHeight = window.innerHeight;
         if(rect.top <= windowHeight) {
             window.removeEventListener('scroll', this.scrollFunction);
-            setTimeout((() => {
-                this.setState({
-                  url: this.props.src
-                });
-            }), 1000);
+            this.setState({
+              url: this.props.src
+            });
         }
     }
 

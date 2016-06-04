@@ -6,6 +6,7 @@ import { Step, Stepper, StepLabel, StepContent, } from 'material-ui/Stepper';
 
 import {isLargeScreen} from '../constants/global';
 import * as actions from '../actions';
+import {ADD_WINE} from '../constants/ActionTypes';
 import {WINE_TYPES, WINE_CATEGORIES, DEFAULT_TYPE, DEFAULT_CATEGORY} from '../constants/WineTypes';
 import * as BottleTypes from '../constants/BottleTypes';
 import FieldsStep from '../components/AddSteps/FieldsStep';
@@ -52,6 +53,12 @@ function getInitialState() {
 class Add extends ResizingComponent {
     state = getInitialState()
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.notification && nextProps.notification.success && nextProps.notification.type === ADD_WINE) {
+            this.setState({...getInitialState(), wineFamily: ''});
+        }
+    }
+
     updateLayout() {
         this.setState({
             orientation: isLargeScreen() ? 'horizontal' : 'vertical'
@@ -84,7 +91,6 @@ class Add extends ResizingComponent {
             pictureFileName
          };
         dispatch(actions.createWine(wine));
-        this.setState({...getInitialState(), wineFamily: ''});
     }
 
     handleWineType = (wineType) => {
@@ -224,5 +230,6 @@ class Add extends ResizingComponent {
 
 export default connect(state => ({
     ...state.cellar,
-    upload: state.upload
+    upload: state.upload,
+    notification: state.notification
 }))(Add);
