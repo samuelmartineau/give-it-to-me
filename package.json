@@ -77,7 +77,6 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "3.3.1",
     "redux-thunk": "^2.0.1",
-    "reqlite": "^2.2.9",
     "rethinkdb": "^2.3.2",
     "socket.io": "1.4.5",
     "socket.io-client": "1.4.5",
