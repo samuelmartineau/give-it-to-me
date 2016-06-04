@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import debounce from 'lodash.debounce';
+import {debounce} from 'lodash';
 
 const DEFAULT_DEBOUNCE_WAIT = 100;
 
