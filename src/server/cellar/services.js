@@ -6,7 +6,7 @@ import { CELLAR_SCHEMA } from '../../common/constants/Cellar';
 import { removeItem } from '../../common/constants/global';
 import config from '../../../config';
 
-function computeCellar(wines) {
+export const computeCellar = (wines) => {
     let boxId = 0,
         availableCells = {},
         selectedCells = {},

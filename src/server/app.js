@@ -20,7 +20,7 @@ import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
 import routes from '../common/routes';
 import pictureRoutes from './pictures/routes';
-import {getCellar, onCellarChange} from './cellar/services';
+import {getCellar, onCellarChange, computeCellar} from './cellar/services';
 import handleAction from './cellar/handleAction';
 import './utils/db';
 
@@ -28,12 +28,10 @@ if (!fs.existsSync(config.UPLOADS_PERM)){
     fs.mkdirSync(config.UPLOADS_PERM);
 }
 
-Object.defineProperties(global, {
-            navigator: {
-                writable: false,
-                userAgent: 'all'
-            }
-        });
+
+global.navigator = {
+    userAgent: 'all'
+};
 
 // API REST
 // =============================================================================
@@ -63,8 +61,21 @@ app.get('/*', (req, res) => {
             res.status(404).send('Not found');
         } else {
 
-            getCellar().then(cellar => {
-                const store = createStore(reducers, {cellar});
+        let finalState;
+            getCellar()
+                .then(cellar => {
+                    finalState = {cellar};
+            }).catch(() => {
+                finalState = {
+                    cellar: computeCellar([]),
+                    notification: {
+                        success: false,
+                        message: 'Erreur de connection avec la base de données',
+                        open: true
+                    }
+                };
+            }).finally(() => {
+                const store = createStore(reducers, finalState);
                 const InitialView = (
                     < Provider className = "root" store={store} >
                         < div >
@@ -73,10 +84,9 @@ app.get('/*', (req, res) => {
                     </Provider>
                 );
 
-                const finalState = {cellar};
                 const html = renderToString(InitialView);
                 res.status(200).end(renderFullPage(html, finalState, config.BUNDLE_FILENAME));
-            });
+            })
         }
     });
 });
@@ -110,3 +120,7 @@ io.on('connection', (socket) => {
     });
 });
 // =============================================================================
+
+process.on('unhandledRejection', function(reason, p){
+    logger.error(`Possibly Unhandled Rejection at: Promise ${p} reason: ${reason}`);
+});

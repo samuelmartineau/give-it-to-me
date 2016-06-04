@@ -1,4 +1,4 @@
-import { SET_NOTIFICATION, HIDE_NOTIFICATION } from '../constants/ActionTypes';
+import { SET_STATE, SET_NOTIFICATION, HIDE_NOTIFICATION } from '../constants/ActionTypes';
 
 function doAction(state, action) {
     const actions = {};

@@ -4,6 +4,7 @@ module.exports = {
         password: process.env.PASSWORD,
         host: process.env.HOST,
         database: process.env.DATABASE,
+        timeout: 5,
         tables: {
             WINE: 'wine',
             TRANSACTION: 'transaction'

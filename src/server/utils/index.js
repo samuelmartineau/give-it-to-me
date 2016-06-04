@@ -36,6 +36,7 @@ export function skip(path, middleware) {
 export function fakeWindow() {
     return (req, res, next) => {
         global.window = {
+            writable: false,
             __CURRENT_VERSION__: version,
             innerWidth: req.headers.WS_WIDTH, // comes from device-infos middleware
             addEventListener: () => {}
