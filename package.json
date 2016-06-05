@@ -30,6 +30,7 @@
   "devDependencies": {
     "babel-cli": "6.5.1",
     "babel-loader": "6.2.2",
+    "chateau": "^0.3.14",
     "clean-webpack-plugin": "^0.1.9",
     "copy-webpack-plugin": "^3.0.1",
     "eslint-plugin-react": "^5.0.1",

@@ -7,10 +7,7 @@ class Welcome extends Component {
     const {wines} = this.props;
     return (
       <Paper zDepth={1}>
-        <div>Home sam</div>
-        <ul>
-            {wines.map((wine, index) => <li key={index}>{wine.name}</li>)}
-        </ul>
+        {wines.length} bouteilles
       </Paper>
     );
   }

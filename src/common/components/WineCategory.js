@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import tinycolor from 'tinycolor2';
 
 import * as wineTypeStyle from '../styles/wineType';
 

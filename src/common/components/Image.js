@@ -41,9 +41,10 @@ export default class Image extends Component {
     }
 
     render() {
-        const { width, height } = this.props;
+        const { width, height, style } = this.props;
         return (
           <img
+            style={style}
             width={width}
             height={height}
             src={this.state.url}

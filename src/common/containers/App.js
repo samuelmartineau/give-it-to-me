@@ -17,7 +17,7 @@ const SelectableList = MakeSelectable(List);
 const menuItems = [
     {primaryText: 'Home', value: '/', title: 'Dashboard'},
     {primaryText: 'Ajouter', value: '/add', title: 'Ajouter une bouteille'},
-    {primaryText: 'Chercher', value: '/search', title: 'Retrouver une bouteille'},
+    {primaryText: 'Chercher', value: '/search', title: 'Trouver une bouteille'},
     {primaryText: 'Supprimer', value: '/remove', title: 'Supprimer une bouteille'},
     {primaryText: 'Panier', value: '/basket', title: 'Panier'}
 ];

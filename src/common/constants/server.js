@@ -5,8 +5,8 @@ export const ROUTES = {
 export const PICTURE_UPLOAD = {
     FILE_NAME: 'winePicture',
     THUMBNAIL: {
-        WIDTH: 100,
-        HEIGHT: 200,
+        WIDTH: 300,
+        HEIGHT: 400,
         QUALITY: 30
     }
 };
