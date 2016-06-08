@@ -115,3 +115,13 @@ export function resetUpload() {
     type: types.RESET_UPLOAD
   };
 }
+
+export function addToBasket(wineId) {
+    return {
+        meta: {
+            remote: true
+        },
+        type: types.ADD_TO_BASKET,
+        data: wineId
+    };
+}

@@ -1,7 +1,7 @@
 import r from 'rethinkdb';
+
 import {getConnection} from '../utils/db';
 import logger from '../utils/logger';
-
 import { CELLAR_SCHEMA } from '../../common/constants/Cellar';
 import { removeItem } from '../../common/constants/global';
 import config from '../../../config';
@@ -72,7 +72,7 @@ export const getCellar = () => {
         .catch(error => {
             logger.error('Error getting Cellar', error);
             return Promise.reject({
-                message: 'Probleme lors de l\'ajout dans la base de données'
+                message: 'Probleme lors de la récupération des vins dans la base de données'
             });
         });
 }

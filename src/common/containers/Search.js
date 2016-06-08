@@ -11,7 +11,7 @@ class Search extends Component {
       <div>
         <div> TODO FILTER </div>
         <div style={{textAlign: 'center'}}>
-            {wines.map((wine, index) => <WineCard key={index} wine={wine} />)}
+            {wines.map((wine, index) => <WineCard {...this.props} key={index} wine={wine} />)}
         </div>
       </div>
     );

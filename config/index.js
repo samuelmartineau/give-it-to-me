@@ -7,6 +7,7 @@ module.exports = {
         timeout: 5,
         tables: {
             WINE: 'wine',
+            BASKET: 'basket',
             TRANSACTION: 'transaction'
         }
     },

@@ -21,7 +21,8 @@ import {renderFullPage, fakeWindow, skip} from './utils';
 import routes from '../common/routes';
 import pictureRoutes from './pictures/routes';
 import {getCellar, onCellarChange, computeCellar} from './cellar/services';
-import handleAction from './cellar/handleAction';
+import {getBasket, onBasketChange} from './basket/services';
+import handleActions from './handleActions';
 import './utils/db';
 
 if (!fs.existsSync(config.UPLOADS_PERM)){
@@ -51,6 +52,20 @@ const pictureRouter = express.Router(() => {    });
 pictureRoutes(pictureRouter);
 app.use(serverConstants.API_BASE_URL, pictureRouter);
 
+function sendResult(finalState, reducers, renderProps, res) {
+    const store = createStore(reducers, finalState);
+    const InitialView = (
+        < Provider className = "root" store={store} >
+            < div >
+                < RouterContext {...renderProps} />
+            </div>
+        </Provider>
+    );
+
+    const html = renderToString(InitialView);
+    res.status(200).end(renderFullPage(html, finalState, config.BUNDLE_FILENAME));
+}
+
 app.get('/*', (req, res) => {
     match({ routes, location: req.url}, (err, redirectLocation, renderProps) => {
         if (redirectLocation) {
@@ -60,33 +75,26 @@ app.get('/*', (req, res) => {
         } else if (renderProps == null) {
             res.status(404).send('Not found');
         } else {
-
-        let finalState;
-            getCellar()
-                .then(cellar => {
-                    finalState = {cellar};
+            let finalState;
+            Promise.all([getCellar(), getBasket()])
+                .then(result => {
+                    finalState = {
+                        cellar: result[0],
+                        basket: result[1],
+                    };
+                    sendResult(finalState, reducers, renderProps, res);
             }).catch(() => {
                 finalState = {
                     cellar: computeCellar([]),
+                    basket: [],
                     notification: {
                         success: false,
                         message: 'Erreur de connection avec la base de données',
                         open: true
                     }
                 };
-            }).finally(() => {
-                const store = createStore(reducers, finalState);
-                const InitialView = (
-                    < Provider className = "root" store={store} >
-                        < div >
-                            < RouterContext {...renderProps} />
-                        </div>
-                    </Provider>
-                );
-
-                const html = renderToString(InitialView);
-                res.status(200).end(renderFullPage(html, finalState, config.BUNDLE_FILENAME));
-            })
+                sendResult(finalState, reducers, renderProps, res);
+            });
         }
     });
 });
@@ -99,10 +107,13 @@ const io = new SocketIo(serverHttp);
 onCellarChange(cellar => {
     io.emit('state', {cellar});
 });
+onBasketChange(basket => {
+    io.emit('state', {basket});
+});
 
 io.on('connection', (socket) => {
     socket.on('action', (action, acknowledgements) => {
-        handleAction(action)
+        handleActions(action)
             .then((message) => {
                 acknowledgements({
                     type: action.type,

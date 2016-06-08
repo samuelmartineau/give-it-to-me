@@ -38,7 +38,7 @@ export default class CellsSelector extends Component {
                 </SelectField>
                 {
                     Object.keys(selectedCells).length > 1
-                    ? <FloatingActionButton style={cellSelectorStyle.cellSelectorCloseButton} mini={true} secondary={true} onClick={this.unselectBox.bind(this)}>
+                    ? <FloatingActionButton style={cellSelectorStyle.cellSelectorCloseButton} mini={true} secondary={true} onTouchTap={this.unselectBox.bind(this)}>
                         <ContentClose />
                     </FloatingActionButton>
                     : null
