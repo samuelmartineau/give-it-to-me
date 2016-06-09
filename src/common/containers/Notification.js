@@ -17,7 +17,7 @@ class Notification extends Component {
 
     render() {
         const {success, message = '', open = false} = this.props;
-        const backgroundColor = success ? 'green' : 'red';
+        const backgroundColor = this.props.hasOwnProperty('success') ? open ? 'green' : 'red' : 'transparent';
 
         return (
             <Snackbar
