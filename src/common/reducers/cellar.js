@@ -1,4 +1,4 @@
-import { SET_STATE, SELECT_BOX, UNSELECT_BOX, SELECT_CELL, UNSELECT_CELL, SELECT_NEXT_BOX} from '../constants/ActionTypes';
+import { SET_CELLAR, SELECT_BOX, UNSELECT_BOX, SELECT_CELL, UNSELECT_CELL, SELECT_NEXT_BOX} from '../constants/ActionTypes';
 import { removeItem } from '../constants/global';
 
 function setState(state, newState) {
@@ -95,7 +95,7 @@ function selectNextBox(state) {
 
 function doAction(state, action) {
     const actions = {};
-    actions[SET_STATE] = () => setState(state, action.state.cellar);
+    actions[SET_CELLAR] = () => setState(state, action.state);
     actions[SELECT_BOX] = () => selectBox(state, action.boxId);
     actions[UNSELECT_BOX] = () => unselectBox(state, action.boxId);
     actions[SELECT_CELL] = () => selectCell(state, action.boxId, action.cellId);

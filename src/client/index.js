@@ -24,8 +24,8 @@ const store = configureStore(initialState, socket);
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-socket.on('state', state => {
-    store.dispatch(setState(state))
+socket.on('state', data => {
+    store.dispatch(setState(data.action, data.state))
 });
 
 ReactDOM.render(

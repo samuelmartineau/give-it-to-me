@@ -1,8 +1,8 @@
-import { SET_STATE } from '../constants/ActionTypes';
+import { SET_BASKET } from '../constants/ActionTypes';
 
 function doAction(state, action) {
     const actions = {};
-    actions[SET_STATE] = () => [...action.state.basket];
+    actions[SET_BASKET] = () => [...action.state];
 
     if (typeof actions[action.type] !== 'function') {
         return state;

@@ -3,9 +3,9 @@ import fetch from 'isomorphic-fetch';
 import * as serverConstants from '../constants/server';
 import * as types from '../constants/ActionTypes';
 
-export function setState(state) {
+export function setState(type, state) {
   return {
-    type: types.SET_STATE,
+    type: type,
     state
   };
 }

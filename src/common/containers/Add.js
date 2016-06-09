@@ -43,6 +43,7 @@ function getInitialState() {
     return {
       stepIndex: 0,
       name: '',
+      year: '',
       wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
       wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[DEFAULT_TYPE]].categories[DEFAULT_CATEGORY],
       bottleType: BottleTypes.DEFAULT_TYPE.toString(),
@@ -68,7 +69,7 @@ class Add extends ResizingComponent {
     handleAddWine() {
         const { dispatch, selectedCells } = this.props;
         const { blur, thumbnailFileName, pictureFileName } = this.props.upload;
-        const {name, bottleType, wineCategory, wineFamily, wineType} = this.state;
+        const {name, bottleType, wineCategory, wineFamily, wineType, year} = this.state;
         const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
             const cellsList = selectedCells[boxId];
             cellsList.forEach(cellId => {
@@ -83,6 +84,7 @@ class Add extends ResizingComponent {
             name: this.state.name,
             wineFamily: wineFamily.id,
             bottles: wineBottles,
+            year,
             bottleType,
             wineCategory,
             wineType,
@@ -115,6 +117,12 @@ class Add extends ResizingComponent {
     handleNameChange = (event) => {
         this.setState({
             name: event.target.value
+        });
+    }
+
+    handleYearChange = (event) => {
+        this.setState({
+            year: event.target.value
         });
     }
 
@@ -167,12 +175,14 @@ class Add extends ResizingComponent {
     }
 
     getStepContent = (stepIndex) => {
-        const {name, wineType, wineCategory, bottleType, wineFamily} = this.state;
+        const {name, year, wineType, wineCategory, bottleType, wineFamily} = this.state;
         let cases = [];
         cases.push(
             <FieldsStep
             name={name}
+            year={year}
             onNameChange={this.handleNameChange}
+            onYearChange={this.handleYearChange}
             onWineFamilyChange={this.handleWineFamilyChange}
             defaultWineFamily={wineFamily}
             />

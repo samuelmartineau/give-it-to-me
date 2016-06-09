@@ -1,4 +1,5 @@
-export const SET_STATE = 'SET_STATE';
+export const SET_CELLAR = 'SET_CELLAR';
+export const SET_BASKET = 'SET_BASKET';
 export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 export const UPLOAD_PICTURE = 'UPLOAD_PICTURE';
 export const RECEIVE_PICTURE_INFOS = 'RECEIVE_PICTURE_INFOS';

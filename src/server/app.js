@@ -15,6 +15,7 @@ import {createStore} from 'redux';
 
 import config from '../../config';
 import * as serverConstants from '../common/constants/server';
+import * as ActionTypes from '../common/constants/ActionTypes';
 import reducers from '../common/reducers';
 import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
@@ -104,10 +105,10 @@ app.get('/*', (req, res) => {
 const io = new SocketIo(serverHttp);
 
 onCellarChange(cellar => {
-    io.emit('state', {cellar});
+    io.emit('state', {action: ActionTypes.SET_CELLAR, state: cellar});
 });
 onBasketChange(basket => {
-    io.emit('state', {basket});
+    io.emit('state', {action: ActionTypes.SET_BASKET, state: basket});
 });
 
 io.on('connection', (socket) => {
