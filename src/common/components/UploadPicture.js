@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
 import CircularProgress from 'material-ui/CircularProgress';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentPhoto from 'material-ui/svg-icons/image/add-a-photo';
 
 import {uploadWinePicture} from '../actions';
 import {PICTURE_UPLOAD} from '../constants/server';
@@ -27,9 +29,15 @@ export default class UploadPicture extends Component {
         } else if (isUploading) {
             render = <CircularProgress />
         } else {
-            render = <Dropzone onDrop={::this.onDrop} multiple={false} accept="image/*">
-              <div>Try dropping some files here, or click to select files to upload.</div>
-            </Dropzone>
+            render = <Dropzone
+                style={{}}
+                onDrop={::this.onDrop}
+                multiple={false}
+                accept="image/*">
+                    <FloatingActionButton >
+                      <ContentPhoto />
+                    </FloatingActionButton>
+                </Dropzone>
         }
 
         return (
