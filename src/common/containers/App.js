@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { AppBar, MenuItem, List, ListItem, MakeSelectable} from 'material-ui';
+import { AppBar } from 'material-ui';
 import Drawer from 'material-ui/Drawer';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {spacing} from 'material-ui/styles';
@@ -11,16 +11,7 @@ import Notification from './Notification';
 import customTheme from '../styles/theme';
 import {version} from '../styles/version';
 import {title} from '../styles/pageTitle';
-
-const SelectableList = MakeSelectable(List);
-
-const menuItems = [
-    {primaryText: 'Home', value: '/', title: 'Dashboard'},
-    {primaryText: 'Ajouter', value: '/add', title: 'Ajouter une bouteille'},
-    {primaryText: 'Chercher', value: '/search', title: 'Trouver une bouteille'},
-    {primaryText: 'Supprimer', value: '/remove', title: 'Supprimer une bouteille'},
-    {primaryText: 'Panier', value: '/basket', title: 'Panier'}
-];
+import Menu, {menuItems} from './Menu';
 
 function getPageTitle(items, router) {
     const find = items.filter(item => {
@@ -105,7 +96,7 @@ export default class App extends ResizingComponent {
     }
     render() {
         const {navDrawerOpen, isLargeScreen} = this.state;
-        const { location, children} = this.props;
+        const { children} = this.props;
         const { prepareStyles } = this.state.muiTheme;
         const styles = this.getStyles();
         const pageTitle = getPageTitle(menuItems, this.context.router);
@@ -116,7 +107,7 @@ export default class App extends ResizingComponent {
             docked = true;
             showMenuIconButton = false;
         }
-
+        
         return(
             <div>
               <AppBar
@@ -133,12 +124,10 @@ export default class App extends ResizingComponent {
                 onRequestChange={open => this.setState({navDrawerOpen: open, mobileNav: !this.state.mobileNav})}
               >
                 <AppBar title="Menu" showMenuIconButton={false} />
-                <SelectableList
-                    value={location.pathname}
-                    onChange={this.handleRequestChangeList.bind(this)}
-                    >
-                  {menuItems.map((item, index) => <ListItem key={index} primaryText={item.primaryText} value={item.value} />)}
-                </SelectableList>
+                <Menu
+                    {...this.props}
+                    handleRequestChangeList={this.handleRequestChangeList.bind(this)}
+                />
                 <div style={version}>
                     {window.__CURRENT_VERSION__}
                 </div>

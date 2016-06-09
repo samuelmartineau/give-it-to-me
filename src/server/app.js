@@ -29,7 +29,6 @@ if (!fs.existsSync(config.UPLOADS_PERM)){
     fs.mkdirSync(config.UPLOADS_PERM);
 }
 
-
 global.navigator = {
     userAgent: 'all'
 };
