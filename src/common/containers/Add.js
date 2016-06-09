@@ -20,9 +20,10 @@ const STEPS = [{
     disableNext: (state) => {
         const {
             name,
-            wineFamily
+            wineFamily,
+            year
         } = state;
-        return !name || !wineFamily;
+        return !name || !wineFamily || !year;
     }
 }, {
     label: 'Type',
@@ -95,22 +96,22 @@ class Add extends ResizingComponent {
         dispatch(actions.createWine(wine));
     }
 
-    handleWineType = (wineType) => {
+    handleWineType = (event, wineType) => {
         this.setState({
-            wineType: wineType.value,
-            wineCategory: WINE_TYPES[wineType.value].categories[0]
+            wineType: wineType,
+            wineCategory: WINE_TYPES[wineType].categories[0]
         });
     }
 
-    handleWineCategory = (wineCategory) => {
+    handleWineCategory = (event, wineCategory) => {
         this.setState({
-            wineCategory: wineCategory.value
+            wineCategory: wineCategory
         });
     }
 
-    handleBottleType = (bottleType) => {
+    handleBottleType = (event, bottleType) => {
         this.setState({
-            bottleType: bottleType.value
+            bottleType: bottleType
         });
     }
 
@@ -189,12 +190,12 @@ class Add extends ResizingComponent {
         );
         cases.push(
             <TypesStep
-            handleWineType={this.handleWineType}
-            handleWineCategory={this.handleWineCategory}
-            handleBottleType={this.handleBottleType}
-            wineType={wineType}
-            wineCategory={wineCategory}
-            bottleType={bottleType}
+                handleWineType={this.handleWineType}
+                handleWineCategory={this.handleWineCategory}
+                handleBottleType={this.handleBottleType}
+                wineType={wineType}
+                wineCategory={wineCategory}
+                bottleType={bottleType}
             />
         );
         cases.push(

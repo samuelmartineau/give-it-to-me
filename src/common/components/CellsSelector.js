@@ -5,7 +5,6 @@ import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentClose from 'material-ui/svg-icons/navigation/close';
 
-import * as paperStyle from '../styles/paper';
 import * as actions from '../actions';
 import BoxSchema from './BoxSchema';
 import * as cellSelectorStyle from '../styles/cellSelector';

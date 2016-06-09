@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
     import fuzzy from 'fuzzy';
 
 import { TextField} from 'material-ui';
-import * as wineTypeStyle from '../../styles/wineType';
 import {noTilde} from '../../constants/global';
 import AutoComplete from '../AutoComplete';
 import {WineFamilies} from '../../constants/WineFamilies';

@@ -18,40 +18,31 @@ export const WINE_TYPES = {
 
 export const WINE_CATEGORIES = {
     REGULAR: {
-        label: 'normal',
-        image: '/textures/regular.jpg'
+        label: 'normal'
     },
     SPARKLING: {
-        label: 'effervescent',
-        image: '/textures/sparkling.jpg'
+        label: 'effervescent'
     },
     LIQUOROUS: {
-        label: 'liquoreux',
-        image: '/textures/liquorous.jpg'
+        label: 'liquoreux'
     },
     SOFT: {
-        label: 'moelleux',
-        image: '/textures/soft.jpg'
+        label: 'moelleux'
     },
     DRY: {
-        label: 'sec',
-        image: '/textures/dry.jpg'
+        label: 'sec'
     },
     PINK: {
-        label: 'rosé',
-        image: '/textures/pink.jpg'
+        label: 'rosé'
     },
     BRUT: {
-        label: 'brut',
-        image: '/textures/brut.jpg'
+        label: 'brut'
     },
     BLANC_DE_BLANCS: {
-        label: 'blanc de blancs',
-        image: '/textures/blanc_de_blancs.jpg'
+        label: 'blanc de blancs'
     },
     BLANC_DE_NOIRS: {
-        label: 'blanc de noirs',
-        image: '/textures/blanc_de_noirs.jpg'
+        label: 'blanc de noirs'
     }
 };
 
