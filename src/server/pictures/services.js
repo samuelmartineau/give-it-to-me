@@ -22,17 +22,21 @@ export const generateThumbnail = (sourcePath, extension) => {
                 .gravity('Center')
                 .crop(serverConstants.PICTURE_UPLOAD.THUMBNAIL.WIDTH, serverConstants.PICTURE_UPLOAD.THUMBNAIL.HEIGHT)
                 .quality(serverConstants.PICTURE_UPLOAD.THUMBNAIL.QUALITY)
-                .write(tmpFileName, (error) => {
+                .on('error', function(error) {
+                    logger.error(error);
+                    return reject('Erreur de paramètre avec l’image uploadée');
+                })
+                .write(tmpFileName, error => {
                     if (error) {
                         logger.error(error);
-                        return Promise.reject({message: 'Erreur lors de la génération de la miniature'});
+                        return reject({message: 'Erreur lors de la génération de la miniature'});
                     }
 
                     return resolve({
                         name: filename,
                         path: tmpFileName
                     });
-                });
+                })
         });
 }
 export const generateBlur = path => {
@@ -43,10 +47,14 @@ export const generateBlur = path => {
                 .toBuffer('GIF', (error, buffer) => {
                     if (error) {
                         logger.error(error);
-                        return Promise.reject({message: 'Erreur lors de la génération du flou'});
+                        return reject({message: 'Erreur lors de la génération du flou'});
                     }
 
                     return resolve(`data:image/gif;base64,${buffer.toString('base64')}`);
+                })
+                .on('error', function(error) {
+                    logger.error(error);
+                    return reject('Erreur de paramètre avec le flou');
                 });
         });
 }
