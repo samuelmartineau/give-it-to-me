@@ -52,14 +52,24 @@ export function uploadWinePicture(picture) {
 }
 
 export function createWine(wine) {
-    return {
-        meta: {
-            remote: true
-        },
-        type: types.ADD_WINE,
-        data: wine
+    return dispatch => {
+        return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE].join(''), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({...wine})
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(error => {
+            throw error;
+        });
     };
 }
+
 
 export function selectBox(boxId) {
     return {
@@ -114,16 +124,6 @@ export function resetUpload() {
   return {
     type: types.RESET_UPLOAD
   };
-}
-
-export function addToBasket(wineId) {
-    return {
-        meta: {
-            remote: true
-        },
-        type: types.ADD_TO_BASKET,
-        data: wineId
-    };
 }
 
 export function addToBasket(wineId) {

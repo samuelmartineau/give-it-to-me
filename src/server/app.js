@@ -20,9 +20,8 @@ import reducers from '../common/reducers';
 import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
 import routes from '../common/routes';
-import {getCellar, onCellarChange, computeCellar} from './cellar/services';
+import {getCellar, onCellarChange, computeCellar} from './wine/services';
 import {getBasket, onBasketChange} from './basket/services';
-import handleActions from './handleActions';
 import handleRoutes from './handleRoutes';
 import './utils/db';
 
@@ -109,26 +108,6 @@ onCellarChange(cellar => {
 });
 onBasketChange(basket => {
     io.emit('state', {action: ActionTypes.SET_BASKET, state: basket});
-});
-
-io.on('connection', (socket) => {
-    socket.on('action', (action, acknowledgements) => {
-        handleActions(action)
-            .then((message) => {
-                acknowledgements({
-                    type: action.type,
-                    success: true,
-                    ...message
-                });
-            })
-            .catch(error => {
-                acknowledgements({
-                    type: action.type,
-                    success: false,
-                    ...error
-                });
-            });
-    });
 });
 // =============================================================================
 
