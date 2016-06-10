@@ -38,6 +38,26 @@ export const addToBasket = (wineId) => {
         });
 }
 
+export const removeFromBasket = (basketId) => {
+    return getConnection
+        .then(conn => {
+            return r
+                .table(config.DB.tables.BASKET)
+                .get(basketId)
+                .delete()
+                .run(conn)
+                .then(() => ({
+                    message: 'Vin supprimé au panier avec succés'
+                }));
+        })
+        .catch(error => {
+            logger.error('Error removing Wine from basket', error);
+            return Promise.reject({
+                message: 'Probleme lors de la suppréssion du vin du panier dans la base de données'
+            });
+        });
+}
+
 export const onBasketChange = (cb) => {
     getConnection
         .then(conn => {

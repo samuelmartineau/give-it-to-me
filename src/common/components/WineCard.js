@@ -26,13 +26,17 @@ export default class WineCard extends Component {
         })
     }
 
-    onAddToBasket = () => {
-        const { dispatch, wine } = this.props;
-        dispatch(actions.addToBasket(wine.id));
+    handleBasket = () => {
+        const { dispatch, wine, basketWine} = this.props;
+        if (basketWine) {
+            dispatch(actions.removeFromBasket(basketWine.id));
+        } else {
+            dispatch(actions.addToBasket(wine.id));
+        }
     }
 
     render() {
-        const {wine} = this.props;
+        const {wine, basketWine} = this.props;
         const {open} = this.state;
         const wineColor = WINE_TYPES[wine.wineType];
         const cornerColor = tinycolor(wineColor.color).darken(20).toString();
@@ -95,9 +99,10 @@ export default class WineCard extends Component {
                      <div >
                         <Checkbox
                             style={{textAlign: 'initial'}}
+                            checked={basketWine ? true : false}
                             checkedIcon={<ActionFavorite />}
                             uncheckedIcon={<ActionFavoriteBorder/>}
-                            onTouchTap={this.onAddToBasket}
+                            onTouchTap={this.handleBasket}
                         />
                      </div>
                 </div>}
@@ -107,5 +112,6 @@ export default class WineCard extends Component {
 }
 
 WineCard.propTypes = {
-    wine: PropTypes.object.isRequired
+    wine: PropTypes.object.isRequired,
+    basketWine: PropTypes.object,
 };

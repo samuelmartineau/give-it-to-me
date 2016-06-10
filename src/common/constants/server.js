@@ -1,5 +1,7 @@
 export const ROUTES = {
-    PICTURE: '/picture'
+    PICTURE: '/picture',
+    WINE: '/wine',
+    BASKET: '/basket',
 };
 
 export const PICTURE_UPLOAD = {

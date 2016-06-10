@@ -20,10 +20,10 @@ import reducers from '../common/reducers';
 import logger from './utils/logger';
 import {renderFullPage, fakeWindow, skip} from './utils';
 import routes from '../common/routes';
-import pictureRoutes from './pictures/routes';
 import {getCellar, onCellarChange, computeCellar} from './cellar/services';
 import {getBasket, onBasketChange} from './basket/services';
 import handleActions from './handleActions';
+import handleRoutes from './handleRoutes';
 import './utils/db';
 
 if (!fs.existsSync(config.UPLOADS_PERM)){
@@ -37,9 +37,10 @@ global.navigator = {
 // API REST
 // =============================================================================
 const app = express();
-app.use(compression())
+app.use(compression());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(skip(serverConstants.API_BASE_URL, cookieParser()));
-app.use(skip(serverConstants.API_BASE_URL, bodyParser.urlencoded({extended: true})));
 app.use(skip(serverConstants.API_BASE_URL, deviceInfos({timeout: 1000})));
 app.use(skip(serverConstants.API_BASE_URL, fakeWindow()));
 app.use('/', express.static(path.join(__dirname, '..', '..', config.DIST)));
@@ -48,9 +49,7 @@ app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_TMP_
 const serverHttp = Server(app);
 serverHttp.listen(config.PORT, () => logger.info(`Server started on port ${config.PORT}`));
 
-const pictureRouter = express.Router(() => {    });
-pictureRoutes(pictureRouter);
-app.use(serverConstants.API_BASE_URL, pictureRouter);
+handleRoutes(app);
 
 function sendResult(finalState, reducers, renderProps, res) {
     const store = createStore(reducers, finalState);
@@ -83,7 +82,8 @@ app.get('/*', (req, res) => {
                         basket: result[1],
                     };
                     sendResult(finalState, reducers, renderProps, res);
-            }).catch(() => {
+            }).catch(error => {
+                logger.error(error);
                 finalState = {
                     cellar: computeCellar([]),
                     basket: [],

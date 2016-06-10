@@ -36,7 +36,7 @@ export function uploadWinePicture(picture) {
         data.append(serverConstants.PICTURE_UPLOAD.FILE_NAME, picture);
         dispatch(uploadPicture());
         return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.PICTURE].join(''), {
-            method: 'post',
+            method: 'POST',
             body: data
         })
         .then(response => {
@@ -123,5 +123,43 @@ export function addToBasket(wineId) {
         },
         type: types.ADD_TO_BASKET,
         data: wineId
+    };
+}
+
+export function addToBasket(wineId) {
+    return dispatch => {
+        return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET].join(''), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({wineId: wineId})
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(error => {
+            throw error;
+        });
+    };
+}
+
+export function removeFromBasket(basketId) {
+    return dispatch => {
+        return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET].join(''), {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({basketId: basketId})
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(error => {
+            throw error;
+        });
     };
 }
