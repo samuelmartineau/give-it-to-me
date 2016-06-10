@@ -91,6 +91,7 @@ export default class WineCard extends Component {
                 </div>
                 {open && <div style={wineCardMainContainer}>
                     <CellarSchema
+                        viewMode={true}
                         wines={[wine]}
                         selectedCells={{}}
                         selectableCells={{}}

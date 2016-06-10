@@ -45,7 +45,7 @@ export const getBottleInfos = (box, cell) => {
     }
 };
 
-export const drawBottle = (svgElement, color, box, cell, isBoxSchema, selectableModel) => {
+export const drawBottle = (svgElement, color, box, cell, isBoxSchema, blink) => {
     const bottleInfos = getBottleInfos(box, cell);
     d3.select(svgElement)
         .append('circle')
@@ -54,7 +54,7 @@ export const drawBottle = (svgElement, color, box, cell, isBoxSchema, selectable
         .attr('cy',  isBoxSchema ? bottleInfos.cyRelative : bottleInfos.cy)
         .attr('r', bottleInfos.radius)
         .attr('fill', color)
-        .classed('blinker', !selectableModel)
+        .classed('blinker', blink)
 }
 
 export const BOXES_SIZES = {

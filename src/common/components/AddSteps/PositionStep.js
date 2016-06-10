@@ -6,7 +6,7 @@ import CellsSelectors from '../CellsSelectors';
 const PositionStep = (props) => {
     return (
         <div>
-          <CellarSchema selectableModel={true} {...props} />
+          <CellarSchema {...props} />
           <CellsSelectors {...props}/>
         </div>
     );
