@@ -16,12 +16,17 @@ class Notification extends Component {
     }
 
     render() {
-        const {success, message = '', open = false} = this.props;
-        const backgroundColor = this.props.hasOwnProperty('success') ? open ? 'green' : 'red' : 'transparent';
+        const {success, error, message = '', open} = this.props;
+        let backgroundColor;
+        if (open && success) {
+            backgroundColor = 'green';
+        } else if (open && error) {
+            backgroundColor = 'red';
+        }
 
         return (
             <Snackbar
-              bodyStyle={{backgroundColor}}
+              bodyStyle={{backgroundColor: backgroundColor}}
               open={open}
               message={message}
               autoHideDuration={6000}

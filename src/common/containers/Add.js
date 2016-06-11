@@ -56,7 +56,7 @@ class Add extends ResizingComponent {
     state = getInitialState()
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.notification && nextProps.notification.success && nextProps.notification.type === ADD_WINE) {
+        if (nextProps.wineAdded) {
             this.setState({...getInitialState(), wineFamily: ''});
         }
     }
@@ -93,7 +93,7 @@ class Add extends ResizingComponent {
             thumbnailFileName,
             pictureFileName
          };
-        dispatch(actions.createWine(wine));
+        dispatch(actions.addWine(wine));
     }
 
     handleWineType = (event, wineType) => {
@@ -241,6 +241,5 @@ class Add extends ResizingComponent {
 
 export default connect(state => ({
     ...state.cellar,
-    upload: state.upload,
-    notification: state.notification
+    upload: state.upload
 }))(Add);

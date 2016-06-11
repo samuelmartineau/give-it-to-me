@@ -1,4 +1,4 @@
-import { SET_CELLAR, SELECT_BOX, UNSELECT_BOX, SELECT_CELL, UNSELECT_CELL, SELECT_NEXT_BOX} from '../constants/ActionTypes';
+import { WINE_ADDITION_PROCESSING, WINE_ADDED, SET_CELLAR, SELECT_BOX, UNSELECT_BOX, SELECT_CELL, UNSELECT_CELL, SELECT_NEXT_BOX} from '../constants/ActionTypes';
 import { removeItem } from '../constants/global';
 
 function setState(state, newState) {
@@ -95,6 +95,8 @@ function selectNextBox(state) {
 
 function doAction(state, action) {
     const actions = {};
+    actions[WINE_ADDITION_PROCESSING] = () => ({...state, wineAdded: false});
+    actions[WINE_ADDED] = () => ({...state, wineAdded: true});
     actions[SET_CELLAR] = () => setState(state, action.state);
     actions[SELECT_BOX] = () => selectBox(state, action.boxId);
     actions[UNSELECT_BOX] = () => unselectBox(state, action.boxId);
@@ -109,6 +111,6 @@ function doAction(state, action) {
     return actions[action.type]();
 }
 
-export default function(state = {bottlesByBoxes: {}, wines: [], availableCells: {}, selectedCells: {}, selectableCells: {}}, action) {
+export default function(state = {bottlesByBoxes: {}, wines: [], availableCells: {}, selectedCells: {}, selectableCells: {}, wineAdded: false}, action) {
     return doAction(state, action);
 }

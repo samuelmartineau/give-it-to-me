@@ -23,10 +23,15 @@ function receivePictureInfos(json) {
   }
 }
 
-function addWine(wine) {
+function wineAdded() {
     return {
-        type: types.ADD_WINE,
-        wine
+        type: types.WINE_ADDED
+    };
+}
+
+function wineAdditionProcessing() {
+    return {
+        type: types.WINE_ADDITION_PROCESSING
     };
 }
 
@@ -52,8 +57,9 @@ export function uploadWinePicture(picture) {
     };
 }
 
-export function createWine(wine) {
+export function addWine(wine) {
     return dispatch => {
+        dispatch(wineAdditionProcessing());
         return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE].join(''), {
             method: 'POST',
             headers: {
@@ -65,12 +71,15 @@ export function createWine(wine) {
         .then(response => {
             return response.json()
         })
+        .then(json => {
+            dispatch(wineAdded());
+            dispatch(setSuccessNotification(json));
+        })
         .catch(error => {
-            throw error;
+            dispatch(setErrorNotification(error));
         });
     };
 }
-
 
 export function selectBox(boxId) {
     return {
@@ -108,9 +117,16 @@ export function selectNextBox() {
     };
 }
 
-export function setNotification(state) {
+export function setSuccessNotification(state) {
   return {
-    type: types.SET_NOTIFICATION,
+    type: types.SET_SUCCESS_NOTIFICATION,
+    state
+  };
+}
+
+export function setErrorNotification(state) {
+  return {
+    type: types.SET_ERROR_NOTIFICATION,
     state
   };
 }
@@ -140,8 +156,11 @@ export function addToBasket(wineId) {
         .then(response => {
             return response.json()
         })
+        .then(json => {
+            dispatch(setSuccessNotification(json));
+        })
         .catch(error => {
-            throw error;
+            dispatch(setErrorNotification(error));
         });
     };
 }
@@ -159,8 +178,11 @@ export function removeFromBasket(basketId) {
         .then(response => {
             return response.json()
         })
+        .then(json => {
+            dispatch(setSuccessNotification(json));
+        })
         .catch(error => {
-            throw error;
+            dispatch(setErrorNotification(error));
         });
     };
 }

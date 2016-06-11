@@ -102,7 +102,7 @@ app.get('/*', (req, res) => {
                     cellar: computeCellar([]),
                     basket: [],
                     notification: {
-                        success: false,
+                        error: true,
                         message: 'Erreur de connection avec la base de données',
                         open: true
                     }
