@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Router, Route, browserHistory} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import io from 'socket.io-client';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import configureStore from '../common/store/configureStore';
@@ -13,10 +12,9 @@ import routes from '../common/routes';
 import config from '../../config';
 
 const initialState = window.__INITIAL_STATE__;
-const socket = io(`${location.protocol}//${location.hostname}:${__SOCKET_PORT__}`);
 const rootElement = document.getElementById('react');
 
-const store = configureStore(initialState, socket);
+const store = configureStore(initialState);
 
 // Needed for onTouchTap
 // Can go away when react 1.0 release
@@ -24,9 +22,12 @@ const store = configureStore(initialState, socket);
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-socket.on('state', data => {
-    store.dispatch(setState(data.action, data.state))
-});
+const source = new EventSource('/sse');
+
+source.addEventListener('message', function(dataString) {
+    const data = JSON.parse(dataString.data);
+    store.dispatch(setState(data.action, data.state));
+}, false)
 
 ReactDOM.render(
   <Provider store={store}>

@@ -20,6 +20,7 @@ export const getBasket = () => {
 }
 
 export const addToBasket = (wineId) => {
+    debugger
     return getConnection
         .then(conn => {
             return r

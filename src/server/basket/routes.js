@@ -5,6 +5,7 @@ import {addToBasket, removeFromBasket} from './services';
 
 export default router => {
     router.post(serverConstants.ROUTES.BASKET, (req, res) => {
+        debugger
         return addToBasket(req.body.wineId);
     });
 

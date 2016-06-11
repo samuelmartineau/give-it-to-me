@@ -3,12 +3,10 @@ import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers';
 import promiseMiddleware from '../middleware/promiseMiddleware';
-import remoteActionMiddleware from '../middleware/remoteActionMiddleware';
 
-export default function configureStore(initialState, socket) {
+export default function configureStore(initialState) {
     const finalCreateStore = compose(
-        applyMiddleware(thunk, promiseMiddleware),
-        applyMiddleware(remoteActionMiddleware(socket))
+        applyMiddleware(thunk, promiseMiddleware)
     )(createStore);
 
     return finalCreateStore(rootReducer, initialState);

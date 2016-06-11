@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import SocketIo from 'socket.io';
+import SSE from 'sse';
 import fs from 'fs';
 import {Server} from 'http';
 import express from 'express';
@@ -29,9 +29,11 @@ if (!fs.existsSync(config.UPLOADS_PERM)){
     fs.mkdirSync(config.UPLOADS_PERM);
 }
 
-global.navigator = {
-    userAgent: 'all'
-};
+if (typeof navigator === 'undefined') {
+    global.navigator = {
+        userAgent: 'all'
+    };
+}
 
 // API REST
 // =============================================================================
@@ -46,7 +48,20 @@ app.use('/', express.static(path.join(__dirname, '..', '..', config.DIST)));
 app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_PERM)));
 app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_TMP_DIRECTORY)));
 const serverHttp = Server(app);
-serverHttp.listen(config.PORT, () => logger.info(`Server started on port ${config.PORT}`));
+const clients = [];
+serverHttp.listen(config.PORT, () => logger.info(`Server started on port ${config.PORT}`), () => {
+  const sse = new SSE(serverHttp);
+
+  sse.on('connection', stream => {
+    logger.info('Opened connection 🎉');
+    clients.push(stream);
+
+    stream.on('close', () => {
+      clients.splice(clients.indexOf(stream), 1);
+      logger.info('Closed connection 😱');
+    });
+  });
+});
 
 handleRoutes(app);
 
@@ -99,15 +114,17 @@ app.get('/*', (req, res) => {
 });
 // =============================================================================
 
-// SOCKET
+// Server-Sent Events
 // =============================================================================
-const io = new SocketIo(serverHttp);
-
 onCellarChange(cellar => {
-    io.emit('state', {action: ActionTypes.SET_CELLAR, state: cellar});
+    clients.forEach(stream => {
+        stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}));
+    });
 });
 onBasketChange(basket => {
-    io.emit('state', {action: ActionTypes.SET_BASKET, state: basket});
+    clients.forEach(stream => {
+        stream.send(JSON.stringify({action: ActionTypes.SET_BASKET, state: basket}));
+    });
 });
 // =============================================================================
 
