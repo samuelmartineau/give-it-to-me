@@ -7,18 +7,18 @@ import SearchFilter from '../components/SearchFilter';
 
 class Search extends Component {
   render() {
-    const {wines, basket} = this.props;
-    const basketWineDictionary = basket.reduce((acc, basketWine) => {
-        acc[basketWine.wineId] = basketWine;
-        return acc;
-    }, {})
+    const {wines, basketWineDictionary} = this.props;
     return (
       <div>
-        <SearchFilter
-
-        />
+        <SearchFilter />
         <div style={{textAlign: 'center'}}>
-            {wines.map((wine, index) => <WineCard {...this.props} key={index} wine={wine} basketWine={basketWineDictionary[wine.id]}/>)}
+            {wines.map((wine, index) =>
+                <WineCard
+                    {...this.props}
+                    key={index}
+                    wine={wine}
+                    basketWine={basketWineDictionary[wine.id]}/>
+                )}
         </div>
       </div>
     );
@@ -26,9 +26,14 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
+    const basketWineDictionary = state.basket.reduce((acc, basketWine) => {
+        acc[basketWine.wineId] = basketWine;
+        return acc;
+    }, {});
+
     return {
         wines: state.cellar.wines,
-        basket: state.basket,
+        basketWineDictionary: basketWineDictionary,
     }
 }
 export default connect(mapStateToProps)(Search)
