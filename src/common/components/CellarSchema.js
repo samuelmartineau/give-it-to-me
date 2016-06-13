@@ -29,7 +29,7 @@ export default class CellarSchema extends Component {
     }
 
     render() {
-        const {wines, selectedCells, availableCells, selectableCells, viewMode} = this.props;
+        const {wine, wines, selectedCells, availableCells, selectableCells, viewMode} = this.props;
         let svgContainer = ReactFauxDOM.createElement('svg');
         let boxId = 0;
         svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
@@ -53,6 +53,10 @@ export default class CellarSchema extends Component {
 
           if (!viewMode && isBoxClickable) {
               svgBox.on('click', this.selectBox.bind(this, boxId));
+          }
+
+          if (viewMode && wine.bottles.map(bottle => bottle.box).indexOf(boxId) === -1) {
+              svgBox.attr('style', 'opacity: 0.3');
           }
 
           boxId++;

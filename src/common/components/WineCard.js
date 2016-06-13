@@ -93,6 +93,7 @@ export default class WineCard extends Component {
                     <CellarSchema
                         viewMode={true}
                         wines={[wine]}
+                        wine={wine}
                         selectedCells={{}}
                         selectableCells={{}}
                         availableCells={{}}
