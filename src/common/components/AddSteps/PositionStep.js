@@ -6,8 +6,9 @@ import CellsSelectors from '../CellsSelectors';
 const PositionStep = (props) => {
     return (
         <div>
-          <CellarSchema {...props} />
-          <CellsSelectors {...props}/>
+            <div> todo: Should be in cellar? If yes, give the position, else add a comment</div>
+            <CellarSchema {...props} />
+            <CellsSelectors {...props}/>
         </div>
     );
 };
