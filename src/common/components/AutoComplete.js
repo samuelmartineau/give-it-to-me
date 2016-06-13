@@ -11,7 +11,8 @@ export default class AutoComplete extends Component {
         this.state = {
             searchEntry: '',
             itemSelected: false,
-            textField: ''
+            textField: '',
+            itemsSelected: []
         };
         this.onItemSelected = this.onItemSelected.bind(this);
         this.onClearInput = this.onClearInput.bind(this);
@@ -36,24 +37,41 @@ export default class AutoComplete extends Component {
         this.setState({itemSelected: false, textField: ''});
     }
 
+    onChipTap(index) {
+        const {onMultipleUpdate} = this.props;
+        const {itemsSelected} = this.state;
+        itemsSelected.splice(index, 1);
+        onMultipleUpdate(itemsSelected);
+        this.setState({itemsSelected: itemsSelected});
+    }
+
     onItemSelected(item) {
-        const {selectionMode, displaySelectedItemInField, onItemClicked} = this.props;
-        onItemClicked(item);
+        const {onMultipleUpdate, selectionMode, displaySelectedItemInField, onItemClicked} = this.props;
+        const {itemsSelected} = this.state;
+        itemsSelected.push(item);
+        if (selectionMode) {
+            onItemClicked(item);
+        } else {
+            onMultipleUpdate(itemsSelected);
+        }
         this.setState({
             itemSelected: selectionMode ? true : false,
             textField: selectionMode ? displaySelectedItemInField(item) : '',
             searchEntry: '',
+            itemsSelected: itemsSelected,
         });
     }
 
     render () {
-        const {selectionMode = false, filter, displayContentItem, onClearButtonClicked} = this.props;
+        const {selectionMode, textFieldLabel, filter, displayContentItem, onClearButtonClicked, displaySelectedItemInField} = this.props;
+        const {itemsSelected} = this.state;
         let filteredItems = filter(this.state.searchEntry);
         return (
-          <div style={autoCompleteStyle.autocomplete}>
+          <div >
+            <div style={autoCompleteStyle.autocomplete}>
               <TextField
                   value={this.state.textField}
-                  floatingLabelText="Sélectionnez l'AOC"
+                  floatingLabelText={textFieldLabel}
                   disabled={ selectionMode && this.state.itemSelected }
                   onChange={this.onEntry.bind(this)}
               />
@@ -76,14 +94,29 @@ export default class AutoComplete extends Component {
                             />)}
                     </Menu>
               }
+            </div>
+            <div>
+                {
+                    !selectionMode &&
+                    itemsSelected.map((item, index) => (
+                        <div key={index} onClick={this.onChipTap.bind(this, index)}>
+                          <span>{displaySelectedItemInField(item)}</span>
+                          <span>x</span>
+                        </div>
+                    ))
+                }
+            </div>
           </div>
         );
     }
 }
 
 AutoComplete.propTypes = {
+    textFieldLabel: PropTypes.string.isRequired,
     displayContentItem: PropTypes.func.isRequired,
-    onItemClicked: PropTypes.func.isRequired,
+    displayContentItem: PropTypes.func.isRequired,
+    onItemClicked: PropTypes.func,
+    onMultipleUpdate: PropTypes.func,
     displaySelectedItemInField: PropTypes.func.isRequired,
     filter:PropTypes.func.isRequired,
     selectionMode: PropTypes.bool

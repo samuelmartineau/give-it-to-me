@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Paper } from 'material-ui';
 
 import WineCard from '../components/WineCard';
+import SearchFilter from '../components/SearchFilter';
 
 class Search extends Component {
   render() {
@@ -13,7 +14,9 @@ class Search extends Component {
     }, {})
     return (
       <div>
-        <div> TODO FILTER </div>
+        <SearchFilter
+
+        />
         <div style={{textAlign: 'center'}}>
             {wines.map((wine, index) => <WineCard {...this.props} key={index} wine={wine} basketWine={basketWineDictionary[wine.id]}/>)}
         </div>

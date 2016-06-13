@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import fuzzy from 'fuzzy';
 
-import { TextField} from 'material-ui';
-import {noTilde} from '../../constants/global';
-import AutoComplete from '../AutoComplete';
-import {WineFamilies} from '../../constants/WineFamilies';
+import AutoComplete from './AutoComplete';
+import {noTilde} from '../constants/global';
+import {WineFamilies} from '../constants/WineFamilies';
 
 const wineFamilies = Object.keys(WineFamilies).map(id => {return {
     id: id,
@@ -12,28 +11,17 @@ const wineFamilies = Object.keys(WineFamilies).map(id => {return {
     searchKey: noTilde(WineFamilies[id].toLowerCase()).replace(/-/g, ' ').replace(/\s+/g, '')
 }});
 
-const FieldsStep = ({name, year, onNameChange, onWineFamilyChange, onYearChange, defaultWineFamily}) => {
+const SearchFilter = ({onChange}) => {
+
     return (
         <div>
-            <TextField
-              value={name}
-              floatingLabelText="Nom"
-              onChange={onNameChange}
-            /><br />
-            <TextField
-              type={'number'}
-              value={year}
-              floatingLabelText="Année"
-              onChange={onYearChange}
-            /><br />
             <AutoComplete
-                textFieldLabel = "Sélectionnez l'AOC"
-                defaultItem = {defaultWineFamily}
+                textFieldLabel = "Sélectionnez les AOCs"
                 displayContentItem = {(item) => <div>{item.name}</div>}
-                onItemClicked = {onWineFamilyChange}
-                onClearButtonClicked = {onWineFamilyChange}
+                onMultipleUpdate = {(item) => {
+                    console.log(item);
+                }}
                 displaySelectedItemInField = {(item) => item.name}
-                selectionMode={true}
                 filter = { (searchEntry) => {
                     if (searchEntry.length > 2) {
                         const searchFormated = noTilde(searchEntry.toLowerCase())
@@ -47,9 +35,11 @@ const FieldsStep = ({name, year, onNameChange, onWineFamilyChange, onYearChange,
                     return [];
                 }}
             />
-            <div style={{marginBottom: '100px'}}/>
         </div>
     );
 };
 
-export default FieldsStep;
+SearchFilter.propTypes = {
+}
+
+export default SearchFilter;
