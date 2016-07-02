@@ -11,7 +11,7 @@ const Root = ({store, history}) => (
       <Router history={history}>
         {routes}
       </Router>
-      {process.env.NODE_ENV === 'production' || <DevTools/>}
+      {process.env.NODE_ENV === 'production' || <DevTools />}
     </div>
   </Provider>
 )

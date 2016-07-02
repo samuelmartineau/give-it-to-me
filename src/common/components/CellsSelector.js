@@ -17,27 +17,26 @@ export default class CellsSelector extends Component {
     dispatch(actions.selectBox(value))
   }
 
-  unselectBox() {
+  unselectBox () {
     const {dispatch, boxId} = this.props
     dispatch(actions.unselectBox(boxId))
   }
 
-  render() {
+  render () {
     const {selectedCells, selectableCells, boxId} = this.props
     const selectableBoxes = Object.keys(selectableCells).filter(boxId => Object.keys(selectedCells).indexOf(boxId) === -1).map(boxId => parseInt(boxId)).concat([boxId]).sort((a, b) => a - b)
     return (
       <Paper zDepth={1} style={cellSelectorStyle.cellSelector}>
         <SelectField value={boxId} onChange={this.selectBox.bind(this)}>
-          {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id}/>)
-}
+          {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id} />)}
         </SelectField>
         {Object.keys(selectedCells).length > 1
           ? <FloatingActionButton style={cellSelectorStyle.cellSelectorCloseButton} mini secondary onTouchTap={this.unselectBox.bind(this)}>
-              <ContentClose/>
-            </FloatingActionButton>
+            <ContentClose />
+          </FloatingActionButton>
           : null
-}
-        <BoxSchema {...this.props}/>
+        }
+        <BoxSchema {...this.props} />
       </Paper>
     )
   }

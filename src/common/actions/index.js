@@ -25,7 +25,7 @@ function wineAdditionProcessing () {
 
 export function uploadWinePicture (picture) {
   return dispatch => {
-    const data = new FormData()
+    const data = new window.FormData()
     data.append(serverConstants.PICTURE_UPLOAD.FILE_NAME, picture)
     dispatch(uploadPicture())
     return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.PICTURE].join(''), {

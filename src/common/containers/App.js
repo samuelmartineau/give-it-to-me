@@ -14,7 +14,7 @@ import {title} from '../styles/pageTitle'
 import Menu, {menuItems} from '../components/Menu'
 import Notification from '../components/Notification'
 
-function getPageTitle(items, router) {
+function getPageTitle (items, router) {
   const find = items.filter(item => {
     return router.isActive(item.value, true)
   })
@@ -33,13 +33,13 @@ class App extends ResizingComponent {
     muiTheme: PropTypes.object
   }
 
-  getChildContext() {
+  getChildContext () {
     return {
       muiTheme: getMuiTheme(customTheme, {userAgent: false})
     }
   }
 
-  constructor(props, context) {
+  constructor (props, context) {
     context.debounceWait = 300
     super(props, context)
     let largeScreen = isLargeScreen()
@@ -52,7 +52,7 @@ class App extends ResizingComponent {
     }
   }
 
-  updateLayout() {
+  updateLayout () {
     let largeScreen = isLargeScreen()
     this.setState({
       isLargeScreen: largeScreen,
@@ -61,17 +61,17 @@ class App extends ResizingComponent {
     Cookies.set('deviceInfos', JSON.stringify({width: window.innerWidth, height: window.innerHeight}))
   }
 
-  handleTouchTapLeftIconButton() {
+  handleTouchTapLeftIconButton () {
     this.setState({
       navDrawerOpen: !this.state.navDrawerOpen,
       mobileNav: !this.state.mobileNav
     })
   }
-  handleRequestChangeList(event, value) {
+  handleRequestChangeList (event, value) {
     this.context.router.push(value)
     this.setState({navDrawerOpen: this.state.isLargeScreen})
   }
-  getStyles() {
+  getStyles () {
     const styles = {
       appBar: {
         position: 'fixed',
@@ -98,7 +98,7 @@ class App extends ResizingComponent {
 
     return styles
   }
-  render() {
+  render () {
     const {children, basket, location} = this.props
     const {navDrawerOpen, isLargeScreen} = this.state
     const {prepareStyles} = this.state.muiTheme
@@ -114,13 +114,13 @@ class App extends ResizingComponent {
 
     return (
       <div>
-        <AppBar onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton.bind(this)} title='Give It To Me' zDepth={0} style={styles.appBar} showMenuIconButton={showMenuIconButton}/>
+        <AppBar onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton.bind(this)} title='Give It To Me' zDepth={0} style={styles.appBar} showMenuIconButton={showMenuIconButton} />
         <Drawer style={styles.navDrawer} docked={docked} open={navDrawerOpen} onRequestChange={open => this.setState({
           navDrawerOpen: open,
           mobileNav: !this.state.mobileNav
         })}>
-          <AppBar title='Menu' showMenuIconButton={false} key={0}/>
-          <Menu key={1} basket={basket} handleRequestChangeList={this.handleRequestChangeList.bind(this)} location={location}/>
+          <AppBar title='Menu' showMenuIconButton={false} key={0} />
+          <Menu key={1} basket={basket} handleRequestChangeList={this.handleRequestChangeList.bind(this)} location={location} />
           <div key={2} style={version}>
             {window.__CURRENT_VERSION__}
           </div>
@@ -129,7 +129,7 @@ class App extends ResizingComponent {
           <div style={prepareStyles(styles.content)}>
             <h1 style={title}>{pageTitle}</h1>
             {children}
-            <Notification/>
+            <Notification />
           </div>
         </section>
       </div>

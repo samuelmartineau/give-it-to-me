@@ -2,7 +2,7 @@ import React, {
   Component,
   PropTypes
 } from 'react'
-import d3 from 'd3'
+import {select} from 'd3'
 import ReactFauxDOM from 'react-faux-dom'
 
 import {
@@ -65,7 +65,7 @@ export default class BoxSchema extends Component {
             const notAlreadySelected = selectedCells[boxId].indexOf(cellId) === -1
             const isCellClickable = isCellAvailable && (moreThanOneCellSeltected || notAlreadySelected)
             const cursor = isCellClickable ? 'pointer' : 'not-allowed'
-            const box = d3.select(svgContainer).append('rect')
+            const box = select(svgContainer).append('rect')
 
             box.attr('x', xIndex * CELL_SIZE)
               .attr('y', yIndex * CELL_SIZE)

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
+import WineCard from '../components/WineCard'
+
 class Basket extends Component {
   render () {
     const {wineDictionary, basket} = this.props
@@ -8,7 +10,7 @@ class Basket extends Component {
       <div style={{
         textAlign: 'center'
       }}>
-        {basket.map((basketItem, index) => <WineCard {...this.props} key={index} wine={wineDictionary[basketItem.wineId]} basketWine={basketItem}/>)}
+        {basket.map((basketItem, index) => <WineCard {...this.props} key={index} wine={wineDictionary[basketItem.wineId]} basketWine={basketItem} />)}
       </div>
     )
   }

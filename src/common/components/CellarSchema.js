@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import d3 from 'd3'
+import {select} from 'd3'
 import ReactFauxDOM from 'react-faux-dom'
 
 import {
@@ -46,7 +46,7 @@ export default class CellarSchema extends Component {
       const cursor = isBoxClickable
         ? 'pointer'
         : 'not-allowed'
-      let svgBox = d3.select(svgContainer).append('rect')
+      let svgBox = select(svgContainer).append('rect')
 
       svgBox.attr('x', box.x).attr('y', box.y).attr('width', box.width).attr('height', box.height).attr('stroke-width', BOX_BORDER_SIZE).attr('style', `cursor: ${cursor}`).attr('stroke', BOX_BORDER_COLOR).attr('fill', BOX_COLOR)
 

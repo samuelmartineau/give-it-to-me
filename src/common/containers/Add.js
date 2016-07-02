@@ -37,7 +37,7 @@ const STEPS = [
   }
 ]
 
-function getInitialState() {
+function getInitialState () {
   return {
     stepIndex: 0, name: '', year: '', wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
     wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[DEFAULT_TYPE]].categories[DEFAULT_CATEGORY],
@@ -51,7 +51,7 @@ function getInitialState() {
 class Add extends ResizingComponent {
   state = getInitialState()
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.wineAdded) {
       this.setState({
         ...getInitialState(),
@@ -60,7 +60,7 @@ class Add extends ResizingComponent {
     }
   }
 
-  updateLayout() {
+  updateLayout () {
     this.setState({
       orientation: isLargeScreen()
         ? 'horizontal'
@@ -68,7 +68,7 @@ class Add extends ResizingComponent {
     })
   }
 
-  handleAddWine() {
+  handleAddWine () {
     const {dispatch, selectedCells} = this.props
     const {blur, thumbnailFileName, pictureFileName} = this.props.upload
     const {
@@ -150,10 +150,10 @@ class Add extends ResizingComponent {
     const isVertical = orientation === 'vertical'
     const nextButton = <RaisedButton label={stepIndex === STEPS.length - 1
       ? 'Sauvegarder'
-      : 'Suivant'} primary disabled={STEPS[stepIndex].disableNext(this.state, this.props)} onTouchTap={this.handleNext}/>
+      : 'Suivant'} primary disabled={STEPS[stepIndex].disableNext(this.state, this.props)} onTouchTap={this.handleNext} />
     const previousButton = <FlatButton label='Retour' disabled={stepIndex === 0} onTouchTap={this.handlePrev} style={{
       marginRight: 12
-    }}/>
+    }} />
 
     return (
       <div style={{
@@ -181,15 +181,15 @@ class Add extends ResizingComponent {
       wineFamily
     } = this.state
     let cases = []
-    cases.push(<FieldsStep name={name} year={year} onNameChange={this.handleNameChange} onYearChange={this.handleYearChange} onWineFamilyChange={this.handleWineFamilyChange} defaultWineFamily={wineFamily}/>)
-    cases.push(<TypesStep handleWineType={this.handleWineType} handleWineCategory={this.handleWineCategory} handleBottleType={this.handleBottleType} wineType={wineType} wineCategory={wineCategory} bottleType={bottleType}/>)
-    cases.push(<PictureStep {...this.props}/>)
-    cases.push(<PositionStep {...this.props}/>)
+    cases.push(<FieldsStep name={name} year={year} onNameChange={this.handleNameChange} onYearChange={this.handleYearChange} onWineFamilyChange={this.handleWineFamilyChange} defaultWineFamily={wineFamily} />)
+    cases.push(<TypesStep handleWineType={this.handleWineType} handleWineCategory={this.handleWineCategory} handleBottleType={this.handleBottleType} wineType={wineType} wineCategory={wineCategory} bottleType={bottleType} />)
+    cases.push(<PictureStep {...this.props} />)
+    cases.push(<PositionStep {...this.props} />)
 
     return cases[stepIndex]
   }
 
-  render() {
+  render () {
     const {stepIndex, orientation} = this.state
     const isVertical = orientation === 'vertical'
     const stepContent = this.getStepContent(stepIndex)
@@ -207,10 +207,10 @@ class Add extends ResizingComponent {
               ? <StepContent className='fix-me'>
                   {stepContent}
                   {this.renderStepActions(stepIndex)}
-                </StepContent>
+              </StepContent>
               : <span style={{
                 display: 'none'
-              }}/>
+              }} />
 }
           </Step>)}
         </Stepper>

@@ -7,8 +7,8 @@ const PositionStep = (props) => {
   return (
     <div>
       <div>todo: Should be in cellar? If yes, give the position, else add a comment</div>
-      <CellarSchema {...props}/>
-      <CellsSelectors {...props}/>
+      <CellarSchema {...props} />
+      <CellsSelectors {...props} />
     </div>
   )
 }

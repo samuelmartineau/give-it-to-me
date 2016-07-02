@@ -35,7 +35,7 @@ export default class WineCard extends Component {
     }
   }
 
-  render() {
+  render () {
     const {wine, basketWine} = this.props
     const {open} = this.state
     const wineColor = WINE_TYPES[wine.wineType]
@@ -70,27 +70,27 @@ export default class WineCard extends Component {
     return (
       <div style={wineCardStyle.wineCard}>
         <FloatingActionButton mini style={wineCardMenuButton} backgroundColor={wineColor.color} onTouchTap={this.onToggle}>
-          <ContentMenu/>
+          <ContentMenu />
         </FloatingActionButton>
         <div style={wineCardImageContainer}>
-          <Image style={wineCardStyle.wineCardImage} width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={wine.thumbnailFileName} lazyLoader={wine.blur}/>
+          <Image style={wineCardStyle.wineCardImage} width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={wine.thumbnailFileName} lazyLoader={wine.blur} />
         </div>
         <div style={wineCardInfos}>
-          {!open && <div style={wineCardInfosCorner}/>}
+          {!open && <div style={wineCardInfosCorner} />}
           <div style={{
             fontSize: '20px'
           }}>{wine.name}</div>
           <div style={{
             fontSize: '12px'
           }}>{WineFamilies[wine.wineFamily]}</div>
-          {open && <div style={wineCardInfosCorner}/>}
+          {open && <div style={wineCardInfosCorner} />}
         </div>
         {open && <div style={wineCardMainContainer}>
-          <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}}/>
+          <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} />
           <div>Millésime: {wine.year}</div>
           <Checkbox style={{
             textAlign: 'initial'
-          }} checked={basketWine} checkedIcon={< ActionFavorite />} uncheckedIcon={< ActionFavoriteBorder />} onTouchTap={this.handleBasket}/>
+          }} checked={basketWine} checkedIcon={< ActionFavorite />} uncheckedIcon={< ActionFavoriteBorder />} onTouchTap={this.handleBasket} />
         </div>}
       </div>
     )

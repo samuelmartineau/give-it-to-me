@@ -10,7 +10,6 @@ import Image from '../components/Image'
 
 export default class UploadPicture extends Component {
   onDrop (files) {
-    debugger
     const {dispatch} = this.props
     const winePicture = files[0]
     dispatch(uploadWinePicture(winePicture))
@@ -21,13 +20,13 @@ export default class UploadPicture extends Component {
     let render
 
     if (isUploaded) {
-      render = <Image width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={thumbnailFileName} lazyLoader={blur}/>
+      render = <Image width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={thumbnailFileName} lazyLoader={blur} />
     } else if (isUploading) {
-      render = <CircularProgress/>
+      render = <CircularProgress />
     } else {
       render = <Dropzone style={{}} onDrop={this.onDrop.bind(this)} multiple={false} accept='image/*'>
         <FloatingActionButton >
-          <ContentPhoto/>
+          <ContentPhoto />
         </FloatingActionButton>
       </Dropzone>
     }

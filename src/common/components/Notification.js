@@ -8,12 +8,12 @@ export default class Notification extends Component {
     open: false
   }
 
-  handleRequestClose() {
+  handleRequestClose () {
     const {dispatch} = this.props
     dispatch(actions.hideNotification())
   }
 
-  render() {
+  render () {
     const {
       success,
       error,
@@ -29,6 +29,6 @@ export default class Notification extends Component {
 
     return (<Snackbar bodyStyle={{
       backgroundColor: backgroundColor
-    }} open={open} message={message} autoHideDuration={6000} onRequestClose={this.handleRequestClose.bind(this)}/>)
+    }} open={open} message={message} autoHideDuration={6000} onRequestClose={this.handleRequestClose.bind(this)} />)
   }
 }

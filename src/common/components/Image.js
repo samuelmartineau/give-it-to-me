@@ -21,13 +21,13 @@ export default class Image extends Component {
     window.addEventListener('scroll', this.scrollFunction)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     window.removeEventListener('scroll', this.scrollFunction)
   }
 
   trottleScroll = throttle(this.handleScroll, DEFAULT_THROTTLE_WAIT)
 
-  handleScroll() {
+  handleScroll () {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
     const windowHeight = window.innerHeight
     if (rect.top <= windowHeight) {
@@ -36,9 +36,9 @@ export default class Image extends Component {
     }
   }
 
-  render() {
+  render () {
     const {width, height, style} = this.props
-    return (<img style={style} width={width} height={height} src={this.state.url}/>)
+    return (<img style={style} width={width} height={height} src={this.state.url} />)
   }
 }
 

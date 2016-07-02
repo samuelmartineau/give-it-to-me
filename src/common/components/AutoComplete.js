@@ -79,11 +79,11 @@ export default class AutoComplete extends Component {
     return (
       <div >
         <div style={autoCompleteStyle.autocomplete}>
-          <TextField value={this.state.textField} floatingLabelText={textFieldLabel} disabled={selectionMode && this.state.itemSelected} onChange={this.onEntry.bind(this)}/> {selectionMode && this.state.itemSelected && <IconButton onTouchTap={() => {
+          <TextField value={this.state.textField} floatingLabelText={textFieldLabel} disabled={selectionMode && this.state.itemSelected} onChange={this.onEntry.bind(this)} /> {selectionMode && this.state.itemSelected && <IconButton onTouchTap={() => {
             this.onClearInput()
             onClearButtonClicked()
-          }} style={autoCompleteStyle.clearButton} touch={true}>
-            <ContentClose/>
+          }} style={autoCompleteStyle.clearButton} touch>
+            <ContentClose />
           </IconButton>
 }
           {!!filteredItems.length && <Menu disableAutoFocus style={{
@@ -91,7 +91,7 @@ export default class AutoComplete extends Component {
             maxHeight: '250px',
             background: 'rgba(158, 158, 158, 0.3)'
           }}>
-            {filteredItems.map((item, index) => <MenuItem key={index} children={displayContentItem(item)} onTouchTap={this.onItemSelected.bind(this, item, index)}/>)}
+            {filteredItems.map((item, index) => <MenuItem key={index} children={displayContentItem(item)} onTouchTap={this.onItemSelected.bind(this, item, index)} />)}
           </Menu>
 }
         </div>

@@ -1,4 +1,4 @@
-import d3 from 'd3'
+import {select} from 'd3'
 
 export const BOX_COLOR = '#d3414a'
 export const BOX_BORDER_COLOR = '#992f2f'
@@ -47,7 +47,7 @@ export const getBottleInfos = (box, cell) => {
 
 export const drawBottle = (svgElement, color, box, cell, isBoxSchema, blink) => {
   const bottleInfos = getBottleInfos(box, cell)
-  d3.select(svgElement).append('circle').attr('pointer-events', 'none').attr('cx', isBoxSchema
+  select(svgElement).append('circle').attr('pointer-events', 'none').attr('cx', isBoxSchema
     ? bottleInfos.cxRelative
     : bottleInfos.cx).attr('cy', isBoxSchema
     ? bottleInfos.cyRelative

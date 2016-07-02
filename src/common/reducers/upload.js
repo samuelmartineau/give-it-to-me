@@ -1,6 +1,6 @@
 import {UPLOAD_PICTURE, RECEIVE_PICTURE_INFOS, RESET_UPLOAD} from '../constants/ActionTypes'
 
-function doAction(state, action) {
+function doAction (state, action) {
   const actions = {}
   actions[UPLOAD_PICTURE] = () => ({
     ...state,
@@ -21,7 +21,7 @@ function doAction(state, action) {
   return actions[action.type]()
 }
 
-export default function(state = {
+export default function (state = {
   isUploading: false,
   isUploaded: false
 }, action) {

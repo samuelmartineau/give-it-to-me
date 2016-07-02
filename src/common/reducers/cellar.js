@@ -18,7 +18,6 @@ function setState (state, newState) {
 }
 
 function selectBox (state, boxId) {
-  const selectableBoxes = Object.keys(state.availableCells)
   let newSelectedCells = {
     ...state.selectedCells
   }
@@ -29,7 +28,7 @@ function selectBox (state, boxId) {
 
   if (state.availableCells[boxId].length === 1) {
     let {
-      [boxId.toString()]: omit,
+      [boxId.toString()]: omit,  // eslint-disable-line no-unused-vars
       ...res
     } = newSelectableCells
     newSelectableCells = res
@@ -79,7 +78,7 @@ function selectCell (state, boxId, cellId) {
 
   if (state.selectableCells[boxId].length === 1) {
     let {
-      [boxId.toString()]: omit,
+      [boxId.toString()]: omit,  // eslint-disable-line no-unused-vars
       ...res
     } = newSelectableCells
     newSelectableCells = res
@@ -106,7 +105,7 @@ function unselectCell (state, boxId, cellId) {
 
   if (state.selectedCells[boxId].length === 1) {
     let {
-      [boxId.toString()]: omit,
+      [boxId.toString()]: omit,  // eslint-disable-line no-unused-vars
       ...res
     } = newSelectedCells
     newSelectedCells = res
@@ -155,7 +154,7 @@ function doAction (state, action) {
   return actions[action.type]()
 }
 
-export default function(state = {
+export default function (state = {
   bottlesByBoxes: {},
   wines: [],
   availableCells: {},

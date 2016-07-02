@@ -42,15 +42,15 @@ const TypesStep = ({
       <RadioButtonGroup onChange={handleWineType} name='wine-type' valueSelected={wineType}>
         {types.map((type, index) => (<RadioButton labelStyle={{
           color: tinycolor(type.color)
-        }} key={index} value={type.value} label={type.label}/>))}
+        }} key={index} value={type.value} label={type.label} />))}
       </RadioButtonGroup>
       <h2>Type</h2>
       <RadioButtonGroup onChange={handleWineCategory} name='wine-category' valueSelected={wineCategory}>
-        {categories.map((category, index) => (<RadioButton key={index} value={category.value} label={category.label}/>))}
+        {categories.map((category, index) => (<RadioButton key={index} value={category.value} label={category.label} />))}
       </RadioButtonGroup>
       <h2>Taille de la bouteille</h2>
       <RadioButtonGroup onChange={handleBottleType} name='bottle-type' valueSelected={bottleType}>
-        {bottleTypes.map((bottle, index) => (<RadioButton key={index} value={bottle.value} label={bottle.label}/>))}
+        {bottleTypes.map((bottle, index) => (<RadioButton key={index} value={bottle.value} label={bottle.label} />))}
       </RadioButtonGroup>
     </div>
   )

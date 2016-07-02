@@ -19,7 +19,7 @@ const store = configureStore(initialState)
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin()
 
-const source = new EventSource('/sse')
+const source = new window.EventSource('/sse')
 
 source.addEventListener('message', function (dataString) {
   const data = JSON.parse(dataString.data)
@@ -27,12 +27,12 @@ source.addEventListener('message', function (dataString) {
 }, false)
 
 render(
-  <AppContainer><Root store={store} history={browserHistory}/></AppContainer>, rootElement
+  <AppContainer><Root store={store} history={browserHistory} /></AppContainer>, rootElement
 )
 
 if (module.hot) {
   module.hot.accept('../common/containers/Root', () => {
     const Root2 = require('../common/containers/Root').default
-    render(<AppContainer><Root2 store={store} history={browserHistory}/></AppContainer>, rootElement)
+    render(<AppContainer><Root2 store={store} history={browserHistory} /></AppContainer>, rootElement)
   })
 }

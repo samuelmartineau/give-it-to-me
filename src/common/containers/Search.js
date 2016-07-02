@@ -9,11 +9,11 @@ class Search extends Component {
     const {wines, basketWineDictionary} = this.props
     return (
       <div>
-        <SearchFilter/>
+        <SearchFilter />
         <div style={{
           textAlign: 'center'
         }}>
-          {wines.map((wine, index) => <WineCard {...this.props} key={index} wine={wine} basketWine={basketWineDictionary[wine.id]}/>)}
+          {wines.map((wine, index) => <WineCard {...this.props} key={index} wine={wine} basketWine={basketWineDictionary[wine.id]} />)}
         </div>
       </div>
     )

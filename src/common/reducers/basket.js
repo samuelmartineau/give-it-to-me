@@ -1,6 +1,6 @@
 import {SET_BASKET} from '../constants/ActionTypes'
 
-function doAction(state, action) {
+function doAction (state, action) {
   const actions = {}
   actions[SET_BASKET] = () => [...action.state]
 
@@ -11,6 +11,6 @@ function doAction(state, action) {
   return actions[action.type]()
 }
 
-export default function(state = [], action) {
+export default function (state = [], action) {
   return doAction(state, action)
 }

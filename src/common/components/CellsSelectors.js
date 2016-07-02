@@ -24,14 +24,14 @@ export default class CellsSelectors extends Component {
             label='Ajouter une caisse'
             labelPosition='after'
             primary
-            icon={< ContentAdd />}/>
+            icon={< ContentAdd />} />
         </div>
         <div style={cellSelectorStyle.cellSelectorContainer}>
           {Object.keys(selectedCells).map((box, index) => {
             return <CellsSelector
               key={index}
               {...this.props}
-              boxId={parseInt(box)}/>
+              boxId={parseInt(box)} />
           })}
         </div>
       </div>
