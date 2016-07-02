@@ -10,7 +10,7 @@ const environment = {
   heroku: {
     isHeroku: true
   }
-}[process.env.NODE_ENV || 'development'];
+}[process.env.NODE_ENV || 'development']
 
 module.exports = Object.assign({
   DB: {
@@ -34,4 +34,4 @@ module.exports = Object.assign({
   UPLOADS_PERM: 'uploads',
   UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
   BUNDLE_FILENAME: 'bundle.js'
-}, environment);
+}, environment)

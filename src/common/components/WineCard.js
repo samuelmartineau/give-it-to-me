@@ -86,7 +86,7 @@ export default class WineCard extends Component {
           {open && <div style={wineCardInfosCorner} />}
         </div>
         {open && <div style={wineCardMainContainer}>
-          <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} />
+          {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : wine.positionComment}
           <div>Millésime: {wine.year}</div>
           <Checkbox style={{
             textAlign: 'initial'

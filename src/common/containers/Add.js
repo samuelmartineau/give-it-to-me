@@ -39,6 +39,8 @@ const STEPS = [
 
 function getInitialState () {
   return {
+    positionComment: '',
+    isInBoxes: true,
     stepIndex: 0, name: '', year: '', wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
     wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[DEFAULT_TYPE]].categories[DEFAULT_CATEGORY],
     bottleType: BottleTypes.DEFAULT_TYPE.toString(),
@@ -77,7 +79,9 @@ class Add extends ResizingComponent {
       wineCategory,
       wineFamily,
       wineType,
-      year
+      year,
+      isInBoxes,
+      positionComment
     } = this.state
     const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
       const cellsList = selectedCells[boxId]
@@ -87,9 +91,9 @@ class Add extends ResizingComponent {
       return bottles
     }, [])
     const wine = {
+      isInBoxes: isInBoxes,
       name: name,
       wineFamily: wineFamily.id,
-      bottles: wineBottles,
       year,
       bottleType,
       wineCategory,
@@ -97,6 +101,11 @@ class Add extends ResizingComponent {
       blur,
       thumbnailFileName,
       pictureFileName
+    }
+    if (isInBoxes) {
+      wine.bottles = wineBottles
+    } else {
+      wine.positionComment = positionComment
     }
     dispatch(actions.addWine(wine))
   }
@@ -125,6 +134,10 @@ class Add extends ResizingComponent {
     this.setState({wineFamily: wineFamily})
   }
 
+  handlePositionComment = (event) => {
+    this.setState({positionComment: event.target.value})
+  }
+
   handleNext = () => {
     const {stepIndex} = this.state
     if (stepIndex === STEPS.length - 1) {
@@ -143,6 +156,10 @@ class Add extends ResizingComponent {
         stepIndex: stepIndex - 1
       })
     }
+  }
+
+  onPositionOrigin = (evt, value) => {
+    this.setState({isInBoxes: value})
   }
 
   renderStepActions = (step) => {
@@ -178,13 +195,15 @@ class Add extends ResizingComponent {
       wineType,
       wineCategory,
       bottleType,
-      wineFamily
+      wineFamily,
+      isInBoxes,
+      positionComment
     } = this.state
     let cases = []
     cases.push(<FieldsStep name={name} year={year} onNameChange={this.handleNameChange} onYearChange={this.handleYearChange} onWineFamilyChange={this.handleWineFamilyChange} defaultWineFamily={wineFamily} />)
     cases.push(<TypesStep handleWineType={this.handleWineType} handleWineCategory={this.handleWineCategory} handleBottleType={this.handleBottleType} wineType={wineType} wineCategory={wineCategory} bottleType={bottleType} />)
     cases.push(<PictureStep {...this.props} />)
-    cases.push(<PositionStep {...this.props} />)
+    cases.push(<PositionStep positionComment={positionComment} handlePositionComment={this.handlePositionComment} isInBoxes={isInBoxes} onPositionOrigin={this.onPositionOrigin} {...this.props} />)
 
     return cases[stepIndex]
   }
