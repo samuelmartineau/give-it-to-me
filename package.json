@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "dev": "NODE_ENV=development node dev",
-    "build-codeship": "NODE_ENV=production HEROKU=true npm run clean & webpack --config ./webpack/webpack.config.babel.js",
+    "build-codeship": "NODE_ENV=production HEROKU=true npm run clean & NODE_ENV=production webpack --config ./webpack/webpack.config.babel.js",
     "build": "NODE_ENV=production npm run clean & NODE_ENV=production webpack --config ./webpack/webpack.config.babel.js",
     "start": "node src/server/index.js",
     "chateau": "chateau -f ./config/chateau-config.js",
