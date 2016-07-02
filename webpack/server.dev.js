@@ -21,5 +21,5 @@ new WebpackDevServer(webpack(webpackConfig), {
   if (err) {
     console.log(err)
   }
-  console.log(`==> 🚧  Webpack development server listening on ${host}:${devServerPort}`)
+  console.log(`==> 🚧  Webpack development server listening on http://${host}:${devServerPort}`)
 })
