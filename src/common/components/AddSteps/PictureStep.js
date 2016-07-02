@@ -1,13 +1,13 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react'
 
-import UploadPicture from '../UploadPicture';
+import UploadPicture from '../UploadPicture'
 
 const PictureStep = (props) => {
-    return (
-        <div>
-            <UploadPicture {...props} />
-        </div>
-    );
-};
+  return (
+    <div>
+      <UploadPicture {...props}/>
+    </div>
+  )
+}
 
-export default PictureStep;
+export default PictureStep

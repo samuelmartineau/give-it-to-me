@@ -1,20 +1,28 @@
-import { IndexRoute, Route } from 'react-router';
-import React from 'react';
+import App from './containers/App'
+import Welcome from './containers/Welcome'
+import Add from './containers/Add'
+import Search from './containers/Search'
+import Basket from './containers/Basket'
 
-import AppContainer from './containers/App';
-import WelcomeContainer from './containers/Welcome';
-import AddContainer from './containers/Add';
-import SearchContainer from './containers/Search';
-import BasketContainer from './containers/Basket';
-
-const routes = (
-    <Route path="/" component={AppContainer}>
-      <IndexRoute component={WelcomeContainer} />
-      <Route path="welcome" component={WelcomeContainer} />
-      <Route path="add" component={AddContainer} />
-      <Route path="search" component={SearchContainer} />
-      <Route path="basket" component={BasketContainer} />
-    </Route>
-);
-
-export default routes;
+export default {
+  path: '/',
+  component: App,
+  indexRoute: {
+    component: Welcome
+  },
+  childRoutes: [
+    {
+      path: 'welcome',
+      component: Welcome
+    }, {
+      path: 'add',
+      component: Add
+    }, {
+      path: 'search',
+      component: Search
+    }, {
+      path: 'basket',
+      component: Basket
+    }
+  ]
+}

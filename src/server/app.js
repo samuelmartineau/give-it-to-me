@@ -38,12 +38,14 @@ if (typeof navigator === 'undefined') {
 // API REST
 // =============================================================================
 const app = express();
-app.use(compression());
+
+// app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(skip(serverConstants.API_BASE_URL, cookieParser()));
 app.use(skip(serverConstants.API_BASE_URL, deviceInfos({timeout: 1000})));
 app.use(skip(serverConstants.API_BASE_URL, fakeWindow()));
+app.use('/', express.static(path.join(__dirname, '..', '..', 'assets')));
 app.use('/', express.static(path.join(__dirname, '..', '..', config.DIST)));
 app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_PERM)));
 app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_TMP_DIRECTORY)));

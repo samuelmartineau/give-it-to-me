@@ -1,56 +1,45 @@
-import React, {PropTypes, Component} from 'react';
-import Dropzone from 'react-dropzone';
-import {throttle} from 'lodash';
-import ReactDOM from 'react-dom';
+import React, {PropTypes, Component} from 'react'
+import {throttle} from 'lodash'
+import ReactDOM from 'react-dom'
 
-const DEFAULT_THROTTLE_WAIT = 500;
+const DEFAULT_THROTTLE_WAIT = 500
 
 export default class Image extends Component {
+  static scrollFunction;
 
-    static scrollFunction;
+  constructor (props) {
+    super(props)
 
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        url: props.lazyLoader
-      };
+    this.state = {
+      url: props.lazyLoader
     }
+  }
 
-    componentDidMount() {
-        this.scrollFunction = this.trottleScroll.bind(this);
-        this.handleScroll();
-        window.addEventListener('scroll', this.scrollFunction);
+  componentDidMount () {
+    this.scrollFunction = this.trottleScroll.bind(this)
+    this.handleScroll()
+    window.addEventListener('scroll', this.scrollFunction)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollFunction)
+  }
+
+  trottleScroll = throttle(this.handleScroll, DEFAULT_THROTTLE_WAIT)
+
+  handleScroll() {
+    const rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
+    const windowHeight = window.innerHeight
+    if (rect.top <= windowHeight) {
+      window.removeEventListener('scroll', this.scrollFunction)
+      this.setState({url: this.props.src})
     }
+  }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollFunction);
-    }
-
-    trottleScroll = throttle(this.handleScroll, DEFAULT_THROTTLE_WAIT);
-
-    handleScroll() {
-        const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        if(rect.top <= windowHeight) {
-            window.removeEventListener('scroll', this.scrollFunction);
-            this.setState({
-              url: this.props.src
-            });
-        }
-    }
-
-    render() {
-        const { width, height, style } = this.props;
-        return (
-          <img
-            style={style}
-            width={width}
-            height={height}
-            src={this.state.url}
-          />
-        );
-    }
+  render() {
+    const {width, height, style} = this.props
+    return (<img style={style} width={width} height={height} src={this.state.url}/>)
+  }
 }
 
 Image.propTypes = {

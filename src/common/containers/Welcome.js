@@ -1,14 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Paper } from 'material-ui';
 
-class Welcome extends Component {
+class Welcome extends React.Component {
   render() {
     const {wines} = this.props;
     return (
-      <Paper zDepth={1}>
+      <div>
         {wines.length} bouteilles
-      </Paper>
+      </div>
     );
   }
 }

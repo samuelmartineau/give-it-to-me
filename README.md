@@ -74,7 +74,7 @@ git push -f origin master
 
 #### Heroku
 
-Set an environement variable for mockgoose *HEROKU=true*
+todo
 
 #### Home
 

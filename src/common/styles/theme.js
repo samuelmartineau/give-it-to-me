@@ -1,6 +1,6 @@
-import * as Colors from 'material-ui/styles/colors';
-import {fade} from 'material-ui/utils/colorManipulator';
-import {spacing, zIndex} from 'material-ui/styles';
+import * as Colors from 'material-ui/styles/colors'
+import {fade} from 'material-ui/utils/colorManipulator'
+import {spacing, zIndex} from 'material-ui/styles'
 
 export default {
   spacing: spacing,
@@ -18,6 +18,6 @@ export default {
     canvasColor: Colors.white,
     borderColor: Colors.grey300,
     disabledColor: fade(Colors.darkBlack, 0.3),
-    pickerHeaderColor: Colors.teal500,
+    pickerHeaderColor: Colors.teal500
   }
-};
+}

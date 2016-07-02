@@ -17,7 +17,8 @@ export function renderFullPage(html, initialState, bundleFilename) {
               window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
               window.__CURRENT_VERSION__ = '${version}';
             </script>
-            <script src="/${bundleFilename}"></script>
+            <script src="/vendor.js"></script>
+            <script async src="/main.js"></script>
           </body>
         </html>
         `;
