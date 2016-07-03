@@ -20,7 +20,7 @@ export const wineCardImageContainer = {
   height: '100%',
   display: 'block',
   overflow: 'hidden',
-  transition: 'all 0.3s'
+  transition: 'transform 0.3s'
 }
 
 export const wineCardMainContainer = {
@@ -42,9 +42,7 @@ export const wineCardImage = {
 
 export const pictureToAvatar = {
   borderRadius: '50%',
-  width: '60px',
-  height: '60px',
-  top: '12px',
+  transform: 'scale(0.25, 0.18) translate(-450px, -850px)',
   zIndex: 4
 }
 
@@ -55,35 +53,33 @@ export const wineCardInfos = {
   padding: `${paddingInfos}px 16px`,
   paddingLeft: `${paddingInfos}px`,
   color: '#fff',
-  transition: 'all 0.3s',
+  transition: 'transform 0.3s',
   height: `${closeInfosHeight}px`,
   zIndex: 3,
   textAlign: 'initial',
-  top: `calc(100% - ${closeInfosHeight}px)`,
+  top: `calc(100% - ${openInfosHeight}px)`,
   lineHeight: '22px'
 }
 
 export const wineCardInfosOpen = {
-  top: '0px',
+  transform: 'translate(0px, -330px)',
   height: `${openInfosHeight}px`,
   paddingLeft: '90px'
 }
 
 export const wineCardInfosCorner = {
   position: 'absolute',
-  left: '0px',
   border: '8px solid',
-  transition: 'all 0.3s',
+  transition: 'transform 0.3s',
   borderLeftColor: 'transparent',
   borderTopColor: 'transparent',
   bottom: 'auto',
-  top: '-16px'
+  top: '314px'
 }
 
 export const wineCardInfosCornerOpen = {
-  bottom: '-16px',
-  top: 'auto',
-  borderBottomColor: 'transparent'
+  borderBottomColor: 'transparent',
+  transform: 'translate(0px, -224px)'
 }
 
 export const wineCardMenuButton = {
@@ -92,3 +88,5 @@ export const wineCardMenuButton = {
   right: '16px',
   zIndex: 4
 }
+
+export const wineCardMenuButtonOpen = {transform: 'translate(0px, 40px)'}

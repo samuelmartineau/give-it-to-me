@@ -1,6 +1,10 @@
 import React, {Component, PropTypes} from 'react'
-import {Menu, MenuItem, TextField, IconButton} from 'material-ui'
+import IconButton from 'material-ui/IconButton/IconButton'
+import TextField from 'material-ui/TextField'
+import Menu from 'material-ui/Menu'
+import MenuItem from 'material-ui/MenuItem'
 import ContentClose from 'material-ui/svg-icons/navigation/close'
+import Chip from 'material-ui/Chip'
 
 import * as autoCompleteStyle from '../styles/AutoComplete'
 
@@ -11,7 +15,7 @@ export default class AutoComplete extends Component {
       searchEntry: '',
       itemSelected: false,
       textField: '',
-      itemsSelected: []
+      itemsSelected: props.defaultSelectedItems || []
     }
     this.onItemSelected = this.onItemSelected.bind(this)
     this.onClearInput = this.onClearInput.bind(this)
@@ -65,14 +69,24 @@ export default class AutoComplete extends Component {
     })
   }
 
+  renderChip (data, index) {
+    return (
+      <Chip
+        key={index}
+        onRequestDelete={() => this.onChipTap(index)}
+      >
+        {data.name}
+      </Chip>
+    )
+  }
+
   render () {
     const {
       selectionMode,
       textFieldLabel,
       filter,
       displayContentItem,
-      onClearButtonClicked,
-      displaySelectedItemInField
+      onClearButtonClicked
     } = this.props
     const {itemsSelected} = this.state
     let filteredItems = filter(this.state.searchEntry)
@@ -96,13 +110,13 @@ export default class AutoComplete extends Component {
 }
         </div>
         <div>
-          {!selectionMode && itemsSelected.map((item, index) => (
-            <div key={index} onClick={this.onChipTap.bind(this, index)}>
-              <span>{displaySelectedItemInField(item)}</span>
-              <span>x</span>
-            </div>
-          ))
-}
+          {!selectionMode && <div style={{
+            display: 'flex',
+            flexWrap: 'wrap'
+          }}>
+              {itemsSelected.map(this.renderChip, this)}
+          </div>
+          }
         </div>
       </div>
     )
@@ -116,5 +130,6 @@ AutoComplete.propTypes = {
   onMultipleUpdate: PropTypes.func,
   displaySelectedItemInField: PropTypes.func.isRequired,
   filter: PropTypes.func.isRequired,
-  selectionMode: PropTypes.bool
+  selectionMode: PropTypes.bool,
+  defaultSelectedItems: PropTypes.array
 }

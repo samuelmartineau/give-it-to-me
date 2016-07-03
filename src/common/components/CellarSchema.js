@@ -62,7 +62,7 @@ export default class CellarSchema extends Component {
     })
 
     wines.forEach(wine => {
-      if (wine.bottle) {
+      if (wine.bottles) {
         wine.bottles.forEach(bottle => {
           drawBottle(svgContainer, WINE_TYPES[wine.wineType].color, bottle.box, bottle.cell, false, viewMode)
         })

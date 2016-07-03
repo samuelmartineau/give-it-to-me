@@ -64,7 +64,7 @@ export default class WineCard extends Component {
       Object.assign(wineCardInfos, wineCardStyle.wineCardInfosOpen)
       Object.assign(wineCardInfosCorner, wineCardStyle.wineCardInfosCornerOpen, {borderTopColor: cornerColor})
       Object.assign(wineCardImageContainer, wineCardStyle.pictureToAvatar)
-      Object.assign(wineCardMenuButton, {top: '55px'})
+      Object.assign(wineCardMenuButton, wineCardStyle.wineCardMenuButtonOpen)
     }
 
     return (
@@ -75,16 +75,6 @@ export default class WineCard extends Component {
         <div style={wineCardImageContainer}>
           <Image style={wineCardStyle.wineCardImage} width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={wine.thumbnailFileName} lazyLoader={wine.blur} />
         </div>
-        <div style={wineCardInfos}>
-          {!open && <div style={wineCardInfosCorner} />}
-          <div style={{
-            fontSize: '20px'
-          }}>{wine.name}</div>
-          <div style={{
-            fontSize: '12px'
-          }}>{WineFamilies[wine.wineFamily]}</div>
-          {open && <div style={wineCardInfosCorner} />}
-        </div>
         {open && <div style={wineCardMainContainer}>
           {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : wine.positionComment}
           <div>Millésime: {wine.year}</div>
@@ -92,6 +82,15 @@ export default class WineCard extends Component {
             textAlign: 'initial'
           }} checked={basketWine} checkedIcon={< ActionFavorite />} uncheckedIcon={< ActionFavoriteBorder />} onTouchTap={this.handleBasket} />
         </div>}
+        <div style={wineCardInfosCorner} />
+        <div style={wineCardInfos}>
+          <div style={{
+            fontSize: '20px'
+          }}>{wine.name}</div>
+          <div style={{
+            fontSize: '12px'
+          }}>{WineFamilies[wine.wineFamily]}</div>
+        </div>
       </div>
     )
   }

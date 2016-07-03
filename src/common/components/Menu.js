@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import {List, ListItem, MakeSelectable} from 'material-ui'
+import {List, ListItem, MakeSelectable} from 'material-ui/List'
 import Badge from 'material-ui/Badge'
 
 const SelectableList = MakeSelectable(List)
