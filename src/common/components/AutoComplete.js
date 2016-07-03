@@ -70,12 +70,13 @@ export default class AutoComplete extends Component {
   }
 
   renderChip (data, index) {
+    const {displayContentItem} = this.props
     return (
       <Chip
         key={index}
         onRequestDelete={() => this.onChipTap(index)}
       >
-        {data.name}
+        {displayContentItem(data)}
       </Chip>
     )
   }

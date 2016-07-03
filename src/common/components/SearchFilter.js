@@ -15,7 +15,7 @@ const wineFamilies = Object.keys(WineFamilies).map(id => {
   }
 })
 
-const SearchFilter = ({handleWineFamilies, selectedWineFamilies, wineTypes, handleWineTypes}) => {
+const SearchFilter = ({handleWineFamilies, selectedWineFamilies, wineTypes, handleWineTypes, wineCategories, handleWineCategories}) => {
   return (
     <div style={{padding: '8px', background: 'rgba(22, 214, 76, 0.2)'}}>
       <h1>AOCs</h1>
@@ -59,13 +59,17 @@ const SearchFilter = ({handleWineFamilies, selectedWineFamilies, wineTypes, hand
         display: 'flex',
         flexWrap: 'wrap'
       }}>
-        {Object.keys(WINE_CATEGORIES).map((type, index) => <Checkbox
+        {Object.keys(WINE_CATEGORIES).map((category, index) => <Checkbox
           key={index}
-          label={WINE_CATEGORIES[type].label}
-          defaultChecked
+          label={WINE_CATEGORIES[category].label}
+          checked={wineCategories.indexOf(category) > -1}
           style={{display: 'inline-block', flex: 1, minWidth: '200px'}}
+          value={category}
+          onCheck={handleWineCategories}
         />)}
       </div>
+      <h1>Période</h1>
+      <div></div>
     </div>
   )
 }
