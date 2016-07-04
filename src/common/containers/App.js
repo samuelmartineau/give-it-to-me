@@ -129,7 +129,7 @@ class App extends ResizingComponent {
           <div style={prepareStyles(styles.content)}>
             <h1 style={title}>{pageTitle}</h1>
             {children}
-            <Notification />
+            <Notification {...this.props} />
           </div>
         </section>
       </div>

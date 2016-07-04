@@ -21,7 +21,7 @@ export default class AutoComplete extends Component {
     }
     this.onItemSelected = this.onItemSelected.bind(this)
     this.onClearInput = this.onClearInput.bind(this)
-    this.onFilter = debounce(this.onFilter, 1000)
+    this.onFilter = debounce(this.onFilter, 600)
     const {defaultItem, selectionMode, displaySelectedItemInField} = props
     if (defaultItem) {
       this.state = {

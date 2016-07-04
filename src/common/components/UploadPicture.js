@@ -3,16 +3,23 @@ import Dropzone from 'react-dropzone'
 import CircularProgress from 'material-ui/CircularProgress'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentPhoto from 'material-ui/svg-icons/image/add-a-photo'
+import RaisedButton from 'material-ui/RaisedButton'
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 
-import {uploadWinePicture} from '../actions'
+import {uploadWinePicture, resetUpload} from '../actions'
 import {PICTURE_UPLOAD} from '../constants/server'
 import Image from '../components/Image'
 
 export default class UploadPicture extends Component {
-  onDrop (files) {
+  onDrop = (files) => {
     const {dispatch} = this.props
     const winePicture = files[0]
     dispatch(uploadWinePicture(winePicture))
+  }
+
+  resetUpload = () => {
+    const {dispatch} = this.props
+    dispatch(resetUpload())
   }
 
   render () {
@@ -20,11 +27,24 @@ export default class UploadPicture extends Component {
     let render
 
     if (isUploaded) {
-      render = <Image width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={thumbnailFileName} lazyLoader={blur} />
+      render = <div>
+        <Image
+          width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+          height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+          src={thumbnailFileName}
+          lazyLoader={blur} />
+        <RaisedButton
+          label='Reprendre'
+          labelPosition='before'
+          secondary
+          onTouchTap={this.resetUpload}
+          icon={<ClearIcon />}
+          />
+      </div>
     } else if (isUploading) {
       render = <CircularProgress />
     } else {
-      render = <Dropzone style={{}} onDrop={this.onDrop.bind(this)} multiple={false} accept='image/*'>
+      render = <Dropzone style={{}} onDrop={this.onDrop} multiple={false} accept='image/*'>
         <FloatingActionButton >
           <ContentPhoto />
         </FloatingActionButton>

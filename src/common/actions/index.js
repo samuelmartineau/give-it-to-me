@@ -57,6 +57,7 @@ export function addWine (wine) {
       return response.json()
     }).then(json => {
       dispatch(wineAdded())
+      dispatch(resetUpload())
       dispatch(setSuccessNotification(json))
     }).catch(error => {
       dispatch(setErrorNotification(error))
