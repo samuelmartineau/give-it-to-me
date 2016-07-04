@@ -42,7 +42,8 @@ export const wineCardImage = {
 
 export const pictureToAvatar = {
   borderRadius: '50%',
-  transform: 'scale(0.25, 0.18) translate(-450px, -850px)',
+  left: '0px',
+  transform: 'scale(0.25, 0.18) translate(-420px, -860px)',
   zIndex: 4
 }
 

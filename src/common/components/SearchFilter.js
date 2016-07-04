@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/Checkbox'
 import AutoComplete from './AutoComplete'
 import {noTilde} from '../constants/global'
 import {WineFamilies} from '../constants/WineFamilies'
+import TextField from 'material-ui/TextField'
 import {WINE_TYPES, WINE_CATEGORIES} from '../constants/WineTypes'
 
 const wineFamilies = Object.keys(WineFamilies).map(id => {
@@ -15,7 +16,21 @@ const wineFamilies = Object.keys(WineFamilies).map(id => {
   }
 })
 
-const SearchFilter = ({handleWineFamilies, selectedWineFamilies, wineTypes, handleWineTypes, wineCategories, handleWineCategories}) => {
+const SearchFilter = ({
+  handleWineFamilies,
+  selectedWineFamilies,
+  wineTypes,
+  handleWineTypes,
+  wineCategories,
+  handleWineCategories,
+  period,
+  handlePeriodMin,
+  handlePeriodMax
+}) => {
+  const periods = period.reduce((acc, periodItem) => {
+    acc[periodItem.type] = periodItem.value
+    return acc
+  }, {})
   return (
     <div style={{padding: '8px', background: 'rgba(22, 214, 76, 0.2)'}}>
       <h1>AOCs</h1>
@@ -69,7 +84,20 @@ const SearchFilter = ({handleWineFamilies, selectedWineFamilies, wineTypes, hand
         />)}
       </div>
       <h1>Période</h1>
-      <div></div>
+      <div>
+        <TextField
+          hintText='Borne Inf'
+          type='number'
+          defaultValue={periods['min']}
+          onChange={handlePeriodMin}
+        />
+        <TextField
+          hintText='Borne Sup'
+          type='number'
+          defaultValue={periods['max']}
+          onChange={handlePeriodMax}
+        />
+      </div>
     </div>
   )
 }

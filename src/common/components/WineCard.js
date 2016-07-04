@@ -3,7 +3,9 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentMenu from 'material-ui/svg-icons/navigation/menu'
 import tinycolor from 'tinycolor2'
 import Checkbox from 'material-ui/Checkbox'
+import FlatButton from 'material-ui/FlatButton'
 import ActionFavorite from 'material-ui/svg-icons/action/favorite'
+import PhotoIcon from 'material-ui/svg-icons/image/photo'
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 
 import {PICTURE_UPLOAD} from '../constants/server'
@@ -78,9 +80,21 @@ export default class WineCard extends Component {
         {open && <div style={wineCardMainContainer}>
           {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : wine.positionComment}
           <div>Millésime: {wine.year}</div>
-          <Checkbox style={{
-            textAlign: 'initial'
-          }} checked={basketWine} checkedIcon={< ActionFavorite />} uncheckedIcon={< ActionFavoriteBorder />} onTouchTap={this.handleBasket} />
+          <Checkbox
+            style={{textAlign: 'initial'}}
+            checked={basketWine}
+            checkedIcon={< ActionFavorite />}
+            uncheckedIcon={< ActionFavoriteBorder />}
+            onTouchTap={this.handleBasket} />
+          <FlatButton
+            label='Agrandir photo'
+            linkButton
+            rel='nofollow'
+            target='_blank'
+            href={wine.pictureFileName}
+            primary
+            icon={<PhotoIcon />}
+          />
         </div>}
         <div style={wineCardInfosCorner} />
         <div style={wineCardInfos}>

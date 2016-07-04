@@ -4,55 +4,60 @@ import store from 'store'
 import FilterIcon from 'material-ui/svg-icons/content/sort'
 import RaisedButton from 'material-ui/RaisedButton'
 import Chip from 'material-ui/Chip'
+import {debounce} from 'lodash'
 
 import WineCard from '../components/WineCard'
 import SearchFilter from '../components/SearchFilter'
 import {WINE_TYPES, WINE_CATEGORIES} from '../constants/WineTypes'
-
-function filterWine (wines, filters) {
-  return wines.filter(wine => {
-    const wineFamilyIsSet = filters.wineFamilies.length
-    const wineFamilyMatched = filters.wineFamilies.some(wineFamily => {
-      return wineFamily.id === wine.wineFamily
-    })
-    const wineTypeIsSet = filters.wineTypes.length
-    const wineTypeMatched = filters.wineTypes.some(wineType => {
-      return wineType.key === wine.wineType
-    })
-    const wineCategoryIsSet = filters.wineCategories.length
-    const wineCategoryMatched = filters.wineCategories.some(wineCategory => {
-      return wineCategory.key === wine.wineCategory
-    })
-
-    if (wineFamilyIsSet && !wineFamilyMatched) {
-      return false
-    }
-
-    if (wineTypeIsSet && !wineTypeMatched) {
-      return false
-    }
-
-    if (wineCategoryIsSet && !wineCategoryMatched) {
-      return false
-    }
-
-    return true
-  })
-}
+import {filterWine} from '../utils/wineSearch'
 
 function getInitState () {
   return {
     filters: Object.assign({
       wineFamilies: [],
       wineTypes: [],
-      wineCategories: []
+      wineCategories: [],
+      period: []
     }, store.get('filters')),
     filtersPanelOpen: false
   }
 }
 
+function getPeriod (type, evt, value) {
+  const {filters} = this.state
+  const index = filters.period.findIndex(year => year.type === type)
+  const newPeriod = [...filters.period]
+  const item = {
+    type: type,
+    value: value,
+    label: type === 'max' ? 'x < ' + value : value + ' < x'
+  }
+  if (index > -1 && !value) {
+    newPeriod.splice(index, 1)
+  } else if (index > -1) {
+    newPeriod[index] = item
+  } else {
+    newPeriod.push(item)
+  }
+  this.setState({
+    filters: {...filters,
+      ... {
+        period: newPeriod
+      }
+    }
+  }, () => {
+    store.set('filters', this.state.filters)
+  })
+}
+
 class Search extends Component {
   state = getInitState()
+
+  constructor () {
+    super()
+    this.handlePeriodMin = debounce(this.handlePeriodMin, 1000)
+    this.handlePeriodMax = debounce(this.handlePeriodMax, 1000)
+  }
 
   toggleFiltersPanel = () => {
     const {filtersPanelOpen} = this.state
@@ -111,6 +116,10 @@ class Search extends Component {
     })
   }
 
+  handlePeriodMin = getPeriod.bind(this, 'min')
+
+  handlePeriodMax = getPeriod.bind(this, 'max')
+
   render () {
     const {wines, basketWineDictionary} = this.props
     const {filters, filtersPanelOpen} = this.state
@@ -131,6 +140,9 @@ class Search extends Component {
           handleWineTypes={this.handleWineTypes}
           wineCategories={filters.wineCategories.map(wineCategory => wineCategory.key)}
           handleWineCategories={this.handleWineCategories}
+          handlePeriodMin={this.handlePeriodMin}
+          handlePeriodMax={this.handlePeriodMax}
+          period={filters.period}
         />}
         <div style={{
           textAlign: 'center'
