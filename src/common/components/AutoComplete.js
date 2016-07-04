@@ -5,6 +5,7 @@ import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import ContentClose from 'material-ui/svg-icons/navigation/close'
 import Chip from 'material-ui/Chip'
+import {debounce} from 'lodash'
 
 import * as autoCompleteStyle from '../styles/AutoComplete'
 
@@ -15,10 +16,12 @@ export default class AutoComplete extends Component {
       searchEntry: '',
       itemSelected: false,
       textField: '',
+      filteredItems: [],
       itemsSelected: props.defaultSelectedItems || []
     }
     this.onItemSelected = this.onItemSelected.bind(this)
     this.onClearInput = this.onClearInput.bind(this)
+    this.onFilter = debounce(this.onFilter, 1000)
     const {defaultItem, selectionMode, displaySelectedItemInField} = props
     if (defaultItem) {
       this.state = {
@@ -34,8 +37,15 @@ export default class AutoComplete extends Component {
     }
   }
 
-  onEntry (e) {
-    this.setState({searchEntry: e.target.value, textField: e.target.value})
+  onFilter = (searchEntry) => {
+    const {filter} = this.props
+    const filteredItems = filter(searchEntry)
+    this.setState({filteredItems: filteredItems})
+  }
+
+  onEntry = (evt, value) => {
+    this.onFilter(value)
+    this.setState({searchEntry: value, textField: value})
   }
 
   onClearInput () {
@@ -65,6 +75,7 @@ export default class AutoComplete extends Component {
         ? displaySelectedItemInField(item)
         : '',
       searchEntry: '',
+      filteredItems: [],
       itemsSelected: itemsSelected
     })
   }
@@ -85,22 +96,29 @@ export default class AutoComplete extends Component {
     const {
       selectionMode,
       textFieldLabel,
-      filter,
       displayContentItem,
       onClearButtonClicked
     } = this.props
-    const {itemsSelected} = this.state
-    let filteredItems = filter(this.state.searchEntry)
+    const {itemsSelected, filteredItems} = this.state
     return (
       <div >
         <div style={autoCompleteStyle.autocomplete}>
-          <TextField value={this.state.textField} floatingLabelText={textFieldLabel} disabled={selectionMode && this.state.itemSelected} onChange={this.onEntry.bind(this)} /> {selectionMode && this.state.itemSelected && <IconButton onTouchTap={() => {
-            this.onClearInput()
-            onClearButtonClicked()
-          }} style={autoCompleteStyle.clearButton} touch>
-            <ContentClose />
-          </IconButton>
-}
+          <TextField
+            value={this.state.textField}
+            floatingLabelText={textFieldLabel}
+            disabled={selectionMode && this.state.itemSelected}
+            onChange={this.onEntry}
+          />
+          {selectionMode && this.state.itemSelected &&
+            <IconButton onTouchTap={() => {
+              this.onClearInput()
+              onClearButtonClicked()
+            }}
+            style={autoCompleteStyle.clearButton}
+            touch>
+              <ContentClose />
+            </IconButton>
+          }
           {!!filteredItems.length && <Menu disableAutoFocus style={{
             overflowY: 'scroll',
             maxHeight: '250px',

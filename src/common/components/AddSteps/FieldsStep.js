@@ -26,15 +26,23 @@ const FieldsStep = ({
     <div>
       <TextField value={name} floatingLabelText='Nom' onChange={onNameChange} /><br />
       <TextField type={'number'} value={year} floatingLabelText='Année' onChange={onYearChange} /><br />
-      <AutoComplete textFieldLabel="Sélectionnez l'AOC" defaultItem={defaultWineFamily} displayContentItem={(item) => <div>{item.name}</div>} onItemClicked={onWineFamilyChange} onClearButtonClicked={onWineFamilyChange} displaySelectedItemInField={(item) => item.name} selectionMode filter={(searchEntry) => {
-        if (searchEntry.length > 2) {
-          const searchFormated = noTilde(searchEntry.toLowerCase()).replace(/-/g, ' ').replace(/\s+/g, '')
-          return fuzzy.filter(searchFormated, wineFamilies, {
-            extract: el => el.searchKey
-          }).slice(0, 5).map(result => result.original)
-        }
-        return []
-      }} />
+      <AutoComplete
+        textFieldLabel="Sélectionnez l'AOC"
+        defaultItem={defaultWineFamily}
+        displayContentItem={(item) => <div>{item.name}</div>}
+        onItemClicked={onWineFamilyChange}
+        onClearButtonClicked={onWineFamilyChange}
+        displaySelectedItemInField={(item) => item.name}
+        selectionMode
+        filter={(searchEntry) => {
+          if (searchEntry.length > 2) {
+            const searchFormated = noTilde(searchEntry.toLowerCase()).replace(/-/g, ' ').replace(/\s+/g, '')
+            return fuzzy.filter(searchFormated, wineFamilies, {
+              extract: el => el.searchKey
+            }).slice(0, 5).map(result => result.original)
+          }
+          return []
+        }} />
       <div style={{
         marginBottom: '100px'
       }} />

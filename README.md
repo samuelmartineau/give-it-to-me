@@ -82,3 +82,5 @@ private stuff
 
 ## Todos
 * display devices already connected on welcomePage (useragent)
+* handle notification (add wine success, etc)
+* add d3 graph by year on home + groupBy type
