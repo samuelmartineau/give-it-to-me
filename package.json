@@ -1,6 +1,6 @@
 {
   "name": "give-it-to-me",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "give-it-to-me is an app which simplifies the personnal cellar management",
   "main": "index.js",
   "scripts": {
