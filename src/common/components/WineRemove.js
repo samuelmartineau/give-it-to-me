@@ -17,7 +17,7 @@ const WineRemove = ({wine, removeCell}) => {
   return (
     <div style={{display: 'flex', flexWrap: 'wrap'}}>
       {wine.isInBoxes ? Object.keys(bottlesByBoxes).map((boxId, index) =>
-        <div key={index} style={{flex: 1, margin: '1em', minWidth: '250px'}}>
+        <div key={index} style={{flex: 1, margin: '1em', minWidth: '250px', maxWidth: '400px'}}>
           <p>Caisse {boxId}</p>
           <BoxSchema
             selectableCells={bottlesByBoxes[boxId]}

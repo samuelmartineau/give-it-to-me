@@ -51,7 +51,7 @@ const BoxSchema = ({
             .attr('stroke', BOX_BORDER_COLOR)
             .attr('fill', BOX_COLOR)
 
-          if (isCellDisabled) {
+          if (!isCellDisabled(cellId)) {
             box.on('click', onSelectCell.bind(this, cellId))
           }
           cellId++
