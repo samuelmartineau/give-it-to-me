@@ -101,7 +101,11 @@ function unselectCell (state, boxId, cellId) {
     ...state.selectableCells
   }
 
-  newSelectableCells[boxId].push(cellId)
+  if (newSelectableCells[boxId]) {
+    newSelectableCells[boxId].push(cellId)
+  } else {
+    newSelectableCells[boxId] = [cellId]
+  }
 
   if (state.selectedCells[boxId].length === 1) {
     let {

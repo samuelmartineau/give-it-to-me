@@ -6,7 +6,14 @@ import Toggle from 'material-ui/Toggle'
 import TextField from 'material-ui/TextField'
 
 const PositionStep = (props) => {
-  const {onPositionOrigin, isInBoxes, positionComment, handlePositionComment} = props
+  const {
+    onPositionOrigin,
+    isInBoxes,
+    positionComment,
+    handlePositionComment,
+    numberOfBottles,
+    handleNumber
+  } = props
   return (
     <div>
       <Toggle
@@ -19,7 +26,13 @@ const PositionStep = (props) => {
       {isInBoxes || <TextField
         value={positionComment}
         floatingLabelText='Commentaire sur la position'
-        onChange={handlePositionComment} />}
+        onChange={handlePositionComment} />
+      }
+      {isInBoxes || <TextField
+        value={numberOfBottles}
+        floatingLabelText='Nombre de bouteille'
+        onChange={handleNumber} />
+      }
     </div>
   )
 }

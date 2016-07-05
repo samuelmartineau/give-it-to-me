@@ -27,7 +27,7 @@ const BottleType = ({bottleType, onBottleTypeChange, typeSelected}) => {
           <span style={bottleTypeStyle.titleText}>{bottleType.label}</span>
         </div>
       </div>
-      <div style={bottleTypeStyle.bottleTypeBefore}/>
+      <div style={bottleTypeStyle.bottleTypeBefore} />
     </div>
   )
 }

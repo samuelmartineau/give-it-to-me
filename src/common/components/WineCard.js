@@ -2,19 +2,14 @@ import React, {Component, PropTypes} from 'react'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentMenu from 'material-ui/svg-icons/navigation/menu'
 import tinycolor from 'tinycolor2'
-import Checkbox from 'material-ui/Checkbox'
-import FlatButton from 'material-ui/FlatButton'
-import ActionFavorite from 'material-ui/svg-icons/action/favorite'
-import PhotoIcon from 'material-ui/svg-icons/image/photo'
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 
 import {PICTURE_UPLOAD} from '../constants/server'
-import Image from '../components/Image'
+import Image from './Image'
+import WineCardOpen from './WineCardOpen'
 import * as actions from '../actions'
 import {WINE_TYPES} from '../constants/WineTypes'
 import {WineFamilies} from '../constants/WineFamilies'
 import * as wineCardStyle from '../styles/wineCard'
-import CellarSchema from './CellarSchema'
 
 export default class WineCard extends Component {
 
@@ -54,10 +49,6 @@ export default class WineCard extends Component {
     const wineCardImageContainer = {
       ...wineCardStyle.wineCardImageContainer
     }
-    const wineCardMainContainer = {
-      ...wineCardStyle.wineCardMainContainer,
-      background: tinycolor(wineColor.color).lighten(20).toString()
-    }
     const wineCardMenuButton = {
       ...wineCardStyle.wineCardMenuButton
     }
@@ -77,32 +68,19 @@ export default class WineCard extends Component {
         <div style={wineCardImageContainer}>
           <Image style={wineCardStyle.wineCardImage} width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={wine.thumbnailFileName} lazyLoader={wine.blur} />
         </div>
-        {open && <div style={wineCardMainContainer}>
-          {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : wine.positionComment}
-          <div>Millésime: {wine.year}</div>
-          <Checkbox
-            style={{textAlign: 'initial'}}
-            checked={basketWine}
-            checkedIcon={< ActionFavorite />}
-            uncheckedIcon={< ActionFavoriteBorder />}
-            onTouchTap={this.handleBasket} />
-          <FlatButton
-            label='Agrandir photo'
-            linkButton
-            rel='nofollow'
-            target='_blank'
-            href={wine.pictureFileName}
-            primary
-            icon={<PhotoIcon />}
-          />
-        </div>}
+        {open && <WineCardOpen
+            wine={wine}
+            basketWine={basketWine}
+            handleBasket={this.handleBasket}
+          />}
         <div style={wineCardInfosCorner} />
         <div style={wineCardInfos}>
           <div style={{
             fontSize: '20px'
           }}>{wine.name}</div>
           <div style={{
-            fontSize: '12px'
+            fontSize: '12px',
+            lineHeight: '14px'
           }}>{WineFamilies[wine.wineFamily]}</div>
         </div>
       </div>
