@@ -32,8 +32,8 @@ const SearchFilter = ({
     return acc
   }, {})
   return (
-    <div style={{padding: '8px', background: 'rgba(22, 214, 76, 0.2)'}}>
-      <h1>AOCs</h1>
+    <div>
+      <p>AOCs</p>
       <AutoComplete
         defaultSelectedItems={selectedWineFamilies}
         textFieldLabel='Sélectionnez les AOCs'
@@ -55,7 +55,7 @@ const SearchFilter = ({
           return []
         }}
       />
-      <h1>Couleurs</h1>
+      <p>Couleurs</p>
       <div style={{
         display: 'flex',
         flexWrap: 'wrap'
@@ -69,7 +69,7 @@ const SearchFilter = ({
           onCheck={handleWineTypes}
         />)}
       </div>
-      <h1>Texture</h1>
+      <p>Texture</p>
       <div style={{
         display: 'flex',
         flexWrap: 'wrap'
@@ -83,7 +83,7 @@ const SearchFilter = ({
           onCheck={handleWineCategories}
         />)}
       </div>
-      <h1>Période</h1>
+      <p>Période</p>
       <div>
         <TextField
           hintText='Borne Inf'
