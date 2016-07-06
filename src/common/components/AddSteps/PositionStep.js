@@ -12,7 +12,7 @@ const PositionStep = (props) => {
     positionComment,
     handlePositionComment,
     numberOfBottles,
-    handleNumber
+    handleCount
   } = props
   return (
     <div>
@@ -30,8 +30,9 @@ const PositionStep = (props) => {
       }
       {isInBoxes || <TextField
         value={numberOfBottles}
+        type='number'
         floatingLabelText='Nombre de bouteille'
-        onChange={handleNumber} />
+        onChange={handleCount} />
       }
     </div>
   )

@@ -33,7 +33,7 @@ export default class WineCard extends Component {
   }
 
   render () {
-    const {wine, basketWine} = this.props
+    const {wine, basketWine, dispatch} = this.props
     const {open} = this.state
     const wineColor = WINE_TYPES[wine.wineType]
     const cornerColor = tinycolor(wineColor.color).darken(20).toString()
@@ -62,16 +62,25 @@ export default class WineCard extends Component {
 
     return (
       <div style={wineCardStyle.wineCard}>
-        <FloatingActionButton mini style={wineCardMenuButton} backgroundColor={wineColor.color} onTouchTap={this.onToggle}>
+        <FloatingActionButton
+          mini
+          style={wineCardMenuButton}
+          backgroundColor={wineColor.color}
+          onTouchTap={this.onToggle}>
           <ContentMenu />
         </FloatingActionButton>
         <div style={wineCardImageContainer}>
-          <Image style={wineCardStyle.wineCardImage} width={PICTURE_UPLOAD.THUMBNAIL.WIDTH} height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT} src={wine.thumbnailFileName} lazyLoader={wine.blur} />
+          <Image style={wineCardStyle.wineCardImage}
+            width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+            height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+            src={wine.thumbnailFileName}
+            lazyLoader={wine.blur} />
         </div>
         {open && <WineCardOpen
             wine={wine}
             basketWine={basketWine}
             handleBasket={this.handleBasket}
+            dispatch={dispatch}
           />}
         <div style={wineCardInfosCorner} />
         <div style={wineCardInfos}>

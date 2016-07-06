@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import urlJoin from 'url-join'
 
 import * as serverConstants from '../constants/server'
 import * as types from '../constants/ActionTypes'
@@ -28,7 +29,7 @@ export function uploadWinePicture (picture) {
     const data = new window.FormData()
     data.append(serverConstants.PICTURE_UPLOAD.FILE_NAME, picture)
     dispatch(uploadPicture())
-    return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.PICTURE].join(''), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.PICTURE), {
       method: 'POST',
       body: data
     }).then(response => {
@@ -41,17 +42,18 @@ export function uploadWinePicture (picture) {
   }
 }
 
-export function addWine (wine) {
+export function addWine (wine, contextualData) {
   return dispatch => {
     dispatch(wineAdditionProcessing())
-    return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE].join(''), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE), {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ...wine
+        wine,
+        contextualData
       })
     }).then(response => {
       return response.json()
@@ -103,7 +105,7 @@ export function resetUpload () {
 
 export function addToBasket (wineId) {
   return dispatch => {
-    return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET].join(''), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET), {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -122,7 +124,7 @@ export function addToBasket (wineId) {
 
 export function removeFromBasket (basketId) {
   return dispatch => {
-    return fetch([serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET].join(''), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET), {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -130,6 +132,26 @@ export function removeFromBasket (basketId) {
       },
       body: JSON.stringify({basketId: basketId})
     }).then(response => {
+      return response.json()
+    }).then(json => {
+      dispatch(setSuccessNotification(json))
+    }).catch(error => {
+      dispatch(setErrorNotification(error))
+    })
+  }
+}
+
+export function removeBottle (wineId, boxId, cellId) {
+  return dispatch => {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE, wineId), {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({wineId, boxId, cellId})
+    }).then(response => {
+      debugger
       return response.json()
     }).then(json => {
       dispatch(setSuccessNotification(json))
