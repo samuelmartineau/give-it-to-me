@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Step, Stepper, StepLabel, StepContent} from 'material-ui/Stepper'
 
 import {isLargeScreen} from '../constants/global'
-import * as actions from '../actions'
+import {addWine} from '../actions'
 import {WINE_TYPES, DEFAULT_TYPE, DEFAULT_CATEGORY} from '../constants/WineTypes'
 import * as BottleTypes from '../constants/BottleTypes'
 import FieldsStep from '../components/AddSteps/FieldsStep'
@@ -107,7 +107,7 @@ class Add extends ResizingComponent {
     } else {
       wine.positionComment = positionComment
     }
-    dispatch(actions.addWine(wine))
+    dispatch(addWine(wine))
   }
 
   handleWineType = (event, wineType) => {
