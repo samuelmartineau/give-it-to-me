@@ -85,6 +85,13 @@ export const addWine = (wine) => {
   })
 }
 
+export const updateWine = (wineId, wineData) => {
+  // todo remove bottle on wine
+  // remove wine if no bottle
+  // remove ref if wine in basket
+}
+
+
 export const onCellarChange = (cb) => {
   getConnection.then(conn => {
     r.table(config.DB.tables.WINE).changes().run(conn).then(cursor => {
