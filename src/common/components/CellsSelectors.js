@@ -4,13 +4,17 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 import CellsSelector from './CellsSelector'
 import * as cellSelectorStyle from '../styles/cellSelector'
-import * as actions from '../actions'
+import {selectNextBox} from '../actions'
 
 export default class CellsSelectors extends Component {
+  constructor (props) {
+    super(props)
+    this.onSelectNextBox = this.onSelectNextBox.bind(this)
+  }
 
-  selectNextBox () {
+  onSelectNextBox () {
     const {dispatch} = this.props
-    dispatch(actions.selectNextBox())
+    dispatch(selectNextBox())
   }
 
   render () {
@@ -20,7 +24,7 @@ export default class CellsSelectors extends Component {
       <div>
         <div style={cellSelectorStyle.cellSelectorAddButton}>
           <RaisedButton
-            onClick={this.selectNextBox.bind(this)}
+            onClick={this.onSelectNextBox}
             label='Ajouter une caisse'
             labelPosition='after'
             primary

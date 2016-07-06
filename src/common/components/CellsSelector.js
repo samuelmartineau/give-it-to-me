@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentClose from 'material-ui/svg-icons/navigation/close'
 
-import * as actions from '../actions'
+import {selectBox, unselectBox, unselectCell, selectCell} from '../actions'
 import BoxSchema from './BoxSchema'
 import * as cellSelectorStyle from '../styles/cellSelector'
 import {WINE_TYPES} from '../constants/WineTypes'
@@ -20,7 +20,7 @@ export default class CellsSelector extends Component {
     this.selectCell = this.selectCell.bind(this)
   }
 
-  selectCell (cellId) {
+  onSelectCell (cellId) {
     const {
       dispatch,
       selectedCells,
@@ -28,21 +28,21 @@ export default class CellsSelector extends Component {
     } = this.props
     const isCellAlreadySelected = selectedCells[boxId].indexOf(cellId) > -1
     if (isCellAlreadySelected) {
-      dispatch(actions.unselectCell(boxId, cellId))
+      dispatch(unselectCell(boxId, cellId))
     } else {
-      dispatch(actions.selectCell(boxId, cellId))
+      dispatch(selectCell(boxId, cellId))
     }
   }
 
-  selectBox (event, index, value) {
+  onSelectBox (event, index, value) {
     const {dispatch, boxId} = this.props
-    dispatch(actions.unselectBox(boxId))
-    dispatch(actions.selectBox(value))
+    dispatch(unselectBox(boxId))
+    dispatch(selectBox(value))
   }
 
-  unselectBox () {
+  onUnselectBox () {
     const {dispatch, boxId} = this.props
-    dispatch(actions.unselectBox(boxId))
+    dispatch(unselectBox(boxId))
   }
 
   render () {
@@ -64,7 +64,7 @@ export default class CellsSelector extends Component {
 
     return (
       <Paper zDepth={1} style={cellSelectorStyle.cellSelector}>
-        <SelectField value={boxId} onChange={this.selectBox}>
+        <SelectField value={boxId} onChange={this.onSelectCell}>
           {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id} />)}
         </SelectField>
         {Object.keys(selectedCells).length > 1
@@ -72,14 +72,14 @@ export default class CellsSelector extends Component {
               style={cellSelectorStyle.cellSelectorCloseButton}
               mini
               secondary
-              onTouchTap={this.unselectBox}>
+              onTouchTap={this.onUnselectBox}>
             <ContentClose />
           </FloatingActionButton>
           : null
         }
         <BoxSchema
           selectableCells={availableCells[boxId]}
-          onSelectCell={this.selectCell}
+          onSelectCell={this.onSelectCell}
           bottlesToDraw={bottlesToDraw}
           boxId={boxId}
           isCellClickable={(cellId) => {

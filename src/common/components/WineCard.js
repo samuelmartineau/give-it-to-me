@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2'
 import {PICTURE_UPLOAD} from '../constants/server'
 import Image from './Image'
 import WineCardOpen from './WineCardOpen'
-import * as actions from '../actions'
+import {addToBasket, removeFromBasket} from '../actions'
 import {WINE_TYPES} from '../constants/WineTypes'
 import {WineFamilies} from '../constants/WineFamilies'
 import * as wineCardStyle from '../styles/wineCard'
@@ -26,9 +26,9 @@ export default class WineCard extends Component {
   handleBasket = () => {
     const {dispatch, wine, basketWine} = this.props
     if (basketWine) {
-      dispatch(actions.removeFromBasket(basketWine.id))
+      dispatch(removeFromBasket(basketWine.id))
     } else {
-      dispatch(actions.addToBasket(wine.id))
+      dispatch(addToBasket(wine.id))
     }
   }
 

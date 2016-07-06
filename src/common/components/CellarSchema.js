@@ -13,17 +13,17 @@ import {
   drawBottle
 } from '../constants/Cellar'
 import {WINE_TYPES} from '../constants/WineTypes'
-import * as actions from '../actions'
+import {unselectBox, selectBox} from '../actions'
 
 export default class CellarSchema extends Component {
 
-  selectBox (boxId) {
+  onSelectBox (boxId) {
     const {dispatch, selectedCells} = this.props
     const isBoxAlreadySelected = selectedCells[boxId]
     if (isBoxAlreadySelected && Object.keys(selectedCells).length > 1) {
-      dispatch(actions.unselectBox(boxId))
+      dispatch(unselectBox(boxId))
     } else {
-      dispatch(actions.selectBox(boxId))
+      dispatch(selectBox(boxId))
     }
   }
 
@@ -51,7 +51,7 @@ export default class CellarSchema extends Component {
       svgBox.attr('x', box.x).attr('y', box.y).attr('width', box.width).attr('height', box.height).attr('stroke-width', BOX_BORDER_SIZE).attr('style', `cursor: ${cursor}`).attr('stroke', BOX_BORDER_COLOR).attr('fill', BOX_COLOR)
 
       if (!viewMode && isBoxClickable) {
-        svgBox.on('click', this.selectBox.bind(this, boxId))
+        svgBox.on('click', this.onSelectBox.bind(this, boxId))
       }
 
       if (viewMode && wine.bottles.map(bottle => bottle.box).indexOf(boxId) === -1) {

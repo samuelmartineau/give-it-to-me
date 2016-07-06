@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Snackbar from 'material-ui/Snackbar'
 
-import * as actions from '../actions'
+import {hideNotification} from '../actions'
 
 export default class Notification extends Component {
   state = {
@@ -10,7 +10,7 @@ export default class Notification extends Component {
 
   handleRequestClose () {
     const {dispatch} = this.props
-    dispatch(actions.hideNotification())
+    dispatch(hideNotification())
   }
 
   render () {
