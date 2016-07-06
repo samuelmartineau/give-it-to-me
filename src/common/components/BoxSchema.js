@@ -39,7 +39,7 @@ const BoxSchema = ({
     .forEach((_, xIndex) => {
       Array(box.schema[1]).fill()
         .forEach((_, yIndex) => {
-          const cursor = isCellClickable(cellId) ? 'pointer' : 'not-allowed'
+          const cursor = isCellDisabled(cellId) ? 'not-allowed' : 'pointer'
           const box = select(svgContainer).append('rect')
 
           box.attr('x', xIndex * CELL_SIZE)
@@ -51,7 +51,7 @@ const BoxSchema = ({
             .attr('stroke', BOX_BORDER_COLOR)
             .attr('fill', BOX_COLOR)
 
-          if (!isCellDisabled(cellId)) {
+          if (isCellClickable(cellId)) {
             box.on('click', onSelectCell.bind(this, cellId))
           }
           cellId++

@@ -15,9 +15,9 @@ export default class CellsSelector extends Component {
 
   constructor (props) {
     super(props)
-    this.selectBox = this.selectBox.bind(this)
-    this.unselectBox = this.unselectBox.bind(this)
-    this.selectCell = this.selectCell.bind(this)
+    this.onSelectBox = this.onSelectBox.bind(this)
+    this.onUnselectBox = this.onUnselectBox.bind(this)
+    this.onSelectCell = this.onSelectCell.bind(this)
   }
 
   onSelectCell (cellId) {
@@ -64,7 +64,7 @@ export default class CellsSelector extends Component {
 
     return (
       <Paper zDepth={1} style={cellSelectorStyle.cellSelector}>
-        <SelectField value={boxId} onChange={this.onSelectCell}>
+        <SelectField value={boxId} onChange={this.onSelectBox}>
           {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id} />)}
         </SelectField>
         {Object.keys(selectedCells).length > 1
@@ -89,7 +89,9 @@ export default class CellsSelector extends Component {
             return isCellAvailable && (moreThanOneCellSeltected || notAlreadySelected)
           }}
           isCellDisabled={(cellId) => {
-            return availableCells[boxId].indexOf(cellId) > -1
+            const isCellUnavailable = availableCells[boxId].indexOf(cellId) === -1
+            const onlyOneCellSeleted = selectedCells[boxId].length === 1
+            return onlyOneCellSeleted || isCellUnavailable
           }}
            />
       </Paper>
