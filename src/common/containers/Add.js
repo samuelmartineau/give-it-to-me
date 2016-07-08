@@ -32,7 +32,7 @@ const STEPS = [
   }, {
     label: 'Position',
     disableNext: (state) => {
-      return false
+      return !state.isInBoxes && !state.count
     }
   }
 ]
@@ -41,7 +41,11 @@ function getInitialState () {
   return {
     positionComment: '',
     isInBoxes: true,
-    stepIndex: 0, name: '', year: '', wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
+    stepIndex: 0,
+    name: '',
+    year: '',
+    count: 1,
+    wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
     wineCategory: WINE_TYPES[Object.keys(WINE_TYPES)[DEFAULT_TYPE]].categories[DEFAULT_CATEGORY],
     bottleType: BottleTypes.DEFAULT_TYPE.toString(),
     orientation: isLargeScreen()
@@ -141,8 +145,8 @@ class Add extends ResizingComponent {
     this.setState({positionComment: event.target.value})
   }
 
-  handleCount = (event) => {
-    this.setState({count: event.target.value})
+  handleCount = (evt, value) => {
+    this.setState({count: parseInt(value)})
   }
 
   handleNext = () => {
@@ -204,13 +208,21 @@ class Add extends ResizingComponent {
       bottleType,
       wineFamily,
       isInBoxes,
-      positionComment
+      positionComment,
+      count
     } = this.state
     let cases = []
     cases.push(<FieldsStep name={name} year={year} onNameChange={this.handleNameChange} onYearChange={this.handleYearChange} onWineFamilyChange={this.handleWineFamilyChange} defaultWineFamily={wineFamily} />)
     cases.push(<TypesStep handleWineType={this.handleWineType} handleWineCategory={this.handleWineCategory} handleBottleType={this.handleBottleType} wineType={wineType} wineCategory={wineCategory} bottleType={bottleType} />)
     cases.push(<PictureStep {...this.props} />)
-    cases.push(<PositionStep positionComment={positionComment} handlePositionComment={this.handlePositionComment} handleCount={this.handleCount} isInBoxes={isInBoxes} onPositionOrigin={this.onPositionOrigin} {...this.props} />)
+    cases.push(<PositionStep
+      positionComment={positionComment}
+      handlePositionComment={this.handlePositionComment}
+      count={count}
+      handleCount={this.handleCount}
+      isInBoxes={isInBoxes}
+      onPositionOrigin={this.onPositionOrigin}
+      {...this.props} />)
 
     return cases[stepIndex]
   }
