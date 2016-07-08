@@ -129,20 +129,20 @@ class Add extends ResizingComponent {
     this.setState({bottleType: bottleType})
   }
 
-  handleNameChange = (event) => {
-    this.setState({name: event.target.value})
+  handleNameChange = (event, value) => {
+    this.setState({name: value})
   }
 
-  handleYearChange = (event) => {
-    this.setState({year: event.target.value})
+  handleYearChange = (event, value) => {
+    this.setState({year: value})
   }
 
   handleWineFamilyChange = (wineFamily) => {
     this.setState({wineFamily: wineFamily})
   }
 
-  handlePositionComment = (event) => {
-    this.setState({positionComment: event.target.value})
+  handlePositionComment = (event, value) => {
+    this.setState({positionComment: value})
   }
 
   handleCount = (evt, value) => {
