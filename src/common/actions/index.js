@@ -103,9 +103,9 @@ export function resetUpload () {
   return {type: types.RESET_UPLOAD}
 }
 
-export function addToBasket (wineId) {
+export function addToFavorite (wineId) {
   return dispatch => {
-    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.FAVORITE), {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -124,7 +124,7 @@ export function addToBasket (wineId) {
 
 export function removeFromBasket (basketId) {
   return dispatch => {
-    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BASKET), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.FAVORITE), {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',

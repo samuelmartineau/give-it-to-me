@@ -5,12 +5,12 @@ import WineCard from '../components/WineCard'
 
 class Basket extends Component {
   render () {
-    const {wineDictionary, basket} = this.props
+    const {wineDictionary, favorite} = this.props
     return (
       <div style={{
         textAlign: 'center'
       }}>
-        {basket.map((basketItem, index) => <WineCard {...this.props} key={index} wine={wineDictionary[basketItem.wineId]} basketWine={basketItem} />)}
+        {favorite.map((basketItem, index) => <WineCard {...this.props} key={index} wine={wineDictionary[basketItem.wineId]} basketWine={basketItem} />)}
       </div>
     )
   }
@@ -22,6 +22,6 @@ function mapStateToProps (state) {
     return acc
   }, {})
 
-  return {wineDictionary: wineDictionary, basket: state.basket}
+  return {wineDictionary: wineDictionary, favorite: state.favorite}
 }
 export default connect(mapStateToProps)(Basket)

@@ -18,17 +18,17 @@ export const menuItems = [
     value: '/search',
     title: 'Trouver une bouteille'
   }, {
-    children: 'Panier',
-    value: '/basket',
-    title: 'Panier',
-    rightChild: (basket) => (<Badge badgeContent={basket.length} primary />)
+    children: 'Favoris',
+    value: '/favorite',
+    title: 'Favoris',
+    rightChild: (favorite) => (<Badge badgeContent={favorite.length} primary />)
   }
 ]
 
-const Menu = ({basket, handleRequestChangeList, location}) => {
+const Menu = ({favorite, handleRequestChangeList, location}) => {
   return (
     <SelectableList value={location.pathname} onChange={handleRequestChangeList}>
-      {menuItems.map((item, index) => <ListItem key={index} children={item.children} rightIcon={item.rightChild && item.rightChild(basket)} value={item.value} />)}
+      {menuItems.map((item, index) => <ListItem key={index} children={item.children} rightIcon={item.rightChild && item.rightChild(favorite)} value={item.value} />)}
     </SelectableList>
   )
 }

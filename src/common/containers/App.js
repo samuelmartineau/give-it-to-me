@@ -99,7 +99,7 @@ class App extends ResizingComponent {
     return styles
   }
   render () {
-    const {children, basket, location} = this.props
+    const {children, favorite, location} = this.props
     const {navDrawerOpen, isLargeScreen} = this.state
     const {prepareStyles} = this.state.muiTheme
     const styles = this.getStyles()
@@ -120,7 +120,7 @@ class App extends ResizingComponent {
           mobileNav: !this.state.mobileNav
         })}>
           <AppBar title='Menu' showMenuIconButton={false} key={0} />
-          <Menu key={1} basket={basket} handleRequestChangeList={this.handleRequestChangeList.bind(this)} location={location} />
+          <Menu key={1} favorite={favorite} handleRequestChangeList={this.handleRequestChangeList.bind(this)} location={location} />
           <div key={2} style={version}>
             {window.__CURRENT_VERSION__}
           </div>
@@ -138,6 +138,6 @@ class App extends ResizingComponent {
 }
 
 export default connect(state => ({
-  basket: state.basket,
+  favorite: state.favorite,
   ...state.notification
 }))(App)

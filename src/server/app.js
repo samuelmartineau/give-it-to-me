@@ -21,7 +21,7 @@ import logger from './utils/logger'
 import {renderFullPage, fakeWindow, skip} from './utils'
 import routes from '../common/routes'
 import {getCellar, onCellarChange, computeCellar} from './wine/services'
-import {getBasket, onBasketChange} from './basket/services'
+import {getBasket, onBasketChange} from './favorite/services'
 import {onBottleChange} from './bottle/services'
 import handleRoutes from './handleRoutes'
 import './utils/db'
@@ -102,14 +102,14 @@ app.get('/*', (req, res) => {
       Promise.all([getCellar(), getBasket()]).then(result => {
         finalState = {
           cellar: result[0],
-          basket: result[1]
+          favorite: result[1]
         }
         sendResult(finalState, reducers, renderProps, res)
       }).catch(error => {
         logger.error(error)
         finalState = {
           cellar: computeCellar([]),
-          basket: [],
+          favorite: [],
           notification: {
             error: true,
             message: 'Erreur de connection avec la base de données',
@@ -135,9 +135,9 @@ onBottleChange(cellar => {
     stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
   })
 })
-onBasketChange(basket => {
+onBasketChange(favorite => {
   clients.forEach(stream => {
-    stream.send(JSON.stringify({action: ActionTypes.SET_BASKET, state: basket}))
+    stream.send(JSON.stringify({action: ActionTypes.SET_BASKET, state: favorite}))
   })
 })
 // =============================================================================

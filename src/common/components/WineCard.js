@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2'
 import {PICTURE_UPLOAD} from '../constants/server'
 import Image from './Image'
 import WineCardOpen from './WineCardOpen'
-import {addToBasket, removeFromBasket} from '../actions'
+import {addToFavorite, removeFromBasket} from '../actions'
 import {WINE_TYPES} from '../constants/WineTypes'
 import {WineFamilies} from '../constants/WineFamilies'
 import * as wineCardStyle from '../styles/wineCard'
@@ -28,7 +28,7 @@ export default class WineCard extends Component {
     if (basketWine) {
       dispatch(removeFromBasket(basketWine.id))
     } else {
-      dispatch(addToBasket(wine.id))
+      dispatch(addToFavorite(wine.id))
     }
   }
 

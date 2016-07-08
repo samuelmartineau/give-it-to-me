@@ -51,7 +51,7 @@ class Search extends Component {
 }
 
 function mapStateToProps (state) {
-  const basketWineDictionary = state.basket.reduce((acc, basketWine) => {
+  const basketWineDictionary = state.favorite.reduce((acc, basketWine) => {
     acc[basketWine.wineId] = basketWine
     return acc
   }, {})

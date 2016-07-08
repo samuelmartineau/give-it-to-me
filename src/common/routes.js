@@ -21,7 +21,7 @@ export default {
       path: 'search',
       component: Search
     }, {
-      path: 'basket',
+      path: 'favorite',
       component: Basket
     }
   ]
