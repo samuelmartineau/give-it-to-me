@@ -1,7 +1,7 @@
 import React from 'react'
 import fuzzy from 'fuzzy'
-
 import TextField from 'material-ui/TextField'
+
 import {noTilde} from '../../constants/global'
 import AutoComplete from '../AutoComplete'
 import {WineFamilies} from '../../constants/WineFamilies'
