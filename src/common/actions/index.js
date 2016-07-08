@@ -141,7 +141,7 @@ export function removeFromBasket (basketId) {
   }
 }
 
-export function removeBottle (wineId, boxId, cellId) {
+export function removeBottle (wineId, bottleId) {
   return dispatch => {
     return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BOTTLE, wineId), {
       method: 'DELETE',
@@ -149,7 +149,7 @@ export function removeBottle (wineId, boxId, cellId) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({wineId, boxId, cellId})
+      body: JSON.stringify({bottleId})
     }).then(response => {
       debugger
       return response.json()

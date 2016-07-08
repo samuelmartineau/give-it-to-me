@@ -7,9 +7,9 @@ const WineRemove = ({wine, removeBottle}) => {
   const color = WINE_TYPES[wine.wineType].color
   const bottlesByBoxes = wine.isInBoxes ? wine.bottles.reduce((acc, bottle) => {
     if (acc[bottle.box]) {
-      acc[bottle.box].push(bottle.cell)
+      acc[bottle.box].push(bottle)
     } else {
-      acc[bottle.box] = [bottle.cell]
+      acc[bottle.box] = [bottle]
     }
     return acc
   }, {}) : {}
@@ -20,22 +20,23 @@ const WineRemove = ({wine, removeBottle}) => {
         <div key={index} style={{flex: 1, margin: '1em', minWidth: '250px', maxWidth: '400px'}}>
           <p>Caisse {boxId}</p>
           <BoxSchema
-            selectableCells={bottlesByBoxes[boxId]}
+            selectableCells={bottlesByBoxes[boxId].map(bottle => bottle.cell)}
             onSelectCell={cellId => {
-              removeBottle(parseInt(boxId), cellId)
+              const bottle = bottlesByBoxes[boxId].find(bottle => bottle.cell === cellId)
+              removeBottle(bottle)
             }}
-            bottlesToDraw={bottlesByBoxes[boxId].map((cell) => ({
+            bottlesToDraw={bottlesByBoxes[boxId].map(bottle => ({
               color: color,
               box: boxId,
-              cell: cell,
+              cell: bottle.cell,
               isBoxSchema: true
             }))}
             boxId={parseInt(boxId)}
             isCellClickable={(cellId) => {
-              return bottlesByBoxes[boxId].indexOf(cellId) > -1
+              return bottlesByBoxes[boxId].map(bottle => bottle.cell).indexOf(cellId) > -1
             }}
             isCellDisabled={(cellId) => {
-              return bottlesByBoxes[boxId].indexOf(cellId) === -1
+              return bottlesByBoxes[boxId].map(bottle => bottle.cell).indexOf(cellId) === -1
             }}
              />
         </div>

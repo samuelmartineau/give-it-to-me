@@ -16,9 +16,9 @@ export default class WineCardModal extends Component {
     }
   }
 
-  removeBottle = (boxId, cellId) => {
+  removeBottle = (bottle) => {
     const {dispatch, wine} = this.props
-    dispatch(removeBottle(wine.id, boxId, cellId))
+    dispatch(removeBottle(wine.id, bottle.id))
   }
 
   handleOpenModal = () => {

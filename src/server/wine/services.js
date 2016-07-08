@@ -108,15 +108,24 @@ export const addWine = (wine, contextualData) => {
   })
 }
 
-export const updateWine = (wineId, wineData) => {
+export const getWine = (wineId) => {
   return getConnection.then(conn => {
     return r.table(config.DB.tables.WINE)
         .get(wineId)
+        .merge((wine) => {
+          return {
+            'bottles': r.table(config.DB.tables.BOTTLE).getAll(wine('id'), {index: 'wine_id'}).coerceTo('array')
+          }
+        })
         .run(conn)
   }).catch(error => {
     logger.error('Error getting Wine', error)
     return Promise.reject({message: 'Probleme lors de la récupération du vin'})
   })
+}
+
+export const updateWine = (wineId, wineData) => {
+  return 'todo'
 
   // todo remove bottle on wine
   // remove wine if no bottle
