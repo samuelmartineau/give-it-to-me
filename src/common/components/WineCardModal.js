@@ -21,6 +21,11 @@ export default class WineCardModal extends Component {
     dispatch(removeBottle(wine.id, bottle.id))
   }
 
+  updateBottleCount = (bottleCount) => {
+    const {dispatch, wine} = this.props
+    dispatch(removeBottle(wine.id, bottle.id))
+  }
+
   handleOpenModal = () => {
     this.setState({openModal: true})
   }
@@ -62,6 +67,7 @@ export default class WineCardModal extends Component {
             <WineRemove
               wine={this.props.wine}
               removeBottle={this.removeBottle}
+              updateBottleCount={this.updateBottleCount}
               />
           </Dialog>}
       </div>

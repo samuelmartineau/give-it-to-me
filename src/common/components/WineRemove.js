@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react'
+import TextField from 'material-ui/TextField'
 
 import BoxSchema from './BoxSchema'
 import {WINE_TYPES} from '../constants/WineTypes'
 
-const WineRemove = ({wine, removeBottle}) => {
+const WineRemove = ({wine, removeBottle, updateBottleCount}) => {
   const color = WINE_TYPES[wine.wineType].color
   const bottlesByBoxes = wine.isInBoxes ? wine.bottles.reduce((acc, bottle) => {
     if (acc[bottle.box]) {
@@ -40,7 +41,12 @@ const WineRemove = ({wine, removeBottle}) => {
             }}
              />
         </div>
-        ) : 'sam'}
+      ) : <div>
+        <TextField
+          type='number'
+          floatingLabelText='Nombre de bouteilles restantes'
+          onChange={updateBottleCount} />
+      </div>}
     </div>
   )
 }
