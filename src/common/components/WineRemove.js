@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react'
 import BoxSchema from './BoxSchema'
 import {WINE_TYPES} from '../constants/WineTypes'
 
-const WineRemove = ({wine, removeCell}) => {
+const WineRemove = ({wine, removeBottle}) => {
   const color = WINE_TYPES[wine.wineType].color
   const bottlesByBoxes = wine.isInBoxes ? wine.bottles.reduce((acc, bottle) => {
     if (acc[bottle.box]) {
@@ -21,14 +21,16 @@ const WineRemove = ({wine, removeCell}) => {
           <p>Caisse {boxId}</p>
           <BoxSchema
             selectableCells={bottlesByBoxes[boxId]}
-            onSelectCell={removeCell}
+            onSelectCell={cellId => {
+              removeBottle(parseInt(boxId), cellId)
+            }}
             bottlesToDraw={bottlesByBoxes[boxId].map((cell) => ({
               color: color,
               box: boxId,
               cell: cell,
               isBoxSchema: true
             }))}
-            boxId={boxId}
+            boxId={parseInt(boxId)}
             isCellClickable={(cellId) => {
               return bottlesByBoxes[boxId].indexOf(cellId) > -1
             }}

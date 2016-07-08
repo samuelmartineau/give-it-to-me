@@ -52,7 +52,7 @@ const BoxSchema = ({
             .attr('fill', BOX_COLOR)
 
           if (isCellClickable(cellId)) {
-            box.on('click', onSelectCell.bind(this, cellId))
+            box.on('click', onSelectCell.bind(null, cellId))
           }
           cellId++
         })

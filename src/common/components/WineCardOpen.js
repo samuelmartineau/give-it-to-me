@@ -12,7 +12,7 @@ import {BOTTLE_TYPES} from '../constants/BottleTypes'
 import CellarSchema from './CellarSchema'
 import WineCardModal from './WineCardModal'
 
-const WineCardOpen = ({wine, basketWine, handleBasket}) => {
+const WineCardOpen = ({wine, basketWine, handleBasket, dispatch}) => {
   const wineColor = WINE_TYPES[wine.wineType]
   const wineCardMainContainer = {
     ...wineCardStyle.wineCardMainContainer,
@@ -41,13 +41,15 @@ const WineCardOpen = ({wine, basketWine, handleBasket}) => {
         icon={<PhotoIcon />}
       />
       <WineCardModal
+        dispatch={dispatch}
         wine={wine} />
     </div>
   )
 }
 
 WineCardOpen.propTypes = {
-  wine: PropTypes.object.isRequired
+  wine: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 }
 
 export default WineCardOpen

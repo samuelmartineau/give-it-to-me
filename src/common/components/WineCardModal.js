@@ -2,16 +2,23 @@ import React, {Component, PropTypes} from 'react'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
+
 import WineRemove from './WineRemove'
+import {removeBottle} from '../actions'
 
 export default class WineCardModal extends Component {
 
-  state = {
-    openModal: false
+  constructor (props) {
+    super(props)
+    this.removeBottle = this.removeBottle.bind(this)
+    this.state = {
+      openModal: false
+    }
   }
 
-  removeCell = () => {
-    debugger
+  removeBottle = (boxId, cellId) => {
+    const {dispatch, wine} = this.props
+    dispatch(removeBottle(wine.id, boxId, cellId))
   }
 
   handleOpenModal = () => {
@@ -54,7 +61,7 @@ export default class WineCardModal extends Component {
           >
             <WineRemove
               wine={this.props.wine}
-              removeCell={this.removeCell}
+              removeBottle={this.removeBottle}
               />
           </Dialog>}
       </div>

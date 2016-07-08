@@ -22,6 +22,7 @@ module.exports = Object.assign({
     tables: {
       WINE: 'wine',
       BASKET: 'basket',
+      BOTTLE: 'bottle',
       TRANSACTION: 'transaction'
     }
   },

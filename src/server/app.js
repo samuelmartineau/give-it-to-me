@@ -22,6 +22,7 @@ import {renderFullPage, fakeWindow, skip} from './utils'
 import routes from '../common/routes'
 import {getCellar, onCellarChange, computeCellar} from './wine/services'
 import {getBasket, onBasketChange} from './basket/services'
+import {onBottleChange} from './bottle/services'
 import handleRoutes from './handleRoutes'
 import './utils/db'
 
@@ -125,6 +126,11 @@ app.get('/*', (req, res) => {
 // Server-Sent Events
 // =============================================================================
 onCellarChange(cellar => {
+  clients.forEach(stream => {
+    stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
+  })
+})
+onBottleChange(cellar => {
   clients.forEach(stream => {
     stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
   })
