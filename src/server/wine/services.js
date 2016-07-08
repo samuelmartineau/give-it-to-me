@@ -124,12 +124,16 @@ export const getWine = (wineId) => {
   })
 }
 
-export const updateWine = (wineId, wineData) => {
-  return 'todo'
-
-  // todo remove bottle on wine
-  // remove wine if no bottle
-  // remove ref if wine in basket
+export const updateWine = (wineId, data) => {
+  return getConnection.then(conn => {
+    return r.table(config.DB.tables.WINE)
+        .get(wineId)
+        .update(data)
+        .run(conn)
+  }).catch(error => {
+    logger.error('Error getting Wine', error)
+    return Promise.reject({message: 'Probleme lors de la récupération du vin'})
+  })
 }
 
 export const onCellarChange = (cb) => {

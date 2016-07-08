@@ -1,5 +1,7 @@
+import path from 'path'
+
 import * as serverConstants from '../../common/constants/server'
-import {addWine} from './services'
+import {addWine, updateWine} from './services'
 import {moveWineToPermanetFolder} from '../pictures/services'
 
 export default router => {
@@ -15,5 +17,20 @@ export default router => {
         res.status(500).json(error)
       })
     })
+  })
+  router.delete(path.join(serverConstants.ROUTES.WINE, ':wineId'), (req, res) => {
+    const {wineId} = req.params
+    let {data} = req.body
+
+    if (data.count === 0) {
+      data._deleted = true
+    }
+
+    return updateWine(wineId, data)
+      .then(message => {
+        res.status(200).json(message)
+      }).catch(error => {
+        res.status(500).json(error)
+      })
   })
 }
