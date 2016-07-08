@@ -1,5 +1,3 @@
-import logger from '../utils/logger'
-import config from '../../../config'
 import * as serverConstants from '../../common/constants/server'
 import {addToBasket, removeFromBasket} from './services'
 

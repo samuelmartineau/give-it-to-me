@@ -143,8 +143,8 @@ export function removeFromBasket (basketId) {
 
 export function removeBottle (wineId, boxId, cellId) {
   return dispatch => {
-    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE, wineId), {
-      method: 'PUT',
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BOTTLE, wineId), {
+      method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

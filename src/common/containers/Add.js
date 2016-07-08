@@ -110,7 +110,6 @@ class Add extends ResizingComponent {
       contextualData.positionComment = positionComment
       contextualData.count = count
     }
-    debugger
     dispatch(addWine(wine, contextualData))
   }
 

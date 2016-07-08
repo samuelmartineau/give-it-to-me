@@ -1,7 +1,8 @@
 export const ROUTES = {
   PICTURE: '/picture',
   WINE: '/wine',
-  BASKET: '/basket'
+  BASKET: '/basket',
+  BOTTLE: '/bottle'
 }
 
 export const PICTURE_UPLOAD = {

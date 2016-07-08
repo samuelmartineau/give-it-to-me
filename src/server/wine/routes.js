@@ -1,7 +1,5 @@
-import path from 'path'
-
 import * as serverConstants from '../../common/constants/server'
-import {addWine, updateWine} from './services'
+import {addWine} from './services'
 import {moveWineToPermanetFolder} from '../pictures/services'
 
 export default router => {
@@ -11,19 +9,11 @@ export default router => {
         ...req.body.wine,
         ...fileUploaded
       }
-      debugger
       return addWine(computeWineData, req.body.contextualData).then(message => {
         res.status(200).json(message)
       }).catch(error => {
         res.status(500).json(error)
       })
-    })
-  })
-  router.put(path.join(serverConstants.ROUTES.WINE, ':wineId'), (req, res) => {
-    return updateWine(req.params.wineId, req.body.wineData).then(message => {
-      res.status(200).json(message)
-    }).catch(error => {
-      res.status(500).json(error)
     })
   })
 }

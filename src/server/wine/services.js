@@ -65,17 +65,14 @@ export const computeCellar = (wines) => {
 
 export const getCellar = () => {
   return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE).merge((wine) => {
-      console.log(wine)
+    return r.table(config.DB.tables.WINE)
+    .merge((wine) => {
       return {
-        'bottles': r.table(config.DB.tables.BOTTLE).getAll(wine.id, {index: 'wine_id'}).coerce_to('array')
+        'bottles': r.table(config.DB.tables.BOTTLE).getAll(wine('id'), {index: 'wine_id'}).coerceTo('array')
       }
     })
-      // .eqJoin('id', r.table(config.DB.tables.BOTTLE), {index: 'wine_id', multi: true})
-      // .zip()
-      .run(conn)
+    .run(conn)
   }).then(cursor => cursor.toArray()).then(wines => {
-    debugger
     return computeCellar(wines)
   }).catch(error => {
     logger.error('Error getting Cellar', error)
@@ -129,9 +126,9 @@ export const updateWine = (wineId, wineData) => {
 export const onCellarChange = (cb) => {
   getConnection.then(conn => {
     r.table(config.DB.tables.WINE).changes().run(conn).then(cursor => {
-      cursor.each(function (err, item) {
+      cursor.each((err, item) => {
         if (err) {
-          logger.error('Error onCellarChange', err)
+          logger.error('Cursor error', err)
         }
         getCellar().then(cb)
       })
