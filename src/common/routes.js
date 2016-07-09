@@ -2,7 +2,7 @@ import App from './containers/App'
 import Welcome from './containers/Welcome'
 import Add from './containers/Add'
 import Search from './containers/Search'
-import Basket from './containers/Basket'
+import Favorite from './containers/Favorite'
 
 export default {
   path: '/',
@@ -22,7 +22,7 @@ export default {
       component: Search
     }, {
       path: 'favorite',
-      component: Basket
+      component: Favorite
     }
   ]
 }

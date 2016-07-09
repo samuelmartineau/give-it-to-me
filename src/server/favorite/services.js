@@ -4,11 +4,11 @@ import {getConnection} from '../utils/db'
 import logger from '../utils/logger'
 import config from '../../../config'
 
-export const getBasket = () => {
+export const getFavorite = () => {
   return getConnection.then(conn => {
     return r.table(config.DB.tables.FAVORITE).run(conn)
   }).then(cursor => cursor.toArray()).catch(error => {
-    logger.error('Error getting Basket', error)
+    logger.error('Error getting Favorite', error)
     return Promise.reject({message: 'Probleme lors de la récupération des favoris dans la base de données'})
   })
 }
@@ -22,23 +22,23 @@ export const addToFavorite = (wineId) => {
   })
 }
 
-export const removeFromBasket = (basketId) => {
+export const removeFromFavorite = (favoriteId) => {
   return getConnection.then(conn => {
-    return r.table(config.DB.tables.FAVORITE).get(basketId).delete().run(conn).then(() => ({message: 'Vin supprimé aux favoris avec succés'}))
+    return r.table(config.DB.tables.FAVORITE).get(favoriteId).delete().run(conn).then(() => ({message: 'Vin supprimé aux favoris avec succés'}))
   }).catch(error => {
     logger.error('Error removing Wine from favorite', error)
     return Promise.reject({message: 'Probleme lors de la suppréssion du vin des favoris dans la base de données'})
   })
 }
 
-export const onBasketChange = (cb) => {
+export const onFavoriteChange = (cb) => {
   getConnection.then(conn => {
     r.table(config.DB.tables.FAVORITE).changes().run(conn).then(cursor => {
       cursor.each((err, item) => {
         if (err) {
           logger.error('Cursor error', err)
         }
-        getBasket().then(cb)
+        getFavorite().then(cb)
       })
     }).catch(error => {
       logger.error('Error onCellarChange', error)

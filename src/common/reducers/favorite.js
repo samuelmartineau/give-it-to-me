@@ -1,8 +1,8 @@
-import {SET_BASKET} from '../constants/ActionTypes'
+import {SET_FAVORITE} from '../constants/ActionTypes'
 
 function doAction (state, action) {
   const actions = {}
-  actions[SET_BASKET] = () => [...action.state]
+  actions[SET_FAVORITE] = () => [...action.state]
 
   if (typeof actions[action.type] !== 'function') {
     return state

@@ -12,7 +12,7 @@ import {BOTTLE_TYPES} from '../constants/BottleTypes'
 import CellarSchema from './CellarSchema'
 import WineCardModal from './WineCardModal'
 
-const WineCardOpen = ({wine, basketWine, handleBasket, dispatch}) => {
+const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
   const wineColor = WINE_TYPES[wine.wineType]
   const wineCardMainContainer = {
     ...wineCardStyle.wineCardMainContainer,
@@ -27,10 +27,10 @@ const WineCardOpen = ({wine, basketWine, handleBasket, dispatch}) => {
       <div>Taille: {bottleType.label} ({bottleType.capacity}L)</div>
       <Checkbox
         style={{textAlign: 'initial'}}
-        checked={basketWine}
+        checked={favoriteWine}
         checkedIcon={< ActionFavorite />}
         uncheckedIcon={< ActionFavoriteBorder />}
-        onTouchTap={handleBasket} />
+        onTouchTap={handleFavorite} />
       <FlatButton
         label='Voir la Photo'
         linkButton

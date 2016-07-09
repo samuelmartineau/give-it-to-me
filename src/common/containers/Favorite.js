@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 
 import WineCard from '../components/WineCard'
 
-class Basket extends Component {
+class Favorite extends Component {
   render () {
     const {wineDictionary, favorite} = this.props
     return (
       <div style={{
         textAlign: 'center'
       }}>
-        {favorite.map((basketItem, index) => <WineCard {...this.props} key={index} wine={wineDictionary[basketItem.wineId]} basketWine={basketItem} />)}
+        {favorite.map((favoriteItem, index) => <WineCard {...this.props} key={index} wine={wineDictionary[favoriteItem.wineId]} favoriteWine={favoriteItem} />)}
       </div>
     )
   }
@@ -24,4 +24,4 @@ function mapStateToProps (state) {
 
   return {wineDictionary: wineDictionary, favorite: state.favorite}
 }
-export default connect(mapStateToProps)(Basket)
+export default connect(mapStateToProps)(Favorite)

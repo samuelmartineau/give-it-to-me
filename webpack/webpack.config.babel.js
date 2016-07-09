@@ -9,7 +9,7 @@ const webpackConfig = {
     main: [
       './src/client'
     ],
-    vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux']
+    vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'material-ui']
   },
   debug: true,
   output: {

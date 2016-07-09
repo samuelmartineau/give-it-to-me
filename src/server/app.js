@@ -21,7 +21,7 @@ import logger from './utils/logger'
 import {renderFullPage, fakeWindow, skip} from './utils'
 import routes from '../common/routes'
 import {getCellar, onCellarChange, computeCellar} from './wine/services'
-import {getBasket, onBasketChange} from './favorite/services'
+import {getFavorite, onFavoriteChange} from './favorite/services'
 import {onBottleChange} from './bottle/services'
 import handleRoutes from './handleRoutes'
 import './utils/db'
@@ -99,7 +99,7 @@ app.get('/*', (req, res) => {
       res.status(404).send('Not found')
     } else {
       let finalState
-      Promise.all([getCellar(), getBasket()]).then(result => {
+      Promise.all([getCellar(), getFavorite()]).then(result => {
         finalState = {
           cellar: result[0],
           favorite: result[1]
@@ -135,9 +135,9 @@ onBottleChange(cellar => {
     stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
   })
 })
-onBasketChange(favorite => {
+onFavoriteChange(favorite => {
   clients.forEach(stream => {
-    stream.send(JSON.stringify({action: ActionTypes.SET_BASKET, state: favorite}))
+    stream.send(JSON.stringify({action: ActionTypes.SET_FAVORITE, state: favorite}))
   })
 })
 // =============================================================================

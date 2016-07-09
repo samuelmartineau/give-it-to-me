@@ -122,7 +122,7 @@ export function addToFavorite (wineId) {
   }
 }
 
-export function removeFromBasket (basketId) {
+export function removeFromFavorite (favoriteId) {
   return dispatch => {
     return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.FAVORITE), {
       method: 'DELETE',
@@ -130,7 +130,7 @@ export function removeFromBasket (basketId) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({basketId: basketId})
+      body: JSON.stringify({favoriteId: favoriteId})
     }).then(response => {
       return response.json()
     }).then(json => {

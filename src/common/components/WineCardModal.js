@@ -76,6 +76,5 @@ export default class WineCardModal extends Component {
 }
 
 WineCardModal.propTypes = {
-  wine: PropTypes.object.isRequired,
-  basketWine: PropTypes.object
+  wine: PropTypes.object.isRequired
 }

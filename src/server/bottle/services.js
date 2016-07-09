@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 import {getConnection} from '../utils/db'
 import logger from '../utils/logger'
 import config from '../../../config'
-import {getCellar, getWine} from '../wine/services'
+import {getCellar, getWine, updateWine} from '../wine/services'
 
 export const addBottle = (bottles) => {
   const bottlesFormated = bottles.map(bottle => ({
@@ -38,13 +38,9 @@ export const removeBottle = (wineId, bottleId) => {
           .run(conn)
           .then(() => {
             if (isLastBottle) {
-              // todo transation
-              r.table(config.DB.tables.WINE)
-              .get(wineId)
-              .update({
+              return updateWine(wineId, {
                 _deleted: true
               })
-              .run(conn)
             }
           })
       })

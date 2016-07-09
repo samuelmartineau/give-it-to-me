@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2'
 import {PICTURE_UPLOAD} from '../constants/server'
 import Image from './Image'
 import WineCardOpen from './WineCardOpen'
-import {addToFavorite, removeFromBasket} from '../actions'
+import {addToFavorite, removeFromFavorite} from '../actions'
 import {WINE_TYPES} from '../constants/WineTypes'
 import {WineFamilies} from '../constants/WineFamilies'
 import * as wineCardStyle from '../styles/wineCard'
@@ -23,17 +23,17 @@ export default class WineCard extends Component {
     })
   }
 
-  handleBasket = () => {
-    const {dispatch, wine, basketWine} = this.props
-    if (basketWine) {
-      dispatch(removeFromBasket(basketWine.id))
+  handleFavorite = () => {
+    const {dispatch, wine, favoriteWine} = this.props
+    if (favoriteWine) {
+      dispatch(removeFromFavorite(favoriteWine.id))
     } else {
       dispatch(addToFavorite(wine.id))
     }
   }
 
   render () {
-    const {wine, basketWine, dispatch} = this.props
+    const {wine, favoriteWine, dispatch} = this.props
     const {open} = this.state
     const wineColor = WINE_TYPES[wine.wineType]
     const cornerColor = tinycolor(wineColor.color).darken(20).toString()
@@ -78,8 +78,8 @@ export default class WineCard extends Component {
         </div>
         {open && <WineCardOpen
             wine={wine}
-            basketWine={basketWine}
-            handleBasket={this.handleBasket}
+            favoriteWine={favoriteWine}
+            handleFavorite={this.handleFavorite}
             dispatch={dispatch}
           />}
         <div style={wineCardInfosCorner} />
@@ -99,5 +99,5 @@ export default class WineCard extends Component {
 
 WineCard.propTypes = {
   wine: PropTypes.object.isRequired,
-  basketWine: PropTypes.object
+  favoriteWine: PropTypes.object
 }
