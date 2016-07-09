@@ -14,8 +14,7 @@ export default router => {
       }
       return addWine(computeWineData, req.body.contextualData).then(message => {
         updateClients(changeTypes.CELLAR)
-        res.status(200)
-        next(message)
+        res.status(200).json(message)
       }).catch(error => {
         res.status(500).json(error)
       })
