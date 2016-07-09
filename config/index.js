@@ -20,10 +20,20 @@ module.exports = Object.assign({
     database: process.env.DATABASE,
     timeout: 5,
     tables: {
-      WINE: 'wine',
-      FAVORITE: 'favorite',
-      BOTTLE: 'bottle',
-      TRANSACTION: 'transaction'
+      WINE: {
+        name: 'wine'
+      },
+      FAVORITE: {
+        name: 'favorite',
+        indexes: ['wine_id']
+      },
+      BOTTLE: {
+        name: 'bottle',
+        indexes: ['wine_id']
+      },
+      TRANSACTION: {
+        name: 'transaction'
+      }
     }
   },
   debug: !process.env.DEBUG,

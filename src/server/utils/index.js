@@ -1,7 +1,7 @@
 import {version} from '../../../package.json'
 
-export function renderFullPage(html, initialState, bundleFilename) {
-    return `
+export function renderFullPage (html, initialState, bundleFilename) {
+  return `
         <!doctype html>
         <html lang="fr">
           <head>
@@ -25,24 +25,27 @@ export function renderFullPage(html, initialState, bundleFilename) {
 }
 
 export function skip(path, middleware) {
-    return (req, res, next) => {
-        if (req.path.indexOf(path) !== -1) {
-            return next();
-        }
-        return middleware(req, res, next);
-    };
+  return (req, res, next) => {
+    if (req.path.indexOf(path) !== -1) {
+      return next()
+    }
+    return middleware(req, res, next)
+  }
 }
 
+export function fakeWindow () {
+  return (req, res, next) => {
+    if (typeof window === 'undefined') {
+      global.window = {
+        __CURRENT_VERSION__: version,
+        innerWidth: req.headers.WS_WIDTH, // comes from device-infos middleware
+        addEventListener: () => {}
+      }
+    }
+    next()
+  }
+}
 
-export function fakeWindow() {
-    return (req, res, next) => {
-        if (typeof window === 'undefined') {
-            global.window = {
-                __CURRENT_VERSION__: version,
-                innerWidth: req.headers.WS_WIDTH, // comes from device-infos middleware
-                addEventListener: () => {}
-            };
-        }
-        next();
-    };
+export function filterSoftDeleted (item) {
+  return item.hasFields('_deleted').not()
 }

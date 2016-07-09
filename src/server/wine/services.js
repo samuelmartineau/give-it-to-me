@@ -6,6 +6,7 @@ import {CELLAR_SCHEMA} from '../../common/constants/Cellar'
 import {removeItem} from '../../common/constants/global'
 import config from '../../../config'
 import {addBottle} from '../bottle/services'
+import {filterSoftDeleted} from '../utils'
 
 export const computeCellar = (wines) => {
   let boxId = 0
@@ -65,10 +66,14 @@ export const computeCellar = (wines) => {
 
 export const getCellar = () => {
   return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE)
+    return r.table(config.DB.tables.WINE.name)
+    .filter(filterSoftDeleted)
     .merge((wine) => {
       return {
-        'bottles': r.table(config.DB.tables.BOTTLE).getAll(wine('id'), {index: 'wine_id'}).coerceTo('array')
+        'bottles': r.table(config.DB.tables.BOTTLE.name)
+          .getAll(wine('id'), {index: 'wine_id'})
+          .filter(filterSoftDeleted)
+          .coerceTo('array')
       }
     })
     .run(conn)
@@ -86,7 +91,7 @@ export const addWine = (wine, contextualData) => {
   }
 
   return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE)
+    return r.table(config.DB.tables.WINE.name)
       .insert({
         ...wine,
         timestamp: new Date()
@@ -110,11 +115,14 @@ export const addWine = (wine, contextualData) => {
 
 export const getWine = (wineId) => {
   return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE)
+    return r.table(config.DB.tables.WINE.name)
         .get(wineId)
         .merge((wine) => {
           return {
-            'bottles': r.table(config.DB.tables.BOTTLE).getAll(wine('id'), {index: 'wine_id'}).coerceTo('array')
+            'bottles': r.table(config.DB.tables.BOTTLE.name)
+              .getAll(wine('id'), {index: 'wine_id'})
+              .filter(filterSoftDeleted)
+              .coerceTo('array')
           }
         })
         .run(conn)
@@ -126,27 +134,12 @@ export const getWine = (wineId) => {
 
 export const updateWine = (wineId, data) => {
   return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE)
+    return r.table(config.DB.tables.WINE.name)
         .get(wineId)
         .update(data)
         .run(conn)
   }).catch(error => {
     logger.error('Error getting Wine', error)
     return Promise.reject({message: 'Probleme lors de la récupération du vin'})
-  })
-}
-
-export const onCellarChange = (cb) => {
-  getConnection.then(conn => {
-    r.table(config.DB.tables.WINE).changes().run(conn).then(cursor => {
-      cursor.each((err, item) => {
-        if (err) {
-          logger.error('Cursor error', err)
-        }
-        getCellar().then(cb)
-      })
-    }).catch(error => {
-      logger.error('Error onCellarChange', error)
-    })
   })
 }

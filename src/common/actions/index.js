@@ -4,6 +4,22 @@ import urlJoin from 'url-join'
 import * as serverConstants from '../constants/server'
 import * as types from '../constants/ActionTypes'
 
+function checkStatus (response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  } else {
+    var error = new Error(response.statusText)
+    return response.json().then((result) => {
+      error.response = result
+      throw error
+    })
+  }
+}
+
+function parseJSON (response) {
+  return response.json()
+}
+
 export function setState (type, state) {
   return {type: type, state}
 }
@@ -32,12 +48,14 @@ export function uploadWinePicture (picture) {
     return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.PICTURE), {
       method: 'POST',
       body: data
-    }).then(response => {
-      return response.json()
-    }).then(json => {
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
       return dispatch(receivePictureInfos(json))
-    }).catch(error => {
-      throw error
+    })
+    .catch(error => {
+      dispatch(setErrorNotification(error.response))
     })
   }
 }
@@ -55,14 +73,15 @@ export function addWine (wine, contextualData) {
         wine,
         contextualData
       })
-    }).then(response => {
-      return response.json()
-    }).then(json => {
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
       dispatch(wineAdded())
       dispatch(resetUpload())
       dispatch(setSuccessNotification(json))
     }).catch(error => {
-      dispatch(setErrorNotification(error))
+      dispatch(setErrorNotification(error.response))
     })
   }
 }
@@ -112,12 +131,14 @@ export function addToFavorite (wineId) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({wineId: wineId})
-    }).then(response => {
-      return response.json()
-    }).then(json => {
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
       dispatch(setSuccessNotification(json))
-    }).catch(error => {
-      dispatch(setErrorNotification(error))
+    })
+    .catch(error => {
+      dispatch(setErrorNotification(error.response))
     })
   }
 }
@@ -131,32 +152,35 @@ export function removeFromFavorite (favoriteId) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({favoriteId: favoriteId})
-    }).then(response => {
-      return response.json()
-    }).then(json => {
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
       dispatch(setSuccessNotification(json))
-    }).catch(error => {
-      dispatch(setErrorNotification(error))
+    })
+    .catch(error => {
+      dispatch(setErrorNotification(error.response))
     })
   }
 }
 
 export function removeBottle (wineId, bottleId) {
   return dispatch => {
-    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BOTTLE, wineId), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.BOTTLE, bottleId), {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({bottleId})
-    }).then(response => {
-      debugger
-      return response.json()
-    }).then(json => {
+      body: JSON.stringify({wineId})
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
       dispatch(setSuccessNotification(json))
-    }).catch(error => {
-      dispatch(setErrorNotification(error))
+    })
+    .catch(error => {
+      dispatch(setErrorNotification(error.response))
     })
   }
 }

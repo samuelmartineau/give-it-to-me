@@ -3,16 +3,19 @@ import path from 'path'
 import * as serverConstants from '../../common/constants/server'
 import {addWine, updateWine} from './services'
 import {moveWineToPermanetFolder} from '../pictures/services'
+import {updateClients, changeTypes} from '../handleChanges'
 
 export default router => {
-  router.post(serverConstants.ROUTES.WINE, (req, res) => {
+  router.post(serverConstants.ROUTES.WINE, (req, res, next) => {
     return moveWineToPermanetFolder(req.body.wine.thumbnailFileName, req.body.wine.pictureFileName).then(fileUploaded => {
       let computeWineData = {
         ...req.body.wine,
         ...fileUploaded
       }
       return addWine(computeWineData, req.body.contextualData).then(message => {
-        res.status(200).json(message)
+        updateClients(changeTypes.CELLAR)
+        res.status(200)
+        next(message)
       }).catch(error => {
         res.status(500).json(error)
       })
@@ -28,6 +31,7 @@ export default router => {
 
     return updateWine(wineId, data)
       .then(message => {
+        updateClients(changeTypes.CELLAR)
         res.status(200).json(message)
       }).catch(error => {
         res.status(500).json(error)

@@ -1,7 +1,6 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {renderToString} from 'react-dom/server'
-import SSE from 'sse'
 import fs from 'fs'
 import {Server} from 'http'
 import express from 'express'
@@ -15,15 +14,15 @@ import {createStore} from 'redux'
 
 import config from '../../config'
 import * as serverConstants from '../common/constants/server'
-import * as ActionTypes from '../common/constants/ActionTypes'
 import reducers from '../common/reducers'
 import logger from './utils/logger'
 import {renderFullPage, fakeWindow, skip} from './utils'
 import routes from '../common/routes'
-import {getCellar, onCellarChange, computeCellar} from './wine/services'
-import {getFavorite, onFavoriteChange} from './favorite/services'
-import {onBottleChange} from './bottle/services'
+import {getCellar, computeCellar} from './wine/services'
+import {getFavorite} from './favorite/services'
+
 import handleRoutes from './handleRoutes'
+import handleChanges from './handleChanges'
 import './utils/db'
 
 if (!fs.existsSync(config.UPLOADS_PERM)) {
@@ -51,21 +50,10 @@ app.use('/', express.static(path.join(__dirname, '..', '..', config.DIST)))
 app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_PERM)))
 app.use('/', express.static(path.join(__dirname, '..', '..', config.UPLOADS_TMP_DIRECTORY)))
 const serverHttp = Server(app)
-const clients = []
 
 serverHttp.listen(config.PORT, () => {
   logger.info(`🚀  Server started on http://localhost:${config.PORT}`)
-  const sse = new SSE(serverHttp)
-
-  sse.on('connection', stream => {
-    logger.info('📲  SSE Opened connection')
-    clients.push(stream)
-
-    stream.on('close', () => {
-      clients.splice(clients.indexOf(stream), 1)
-      logger.info('😱 SSE Closed connection')
-    })
-  })
+  handleChanges(serverHttp)
 })
 
 handleRoutes(app)
@@ -121,26 +109,6 @@ app.get('/*', (req, res) => {
     }
   })
 })
-// =============================================================================
-
-// Server-Sent Events
-// =============================================================================
-onCellarChange(cellar => {
-  clients.forEach(stream => {
-    stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
-  })
-})
-onBottleChange(cellar => {
-  clients.forEach(stream => {
-    stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
-  })
-})
-onFavoriteChange(favorite => {
-  clients.forEach(stream => {
-    stream.send(JSON.stringify({action: ActionTypes.SET_FAVORITE, state: favorite}))
-  })
-})
-// =============================================================================
 
 process.on('unhandledRejection', function (reason, p) {
   logger.error(`Possibly Unhandled Rejection at: Promise ${p} reason: ${reason}`)
