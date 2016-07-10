@@ -3,8 +3,7 @@ import r from 'rethinkdb'
 import {getConnection} from '../utils/db'
 import logger from '../utils/logger'
 import config from '../../../config'
-import {getCellar, getWine, updateWine} from '../wine/services'
-import {removeFromFavoriteByWineId} from '../favorite/services'
+import {getWine, updateWine} from '../wine/services'
 
 export const addBottle = (bottles) => {
   const bottlesFormated = bottles.map(bottle => ({
@@ -40,9 +39,9 @@ export const removeBottle = (wineId, bottleId) => {
             let promises = []
             if (isLastBottle) {
               promises.push(updateWine(wineId, {
-                _deleted: true
+                _deleted: true,
+                isFavorite: false
               }))
-              promises.push(removeFromFavoriteByWineId(wineId))
             }
             return Promise.all(promises)
               .then(() => ({message: 'Bouteilles supprimée avec succés'}))

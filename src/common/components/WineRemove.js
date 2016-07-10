@@ -1,11 +1,13 @@
 import React, {PropTypes} from 'react'
 import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import BoxSchema from './BoxSchema'
 import {WINE_TYPES} from '../constants/WineTypes'
 
-const WineRemove = ({wine, removeBottle, updateBottleCount}) => {
+const WineRemove = ({wine, removeBottle, removeBottles, updateBottleCount, removeBottlesCount}) => {
   const color = WINE_TYPES[wine.wineType].color
+  const isButtonDisabled = removeBottlesCount < 1 || removeBottlesCount > wine.count
   const bottlesByBoxes = wine.isInBoxes ? wine.bottles.reduce((acc, bottle) => {
     if (acc[bottle.box]) {
       acc[bottle.box].push(bottle)
@@ -42,10 +44,18 @@ const WineRemove = ({wine, removeBottle, updateBottleCount}) => {
              />
         </div>
       ) : <div>
+        <h2>Nombre de bouteille: {wine.count}</h2>
         <TextField
           type='number'
-          floatingLabelText='Nombre de bouteilles restantes'
-          onChange={updateBottleCount} />
+          value={removeBottlesCount}
+          onChange={updateBottleCount}
+          floatingLabelText='Nombre de bouteilles à supprimer'
+          />
+        <RaisedButton
+          onTouchTap={removeBottles}
+          disabled={isButtonDisabled}
+          label='Supprimer'
+          secondary />
       </div>}
     </div>
   )

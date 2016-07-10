@@ -16,7 +16,8 @@ export const wineCard = {
 export const wineCardImageContainer = {
   position: 'absolute',
   top: '0px',
-  left: '16px',
+  left: '0px',
+  right: '0px',
   height: '100%',
   display: 'block',
   overflow: 'hidden',
@@ -35,14 +36,14 @@ export const wineCardMainContainer = {
 }
 
 export const wineCardImage = {
-  display: 'block',
-  maxWidth: '100%',
-  height: 'auto'
+  marginLeft: '16px'
+}
+export const wineCardImageOpen = {
+  marginLeft: '0px'
 }
 
 export const pictureToAvatar = {
   borderRadius: '50%',
-  left: '0px',
   transform: 'scale(0.25, 0.18) translate(-420px, -860px)',
   zIndex: 4
 }

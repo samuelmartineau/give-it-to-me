@@ -22,7 +22,10 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
 
   return (
     <div style={wineCardMainContainer}>
-      {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : wine.positionComment}
+      {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : <div>
+        {wine.positionComment}
+        {wine.count}
+      </div>}
       <div>Millésime: {wine.year}</div>
       <div>Taille: {bottleType.label} ({bottleType.capacity}L)</div>
       <Checkbox

@@ -133,10 +133,19 @@ export const getWine = (wineId) => {
 }
 
 export const updateWine = (wineId, data) => {
+  let updateData = data
+  if (data.removeBottlesCount) {
+    Object.assign(updateData, {
+      _deleted: r.row('count').le(data.removeBottlesCount),
+      count: r.row('count').sub(data.removeBottlesCount)
+    })
+    delete updateData.removeBottlesCount
+  }
+
   return getConnection.then(conn => {
     return r.table(config.DB.tables.WINE.name)
         .get(wineId)
-        .update(data)
+        .update(updateData)
         .run(conn)
   }).catch(error => {
     logger.error('Error getting Wine', error)

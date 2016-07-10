@@ -52,12 +52,16 @@ export default class WineCard extends Component {
     const wineCardMenuButton = {
       ...wineCardStyle.wineCardMenuButton
     }
+    const wineCardImage = {
+      ...wineCardStyle.wineCardImage
+    }
 
     if (open) {
       Object.assign(wineCardInfos, wineCardStyle.wineCardInfosOpen)
       Object.assign(wineCardInfosCorner, wineCardStyle.wineCardInfosCornerOpen, {borderTopColor: cornerColor})
       Object.assign(wineCardImageContainer, wineCardStyle.pictureToAvatar)
       Object.assign(wineCardMenuButton, wineCardStyle.wineCardMenuButtonOpen)
+      Object.assign(wineCardImage, wineCardStyle.wineCardImageOpen)
     }
 
     return (
@@ -70,7 +74,7 @@ export default class WineCard extends Component {
           <ContentMenu />
         </FloatingActionButton>
         <div style={wineCardImageContainer}>
-          <Image style={wineCardStyle.wineCardImage}
+          <Image style={wineCardImage}
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
             src={wine.thumbnailFileName}

@@ -20,18 +20,16 @@ export default router => {
       })
     })
   })
-  router.delete(path.join(serverConstants.ROUTES.WINE, ':wineId'), (req, res) => {
+  router.put(path.join(serverConstants.ROUTES.WINE, ':wineId'), (req, res) => {
     const {wineId} = req.params
     let {data} = req.body
 
-    if (data.count === 0) {
-      data._deleted = true
-    }
-
     return updateWine(wineId, data)
-      .then(message => {
+      .then(() => {
         updateClients()
-        res.status(200).json(message)
+        res.status(200).json({
+          message: 'Bouteille(s) supprimé avec succés'
+        })
       }).catch(error => {
         res.status(500).json(error)
       })

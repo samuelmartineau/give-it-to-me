@@ -183,3 +183,24 @@ export function removeBottle (wineId, bottleId) {
     })
   }
 }
+
+export function removeBottles (wineId, removeBottlesCount) {
+  return dispatch => {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE, wineId), {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({data: {removeBottlesCount}})
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
+      dispatch(setSuccessNotification(json))
+    })
+    .catch(error => {
+      dispatch(setErrorNotification(error.response))
+    })
+  }
+}

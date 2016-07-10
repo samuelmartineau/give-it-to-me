@@ -21,10 +21,10 @@ export function renderFullPage (html, initialState, bundleFilename) {
             <script async src="/main.js"></script>
           </body>
         </html>
-        `;
+        `
 }
 
-export function skip(path, middleware) {
+export function skip (path, middleware) {
   return (req, res, next) => {
     if (req.path.indexOf(path) !== -1) {
       return next()
@@ -48,4 +48,5 @@ export function fakeWindow () {
 
 export function filterSoftDeleted (item) {
   return item.hasFields('_deleted').not()
+    .or(item('_deleted').not())
 }

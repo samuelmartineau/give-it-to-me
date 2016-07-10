@@ -4,27 +4,38 @@ import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import WineRemove from './WineRemove'
-import {removeBottle} from '../actions'
+import {removeBottle, removeBottles} from '../actions'
 
 export default class WineCardModal extends Component {
 
   constructor (props) {
     super(props)
-    this.removeBottle = this.removeBottle.bind(this)
     this.state = {
-      openModal: false
+      openModal: false,
+      removeBottlesCount: 1
     }
   }
 
-  removeBottle = (bottle) => {
+  onRemoveBottle = (bottle) => {
     const {dispatch, wine} = this.props
+    const isLastBottle = wine.bottles.length === 1
     dispatch(removeBottle(wine.id, bottle.id))
+    if (isLastBottle) {
+      this.setState({openModal: false})
+    }
   }
 
-  updateBottleCount = (bottleCount) => {
+  onRemoveBottles = (bottle) => {
     const {dispatch, wine} = this.props
-    // todo
-    dispatch(removeBottle(wine.id, bottle.id))
+    const {removeBottlesCount} = this.state
+    dispatch(removeBottles(wine.id, removeBottlesCount))
+    if (wine.count === removeBottlesCount) {
+      this.setState({openModal: false})
+    }
+  }
+
+  updateBottleCount = (evt, value) => {
+    this.setState({removeBottlesCount: parseInt(value)})
   }
 
   handleOpenModal = () => {
@@ -67,8 +78,10 @@ export default class WineCardModal extends Component {
           >
             <WineRemove
               wine={this.props.wine}
-              removeBottle={this.removeBottle}
+              removeBottle={this.onRemoveBottle}
               updateBottleCount={this.updateBottleCount}
+              removeBottlesCount={this.state.removeBottlesCount}
+              removeBottles={this.onRemoveBottles}
               />
           </Dialog>}
       </div>
