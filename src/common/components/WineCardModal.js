@@ -23,6 +23,7 @@ export default class WineCardModal extends Component {
 
   updateBottleCount = (bottleCount) => {
     const {dispatch, wine} = this.props
+    // todo
     dispatch(removeBottle(wine.id, bottle.id))
   }
 
@@ -60,7 +61,7 @@ export default class WineCardModal extends Component {
             onRequestClose={this.handleCloseModal}
             contentStyle={{
               width: '100%',
-              maxWidth: 'none'
+              maxWidth: '600px'
             }}
             open={this.state.openModal}
           >

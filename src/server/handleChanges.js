@@ -3,24 +3,8 @@ import SSE from 'sse'
 import logger from './utils/logger'
 import * as ActionTypes from '../common/constants/ActionTypes'
 import {getCellar} from './wine/services'
-import {getFavorite} from './favorite/services'
 
 const clients = []
-
-function handleChange (type) {
-  const actions = {}
-  actions[changeTypes.FAVORITE] = () => getFavorite()
-    .then(favorite => ({action: ActionTypes.SET_FAVORITE, state: favorite}))
-
-  actions[changeTypes.CELLAR] = () => getCellar()
-    .then(cellar => ({action: ActionTypes.SET_CELLAR, state: cellar}))
-
-  if (typeof actions[type] !== 'function') {
-    return Promise.reject()
-  }
-
-  return actions[type]()
-}
 
 export default(serverHttp) => {
   const sse = new SSE(serverHttp)
@@ -37,14 +21,10 @@ export default(serverHttp) => {
 }
 
 export const updateClients = (type) => {
-  handleChange(type).then(response => {
-    clients.forEach(stream => {
-      stream.send(JSON.stringify(response))
+  getCellar()
+    .then(cellar => {
+      clients.forEach(stream => {
+        stream.send(JSON.stringify({action: ActionTypes.SET_CELLAR, state: cellar}))
+      })
     })
-  })
-}
-
-export const changeTypes = {
-  CELLAR: 'CELLAR',
-  FAVORITE: 'FAVORITE'
 }

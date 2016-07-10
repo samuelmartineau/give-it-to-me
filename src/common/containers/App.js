@@ -138,6 +138,6 @@ class App extends ResizingComponent {
 }
 
 export default connect(state => ({
-  favorite: state.favorite,
+  favorite: state.cellar.wines.filter(wine => wine.isFavorite),
   ...state.notification
 }))(App)

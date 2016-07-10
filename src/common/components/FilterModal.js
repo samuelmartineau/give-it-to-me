@@ -105,7 +105,7 @@ export default class FilterModal extends Component {
     const {filters} = this.props
     const actions = [
       <FlatButton
-        label='Retour'
+        label='Valider'
         keyboardFocused
         primary
         onTouchTap={this.handleCloseModal}

@@ -33,7 +33,6 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
         onTouchTap={handleFavorite} />
       <FlatButton
         label='Voir la Photo'
-        linkButton
         rel='nofollow'
         target='_blank'
         href={wine.pictureFileName}

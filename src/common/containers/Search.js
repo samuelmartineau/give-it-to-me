@@ -31,7 +31,7 @@ class Search extends Component {
   }
 
   render () {
-    const {wines, favoriteWineDictionary} = this.props
+    const {wines} = this.props
     const {filters} = this.state
     const winesFiltered = filterWine(wines, filters)
     return (
@@ -43,19 +43,17 @@ class Search extends Component {
         <div style={{
           textAlign: 'center'
         }}>
-          {winesFiltered.map((wine, index) => <WineCard {...this.props} key={index} wine={wine} favoriteWine={favoriteWineDictionary[wine.id]} />)}
+          {winesFiltered.map((wine, index) => (
+            <WineCard {...this.props}
+              key={index}
+              wine={wine}
+               />))}
         </div>
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
-  const favoriteWineDictionary = state.favorite.reduce((acc, favoriteWine) => {
-    acc[favoriteWine.wineId] = favoriteWine
-    return acc
-  }, {})
-
-  return {wines: state.cellar.wines, favoriteWineDictionary: favoriteWineDictionary}
-}
-export default connect(mapStateToProps)(Search)
+export default connect(state => ({
+  wines: state.cellar.wines
+}))(Search)

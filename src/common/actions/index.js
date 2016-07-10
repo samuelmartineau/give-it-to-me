@@ -143,15 +143,14 @@ export function addToFavorite (wineId) {
   }
 }
 
-export function removeFromFavorite (favoriteId) {
+export function removeFromFavorite (wineId) {
   return dispatch => {
-    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.FAVORITE), {
+    return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.FAVORITE, wineId), {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({favoriteId: favoriteId})
+      }
     })
     .then(checkStatus)
     .then(parseJSON)

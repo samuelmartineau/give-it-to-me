@@ -23,10 +23,6 @@ module.exports = Object.assign({
       WINE: {
         name: 'wine'
       },
-      FAVORITE: {
-        name: 'favorite',
-        indexes: ['wine_id']
-      },
       BOTTLE: {
         name: 'bottle',
         indexes: ['wine_id']

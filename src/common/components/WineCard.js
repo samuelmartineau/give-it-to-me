@@ -24,16 +24,16 @@ export default class WineCard extends Component {
   }
 
   handleFavorite = () => {
-    const {dispatch, wine, favoriteWine} = this.props
-    if (favoriteWine) {
-      dispatch(removeFromFavorite(favoriteWine.id))
+    const {dispatch, wine} = this.props
+    if (wine.isFavorite) {
+      dispatch(removeFromFavorite(wine.id))
     } else {
       dispatch(addToFavorite(wine.id))
     }
   }
 
   render () {
-    const {wine, favoriteWine, dispatch} = this.props
+    const {wine, dispatch} = this.props
     const {open} = this.state
     const wineColor = WINE_TYPES[wine.wineType]
     const cornerColor = tinycolor(wineColor.color).darken(20).toString()
@@ -78,7 +78,7 @@ export default class WineCard extends Component {
         </div>
         {open && <WineCardOpen
             wine={wine}
-            favoriteWine={favoriteWine}
+            favoriteWine={wine.isFavorite}
             handleFavorite={this.handleFavorite}
             dispatch={dispatch}
           />}
@@ -98,6 +98,5 @@ export default class WineCard extends Component {
 }
 
 WineCard.propTypes = {
-  wine: PropTypes.object.isRequired,
-  favoriteWine: PropTypes.object
+  wine: PropTypes.object.isRequired
 }

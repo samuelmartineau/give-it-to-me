@@ -1,20 +1,22 @@
+import path from 'path'
+
 import * as serverConstants from '../../common/constants/server'
 import {addToFavorite, removeFromFavorite} from './services'
-import {updateClients, changeTypes} from '../handleChanges'
+import {updateClients} from '../handleChanges'
 
 export default router => {
   router.post(serverConstants.ROUTES.FAVORITE, (req, res, next) => {
     return addToFavorite(req.body.wineId).then(message => {
-      updateClients(changeTypes.FAVORITE)
+      updateClients()
       res.status(200).json(message)
     }).catch(error => {
       res.status(500).json(error)
     })
   })
 
-  router.delete(serverConstants.ROUTES.FAVORITE, (req, res, next) => {
-    return removeFromFavorite(req.body.favoriteId).then(message => {
-      updateClients(changeTypes.FAVORITE)
+  router.delete(path.join(serverConstants.ROUTES.FAVORITE, ':wineId'), (req, res, next) => {
+    return removeFromFavorite(req.params.wineId).then(message => {
+      updateClients()
       res.status(200).json(message)
     }).catch(error => {
       res.status(500).json(error)

@@ -19,7 +19,6 @@ import logger from './utils/logger'
 import {renderFullPage, fakeWindow, skip} from './utils'
 import routes from '../common/routes'
 import {getCellar, computeCellar} from './wine/services'
-import {getFavorite} from './favorite/services'
 
 import handleRoutes from './handleRoutes'
 import handleChanges from './handleChanges'
@@ -87,17 +86,15 @@ app.get('/*', (req, res) => {
       res.status(404).send('Not found')
     } else {
       let finalState
-      Promise.all([getCellar(), getFavorite()]).then(result => {
+      getCellar().then(cellar => {
         finalState = {
-          cellar: result[0],
-          favorite: result[1]
+          cellar
         }
         sendResult(finalState, reducers, renderProps, res)
       }).catch(error => {
         logger.error(error)
         finalState = {
           cellar: computeCellar([]),
-          favorite: [],
           notification: {
             error: true,
             message: 'Erreur de connection avec la base de données',
