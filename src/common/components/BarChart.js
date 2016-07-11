@@ -37,9 +37,10 @@ const BarChart = ({wines}) => {
   let svgContainer = ReactFauxDOM.createElement('svg')
 
   const container = select(svgContainer)
-      .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${width + margin.left + margin.right}`)
+      .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
   const winesByYear = wines.reduce((acc, wine) => {
     const numberOfBottle = wine.isInBoxes ? wine.bottles.length : wine.count
     if (acc[wine.year]) {
@@ -103,6 +104,7 @@ const BarChart = ({wines}) => {
 
   return (
     <div>
+      <h2>Répartition des bouteilles par année</h2>
       {svgContainer.toReact()}
     </div>
   )

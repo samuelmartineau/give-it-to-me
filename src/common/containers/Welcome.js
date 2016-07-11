@@ -6,10 +6,12 @@ import PieChart from '../components/PieChart'
 
 class Welcome extends React.Component {
   render () {
-    const {wines} = this.props
+    const {wines, bottlesCount} = this.props
     return (
       <div>
-        {wines.length} bouteilles
+        <h2>Comptabilité</h2>
+        <p>{wines.length} vins</p>
+        <p>{bottlesCount} bouteilles</p>
         <BarChart
           wines={wines}
           />
@@ -22,6 +24,13 @@ class Welcome extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {wines: state.cellar.wines}
+  const bottlesCount = state.cellar.wines.reduce((acc, wine) => {
+    acc += wine.isInBoxes ? wine.bottles.length : wine.count
+    return acc
+  }, 0)
+  return {
+    wines: state.cellar.wines,
+    bottlesCount
+  }
 }
 export default connect(mapStateToProps)(Welcome)
