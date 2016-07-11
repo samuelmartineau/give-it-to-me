@@ -6,14 +6,16 @@ import WineCard from '../components/WineCard'
 import FilterModal from '../components/FilterModal'
 import {filterWine} from '../utils/wineSearch'
 
+const initialFilters = {
+  wineFamilies: [],
+  wineTypes: [],
+  wineCategories: [],
+  period: []
+}
+
 function getInitState () {
   return {
-    filters: Object.assign({
-      wineFamilies: [],
-      wineTypes: [],
-      wineCategories: [],
-      period: []
-    }, store.get('filters'))
+    filters: Object.assign(initialFilters, store.get('filters'))
   }
 }
 
@@ -37,6 +39,7 @@ class Search extends Component {
     return (
       <div>
         <FilterModal
+          total={winesFiltered.length}
           filters={filters}
           updateFilters={this.updateFilters}
           />

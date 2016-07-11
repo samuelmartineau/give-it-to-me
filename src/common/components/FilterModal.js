@@ -49,9 +49,27 @@ export default class FilterModal extends Component {
     this.setState({openModal: false})
   }
 
+  removeFilter = (item) => {
+    if (item.type === 'wineFamily') {
+      const {wineFamilies} = this.props.filters
+      const index = wineFamilies.map(wineFamily => wineFamily.id).indexOf(item.id)
+      wineFamilies.splice(index, 1)
+      this.handleWineFamilies(wineFamilies)
+    } else if (item.type === 'max') {
+      this.handlePeriodMax()
+    } else if (item.type === 'min') {
+      this.handlePeriodMin()
+    } else if (item.type === 'wineType') {
+      this.handleWineTypes({target: {value: item.key}}, false)
+    } else if (item.type === 'wineCategory') {
+      this.handleWineCategories({target: {value: item.key}}, false)
+    }
+  }
+
   handleWineFamilies = (wineFamilies) => {
     const newFilters = {
       wineFamilies: wineFamilies.map(wineFamily => ({
+        type: 'wineFamily',
         ...wineFamily,
         ...{label: wineFamily.name}
       }))
@@ -66,6 +84,7 @@ export default class FilterModal extends Component {
     const index = wineTypes.map(wineType => wineType.key).indexOf(wineType)
     if (value) {
       wineTypes.push({
+        type: 'wineType',
         ...WINE_TYPES[wineType],
         ...{key: wineType}
       })
@@ -85,6 +104,7 @@ export default class FilterModal extends Component {
     const index = wineCategories.map(wineCategory => wineCategory.key).indexOf(wineCategory)
     if (value) {
       wineCategories.push({
+        type: 'wineCategory',
         ...WINE_CATEGORIES[wineCategory],
         ...{key: wineCategory}
       })
@@ -102,7 +122,7 @@ export default class FilterModal extends Component {
   handlePeriodMax = getPeriod.bind(this, 'max')
 
   render () {
-    const {filters} = this.props
+    const {filters, total} = this.props
     const actions = [
       <FlatButton
         label='Valider'
@@ -115,12 +135,19 @@ export default class FilterModal extends Component {
     return (
       <div>
         <RaisedButton
-          label='Filtres'
+          label={`Filtres (${total})`}
           primary
           onTouchTap={this.handleOpenModal}
           icon={<FilterIcon />}
         />
-        {Object.keys(filters).map(itemKey => filters[itemKey].map((item, index) => <Chip style={{display: 'inline-block'}} key={index}>{item.label}</Chip>))}
+        <div style={{margin: '12px 0px', display: 'flex', flexWrap: 'wrap'}}>
+          {Object.keys(filters).map(itemKey => filters[itemKey].map((item, index) => (
+            <Chip
+              style={{margin: 4}}
+              onRequestDelete={() => this.removeFilter(item)}
+              key={index}>{item.label}</Chip>
+          )))}
+        </div>
         {this.state.openModal && <Dialog
             title='Filtres'
             actions={actions}
@@ -151,5 +178,6 @@ export default class FilterModal extends Component {
 }
 
 FilterModal.propTypes = {
-  filters: PropTypes.object.isRequired
+  filters: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired
 }
