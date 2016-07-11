@@ -65,32 +65,41 @@ const BarChart = ({wines}) => {
 
   container
     .append('g')
-    .attr('class', 'x axis')
     .attr('transform', `translate(0, ${height})`)
     .call(xAxis)
 
   container
     .append('g')
-    .attr('class', 'y axis')
     .call(yAxis)
     .append('text')
     .attr('transform', 'rotate(-90)')
     .attr('y', 6)
     .attr('dy', '.71em')
     .style('text-anchor', 'end')
-    .text('Frequency')
+    .text('Nombre')
 
-  container
-     .selectAll('.bar')
-     .data(dataset)
-     .enter()
-     .append('rect')
-     .attr('fill', 'steelblue')
-     .attr('class', 'bar')
-     .attr('x', d => x(d.year))
-     .attr('width', x.bandwidth())
-     .attr('y', d => y(d.count))
-     .attr('height', d => height - y(d.count))
+  const rects = container
+    .selectAll('.bar')
+    .data(dataset)
+    .enter()
+    .append('g')
+
+  rects
+    .append('rect')
+    .attr('fill', 'steelblue')
+    .attr('x', d => x(d.year))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.count))
+    .attr('height', d => height - y(d.count))
+
+  rects
+    .append('text')
+    .text(d => d.count)
+    .attr('x', d => x(d.year) + x.bandwidth() / 2)
+    .attr('y', d => y(d.count) + 15)
+    .attr('fill', 'white')
+    .attr('alignment-baseline', 'middle')
+    .attr('text-anchor', 'middle')
 
   return (
     <div>
