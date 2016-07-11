@@ -11,7 +11,7 @@ export default class Image extends Component {
     super(props)
 
     this.state = {
-      url: undefined
+      url: props.lazyLoader
     }
   }
 
@@ -33,8 +33,6 @@ export default class Image extends Component {
     if (rect.top >= -200 && rect.top <= windowHeight) {
       this.setState({url: this.props.src})
       window.removeEventListener('scroll', this.scrollFunction)
-    } else if (rect.top > -600 && rect.top < windowHeight + 600) {
-      this.setState({url: this.props.lazyLoader})
     }
   }
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import store from 'store'
+import Infinite from 'react-infinite'
 
 import WineCard from '../components/WineCard'
 import FilterModal from '../components/FilterModal'
@@ -43,15 +44,18 @@ class Search extends Component {
           filters={filters}
           updateFilters={this.updateFilters}
           />
-        <div style={{
-          textAlign: 'center'
-        }}>
+        <Infinite
+          style={{
+            textAlign: 'center'
+          }}
+          elementHeight={140}
+          useWindowAsScrollContainer>
           {winesFiltered.map((wine, index) => (
             <WineCard {...this.props}
               key={index}
               wine={wine}
                />))}
-        </div>
+        </Infinite>
       </div>
     )
   }
