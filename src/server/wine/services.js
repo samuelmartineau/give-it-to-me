@@ -95,14 +95,16 @@ export const addWine = (wine, contextualData) => {
       .insert({
         ...wine,
         timestamp: new Date()
-      })
+      }, {returnChanges: true})
       .run(conn)
       .then(result => {
         if (wine.isInBoxes) {
-          const bottles = contextualData.bottles.map(bottle => ({
-            ...bottle,
-            ...{wine_id: result.generated_keys[0]}
-          }))
+          const bottles = contextualData.bottles.map(bottle => {
+            return {
+              ...bottle,
+              ...{wine_id: result.generated_keys[0]}
+            }
+          })
           return addBottle(bottles)
         }
       })

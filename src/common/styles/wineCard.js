@@ -5,11 +5,10 @@ export const closeInfosHeight = 50
 export const paddingInfos = 10
 
 export const wineCard = {
-  maxWidth: `${PICTURE_UPLOAD.THUMBNAIL.WIDTH}px`,
+  width: `${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px`,
   display: 'inline-block',
   position: 'relative',
   height: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px`,
-  width: '100%',
   margin: '1em'
 }
 
@@ -44,7 +43,7 @@ export const wineCardImageOpen = {
 
 export const pictureToAvatar = {
   borderRadius: '50%',
-  transform: 'scale(0.25, 0.18) translate(-420px, -860px)',
+  transform: 'scale(0.25, 0.18) translate(-446px, -860px)',
   zIndex: 4
 }
 

@@ -71,3 +71,4 @@ all-logs.log
 temp_uploads
 dist
 uploads
+migration

@@ -13,9 +13,13 @@ function range (begin, end, interval = 1) {
   return result
 }
 
+function getColor (item, index) {
+  return index % 2 === 0 ? 'steelblue' : 'brown'
+}
+
 const margin = {top: 20, right: 20, bottom: 30, left: 40}
 const width = 960 - margin.left - margin.right
-const height = 500 - margin.top - margin.bottom
+const height = 300 - margin.top - margin.bottom
 
 const x = scaleBand()
     .range([0, width])
@@ -24,6 +28,7 @@ const y = scaleLinear()
     .range([height, 0])
 
 const xAxis = axisBottom(x)
+              .tickFormat(e => e.toString().slice(-2))
 
 const yAxis = axisLeft(y)
   .tickFormat(e => {
@@ -79,6 +84,10 @@ const BarChart = ({wines}) => {
     .style('text-anchor', 'end')
     .text('Nombre')
 
+  container
+    .selectAll('g.tick text')
+    .attr('fill', getColor)
+
   const rects = container
     .selectAll('.bar')
     .data(dataset)
@@ -87,7 +96,7 @@ const BarChart = ({wines}) => {
 
   rects
     .append('rect')
-    .attr('fill', 'steelblue')
+    .attr('fill', getColor)
     .attr('x', d => x(d.year))
     .attr('width', x.bandwidth())
     .attr('y', d => y(d.count))
@@ -95,10 +104,10 @@ const BarChart = ({wines}) => {
 
   rects
     .append('text')
+    .attr('fill', getColor)
     .text(d => d.count)
     .attr('x', d => x(d.year) + x.bandwidth() / 2)
-    .attr('y', d => y(d.count) + 15)
-    .attr('fill', 'white')
+    .attr('y', d => y(d.count) - 10)
     .attr('alignment-baseline', 'middle')
     .attr('text-anchor', 'middle')
 

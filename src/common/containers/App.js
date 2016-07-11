@@ -75,9 +75,8 @@ class App extends ResizingComponent {
     const styles = {
       appBar: {
         position: 'fixed',
-        // Needed to overlap the examples
         zIndex: this.state.isLargeScreen
-          ? this.state.muiTheme.zIndex.navDrawer + 1
+          ? this.state.muiTheme.zIndex.drawer + 1
           : this.state.muiTheme.zIndex.appBar + 1,
         top: 0
       },

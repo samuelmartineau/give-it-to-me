@@ -11,7 +11,7 @@ export default class Image extends Component {
     super(props)
 
     this.state = {
-      url: props.lazyLoader
+      url: undefined
     }
   }
 
@@ -30,9 +30,11 @@ export default class Image extends Component {
   handleScroll () {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
     const windowHeight = window.innerHeight
-    if (rect.top <= windowHeight) {
-      window.removeEventListener('scroll', this.scrollFunction)
+    if (rect.top >= -200 && rect.top <= windowHeight) {
       this.setState({url: this.props.src})
+      window.removeEventListener('scroll', this.scrollFunction)
+    } else if (rect.top > -600 && rect.top < windowHeight + 600) {
+      this.setState({url: this.props.lazyLoader})
     }
   }
 
