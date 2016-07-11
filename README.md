@@ -82,7 +82,4 @@ private stuff
 
 ## Todos
 * display devices already connected on welcomePage (useragent)
-* remove filter by clicking on chip
-* add d3 graph by year on home + groupBy type
 * handle empty result
-* print number of result
