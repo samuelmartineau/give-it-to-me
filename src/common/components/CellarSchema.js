@@ -48,7 +48,15 @@ export default class CellarSchema extends Component {
         : 'not-allowed'
       let svgBox = select(svgContainer).append('rect')
 
-      svgBox.attr('x', box.x).attr('y', box.y).attr('width', box.width).attr('height', box.height).attr('stroke-width', BOX_BORDER_SIZE).attr('style', `cursor: ${cursor}`).attr('stroke', BOX_BORDER_COLOR).attr('fill', BOX_COLOR)
+      svgBox
+        .attr('x', box.x)
+        .attr('y', box.y)
+        .attr('width', box.width)
+        .attr('height', box.height)
+        .attr('stroke-width', BOX_BORDER_SIZE)
+        .attr('style', `cursor: ${cursor}`)
+        .attr('stroke', BOX_BORDER_COLOR)
+        .attr('fill', BOX_COLOR)
 
       if (!viewMode && isBoxClickable) {
         svgBox.on('click', this.onSelectBox.bind(this, boxId))
