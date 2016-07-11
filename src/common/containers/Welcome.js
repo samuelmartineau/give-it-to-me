@@ -3,12 +3,19 @@ import { connect } from 'react-redux'
 
 import BarChart from '../components/BarChart'
 import PieChart from '../components/PieChart'
+import CellarSchema from '../components/CellarSchema'
 
 class Welcome extends React.Component {
   render () {
     const {wines, bottlesCount} = this.props
     return (
       <div>
+        <CellarSchema
+          wines={wines}
+          selectedCells={{}}
+          selectableCells={{}}
+          availableCells={{}}
+          overviewMode />
         <h2>Comptabilité</h2>
         <p>{wines.length} vins</p>
         <p>{bottlesCount} bouteilles</p>

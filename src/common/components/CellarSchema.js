@@ -33,7 +33,8 @@ export default class CellarSchema extends Component {
       wines,
       selectedCells,
       availableCells,
-      viewMode
+      viewMode,
+      selectMode
     } = this.props
     let svgContainer = ReactFauxDOM.createElement('svg')
     let boxId = 0
@@ -58,7 +59,7 @@ export default class CellarSchema extends Component {
         .attr('stroke', BOX_BORDER_COLOR)
         .attr('fill', BOX_COLOR)
 
-      if (!viewMode && isBoxClickable) {
+      if (selectMode && isBoxClickable) {
         svgBox.on('click', this.onSelectBox.bind(this, boxId))
       }
 

@@ -21,7 +21,7 @@ const PositionStep = (props) => {
         defaultToggled={isInBoxes}
         onToggle={onPositionOrigin}
       />
-      {isInBoxes && <CellarSchema {...props} />}
+      {isInBoxes && <CellarSchema selectMode {...props} />}
       {isInBoxes && <CellsSelectors {...props} />}
       {isInBoxes || <TextField
         value={positionComment}
