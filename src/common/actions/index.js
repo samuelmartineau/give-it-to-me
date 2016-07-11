@@ -36,7 +36,7 @@ function wineAdded () {
   return {type: types.WINE_ADDED}
 }
 
-function wineAdditionProcessing () {
+export function wineAdditionProcessing () {
   return {type: types.WINE_ADDITION_PROCESSING}
 }
 
@@ -62,7 +62,6 @@ export function uploadWinePicture (picture) {
 
 export function addWine (wine, contextualData) {
   return dispatch => {
-    dispatch(wineAdditionProcessing())
     return fetch(urlJoin(serverConstants.API_BASE_URL, serverConstants.ROUTES.WINE), {
       method: 'POST',
       headers: {

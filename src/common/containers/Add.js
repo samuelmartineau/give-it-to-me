@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Step, Stepper, StepLabel, StepContent} from 'material-ui/Stepper'
 
 import {isLargeScreen} from '../constants/global'
-import {addWine} from '../actions'
+import {addWine, wineAdditionProcessing} from '../actions'
 import {WINE_TYPES, DEFAULT_TYPE, DEFAULT_CATEGORY} from '../constants/WineTypes'
 import * as BottleTypes from '../constants/BottleTypes'
 import FieldsStep from '../components/AddSteps/FieldsStep'
@@ -63,6 +63,7 @@ class Add extends ResizingComponent {
         ...getInitialState(),
         wineFamily: ''
       })
+      nextProps.dispatch(wineAdditionProcessing())
     }
   }
 
