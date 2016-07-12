@@ -61,9 +61,9 @@ const PieChart = ({wines}) => {
       .text(d => d.data.count)
 
   return (
-    <div>
-      <h2>Répatition des vins par type</h2>
-      <div style={{maxWidth: '300px'}}>
+    <div style={{flex: 1}}>
+      <h2>Vins par type</h2>
+      <div style={{maxWidth: '300px', margin: 'auto'}}>
         {svgContainer.toReact()}
       </div>
     </div>

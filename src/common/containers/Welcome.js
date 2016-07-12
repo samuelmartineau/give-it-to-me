@@ -16,15 +16,19 @@ class Welcome extends React.Component {
           selectableCells={{}}
           availableCells={{}}
           overviewMode />
-        <h2>Comptabilité</h2>
-        <p>{wines.length} vins</p>
-        <p>{bottlesCount} bouteilles</p>
         <BarChart
           wines={wines}
           />
-        <PieChart
-          wines={wines}
-          />
+        <div style={{display: 'flex', textAlign: 'center'}}>
+          <PieChart
+            wines={wines}
+            />
+          <div style={{flex: 1}}>
+            <h2>Comptabilité</h2>
+            <p>{wines.length} vins</p>
+            <p>{bottlesCount} bouteilles</p>
+          </div>
+        </div>
       </div>
     )
   }
