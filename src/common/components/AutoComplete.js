@@ -109,16 +109,18 @@ export default class AutoComplete extends Component {
             disabled={selectionMode && this.state.itemSelected}
             onChange={this.onEntry}
           />
-          {selectionMode && this.state.itemSelected &&
-            <IconButton onTouchTap={() => {
-              this.onClearInput()
-              onClearButtonClicked()
-            }}
-            style={autoCompleteStyle.clearButton}
-            touch>
+          {selectionMode && this.state.itemSelected && (
+            <IconButton
+              onTouchTap={() => {
+                this.onClearInput()
+                onClearButtonClicked()
+              }}
+              style={autoCompleteStyle.clearButton}
+              touch
+            >
               <ContentClose />
             </IconButton>
-          }
+          )}
           {!!filteredItems.length && <Menu disableAutoFocus style={{
             overflowY: 'scroll',
             maxHeight: '250px',

@@ -148,7 +148,8 @@ export default class FilterModal extends Component {
               key={index}>{item.label}</Chip>
           )))}
         </div>
-        {this.state.openModal && <Dialog
+        {this.state.openModal && (
+          <Dialog
             title='Filtres'
             actions={actions}
             modal={false}
@@ -160,18 +161,19 @@ export default class FilterModal extends Component {
             }}
             open={this.state.openModal}
           >
-          <SearchFilter
-            selectedWineFamilies={filters.wineFamilies}
-            handleWineFamilies={this.handleWineFamilies}
-            wineTypes={filters.wineTypes.map(wineType => wineType.key)}
-            handleWineTypes={this.handleWineTypes}
-            wineCategories={filters.wineCategories.map(wineCategory => wineCategory.key)}
-            handleWineCategories={this.handleWineCategories}
-            handlePeriodMin={this.handlePeriodMin}
-            handlePeriodMax={this.handlePeriodMax}
-            period={filters.period}
-          />
-        </Dialog>}
+            <SearchFilter
+              selectedWineFamilies={filters.wineFamilies}
+              handleWineFamilies={this.handleWineFamilies}
+              wineTypes={filters.wineTypes.map(wineType => wineType.key)}
+              handleWineTypes={this.handleWineTypes}
+              wineCategories={filters.wineCategories.map(wineCategory => wineCategory.key)}
+              handleWineCategories={this.handleWineCategories}
+              handlePeriodMin={this.handlePeriodMin}
+              handlePeriodMax={this.handlePeriodMax}
+              period={filters.period}
+            />
+          </Dialog>
+      )}
       </div>
     )
   }

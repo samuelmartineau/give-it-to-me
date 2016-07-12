@@ -13,12 +13,14 @@ class Favorite extends Component {
         textAlign: 'center'
       }}>
         {favorite.length
-          ? favorite.map((favoriteItem, index) => <WineCard {...this.props} key={index} wine={favoriteItem} />)
-          : <EmptyResult
-              icon={<FavoriteIcon />}
-              title='Aucun favori pour le moment'
-              message='Pour ajouter des favoris il te suffit de faire une recherche et de cliquer sur le petit coeur dans la carte'
-            />
+        ? favorite.map((favoriteItem, index) => <WineCard {...this.props} key={index} wine={favoriteItem} />)
+        : (
+          <EmptyResult
+            icon={<FavoriteIcon />}
+            title='Aucun favori pour le moment'
+            message='Pour ajouter des favoris il te suffit de faire une recherche et de cliquer sur le petit coeur dans la carte'
+          />
+        )
         }
       </div>
     )

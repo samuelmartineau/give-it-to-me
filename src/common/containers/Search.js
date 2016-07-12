@@ -57,7 +57,8 @@ class Search extends ResizingComponent {
           updateFilters={this.updateFilters}
           />
         <div style={{display: 'flex'}}>
-          {chunks.length ? chunks.map((chunk, index) => {
+          {chunks.length
+          ? chunks.map((chunk, index) => {
             return <Infinite
               key={index}
               elementHeight={400}
@@ -68,11 +69,14 @@ class Search extends ResizingComponent {
                   wine={wine}
                    />))}
             </Infinite>
-          }) : <EmptyResult
-                icon={<SearchIcon />}
-                title='Aucun vin trouvé'
-                message='Impossible de trouver un vin. Peut être que tu as mis trop de filtres?'
-                />}
+          })
+          : (
+            <EmptyResult
+              icon={<SearchIcon />}
+              title='Aucun vin trouvé'
+              message='Impossible de trouver un vin. Peut être que tu as mis trop de filtres?'
+            />
+          )}
         </div>
       </div>
     )

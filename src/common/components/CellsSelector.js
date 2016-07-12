@@ -68,13 +68,16 @@ export default class CellsSelector extends Component {
           {selectableBoxes.map((id, index) => <MenuItem key={index} value={id} primaryText={id} />)}
         </SelectField>
         {Object.keys(selectedCells).length > 1
-          ? <FloatingActionButton
-              style={cellSelectorStyle.cellSelectorCloseButton}
-              mini
-              secondary
-              onTouchTap={this.onUnselectBox}>
+          ? (
+          <FloatingActionButton
+            style={cellSelectorStyle.cellSelectorCloseButton}
+            mini
+            secondary
+            onTouchTap={this.onUnselectBox}
+          >
             <ContentClose />
           </FloatingActionButton>
+          )
           : null
         }
         <BoxSchema

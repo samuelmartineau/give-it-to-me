@@ -80,12 +80,14 @@ export default class WineCard extends Component {
             src={wine.thumbnailFileName}
             lazyLoader={wine.blur} />
         </div>
-        {open && <WineCardOpen
+        {open && (
+          <WineCardOpen
             wine={wine}
             favoriteWine={wine.isFavorite}
             handleFavorite={this.handleFavorite}
             dispatch={dispatch}
-          />}
+          />
+        )}
         <div style={wineCardInfosCorner} />
         <div style={wineCardInfos}>
           <div style={{
