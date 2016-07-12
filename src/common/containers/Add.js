@@ -41,7 +41,7 @@ function getInitialState () {
   return {
     positionComment: '',
     isInBoxes: true,
-    stepIndex: 3,
+    stepIndex: 0,
     name: '',
     year: '',
     count: 1,

@@ -15,6 +15,7 @@ class Welcome extends React.Component {
           selectedCells={{}}
           selectableCells={{}}
           availableCells={{}}
+          isBoxClickable={() => {}}
           overviewMode />
         <BarChart
           wines={wines}
