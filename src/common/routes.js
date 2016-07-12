@@ -3,6 +3,7 @@ import Welcome from './containers/Welcome'
 import Add from './containers/Add'
 import Search from './containers/Search'
 import Favorite from './containers/Favorite'
+import Remove from './containers/Remove'
 
 export default {
   path: '/',
@@ -23,6 +24,9 @@ export default {
     }, {
       path: 'favorite',
       component: Favorite
+    }, {
+      path: 'remove',
+      component: Remove
     }
   ]
 }
