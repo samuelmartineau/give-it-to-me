@@ -2,57 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import store from 'store'
 import Infinite from 'react-infinite'
+import SearchIcon from 'material-ui/svg-icons/action/search'
 
 import WineCard from '../components/WineCard'
+import EmptyResult from '../components/EmptyResult'
 import FilterModal from '../components/FilterModal'
 import {filterWine} from '../utils/wineSearch'
 import ResizingComponent from '../components/ResizingComponent'
-
-function chunkify (a, n, balanced) {
-  if (n < 2) {
-    return [a]
-  }
-
-  var len = a.length
-  var out = []
-  var i = 0
-  var size
-
-  if (len % n === 0) {
-    size = Math.floor(len / n)
-    while (i < len) {
-      out.push(a.slice(i, i += size))
-    }
-  } else if (balanced) {
-    while (i < len) {
-      size = Math.ceil((len - i) / n--)
-      out.push(a.slice(i, i += size))
-    }
-  } else {
-    n--
-    size = Math.floor(len / n)
-    if (len % size === 0) {
-      size--
-    }
-    while (i < size * n) {
-      out.push(a.slice(i, i += size))
-    }
-    out.push(a.slice(size * n))
-  }
-  return out
-}
-
-function getColumns() {
-  let columns
-  if (window.innerWidth >= 1300) {
-    columns = 3
-  } else if (window.innerWidth < 700) {
-    columns = 1
-  } else {
-    columns = 2
-  }
-  return columns
-}
+import {chunkify, getColumns} from '../constants/global'
 
 const initialFilters = {
   wineFamilies: [],
@@ -100,7 +57,7 @@ class Search extends ResizingComponent {
           updateFilters={this.updateFilters}
           />
         <div style={{display: 'flex'}}>
-          {chunks.map((chunk, index) => {
+          {chunks.length ? chunks.map((chunk, index) => {
             return <Infinite
               key={index}
               elementHeight={400}
@@ -111,7 +68,11 @@ class Search extends ResizingComponent {
                   wine={wine}
                    />))}
             </Infinite>
-          })}
+          }) : <EmptyResult
+                icon={<SearchIcon />}
+                title='Aucun vin trouvé'
+                message='Impossible de trouver un vin. Peut être que tu as mis trop de filtres?'
+                />}
         </div>
       </div>
     )
