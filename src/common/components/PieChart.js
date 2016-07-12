@@ -63,7 +63,9 @@ const PieChart = ({wines}) => {
   return (
     <div>
       <h2>Répatition des vins par type</h2>
-      {svgContainer.toReact()}
+      <div style={{maxWidth: '300px'}}>
+        {svgContainer.toReact()}
+      </div>
     </div>
   )
 }

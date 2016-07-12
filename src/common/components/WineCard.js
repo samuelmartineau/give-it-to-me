@@ -89,11 +89,10 @@ export default class WineCard extends Component {
         <div style={wineCardInfosCorner} />
         <div style={wineCardInfos}>
           <div style={{
-            fontSize: '20px'
+            fontSize: '16px'
           }}>{wine.name}</div>
           <div style={{
-            fontSize: '12px',
-            lineHeight: '14px'
+            fontSize: '12px'
           }}>{WineFamilies[wine.wineFamily]}</div>
         </div>
       </div>

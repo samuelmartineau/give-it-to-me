@@ -38,12 +38,13 @@ export const wineCardImage = {
   marginLeft: '16px'
 }
 export const wineCardImageOpen = {
-  marginLeft: '0px'
+  marginLeft: '0px',
+  width: '100%'
 }
 
 export const pictureToAvatar = {
   borderRadius: '50%',
-  transform: 'scale(0.25, 0.18) translate(-446px, -860px)',
+  transform: 'scale(0.25, 0.20) translate(-446px, -780px)',
   zIndex: 4
 }
 
