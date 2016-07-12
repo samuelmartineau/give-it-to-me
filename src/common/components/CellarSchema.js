@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {PropTypes} from 'react'
 import {select} from 'd3'
 import ReactFauxDOM from 'react-faux-dom'
 
@@ -13,86 +13,75 @@ import {
   drawBottle
 } from '../constants/Cellar'
 import {WINE_TYPES} from '../constants/WineTypes'
-import {unselectBox, selectBox} from '../actions'
 
-export default class CellarSchema extends Component {
+const CellarSchema = ({
+  wine,
+  wines,
+  selectedCells,
+  isBoxClickable,
+  viewMode,
+  selectMode,
+  onSelectBox
+}) => {
+  let svgContainer = ReactFauxDOM.createElement('svg')
+  let boxId = 0
+  svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`)
 
-  onSelectBox (boxId) {
-    const {dispatch, selectedCells} = this.props
-    const isBoxAlreadySelected = selectedCells[boxId]
-    if (isBoxAlreadySelected && Object.keys(selectedCells).length > 1) {
-      dispatch(unselectBox(boxId))
-    } else {
-      dispatch(selectBox(boxId))
+  CELLAR_SCHEMA.forEach(box => {
+    const boxClickable = isBoxClickable(boxId)
+    const cursor = boxClickable
+      ? 'pointer'
+      : 'not-allowed'
+    let svgBox = select(svgContainer).append('rect')
+
+    svgBox
+      .attr('x', box.x)
+      .attr('y', box.y)
+      .attr('width', box.width)
+      .attr('height', box.height)
+      .attr('stroke-width', BOX_BORDER_SIZE)
+      .attr('style', `cursor: ${cursor}`)
+      .attr('stroke', BOX_BORDER_COLOR)
+      .attr('fill', BOX_COLOR)
+
+    if (selectMode && boxClickable) {
+      svgBox.on('click', onSelectBox.bind(this, boxId))
     }
-  }
 
-  render () {
-    const {
-      wine,
-      wines,
-      selectedCells,
-      availableCells,
-      viewMode,
-      selectMode
-    } = this.props
-    let svgContainer = ReactFauxDOM.createElement('svg')
-    let boxId = 0
-    svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`)
+    if (viewMode && wine.bottles.map(bottle => bottle.box).indexOf(boxId) === -1) {
+      svgBox.attr('style', 'opacity: 0.3')
+    }
 
-    CELLAR_SCHEMA.forEach(box => {
-      const moreThanOneBoxSeltected = Object.keys(selectedCells).length > 1
-      const notAlreadySelected = !selectedCells[boxId]
-      const isBoxClickable = availableCells[boxId] && (moreThanOneBoxSeltected || notAlreadySelected)
-      const cursor = isBoxClickable
-        ? 'pointer'
-        : 'not-allowed'
-      let svgBox = select(svgContainer).append('rect')
+    boxId++
+  })
 
-      svgBox
-        .attr('x', box.x)
-        .attr('y', box.y)
-        .attr('width', box.width)
-        .attr('height', box.height)
-        .attr('stroke-width', BOX_BORDER_SIZE)
-        .attr('style', `cursor: ${cursor}`)
-        .attr('stroke', BOX_BORDER_COLOR)
-        .attr('fill', BOX_COLOR)
-
-      if (selectMode && isBoxClickable) {
-        svgBox.on('click', this.onSelectBox.bind(this, boxId))
-      }
-
-      if (viewMode && wine.bottles.map(bottle => bottle.box).indexOf(boxId) === -1) {
-        svgBox.attr('style', 'opacity: 0.3')
-      }
-
-      boxId++
-    })
-
-    wines.forEach(wine => {
-      if (wine.bottles) {
-        wine.bottles.forEach(bottle => {
-          drawBottle(svgContainer, WINE_TYPES[wine.wineType].color, bottle.box, bottle.cell, false, viewMode)
-        })
-      }
-    })
-
-    Object.keys(selectedCells).forEach(box => {
-      selectedCells[box].forEach(cell => {
-        drawBottle(svgContainer, SELECTED_COLOR, box, cell, false, viewMode)
+  wines.forEach(wine => {
+    if (wine.bottles) {
+      wine.bottles.forEach(bottle => {
+        drawBottle(svgContainer, WINE_TYPES[wine.wineType].color, bottle.box, bottle.cell, false, viewMode)
       })
+    }
+  })
+
+  Object.keys(selectedCells).forEach(box => {
+    selectedCells[box].forEach(cell => {
+      drawBottle(svgContainer, SELECTED_COLOR, box, cell, false, viewMode)
     })
-    return (
-      <div>
-        {svgContainer.toReact()}
-      </div>
-    )
-  }
+  })
+
+  return (
+    <div>
+      {svgContainer.toReact()}
+    </div>
+  )
 }
 
 CellarSchema.propTypes = {
   wines: PropTypes.array.isRequired,
   selectedCells: PropTypes.object.isRequired,
-  availableCells: PropTypes.object.isRequired
+  availableCells: PropTypes.object.isRequired,
+  isBoxClickable: PropTypes.func.isRequired,
+  onSelectBox: PropTypes.func
 }
+
+export default CellarSchema

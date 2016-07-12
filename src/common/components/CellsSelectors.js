@@ -38,6 +38,7 @@ export default class CellsSelectors extends Component {
 
   render () {
     const {selectedCells, selectableCells, bottlesByBoxes, availableCells} = this.props
+
     return (
       <div>
         <div style={cellSelectorStyle.cellSelectorAddButton}>
@@ -53,8 +54,9 @@ export default class CellsSelectors extends Component {
             const boxId = box
             return <CellsSelector
               key={index}
+              isRemovable={Object.keys(selectedCells).length > 1}
               selectableCells={availableCells[boxId]}
-              selectedCells={selectedCells}
+              selectedCells={selectedCells[boxId]}
               bottlesByBoxes={bottlesByBoxes}
               selectableBoxes={Object.keys(selectableCells)
                 .filter(boxId => Object.keys(selectedCells).indexOf(boxId) === -1)

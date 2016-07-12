@@ -22,7 +22,16 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
 
   return (
     <div style={wineCardMainContainer}>
-      {wine.isInBoxes ? <CellarSchema viewMode wines={[wine]} wine={wine} selectedCells={{}} selectableCells={{}} availableCells={{}} /> : <div>
+      {wine.isInBoxes ? (
+        <CellarSchema
+          viewMode
+          isBoxClickable={() => {}}
+          wines={[wine]}
+          wine={wine}
+          selectedCells={{}}
+          selectableCells={{}}
+          availableCells={{}} />
+      ) : <div>
         {wine.positionComment}
         {wine.count}
       </div>}

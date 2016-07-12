@@ -5,14 +5,20 @@ import CellsSelectors from '../CellsSelectors'
 import Toggle from 'material-ui/Toggle'
 import TextField from 'material-ui/TextField'
 
+import {unselectBox, selectBox} from '../../actions'
+
 const PositionStep = (props) => {
   const {
     onPositionOrigin,
     isInBoxes,
+    availableCells,
     positionComment,
     handlePositionComment,
     count,
-    handleCount
+    handleCount,
+    dispatch,
+    selectedCells,
+    wines
   } = props
   return (
     <div>
@@ -21,7 +27,27 @@ const PositionStep = (props) => {
         defaultToggled={isInBoxes}
         onToggle={onPositionOrigin}
       />
-      {isInBoxes && <CellarSchema selectMode {...props} />}
+      {isInBoxes && (
+        <CellarSchema
+          wines={wines}
+          selectedCells={selectedCells}
+          availableCells={availableCells}
+          onSelectBox={(boxId) => {
+            const isBoxAlreadySelected = selectedCells[boxId]
+            if (isBoxAlreadySelected && Object.keys(selectedCells).length > 1) {
+              dispatch(unselectBox(boxId))
+            } else {
+              dispatch(selectBox(boxId))
+            }
+          }}
+          isBoxClickable={(boxId) => {
+            const moreThanOneBoxSeltected = Object.keys(selectedCells).length > 1
+            const notAlreadySelected = !selectedCells[boxId]
+            return availableCells[boxId] && (moreThanOneBoxSeltected || notAlreadySelected)
+          }}
+          selectMode
+        />
+      )}
       {isInBoxes && <CellsSelectors {...props} />}
       {isInBoxes || <TextField
         value={positionComment}
