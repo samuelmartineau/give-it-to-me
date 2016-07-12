@@ -44,18 +44,17 @@ class Search extends Component {
           filters={filters}
           updateFilters={this.updateFilters}
           />
-        <Infinite
-          style={{
-            textAlign: 'center'
-          }}
-          elementHeight={140}
-          useWindowAsScrollContainer>
-          {winesFiltered.map((wine, index) => (
-            <WineCard {...this.props}
-              key={index}
-              wine={wine}
-               />))}
-        </Infinite>
+        <div style={{textAlign: 'center'}}>
+          <Infinite
+            elementHeight={140}
+            useWindowAsScrollContainer>
+            {winesFiltered.map((wine, index) => (
+              <WineCard {...this.props}
+                key={index}
+                wine={wine}
+                 />))}
+          </Infinite>
+        </div>
       </div>
     )
   }

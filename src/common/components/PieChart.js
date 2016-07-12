@@ -5,7 +5,7 @@ import ReactFauxDOM from 'react-faux-dom'
 
 import {WINE_TYPES} from '../constants/WineTypes'
 
-const width = 960
+const width = 500
 const height = 500
 const radius = Math.min(width, height) / 2
 
@@ -57,7 +57,6 @@ const PieChart = ({wines}) => {
 
   g.append('text')
       .attr('transform', d => `translate(${labelArc.centroid(d)})`)
-      .attr('dy', '.35em')
       .style('fill', 'white')
       .text(d => d.data.count)
 
