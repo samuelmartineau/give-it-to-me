@@ -1,7 +1,7 @@
 import {PICTURE_UPLOAD} from '../constants/server'
 
 export const openInfosHeight = 70
-export const closeInfosHeight = 50
+export const closeInfosHeight = 70
 export const paddingInfos = 10
 
 export const wineCard = {
@@ -59,12 +59,11 @@ export const wineCardInfos = {
   height: `${closeInfosHeight}px`,
   zIndex: 3,
   textAlign: 'initial',
-  top: `calc(100% - ${openInfosHeight}px)`,
-  lineHeight: '22px'
+  top: `calc(100% - ${openInfosHeight + 2 * paddingInfos}px)`
 }
 
 export const wineCardInfosOpen = {
-  transform: 'translate(0px, -330px)',
+  transform: 'translate(0px, -310px)',
   height: `${openInfosHeight}px`,
   paddingLeft: '90px'
 }
@@ -76,7 +75,7 @@ export const wineCardInfosCorner = {
   borderLeftColor: 'transparent',
   borderTopColor: 'transparent',
   bottom: 'auto',
-  top: '314px'
+  top: '294px'
 }
 
 export const wineCardInfosCornerOpen = {
