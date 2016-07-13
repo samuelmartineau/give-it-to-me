@@ -20,12 +20,18 @@ const FieldsStep = ({
   onNameChange,
   onWineFamilyChange,
   onYearChange,
-  defaultWineFamily
+  defaultWineFamily,
+  source,
+  onSourceChange
 }) => {
   return (
     <div>
       <TextField value={name} floatingLabelText='Nom' onChange={onNameChange} /><br />
       <TextField type={'number'} value={year} floatingLabelText='Année' onChange={onYearChange} /><br />
+      <TextField
+        value={source}
+        floatingLabelText='Provenance'
+        onChange={onSourceChange} /><br />
       <AutoComplete
         textFieldLabel="Sélectionnez l'AOC"
         defaultItem={defaultWineFamily}

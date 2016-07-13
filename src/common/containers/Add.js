@@ -42,6 +42,7 @@ function getInitialState () {
     positionComment: '',
     isInBoxes: true,
     stepIndex: 0,
+    source: 'France',
     name: '',
     year: '',
     count: 1,
@@ -87,7 +88,8 @@ class Add extends ResizingComponent {
       year,
       isInBoxes,
       positionComment,
-      count
+      count,
+      source
     } = this.state
     const wineBottles = Object.keys(selectedCells).reduce((bottles, boxId) => {
       const cellsList = selectedCells[boxId]
@@ -106,7 +108,8 @@ class Add extends ResizingComponent {
       wineType,
       blur,
       thumbnailFileName,
-      pictureFileName
+      pictureFileName,
+      source
     }
     const contextualData = {}
     if (isInBoxes) {
@@ -144,6 +147,9 @@ class Add extends ResizingComponent {
 
   handlePositionComment = (event, value) => {
     this.setState({positionComment: value})
+  }
+  handleSource = (event, value) => {
+    this.setState({source: value})
   }
 
   handleCount = (evt, value) => {
@@ -210,10 +216,19 @@ class Add extends ResizingComponent {
       wineFamily,
       isInBoxes,
       positionComment,
+      source,
       count
     } = this.state
     let cases = []
-    cases.push(<FieldsStep name={name} year={year} onNameChange={this.handleNameChange} onYearChange={this.handleYearChange} onWineFamilyChange={this.handleWineFamilyChange} defaultWineFamily={wineFamily} />)
+    cases.push(<FieldsStep
+      name={name}
+      year={year}
+      source={source}
+      onSourceChange={this.handleSource}
+      onNameChange={this.handleNameChange}
+      onYearChange={this.handleYearChange}
+      onWineFamilyChange={this.handleWineFamilyChange}
+      defaultWineFamily={wineFamily} />)
     cases.push(<TypesStep handleWineType={this.handleWineType} handleWineCategory={this.handleWineCategory} handleBottleType={this.handleBottleType} wineType={wineType} wineCategory={wineCategory} bottleType={bottleType} />)
     cases.push(<PictureStep {...this.props} />)
     cases.push(<PositionStep

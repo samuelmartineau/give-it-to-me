@@ -38,6 +38,7 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
       <div>Millésime: {wine.year}</div>
       <div>Taille: {bottleType.label} ({bottleType.capacity}L)</div>
       <Checkbox
+        label='Favoris'
         style={{textAlign: 'initial'}}
         checked={favoriteWine}
         checkedIcon={< ActionFavorite />}
