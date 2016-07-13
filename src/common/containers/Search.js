@@ -49,7 +49,7 @@ class Search extends ResizingComponent {
     const {filters, columns} = this.state
     const winesFiltered = filterWine(wines, filters)
     let chunks = chunkify(winesFiltered, columns, true)
-
+    const hasResult = chunks.every(chunck => chunck.length > 0)
     return (
       <div>
         <FilterModal
@@ -58,7 +58,7 @@ class Search extends ResizingComponent {
           updateFilters={this.updateFilters}
           />
         <div style={{display: 'flex', textAlign: 'center'}}>
-          {chunks.length
+          {hasResult
           ? chunks.map((chunk, index) => {
             return <Infinite
               key={index}
