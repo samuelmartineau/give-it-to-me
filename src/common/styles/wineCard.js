@@ -8,7 +8,7 @@ export const wineCard = {
   width: `${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px`,
   display: 'inline-block',
   position: 'relative',
-  height: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px`,
+  height: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight + 2 * paddingInfos}px`,
   margin: '1em'
 }
 

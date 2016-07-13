@@ -62,7 +62,7 @@ class Search extends ResizingComponent {
           ? chunks.map((chunk, index) => {
             return <Infinite
               key={index}
-              elementHeight={400}
+              elementHeight={470}
               useWindowAsScrollContainer>
               {chunk.map((wine, index) => (
                 <WineCard {...this.props}

@@ -50,5 +50,8 @@ export const chunkify = (a, n, balanced) => {
 }
 
 export const getColumns = () => {
-  return Math.floor(window.innerWidth / 400)
+  if (window.innerWidth < LARGE_SCREEN_MIN) {
+    return Math.floor(window.innerWidth / 348)
+  }
+  return Math.floor((window.innerWidth - 256) / 348)
 }
