@@ -88,11 +88,11 @@ class Browse extends Component {
             onSelectCell={this.onSelectCell.bind(this, boxId)}
             onSelectBox={this.onSelectBox}
           />
+          <WineCard
+            {...this.props}
+            wine={wine}
+           />
         </div>
-        <WineCard
-          {...this.props}
-          wine={wine}
-         />
       </div>
     )
   }
