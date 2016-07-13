@@ -57,7 +57,7 @@ class Search extends ResizingComponent {
           filters={filters}
           updateFilters={this.updateFilters}
           />
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', textAlign: 'center'}}>
           {chunks.length
           ? chunks.map((chunk, index) => {
             return <Infinite

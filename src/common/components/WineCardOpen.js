@@ -7,10 +7,11 @@ import PhotoIcon from 'material-ui/svg-icons/image/photo'
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 
 import * as wineCardStyle from '../styles/wineCard'
-import {WINE_TYPES} from '../constants/WineTypes'
+import {WINE_TYPES, WINE_CATEGORIES} from '../constants/WineTypes'
 import {BOTTLE_TYPES} from '../constants/BottleTypes'
 import CellarSchema from './CellarSchema'
 import WineCardModal from './WineCardModal'
+import {WineFamilies} from '../constants/WineFamilies'
 
 const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
   const wineColor = WINE_TYPES[wine.wineType]
@@ -19,7 +20,7 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
     background: tinycolor(wineColor.color).lighten(20).toString()
   }
   const bottleType = BOTTLE_TYPES[wine.bottleType]
-
+  const count = wine.isInBoxes ? wine.bottles.length : wine.count
   return (
     <div style={wineCardMainContainer}>
       {wine.isInBoxes ? (
@@ -36,25 +37,35 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
         {wine.count}
       </div>}
       <div>Millésime: {wine.year}</div>
+      <div style={{color: '#20e209'}}>AOC: {WineFamilies[wine.wineFamily]}</div>
+      <div>Bouteilles: {count}</div>
       <div>Taille: {bottleType.label} ({bottleType.capacity}L)</div>
-      <Checkbox
-        label='Favoris'
-        style={{textAlign: 'initial'}}
-        checked={favoriteWine}
-        checkedIcon={< ActionFavorite />}
-        uncheckedIcon={< ActionFavoriteBorder />}
-        onTouchTap={handleFavorite} />
-      <FlatButton
-        label='Voir la Photo'
-        rel='nofollow'
-        target='_blank'
-        href={wine.pictureFileName}
-        primary
-        icon={<PhotoIcon />}
-      />
-      <WineCardModal
-        dispatch={dispatch}
-        wine={wine} />
+      <div>Texture: {WINE_CATEGORIES[wine.wineCategory].label}</div>
+      <div>Source: {wine.source}</div>
+
+      <div style={{position: 'absolute', bottom: 0}}>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <Checkbox
+            label='Favoris'
+            style={{textAlign: 'initial', width: '50%'}}
+            checked={favoriteWine}
+            checkedIcon={< ActionFavorite />}
+            uncheckedIcon={< ActionFavoriteBorder />}
+            onTouchTap={handleFavorite} />
+          <FlatButton
+            style={{width: '50%'}}
+            label='Photo'
+            rel='nofollow'
+            target='_blank'
+            href={wine.pictureFileName}
+            primary
+            icon={<PhotoIcon />}
+          />
+        </div>
+        <WineCardModal
+          dispatch={dispatch}
+          wine={wine} />
+      </div>
     </div>
   )
 }

@@ -97,13 +97,15 @@ export default class AutoComplete extends Component {
       selectionMode,
       textFieldLabel,
       displayContentItem,
-      onClearButtonClicked
+      onClearButtonClicked,
+      hintText
     } = this.props
     const {itemsSelected, filteredItems} = this.state
     return (
       <div >
         <div style={autoCompleteStyle.autocomplete}>
           <TextField
+            hintText={hintText}
             value={this.state.textField}
             floatingLabelText={textFieldLabel}
             disabled={selectionMode && this.state.itemSelected}
@@ -145,6 +147,7 @@ export default class AutoComplete extends Component {
 }
 
 AutoComplete.propTypes = {
+  hintText: PropTypes.string,
   textFieldLabel: PropTypes.string.isRequired,
   displayContentItem: PropTypes.func.isRequired,
   onItemClicked: PropTypes.func,

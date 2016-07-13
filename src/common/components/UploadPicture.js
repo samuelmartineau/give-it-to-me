@@ -27,32 +27,42 @@ export default class UploadPicture extends Component {
     let render
 
     if (isUploaded) {
-      render = <div>
-        <Image
-          width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
-          height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-          src={thumbnailFileName}
-          lazyLoader={blur} />
-        <RaisedButton
-          label='Reprendre'
-          labelPosition='before'
-          secondary
-          onTouchTap={this.resetUpload}
-          icon={<ClearIcon />}
-          />
-      </div>
+      render = (
+        <div style={{display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'}}>
+          <Image
+            width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+            height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+            src={thumbnailFileName}
+            lazyLoader={blur} />
+          <RaisedButton
+            style={{margin: '12px'}}
+            label='Changer de photo'
+            labelPosition='before'
+            secondary
+            onTouchTap={this.resetUpload}
+            icon={<ClearIcon />}
+            />
+        </div>
+      )
     } else if (isUploading) {
       render = <CircularProgress />
     } else {
-      render = <Dropzone style={{}} onDrop={this.onDrop} multiple={false} accept='image/*'>
-        <FloatingActionButton >
-          <ContentPhoto />
-        </FloatingActionButton>
-      </Dropzone>
+      render = (
+        <div>
+          <p>Cliquez sur le boutton pour prendre la photo</p>
+          <Dropzone style={{}} onDrop={this.onDrop} multiple={false} accept='image/*'>
+            <FloatingActionButton >
+              <ContentPhoto />
+            </FloatingActionButton>
+          </Dropzone>
+        </div>
+      )
     }
 
     return (
-      <div>
+      <div style={{textAlign: 'center'}}>
         {render}
       </div>
     )

@@ -59,6 +59,7 @@ export default class WineCardModal extends Component {
     return (
       <div>
         <RaisedButton
+          style={{margin: '12px'}}
           label='Suppression de bouteille'
           primary
           onTouchTap={this.handleOpenModal}

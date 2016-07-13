@@ -23,6 +23,7 @@ const PositionStep = (props) => {
   return (
     <div>
       <Toggle
+        style={{margin: '20px 0px', fontWeight: 'bold'}}
         label='Les bouteilles sont-elles dans les caisses?'
         defaultToggled={isInBoxes}
         onToggle={onPositionOrigin}

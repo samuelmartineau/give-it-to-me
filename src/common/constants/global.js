@@ -50,13 +50,5 @@ export const chunkify = (a, n, balanced) => {
 }
 
 export const getColumns = () => {
-  let columns
-  if (window.innerWidth >= 1300) {
-    columns = 3
-  } else if (window.innerWidth < 700) {
-    columns = 1
-  } else {
-    columns = 2
-  }
-  return columns
+  return Math.floor(window.innerWidth / 400)
 }

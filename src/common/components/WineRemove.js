@@ -21,7 +21,8 @@ const WineRemove = ({wine, removeBottle, removeBottles, updateBottleCount, remov
     <div style={{display: 'flex', flexWrap: 'wrap'}}>
       {wine.isInBoxes ? Object.keys(bottlesByBoxes).map((boxId, index) =>
         <div key={index} style={{flex: 1, margin: '1em', minWidth: '250px', maxWidth: '400px'}}>
-          <p>Caisse {boxId}</p>
+          <h1>Caisse {boxId}</h1>
+          <p>Cliquer sur la bouteille à supprimer</p>
           <BoxSchema
             selectableCells={bottlesByBoxes[boxId].map(bottle => bottle.cell)}
             onSelectCell={cellId => {
@@ -45,6 +46,7 @@ const WineRemove = ({wine, removeBottle, removeBottles, updateBottleCount, remov
         </div>
       ) : <div>
         <h2>Nombre de bouteille: {wine.count}</h2>
+        <p>Cliquer sur la bouteille à supprimer</p>
         <TextField
           type='number'
           value={removeBottlesCount}

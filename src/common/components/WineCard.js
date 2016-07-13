@@ -8,7 +8,6 @@ import Image from './Image'
 import WineCardOpen from './WineCardOpen'
 import {addToFavorite, removeFromFavorite} from '../actions'
 import {WINE_TYPES} from '../constants/WineTypes'
-import {WineFamilies} from '../constants/WineFamilies'
 import * as wineCardStyle from '../styles/wineCard'
 
 export default class WineCard extends Component {
@@ -94,13 +93,6 @@ export default class WineCard extends Component {
             lineHeight: '20px',
             fontSize: '18px'
           }}>{wine.name}</div>
-          {!open && (
-            <div style={{
-              fontSize: '14px',
-              color: '#20e209',
-              padding: '10px 0px'
-            }}>{WineFamilies[wine.wineFamily]}</div>
-          )}
         </div>
       </div>
     )
