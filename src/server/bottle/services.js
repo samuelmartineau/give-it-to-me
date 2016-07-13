@@ -44,7 +44,7 @@ export const removeBottle = (wineId, bottleId) => {
               }))
             }
             return Promise.all(promises)
-              .then(() => ({message: 'Bouteilles supprimée avec succés'}))
+              .then(() => ({message: 'Bouteille supprimée avec succés'}))
           })
       })
     } else {

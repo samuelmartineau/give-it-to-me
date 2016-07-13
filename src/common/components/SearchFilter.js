@@ -86,13 +86,13 @@ const SearchFilter = ({
       <p>Période</p>
       <div>
         <TextField
-          hintText='Borne Inf'
+          floatingLabelText='Borne Inf'
           type='number'
           defaultValue={periods['min']}
           onChange={handlePeriodMin}
         />
         <TextField
-          hintText='Borne Sup'
+          floatingLabelText='Borne Sup'
           type='number'
           defaultValue={periods['max']}
           onChange={handlePeriodMax}

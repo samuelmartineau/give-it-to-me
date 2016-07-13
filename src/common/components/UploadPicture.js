@@ -51,7 +51,7 @@ export default class UploadPicture extends Component {
     } else {
       render = (
         <div>
-          <p>Cliquez sur le boutton pour prendre la photo</p>
+          <p>Cliquez sur le bouton pour prendre la photo</p>
           <Dropzone style={{}} onDrop={this.onDrop} multiple={false} accept='image/*'>
             <FloatingActionButton >
               <ContentPhoto />

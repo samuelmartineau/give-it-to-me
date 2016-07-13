@@ -49,7 +49,7 @@ class Search extends ResizingComponent {
     const {filters, columns} = this.state
     const winesFiltered = filterWine(wines, filters)
     let chunks = chunkify(winesFiltered, columns, true)
-    const hasResult = chunks.every(chunck => chunck.length > 0)
+    const hasResult = chunks.some(chunck => chunck.length > 0)
     return (
       <div>
         <FilterModal
