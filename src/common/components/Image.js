@@ -15,6 +15,10 @@ export default class Image extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState({url: nextProps.src})
+  }
+
   componentDidMount () {
     this.scrollFunction = this.trottleScroll.bind(this)
     this.handleScroll()

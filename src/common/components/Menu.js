@@ -23,9 +23,9 @@ export const menuItems = [
     title: 'Favoris',
     rightChild: (favorite) => (<Badge badgeContent={favorite.length} primary />)
   }, {
-    children: 'Supprimer',
-    value: '/remove',
-    title: 'Supprimer une bouteille'
+    children: 'Parcourir',
+    value: '/browse',
+    title: 'Parcourir les bouteilles'
   }
 ]
 

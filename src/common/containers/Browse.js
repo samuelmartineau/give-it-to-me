@@ -15,7 +15,7 @@ function findWineByPosition (wines, boxId, cellId) {
   })
 }
 
-class Remove extends Component {
+class Browse extends Component {
 
   constructor (props) {
     super(props)
@@ -43,19 +43,19 @@ class Remove extends Component {
   }
 
   onSelectBox = (evt, index, value) => {
-    const {bottlesByBoxes} = this.props
+    const {bottlesByBoxes, wines} = this.props
     const selectableCells = bottlesByBoxes[value].map(item => item.cell)
     this.setState({
       boxId: value,
       selectableCells: selectableCells,
-      selectedCell: selectableCells[0]
+      selectedCell: selectableCells[0],
+      wine: findWineByPosition(wines, value, selectableCells[0])
     })
   }
 
   render () {
     const {wines, bottlesByBoxes} = this.props
     const {wine, boxId, selectableCells, cellId} = this.state
-
     return (
       <div>
         <CellarSchema
@@ -100,4 +100,4 @@ class Remove extends Component {
 
 export default connect(state => ({
   ...state.cellar
-}))(Remove)
+}))(Browse)
