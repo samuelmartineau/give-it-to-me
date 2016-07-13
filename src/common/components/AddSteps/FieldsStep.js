@@ -33,8 +33,8 @@ const FieldsStep = ({
         floatingLabelText='Provenance'
         onChange={onSourceChange} /><br />
       <AutoComplete
-        hintText="Commencez à taper le nom"
-        textFieldLabel="AOC"
+        hintText='Commencez à taper le nom'
+        textFieldLabel='AOC'
         defaultItem={defaultWineFamily}
         displayContentItem={(item) => <div>{item.name}</div>}
         onItemClicked={onWineFamilyChange}
