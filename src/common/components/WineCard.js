@@ -97,7 +97,7 @@ export default class WineCard extends Component {
           {!open && (
             <div style={{
               fontSize: '14px',
-              color: '#009688',
+              color: '#20e209',
               padding: '10px 0px'
             }}>{WineFamilies[wine.wineFamily]}</div>
           )}

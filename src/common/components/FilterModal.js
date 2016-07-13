@@ -157,7 +157,7 @@ export default class FilterModal extends Component {
             onRequestClose={this.handleCloseModal}
             contentStyle={{
               width: '100%',
-              maxWidth: 'none'
+              maxWidth: '600px'
             }}
             open={this.state.openModal}
           >
