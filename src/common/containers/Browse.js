@@ -15,42 +15,59 @@ function findWineByPosition (wines, boxId, cellId) {
   })
 }
 
+function getBrowseState (wines, bottlesByBoxes, boxId, cellId) {
+  let state = {
+    cellId: cellId,
+    boxId: boxId
+  }
+
+  if (typeof boxId === 'undefined') {
+    state.boxId = parseInt(Object.keys(bottlesByBoxes)[0])
+  }
+  state.selectableCells = bottlesByBoxes[state.boxId].map(item => item.cell)
+  if (typeof cellId === 'undefined') {
+    state.cellId = state.selectableCells[0]
+  }
+  state.wine = findWineByPosition(wines, state.boxId, state.cellId)
+
+  return state
+}
+
 class Browse extends Component {
 
   constructor (props) {
     super(props)
     this.onSelectBox = this.onSelectBox.bind(this)
-    const boxId = parseInt(Object.keys(props.bottlesByBoxes)[0])
-    const selectableCells = props.bottlesByBoxes[boxId].map(item => item.cell)
-    const cellId = selectableCells[0]
-    this.state = {
-      boxId: parseInt(boxId),
-      selectableCells: selectableCells,
-      cellId: cellId,
-      wine: findWineByPosition(props.wines, boxId, cellId)
+    const {wines, bottlesByBoxes} = this.props
+    this.state = getBrowseState(wines, bottlesByBoxes)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const {boxId, cellId, wine} = this.state
+    const {wines, bottlesByBoxes} = nextProps
+    const isBottleSelectedRemoved = !findWineByPosition(wines, boxId, cellId)
+    const oldWineUpdated = nextProps.wines.find(w => w.id === wine.id)
+
+    if (isBottleSelectedRemoved && oldWineUpdated) {
+      const firstBottle = oldWineUpdated.bottles[0]
+      this.setState(getBrowseState(wines, bottlesByBoxes, firstBottle.box, firstBottle.cell))
+    } else if (isBottleSelectedRemoved) {
+      this.setState(getBrowseState(wines, bottlesByBoxes))
+    } else {
+      this.setState({
+        wine: oldWineUpdated
+      })
     }
   }
 
   onSelectCell = (boxId, cellId) => {
     const {bottlesByBoxes, wines} = this.props
-    const selectableCells = bottlesByBoxes[boxId].map(item => item.cell)
-    this.setState({
-      boxId: boxId,
-      selectableCells: selectableCells,
-      cellId: cellId,
-      wine: findWineByPosition(wines, boxId, cellId)
-    })
+    this.setState(getBrowseState(wines, bottlesByBoxes, boxId, cellId))
   }
 
-  onSelectBox = (evt, index, value) => {
+  onSelectBox = (evt, index, boxId) => {
     const {bottlesByBoxes, wines} = this.props
-    const selectableCells = bottlesByBoxes[value].map(item => item.cell)
-    this.setState({
-      boxId: value,
-      selectableCells: selectableCells,
-      selectedCell: selectableCells[0],
-      wine: findWineByPosition(wines, value, selectableCells[0])
-    })
+    this.setState(getBrowseState(wines, bottlesByBoxes, boxId))
   }
 
   render () {
@@ -66,7 +83,7 @@ class Browse extends Component {
           isBoxClickable={(boxId) => {
             return Object.keys(bottlesByBoxes).map(id => parseInt(id)).indexOf(boxId) > -1
           }}
-          selectedCells={{}}
+          selectedCells={{[boxId]: [cellId]}}
           selectableCells={{}}
           availableCells={{}}
           selectMode />
