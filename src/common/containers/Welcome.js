@@ -29,11 +29,11 @@ class Welcome extends React.Component {
             <div style={{color: 'darkcyan'}}>
               <div style={{margin: '20px 0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <span style={{fontSize: '80px'}}>{wines.length}</span>
-                <span> vins</span>
+                <span style={{marginLeft: '5px'}}> vins</span>
               </div>
               <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <span style={{fontSize: '60px'}}>{bottlesCount}</span>
-                <span> bouteilles</span>
+                <span style={{marginLeft: '5px'}}> bouteilles</span>
               </div>
             </div>
           </div>

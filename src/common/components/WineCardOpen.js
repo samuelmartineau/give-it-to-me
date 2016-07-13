@@ -23,7 +23,7 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
   const count = wine.isInBoxes ? wine.bottles.length : wine.count
   return (
     <div style={wineCardMainContainer}>
-      {wine.isInBoxes ? (
+      {wine.isInBoxes && (
         <CellarSchema
           viewMode
           isBoxClickable={() => {}}
@@ -32,18 +32,21 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
           selectedCells={{}}
           selectableCells={{}}
           availableCells={{}} />
-      ) : <div>
-        {wine.positionComment}
-        {wine.count}
-      </div>}
-      <div>Millésime: {wine.year}</div>
-      <div style={{color: '#20e209'}}>AOC: {WineFamilies[wine.wineFamily]}</div>
-      <div>Bouteilles: {count}</div>
-      <div>Taille: {bottleType.label} ({bottleType.capacity}L)</div>
-      <div>Texture: {WINE_CATEGORIES[wine.wineCategory].label}</div>
-      <div>Source: {wine.source}</div>
+      )}
+      <div style={{fontSize: '20px', lineHeight: '24px', textAlign: 'center'}}>
+        <div>Millésime: {wine.year}</div>
+        <div style={{color: '#20e209'}}>AOC: {WineFamilies[wine.wineFamily]}</div>
+        <div>Nombre: {count}</div>
+        <div>Taille: {bottleType.label} ({bottleType.capacity}L)</div>
+        <div>Texture: {WINE_CATEGORIES[wine.wineCategory].label}</div>
+        {wine.positionComment && <div>Source: {wine.positionComment}</div>}
+        {wine.source && <div>Source: {wine.source}</div>}
+      </div>
 
-      <div style={{position: 'absolute', bottom: 0}}>
+      <div style={{position: 'absolute', bottom: 0, right: 0,
+          left: 0,
+          margin: '10px'
+        }}>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Checkbox
             label='Favoris'
