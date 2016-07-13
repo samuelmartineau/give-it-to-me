@@ -14,8 +14,8 @@ const svgArc = arc()
     .innerRadius(0)
 
 const labelArc = arc()
-    .outerRadius(radius - 40)
-    .innerRadius(radius - 40)
+    .outerRadius(radius - 80)
+    .innerRadius(radius - 80)
 
 const svgPie = pie()
     .sort(null)
@@ -56,8 +56,13 @@ const PieChart = ({wines}) => {
     .style('fill', d => WINE_TYPES[d.data.type].color)
 
   g.append('text')
-      .attr('transform', d => `translate(${labelArc.centroid(d)})`)
+      .attr('transform', d => {
+        let values = labelArc.centroid(d)
+        values[0] -= 20
+        return `translate(${values})`
+      })
       .style('fill', 'white')
+      .attr('font-size', 55)
       .text(d => d.data.count)
 
   return (

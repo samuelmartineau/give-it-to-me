@@ -26,8 +26,16 @@ class Welcome extends React.Component {
             />
           <div style={{flex: 1}}>
             <h2>Comptabilité</h2>
-            <p>{wines.length} vins</p>
-            <p>{bottlesCount} bouteilles</p>
+            <div style={{color: 'darkcyan'}}>
+              <div style={{margin: '20px 0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <span style={{fontSize: '80px'}}>{wines.length}</span>
+                <span> vins</span>
+              </div>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <span style={{fontSize: '60px'}}>{bottlesCount}</span>
+                <span> bouteilles</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
