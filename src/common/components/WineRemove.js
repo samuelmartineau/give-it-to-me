@@ -41,7 +41,7 @@ export default class WineRemove extends Component {
         onTouchTap={this.onRemoveBottle}
       />
     ]
-    const {wine, removeBottle, removeBottles, updateBottleCount, removeBottlesCount} = this.props
+    const {wine, removeBottles, updateBottleCount, removeBottlesCount} = this.props
     const color = WINE_TYPES[wine.wineType].color
     const isButtonDisabled = removeBottlesCount < 1 || removeBottlesCount > wine.count
     const bottlesByBoxes = wine.isInBoxes ? wine.bottles.reduce((acc, bottle) => {
