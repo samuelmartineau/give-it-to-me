@@ -150,7 +150,7 @@ export default class FilterModal extends Component {
         </div>
         {this.state.openModal && (
           <Dialog
-            title='Filtres'
+            title={`Filtres (${total})`}
             actions={actions}
             modal={false}
             autoScrollBodyContent

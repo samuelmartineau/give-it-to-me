@@ -33,10 +33,10 @@ const SearchFilter = ({
   }, {})
   return (
     <div>
-      <p>AOCs</p>
       <AutoComplete
         defaultSelectedItems={selectedWineFamilies}
-        textFieldLabel='Sélectionnez les AOCs'
+        hintText='Commencez à taper le nom'
+        textFieldLabel='AOC'
         displayContentItem={(item) => <div>{item.name}</div>}
         onMultipleUpdate={handleWineFamilies}
         displaySelectedItemInField={(item) => item.name}
