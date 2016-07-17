@@ -41,7 +41,7 @@ export default class UploadPicture extends Component {
             label='Changer de photo'
             labelPosition='before'
             secondary
-            onTouchTap={this.resetUpload}
+            onClick={this.resetUpload}
             icon={<ClearIcon />}
             />
         </div>

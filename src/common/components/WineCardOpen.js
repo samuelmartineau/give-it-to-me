@@ -52,7 +52,7 @@ const WineCardOpen = ({wine, favoriteWine, handleFavorite, dispatch}) => {
             checked={favoriteWine}
             checkedIcon={< ActionFavorite />}
             uncheckedIcon={< ActionFavoriteBorder />}
-            onTouchTap={handleFavorite} />
+            onClick={handleFavorite} />
           <FlatButton
             style={{width: '50%', color: 'white'}}
             label='Photo'

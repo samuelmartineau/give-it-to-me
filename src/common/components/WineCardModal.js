@@ -52,7 +52,7 @@ export default class WineCardModal extends Component {
         label='Retour'
         keyboardFocused
         primary
-        onTouchTap={this.handleCloseModal}
+        onClick={this.handleCloseModal}
       />
     ]
 
@@ -62,7 +62,7 @@ export default class WineCardModal extends Component {
           style={{margin: '12px'}}
           label='Suppression de bouteille'
           primary
-          onTouchTap={this.handleOpenModal}
+          onClick={this.handleOpenModal}
         />
         {this.state.openModal &&
           <Dialog

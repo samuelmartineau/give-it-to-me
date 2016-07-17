@@ -40,7 +40,7 @@ const CellsSelector = ({isRemovable, onUnselectBox, onSelectBox, selectedCells, 
           style={cellSelectorStyle.cellSelectorCloseButton}
           mini
           secondary
-          onTouchTap={onUnselectBox}
+          onClick={onUnselectBox}
         >
           <ContentClose />
         </FloatingActionButton>

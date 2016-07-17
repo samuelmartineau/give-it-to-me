@@ -33,12 +33,12 @@ export default class WineRemove extends Component {
       <FlatButton
         label='Annuler'
         primary
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label='Supprimer'
         primary
-        onTouchTap={this.onRemoveBottle}
+        onClick={this.onRemoveBottle}
       />
     ]
     const {wine, removeBottles, updateBottleCount, removeBottlesCount} = this.props
@@ -93,7 +93,7 @@ export default class WineRemove extends Component {
             floatingLabelText='Nombre de bouteilles à supprimer'
             />
           <RaisedButton
-            onTouchTap={removeBottles}
+            onClick={removeBottles}
             disabled={isButtonDisabled}
             label='Supprimer'
             secondary />

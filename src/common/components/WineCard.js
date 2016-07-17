@@ -69,7 +69,7 @@ export default class WineCard extends Component {
           mini
           style={wineCardMenuButton}
           backgroundColor={wineColor.color}
-          onTouchTap={this.onToggle}>
+          onClick={this.onToggle}>
           <ContentMenu />
         </FloatingActionButton>
         <div style={wineCardImageContainer}>

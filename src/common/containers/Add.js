@@ -193,8 +193,8 @@ class Add extends ResizingComponent {
       label={stepIndex === STEPS.length - 1 ? 'Sauvegarder' : 'Suivant'}
       primary
       disabled={STEPS[stepIndex].disableNext(this.state, this.props)}
-      onTouchTap={this.handleNext} />
-    const previousButton = <FlatButton label='Retour' disabled={stepIndex === 0} onTouchTap={this.handlePrev} style={{
+      onClick={this.handleNext} />
+    const previousButton = <FlatButton label='Retour' disabled={stepIndex === 0} onClick={this.handlePrev} style={{
       marginRight: 12
     }} />
 
@@ -260,12 +260,12 @@ class Add extends ResizingComponent {
       <FlatButton
         label='Annuler'
         primary
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label='Ajouter'
         primary
-        onTouchTap={this.handleAddWine}
+        onClick={this.handleAddWine}
       />
     ]
 

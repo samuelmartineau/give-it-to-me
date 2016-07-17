@@ -128,7 +128,7 @@ export default class FilterModal extends Component {
         label='Valider'
         keyboardFocused
         primary
-        onTouchTap={this.handleCloseModal}
+        onClick={this.handleCloseModal}
       />
     ]
 
@@ -137,7 +137,7 @@ export default class FilterModal extends Component {
         <RaisedButton
           label={`Filtres (${total})`}
           primary
-          onTouchTap={this.handleOpenModal}
+          onClick={this.handleOpenModal}
           icon={<FilterIcon />}
         />
         <div style={{margin: '12px 0px', display: 'flex', flexWrap: 'wrap'}}>
