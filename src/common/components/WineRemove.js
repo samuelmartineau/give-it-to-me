@@ -22,11 +22,11 @@ export default class WineRemove extends Component {
 
   handleOpen = () => {
     this.setState({open: true})
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false})
-  };
+  }
 
   render () {
     const actions = [

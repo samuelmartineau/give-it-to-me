@@ -2,7 +2,7 @@ export const filterWine = (wines, filters) => {
   return wines.filter(wine => {
     const wineFamilyIsSet = filters.wineFamilies.length
     const wineFamilyMatched = filters.wineFamilies.some(wineFamily => {
-      return wineFamily.id === wine.wineFamily
+      return parseInt(wineFamily.id) === parseInt(wine.wineFamily)
     })
     const wineTypeIsSet = filters.wineTypes.length
     const wineTypeMatched = filters.wineTypes.some(wineType => {

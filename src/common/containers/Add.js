@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import Dialog from 'material-ui/Dialog'
 import {Step, Stepper, StepLabel, StepContent} from 'material-ui/Stepper'
 
 import {isLargeScreen} from '../constants/global'
@@ -44,6 +45,7 @@ function getInitialState () {
     stepIndex: 0,
     source: 'France',
     name: '',
+    open: false,
     year: '',
     count: 1,
     wineType: Object.keys(WINE_TYPES)[DEFAULT_TYPE],
@@ -76,7 +78,11 @@ class Add extends ResizingComponent {
     })
   }
 
-  handleAddWine () {
+  handleClose = () => {
+    this.setState({open: false})
+  }
+
+  handleAddWine = () => {
     const {dispatch, selectedCells} = this.props
     const {blur, thumbnailFileName, pictureFileName} = this.props.upload
     const {
@@ -159,7 +165,7 @@ class Add extends ResizingComponent {
   handleNext = () => {
     const {stepIndex} = this.state
     if (stepIndex === STEPS.length - 1) {
-      this.handleAddWine()
+      this.setState({open: true})
     } else {
       this.setState({
         stepIndex: stepIndex + 1
@@ -183,9 +189,11 @@ class Add extends ResizingComponent {
   renderStepActions = (step) => {
     const {stepIndex, orientation} = this.state
     const isVertical = orientation === 'vertical'
-    const nextButton = <RaisedButton label={stepIndex === STEPS.length - 1
-      ? 'Sauvegarder'
-      : 'Suivant'} primary disabled={STEPS[stepIndex].disableNext(this.state, this.props)} onTouchTap={this.handleNext} />
+    const nextButton = <RaisedButton
+      label={stepIndex === STEPS.length - 1 ? 'Sauvegarder' : 'Suivant'}
+      primary
+      disabled={STEPS[stepIndex].disableNext(this.state, this.props)}
+      onTouchTap={this.handleNext} />
     const previousButton = <FlatButton label='Retour' disabled={stepIndex === 0} onTouchTap={this.handlePrev} style={{
       marginRight: 12
     }} />
@@ -248,6 +256,19 @@ class Add extends ResizingComponent {
     const isVertical = orientation === 'vertical'
     const stepContent = this.getStepContent(stepIndex)
 
+    const actions = [
+      <FlatButton
+        label='Annuler'
+        primary
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label='Ajouter'
+        primary
+        onTouchTap={this.handleAddWine}
+      />
+    ]
+
     return (
       <div style={{
         width: '100%',
@@ -265,7 +286,7 @@ class Add extends ResizingComponent {
               : <span style={{
                 display: 'none'
               }} />
-}
+            }
           </Step>)}
         </Stepper>
         {!isVertical && <div style={{
@@ -274,8 +295,17 @@ class Add extends ResizingComponent {
           {stepContent}
           {this.renderStepActions(stepIndex)}
         </div>
-}
-
+        }
+        {this.state.open && (
+          <Dialog
+            actions={actions}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          >
+            Voulez-vous vraiment ajouter la bouteille ?
+          </Dialog>
+        )}
       </div>
     )
   }
