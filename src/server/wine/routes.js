@@ -1,4 +1,4 @@
-import path from 'path'
+import urlJoin from 'url-join'
 
 import * as serverConstants from '../../common/constants/server'
 import {addWine, updateWine} from './services'
@@ -23,7 +23,7 @@ export default router => {
         res.status(500).json(error)
       })
   })
-  router.put(path.join(serverConstants.ROUTES.WINE, ':wineId'), (req, res) => {
+  router.put(urlJoin(serverConstants.ROUTES.WINE, ':wineId'), (req, res) => {
     const {wineId} = req.params
     let {data} = req.body
 

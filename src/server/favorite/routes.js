@@ -1,4 +1,4 @@
-import path from 'path'
+import urlJoin from 'url-join'
 
 import * as serverConstants from '../../common/constants/server'
 import {addToFavorite, removeFromFavorite} from './services'
@@ -14,7 +14,7 @@ export default router => {
     })
   })
 
-  router.delete(path.join(serverConstants.ROUTES.FAVORITE, ':wineId'), (req, res, next) => {
+  router.delete(urlJoin(serverConstants.ROUTES.FAVORITE, ':wineId'), (req, res, next) => {
     return removeFromFavorite(req.params.wineId).then(message => {
       updateClients()
       res.status(200).json(message)

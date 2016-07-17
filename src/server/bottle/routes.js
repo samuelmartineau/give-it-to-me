@@ -1,11 +1,11 @@
-import path from 'path'
+import urlJoin from 'url-join'
 
 import * as serverConstants from '../../common/constants/server'
 import {removeBottle} from './services'
 import {updateClients} from '../handleChanges'
 
 export default router => {
-  router.delete(path.join(serverConstants.ROUTES.BOTTLE, ':bottleId'), (req, res, next) => {
+  router.delete(urlJoin(serverConstants.ROUTES.BOTTLE, ':bottleId'), (req, res, next) => {
     const {bottleId} = req.params
     const {wineId} = req.body
     return removeBottle(parseInt(wineId), parseInt(bottleId)).then(message => {
