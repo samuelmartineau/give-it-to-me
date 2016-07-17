@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import config from '../../../config'
 import BarChart from '../components/BarChart'
 import PieChart from '../components/PieChart'
 import CellarSchema from '../components/CellarSchema'
@@ -10,6 +11,7 @@ class Welcome extends React.Component {
     const {wines, bottlesCount} = this.props
     return (
       <div>
+        <p>Disponible à {window.__CURRENT_IP__}:{config.PORT}</p>
         <CellarSchema
           wines={wines}
           selectedCells={{}}

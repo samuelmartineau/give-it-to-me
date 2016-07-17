@@ -1,4 +1,8 @@
+import ip from 'ip'
+
 import {version} from '../../../package.json'
+
+const currentIp = ip.address()
 
 export function renderFullPage (html, initialState, bundleFilename) {
   return `
@@ -15,6 +19,7 @@ export function renderFullPage (html, initialState, bundleFilename) {
             <container id="react"><div>${html}</div></container>
             <script>
               window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+              window.__CURRENT_IP__ = '${currentIp}';
               window.__CURRENT_VERSION__ = '${version}';
             </script>
             <script src="/vendor.js"></script>
@@ -38,6 +43,7 @@ export function fakeWindow () {
     if (typeof window === 'undefined') {
       global.window = {
         __CURRENT_VERSION__: version,
+        __CURRENT_IP__: currentIp,
         innerWidth: req.headers.WS_WIDTH, // comes from device-infos middleware
         addEventListener: () => {}
       }
