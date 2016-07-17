@@ -19,6 +19,7 @@ module.exports = Object.assign({
     host: process.env.HOST,
     database: process.env.DATABASE,
     timeout: 5,
+    filename: 'gitm.db',
     tables: {
       WINE: {
         name: 'wine'

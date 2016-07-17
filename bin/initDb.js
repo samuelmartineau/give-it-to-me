@@ -1,33 +1,42 @@
 #!/usr/bin/env node
-
-const r = require('rethinkdb')
 const config = require('../config')
 
-const getConnection = r.connect({host: config.DB.host})
-const database = config.DB.database
-
-getConnection.then(conn => {
-  return r.dbCreate(database).run(conn).then(() => {
-    return Promise.all(Object.keys(config.DB.tables).map(tableKey => {
-      const table = config.DB.tables[tableKey]
-      return r.db(database)
-        .tableCreate(table.name)
-        .run(conn)
-        .then(() => {
-          if (table.indexes) {
-            const indexPromises = table.indexes.map(index => {
-              return r.db(database).table(table.name)
-                .indexCreate(index)
-                .run(conn)
-            })
-            return Promise.all(indexPromises)
-          }
-        })
-        .then(function () {
-          return r.db(database).table(table.name).indexWait().run(conn)
-        })
-    }))
-  })
+const knex = require('knex')({
+  dialect: 'sqlite3',
+  connection: {
+    filename: config.DB.filename
+  }
 })
-.catch(console.error)
-.finally(process.exit)
+
+knex.schema
+  .createTable('wines', table => {
+    table.increments('id').primary()
+    table.string('blur')
+    table.string('name')
+    table.string('source')
+    table.string('wineCategory')
+    table.string('wineType')
+    table.string('thumbnailFileName')
+    table.string('pictureFileName')
+    table.string('positionComment')
+    table.boolean('isInBoxes')
+    table.boolean('_deleted').defaultTo(false)
+    table.boolean('isFavorite').defaultTo(false)
+    table.integer('bottleType')
+    table.integer('year')
+    table.integer('wineFamily')
+    table.integer('stock')
+    table.integer('count')
+    table.timestamp('created_at').defaultTo(knex.fn.now())
+  })
+  .createTable('bottles', table => {
+    table.increments('id').primary()
+    table.integer('box')
+    table.integer('cell')
+    table.boolean('_deleted').defaultTo(false)
+    table.integer('wine_id')
+      .references('wines.id')
+    table.timestamp('created_at').defaultTo(knex.fn.now())
+  })
+  .catch(console.error)
+  .finally(process.exit)

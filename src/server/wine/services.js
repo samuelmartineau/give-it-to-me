@@ -1,12 +1,7 @@
-import r from 'rethinkdb'
-
-import {getConnection} from '../utils/db'
+import knex, {Wine} from '../utils/db'
 import logger from '../utils/logger'
 import {CELLAR_SCHEMA} from '../../common/constants/Cellar'
 import {removeItem} from '../../common/constants/global'
-import config from '../../../config'
-import {addBottle} from '../bottle/services'
-import {filterSoftDeleted} from '../utils'
 
 export const computeCellar = (wines) => {
   let boxId = 0
@@ -65,24 +60,19 @@ export const computeCellar = (wines) => {
 }
 
 export const getCellar = () => {
-  return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE.name)
-    .filter(filterSoftDeleted)
-    .merge((wine) => {
-      return {
-        'bottles': r.table(config.DB.tables.BOTTLE.name)
-          .getAll(wine('id'), {index: 'wine_id'})
-          .filter(filterSoftDeleted)
-          .coerceTo('array')
-      }
-    })
-    .run(conn)
-  }).then(cursor => cursor.toArray()).then(wines => {
-    return computeCellar(wines)
-  }).catch(error => {
-    logger.error('Error getting Cellar', error)
-    return Promise.reject({message: 'Probleme lors de la récupération des vins dans la base de données'})
-  })
+  return Wine
+      .where({_deleted: 0})
+      .fetchAll({withRelated: [{
+        bottles: query => {
+          query.where({_deleted: 0})
+        }
+      }]})
+      .then(wines => {
+        return computeCellar(wines.toJSON())
+      })
+      .catch((error) => {
+        logger.log('error', error)
+      })
 }
 
 export const addWine = (wine, contextualData) => {
@@ -90,67 +80,52 @@ export const addWine = (wine, contextualData) => {
     wine = {...wine, ...contextualData}
   }
 
-  return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE.name)
-      .insert({
-        ...wine,
-        timestamp: new Date()
-      }, {returnChanges: true})
-      .run(conn)
-      .then(result => {
+  return knex.transaction(trx => {
+    return trx
+      .insert(wine, 'id')
+      .into('wines')
+      .then(ids => {
+        const wineId = ids[0]
         if (wine.isInBoxes) {
           const bottles = contextualData.bottles.map(bottle => {
             return {
               ...bottle,
-              ...{wine_id: result.generated_keys[0]}
+              ...{wine_id: wineId}
             }
           })
-          return addBottle(bottles)
+          return trx.batchInsert('bottles', bottles)
         }
       })
-      .then(() => ({message: 'Vin ajouté avec succés'}))
-  }).catch(error => {
+  })
+  .then(() => ({message: 'Vin ajouté avec succés'}))
+  .catch(error => {
     logger.error('Error adding Wine', error)
     return Promise.reject({message: 'Probleme lors de l\'ajout dans la base de données'})
   })
 }
 
-export const getWine = (wineId) => {
-  return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE.name)
-        .get(wineId)
-        .merge((wine) => {
-          return {
-            'bottles': r.table(config.DB.tables.BOTTLE.name)
-              .getAll(wine('id'), {index: 'wine_id'})
-              .filter(filterSoftDeleted)
-              .coerceTo('array')
-          }
-        })
-        .run(conn)
-  }).catch(error => {
-    logger.error('Error getting Wine', error)
-    return Promise.reject({message: 'Probleme lors de la récupération du vin'})
-  })
-}
-
 export const updateWine = (wineId, data) => {
   let updateData = data
-  if (data.removeBottlesCount) {
-    Object.assign(updateData, {
-      _deleted: r.row('count').le(data.removeBottlesCount),
-      count: r.row('count').sub(data.removeBottlesCount)
-    })
-    delete updateData.removeBottlesCount
-  }
+  console.log(wineId)
 
-  return getConnection.then(conn => {
-    return r.table(config.DB.tables.WINE.name)
-        .get(wineId)
+  return knex('wines')
+    .where({id: wineId})
+    .then(wines => {
+      const wine = wines[0]
+      if (data.removeBottlesCount) {
+        Object.assign(updateData, {
+          _deleted: wine.count <= data.removeBottlesCount,
+          count: wine.count - data.removeBottlesCount,
+          isFavorite: wine.count <= data.removeBottlesCount
+        })
+        delete updateData.removeBottlesCount
+      }
+      return knex('wines')
+        .where({id: wineId})
         .update(updateData)
-        .run(conn)
-  }).catch(error => {
-    logger.error('Error getting Wine', error)
-    return Promise.reject({message: 'Probleme lors de la récupération du vin'})
-  })
+    })
+    .catch(error => {
+      logger.error('Error getting Wine', error)
+      return Promise.reject({message: 'Probleme lors de la récupération du vin'})
+    })
 }

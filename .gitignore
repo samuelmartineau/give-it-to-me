@@ -72,3 +72,4 @@ temp_uploads
 dist
 uploads
 migration
+gitm.db

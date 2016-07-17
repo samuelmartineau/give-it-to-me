@@ -45,8 +45,3 @@ export function fakeWindow () {
     next()
   }
 }
-
-export function filterSoftDeleted (item) {
-  return item.hasFields('_deleted').not()
-    .or(item('_deleted').not())
-}

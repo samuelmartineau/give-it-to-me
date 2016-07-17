@@ -8,7 +8,7 @@ export default router => {
   router.delete(path.join(serverConstants.ROUTES.BOTTLE, ':bottleId'), (req, res, next) => {
     const {bottleId} = req.params
     const {wineId} = req.body
-    return removeBottle(wineId, bottleId).then(message => {
+    return removeBottle(parseInt(wineId), parseInt(bottleId)).then(message => {
       updateClients()
       res.status(200).json(message)
     }).catch(error => {
