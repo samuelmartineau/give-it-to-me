@@ -57,7 +57,7 @@ class Search extends ResizingComponent {
           filters={filters}
           updateFilters={this.updateFilters}
           />
-        <div style={{display: 'flex', textAlign: 'center'}}>
+        <div className='infinite-scroll' style={{display: 'flex', textAlign: 'center'}}>
           {hasResult
           ? chunks.map((chunk, index) => {
             return <Infinite
