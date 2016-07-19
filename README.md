@@ -56,6 +56,7 @@ mv device-infos deploy/
 mv config deploy/
 mv src deploy/
 mv dist deploy/
+mv src bin/
 cd deploy
 git init
 git config --global user.email "martineau.samuel.1990+codeship@gmail.com"
