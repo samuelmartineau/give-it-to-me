@@ -39,4 +39,8 @@ knex.schema
     table.timestamp('created_at').defaultTo(knex.fn.now())
   })
   .catch(console.error)
-  .finally(process.exit)
+  .finally(() => {
+    if (!process.env.HEROKU) {
+      process.exit()
+    }
+  })
