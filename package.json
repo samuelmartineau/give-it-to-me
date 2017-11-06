@@ -1,0 +1,12 @@
+{
+  "name": "give-it-to-me",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+  },
+  "scripts": {
+  },
+  "devDependencies": {
+    "lerna": "^2.4.0"
+  }
+}
