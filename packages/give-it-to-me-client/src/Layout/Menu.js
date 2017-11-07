@@ -4,10 +4,10 @@ import List, { ListItem } from "material-ui/List";
 const Menu = () => (
   <List>
     <ListItem>
-      <a href="/tournaments/create">Create Tournament</a>
+      <a href="/">Home</a>
     </ListItem>
     <ListItem>
-      <a href="/tournaments">My Tournaments</a>
+      <a href="/browse">Browse</a>
     </ListItem>
   </List>
 );
