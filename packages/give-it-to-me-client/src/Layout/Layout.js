@@ -11,7 +11,7 @@ import MenuIcon from "material-ui-icons/Menu";
 import Divider from "material-ui/Divider";
 import { withStyles } from "material-ui/styles";
 import withWidth, { isWidthUp } from "material-ui/utils/withWidth";
-import Menu from "Layout/Menu";
+import Menu from "./Menu";
 
 const styleSheet = theme => ({
   layout: {

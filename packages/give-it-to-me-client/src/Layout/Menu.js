@@ -1,14 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import List, { ListItem } from 'material-ui/List';
+import React from "react";
+import List, { ListItem } from "material-ui/List";
 
 const Menu = () => (
   <List>
     <ListItem>
-      <Link to="/tournaments/create">Create Tournament</Link>
+      <a href="/tournaments/create">Create Tournament</a>
     </ListItem>
     <ListItem>
-      <Link to="/tournaments">My Tournaments</Link>
+      <a href="/tournaments">My Tournaments</a>
     </ListItem>
   </List>
 );
