@@ -1,0 +1,9 @@
+{
+  "plugins": ["react"],
+  "parser": "babel-eslint",
+  "extends": ["plugin:react/recommended"],
+  "rules": {
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off"
+  }
+}

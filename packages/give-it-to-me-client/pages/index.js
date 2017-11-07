@@ -1,18 +1,27 @@
-import { LayoutHoc } from "../components/Layout/Layout";
-import Fonts from "../components/Fonts/Fonts";
+import withRedux from "next-redux-wrapper";
+import "isomorphic-unfetch";
+import WithLayout from "../components/Layout/WithLayout";
+import { compose, setDisplayName, pure, lifecycle } from "recompose";
+import { initStore } from "../store";
+import withRoot from "../components/withRoot";
 
 const Home = () => <div>Welcome to next.js!</div>;
 
-const HomeLaout = LayoutHoc(Home);
+const HomeWithLayout = compose(
+  setDisplayName("HomePage"),
+  lifecycle({
+    componentDidMount() {}
+  }),
+  withRoot,
+  WithLayout,
+  pure
+)(Home);
 
-class Index extends React.Component {
-  componentDidMount() {
-    Fonts();
-  }
+HomeWithLayout.getInitialProps = async ({ store, isServer }) => {
+  const res = await fetch("http://localhost:4000/api/wine");
+  const json = await res.json();
+  console.log("cellar received");
+  return { json };
+};
 
-  render() {
-    return <HomeLaout />;
-  }
-}
-
-export default Index;
+export default withRedux(initStore)(HomeWithLayout);

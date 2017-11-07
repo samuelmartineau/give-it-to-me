@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from "react";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
@@ -5,14 +6,13 @@ import classNames from "classnames";
 import Typography from "material-ui/Typography";
 import Drawer from "material-ui/Drawer";
 import Hidden from "material-ui/Hidden";
-import { compose } from "recompose";
+import { compose, withState, withHandlers, pure } from "recompose";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
 import Divider from "material-ui/Divider";
 import { withStyles } from "material-ui/styles";
 import withWidth, { isWidthUp } from "material-ui/utils/withWidth";
 import Menu from "./Menu";
-import Meta from "./Meta";
 
 const styleSheet = theme => ({
   layout: {
@@ -55,94 +55,102 @@ const styleSheet = theme => ({
   }
 });
 
-class AppFrame extends Component {
-  state = {
-    drawerOpen: false
-  };
+type AppFrameProps = {
+  width: Number,
+  classes: {},
+  title: string,
+  children: ReactElement,
+  handleDrawerToggle: Function,
+  handleDrawerClose: Function,
+  drawerOpen: boolean
+};
 
-  handleDrawerClose = () => {
-    this.setState({ drawerOpen: false });
-  };
+const AppFrame = ({
+  width,
+  classes,
+  title,
+  children,
+  handleDrawerToggle,
+  handleDrawerClose,
+  drawerOpen
+}: AppFrameProps) => {
+  const drawerDocked = isWidthUp("lg", width);
 
-  handleDrawerToggle = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
-  };
+  const drawer = (
+    <div className="">
+      <Toolbar className="">
+        <Typography type="title" gutterBottom color="inherit">
+          AXA
+        </Typography>
+        <Divider absolute />
+      </Toolbar>
+      <Menu />
+    </div>
+  );
 
-  render() {
-    const { width, classes, title } = this.props;
-    const drawerDocked = isWidthUp("lg", width);
-
-    const drawer = (
-      <div className="">
-        <Toolbar className="">
-          <Typography type="title" gutterBottom color="inherit">
-            AXA
+  return (
+    <div className={classes.layout}>
+      <AppBar className={classNames(classes.appBar, classes.appBarShift)}>
+        <Toolbar>
+          <IconButton
+            color="contrast"
+            onClick={handleDrawerToggle}
+            className={classNames(classes.icon, classes.navIconHide)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography type="title" color="inherit" className="">
+            {title}
           </Typography>
-          <Divider absolute />
         </Toolbar>
-        <Menu />
+      </AppBar>
+      <div className={classes.drawer}>
+        <Hidden lgUp>
+          <Drawer
+            classes={{
+              paper: classes.paper
+            }}
+            type="temporary"
+            open={drawerDocked || drawerOpen}
+            onRequestClose={handleDrawerClose}
+            ModalProps={{
+              keepMounted: true
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden lgDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.paper
+            }}
+            type="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
       </div>
-    );
 
-    return (
-      <div className={classes.layout}>
-        <Meta />
-        <AppBar className={classNames(classes.appBar, classes.appBarShift)}>
-          <Toolbar>
-            <IconButton
-              color="contrast"
-              onClick={this.handleDrawerToggle}
-              className={classNames(classes.icon, classes.navIconHide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography type="title" color="inherit" className="">
-              {title}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <div className={classes.drawer}>
-          <Hidden lgUp>
-            <Drawer
-              classes={{
-                paper: classes.paper
-              }}
-              type="temporary"
-              open={drawerDocked || this.state.drawerOpen}
-              onRequestClose={this.handleDrawerClose}
-              ModalProps={{
-                keepMounted: true
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden lgDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.paper
-              }}
-              type="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </div>
-
-        <div className={classNames(classes.content, classes.root)}>
-          {this.props.children}
-        </div>
+      <div className={classNames(classes.content, classes.root)}>
+        {children}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-const Layout = compose(withWidth(), withStyles(styleSheet))(AppFrame);
+const Layout = compose(
+  withState("drawerOpen", "setModalStatus", false),
+  withHandlers({
+    handleDrawerClose: ({ setModalStatus }) => () =>
+      setModalStatus(() => false),
+    handleDrawerToggle: ({ setModalStatus }) => () =>
+      setModalStatus(open => !open)
+  }),
+  withStyles(styleSheet),
+  withWidth(),
+  pure
+)(AppFrame);
 
-export const LayoutHoc = Component => props => (
-  <Layout {...props}>
-    <Component />
-  </Layout>
-);
 export default Layout;
