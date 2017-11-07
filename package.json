@@ -5,6 +5,7 @@
   "dependencies": {
   },
   "scripts": {
+    "start:client": "cd packages/give-it-to-me-client && npm run dev"
   },
   "devDependencies": {
     "lerna": "^2.4.0"
