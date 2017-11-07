@@ -1,13 +1,14 @@
 import React from "react";
+import Link from "next/link";
 import List, { ListItem } from "material-ui/List";
 
 const Menu = () => (
   <List>
     <ListItem>
-      <a href="/">Home</a>
+      <Link href="/">Home</Link>
     </ListItem>
     <ListItem>
-      <a href="/browse">Browse</a>
+      <Link href="/browse">Browse</Link>
     </ListItem>
   </List>
 );
