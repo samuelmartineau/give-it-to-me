@@ -1,4 +1,4 @@
-import { LayoutHoc } from "../../src/Layout/Layout";
+import { LayoutHoc } from "../../components/Layout/Layout";
 
 const Browse = () => <div>Browse your wines</div>;
 

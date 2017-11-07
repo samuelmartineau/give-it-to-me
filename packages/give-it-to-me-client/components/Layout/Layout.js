@@ -12,6 +12,7 @@ import Divider from "material-ui/Divider";
 import { withStyles } from "material-ui/styles";
 import withWidth, { isWidthUp } from "material-ui/utils/withWidth";
 import Menu from "./Menu";
+import Meta from "./Meta";
 
 const styleSheet = theme => ({
   layout: {
@@ -85,6 +86,7 @@ class AppFrame extends Component {
 
     return (
       <div className={classes.layout}>
+        <Meta />
         <AppBar className={classNames(classes.appBar, classes.appBarShift)}>
           <Toolbar>
             <IconButton
