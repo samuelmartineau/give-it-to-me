@@ -35,36 +35,6 @@ const CANVAS_WIDTH =
   4 * BOX_BORDER_SIZE + 5 * ONE_CELL_WIDTH + 12 * FULL_BOX_WIDTH;
 const CANVAS_HEIGHT = 5 * FULL_BOX_HEIGHT;
 
-const getBottleInfos = (box, cell) => {
-  return {
-    cx:
-      BOX_BORDER_SIZE +
-      CELLAR_SCHEMA[box].x +
-      Math.floor(cell / 3) * CELL_SIZE +
-      CELL_SIZE / 2,
-    cy:
-      BOX_BORDER_SIZE +
-      CELLAR_SCHEMA[box].y +
-      (cell % 3) * CELL_SIZE +
-      CELL_SIZE / 2,
-    cxRelative: Math.floor(cell / 3) * CELL_SIZE + CELL_SIZE / 2,
-    cyRelative: (cell % 3) * CELL_SIZE + CELL_SIZE / 2,
-    radius: CELL_SIZE / 2
-  };
-};
-
-// const drawBottle = (svgElement, color, box, cell, isBoxSchema, blink) => {
-//   const bottleInfos = getBottleInfos(box, cell);
-//   select(svgElement)
-//     .append("circle")
-//     .attr("pointer-events", "none")
-//     .attr("cx", isBoxSchema ? bottleInfos.cxRelative : bottleInfos.cx)
-//     .attr("cy", isBoxSchema ? bottleInfos.cyRelative : bottleInfos.cy)
-//     .attr("r", bottleInfos.radius)
-//     .attr("fill", color)
-//     .classed("blinker", blink);
-// };
-
 const BOXES_SIZES = {
   ONE_CELL: {
     width: ONE_CELL_WIDTH,
@@ -88,333 +58,469 @@ const BOXES_SIZES = {
   }
 };
 const CELLAR_SCHEMA = [
-  {
-    x: 0,
-    y: 2 * CELL_SIZE,
-    ...BOXES_SIZES["ONE_CELL"]
-  },
-  {
-    x: ONE_CELL_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 2 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 3 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 4 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 5 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 6 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 7 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 8 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 9 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 10 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 11 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 12 * FULL_BOX_WIDTH,
-    y: 0,
-    ...BOXES_SIZES["HALF_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["THIRD_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 2 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 3 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 4 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 5 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 6 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 7 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 8 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 9 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 10 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 11 * FULL_BOX_WIDTH,
-    y: FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 2 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 3 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 4 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 5 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 6 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 7 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 8 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 9 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 10 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 11 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: ONE_CELL_WIDTH + 12 * FULL_BOX_WIDTH,
-    y: 2 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 12 * FULL_BOX_WIDTH,
-    y: 3 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["HALF_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  },
-  {
-    x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
-    y: 4 * FULL_BOX_HEIGHT,
-    ...BOXES_SIZES["FULL_BOX"]
-  }
+  Object.assign(
+    {
+      x: 0,
+      y: 2 * CELL_SIZE
+    },
+    BOXES_SIZES["ONE_CELL"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 2 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 3 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 4 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 5 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 6 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 7 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 8 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 9 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 10 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 11 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 12 * FULL_BOX_WIDTH,
+      y: 0
+    },
+    BOXES_SIZES["HALF_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["THIRD_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 2 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 3 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 4 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 5 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 6 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 7 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 8 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 9 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 10 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + THIRD_BOX_WIDTH + 11 * FULL_BOX_WIDTH,
+      y: FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 2 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 3 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 4 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 5 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 6 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 7 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 8 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 9 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 10 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 11 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: ONE_CELL_WIDTH + 12 * FULL_BOX_WIDTH,
+      y: 2 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 2 * BOX_BORDER_SIZE + 3 * CELL_SIZE + 12 * FULL_BOX_WIDTH,
+      y: 3 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["HALF_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 2 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 3 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 4 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 5 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 6 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 7 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 8 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 9 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 10 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  ),
+  Object.assign(
+    {
+      x: 4 * BOX_BORDER_SIZE + 5 * CELL_SIZE + 11 * FULL_BOX_WIDTH,
+      y: 4 * FULL_BOX_HEIGHT
+    },
+    BOXES_SIZES["FULL_BOX"]
+  )
 ];
 
 module.exports = {
-  CELLAR_SCHEMA
+  CELLAR_SCHEMA,
+  BOX_COLOR,
+  BOX_BORDER_SIZE,
+  BOX_BORDER_COLOR,
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  SELECTED_COLOR
 };

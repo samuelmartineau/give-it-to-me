@@ -1,3 +1,4 @@
+const cellar = require("./cellar");
 const defaultPort = process.env.PORT || 4000;
 
 const environment = {
@@ -17,7 +18,7 @@ module.exports = Object.assign(
       host: process.env.HOST,
       database: process.env.DATABASE,
       timeout: 5,
-      filename: "gitm.db",
+      filename: "gitm-5-11-2017.db",
       tables: {
         WINE: {
           name: "wine"
@@ -54,7 +55,8 @@ module.exports = Object.assign(
         QUALITY: 30
       }
     },
-    API_BASE_URL: "/api"
+    API_BASE_URL: "/api",
+    cellar
   },
   environment
 );
