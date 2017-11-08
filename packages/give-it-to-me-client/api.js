@@ -1,29 +1,26 @@
-import { checkStatus } from "utils/fetch";
+import "isomorphic-unfetch";
 
-const apiBase = "/api";
+const apiBase = "http://localhost:4000/api";
+
+function parseJSON(response) {
+  return response.json();
+}
+
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return parseJSON(response);
+  }
+  return parseJSON(response).then(result =>
+    Promise.reject(new Error(result.message))
+  );
+}
 
 function errorHandler(error) {
   console.error("error", error);
   throw error;
 }
 
-export const getRoutes = searchType =>
-  fetch(`${apiBase}/Parcours/GetDistribTree`, { credentials: "include" })
+export const getCellar = () =>
+  fetch(`${apiBase}/wine`, { credentials: "include" })
     .then(checkStatus)
-    .catch(errorHandler);
-
-export const getUser = () =>
-  fetch(`${apiBase}/Users/CurrentFullInfos`, {
-    credentials: "include"
-  })
-    .then(checkStatus)
-    .catch(errorHandler);
-
-export const getDepartments = () =>
-  fetch(`${apiBase}/departements/All`, { credentials: "include" })
-    .then(checkStatus)
-    .then(departments => {
-      departments.sort((a, b) => a.CodeDepartement - b.CodeDepartement);
-      return departments;
-    })
     .catch(errorHandler);

@@ -1,4 +1,4 @@
-export const WINE_TYPES = {
+const WINE_TYPES = {
   RED: {
     label: "Rouge",
     categories: ["REGULAR", "SPARKLING", "DRY"],
@@ -16,7 +16,7 @@ export const WINE_TYPES = {
   }
 };
 
-export const WINE_CATEGORIES = {
+const WINE_CATEGORIES = {
   REGULAR: {
     label: "normal"
   },
@@ -46,5 +46,12 @@ export const WINE_CATEGORIES = {
   }
 };
 
-export const DEFAULT_TYPE = 0;
-export const DEFAULT_CATEGORY = 0;
+const DEFAULT_TYPE = 0;
+const DEFAULT_CATEGORY = 0;
+
+module.exports = {
+  WINE_TYPES,
+  WINE_CATEGORIES,
+  DEFAULT_TYPE,
+  DEFAULT_CATEGORY
+};

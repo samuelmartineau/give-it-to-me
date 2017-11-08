@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import cellarReducer, * as result from "./cellar/cellar.reducer";
+import cellarReducer, * as cellar from "./cellar/cellar.reducer";
+import bottlesReducer, * as bottles from "./bottles/bottles.reducer";
 
 export default combineReducers({
-  cellar: cellarReducer
+  cellar: cellarReducer,
+  bottles: bottlesReducer
 });

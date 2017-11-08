@@ -1,18 +1,18 @@
 import { createStore, applyMiddleware } from "redux";
+import withRedux from "next-redux-wrapper";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import reducer from "./reducer";
+import * as api from "../api";
 
-const exampleInitialState = {
-  lastUpdate: 0,
-  light: false,
-  count: 0
-};
-
-export const initStore = (initialState = exampleInitialState) => {
+export const makeStore = initialState => {
   return createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
+    composeWithDevTools(applyMiddleware(thunkMiddleware.withExtraArgument(api)))
   );
 };
+
+export const reduxPage = withRedux(makeStore);
+
+export { getCellar } from "./actions";

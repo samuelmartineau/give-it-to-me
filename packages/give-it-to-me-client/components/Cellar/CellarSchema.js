@@ -2,59 +2,35 @@ import React from "react";
 import { select } from "d3";
 import ReactFauxDOM from "react-faux-dom";
 
-import {
+import { cellar } from "gitm-config";
+const {
   CELLAR_SCHEMA,
   BOX_COLOR,
   BOX_BORDER_SIZE,
   BOX_BORDER_COLOR,
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
-  SELECTED_COLOR,
-  drawBottle
-} from "../constants/Cellar";
-import { WINE_TYPES } from "../constants/WineTypes";
+  SELECTED_COLOR
+} = cellar;
+import { drawBottle, drawCellar, drawBottles } from "./utils";
 
 const CellarSchema = ({
   wine,
-  wines,
-  selectedCells,
-  isBoxClickable,
+  wines = [],
+  bottles = [],
+  selectedCells = {},
+  isBoxClickable = () => {},
   viewMode,
   selectMode,
-  onSelectBox
+  onSelectBox = () => {}
 }) => {
   let svgContainer = ReactFauxDOM.createElement("svg");
   let boxId = 0;
   svgContainer.setAttribute("viewBox", `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
 
-  CELLAR_SCHEMA.forEach(box => {
-    const boxClickable = isBoxClickable(boxId);
-    const cursor = boxClickable ? "pointer" : "not-allowed";
-    let svgBox = select(svgContainer).append("rect");
+  drawCellar(svgContainer);
 
-    svgBox
-      .attr("x", box.x)
-      .attr("y", box.y)
-      .attr("width", box.width)
-      .attr("height", box.height)
-      .attr("stroke-width", BOX_BORDER_SIZE)
-      .attr("style", `cursor: ${cursor}`)
-      .attr("stroke", BOX_BORDER_COLOR)
-      .attr("fill", BOX_COLOR);
-
-    if (selectMode && boxClickable) {
-      svgBox.on("click", onSelectBox.bind(this, boxId));
-    }
-
-    if (
-      viewMode &&
-      wine.bottles.map(bottle => bottle.box).indexOf(boxId) === -1
-    ) {
-      svgBox.attr("style", "opacity: 0.3");
-    }
-
-    boxId++;
-  });
+  drawBottles(svgContainer, bottles);
 
   wines.forEach(wine => {
     if (wine.bottles) {
@@ -78,14 +54,6 @@ const CellarSchema = ({
   });
 
   return <div>{svgContainer.toReact()}</div>;
-};
-
-CellarSchema.propTypes = {
-  wines: PropTypes.array.isRequired,
-  selectedCells: PropTypes.object.isRequired,
-  availableCells: PropTypes.object.isRequired,
-  isBoxClickable: PropTypes.func.isRequired,
-  onSelectBox: PropTypes.func
 };
 
 export default CellarSchema;
