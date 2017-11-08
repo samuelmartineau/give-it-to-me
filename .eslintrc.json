@@ -3,5 +3,5 @@
   "rules": {
     "prettier/prettier": "error"
   },
-  "extends": ["prettier"]
+  "extends": ["eslint:recommended", "prettier"]
 }
