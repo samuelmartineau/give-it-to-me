@@ -105,3 +105,4 @@ Temporary Items
 .next
 old
 error-logs
+*.db
