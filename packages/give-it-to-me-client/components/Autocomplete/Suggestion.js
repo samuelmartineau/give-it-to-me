@@ -20,7 +20,7 @@ const autoCompleteStyle = {
   }
 };
 
-type AutoCompleteProps = {
+type SuggesttionProps = {
   placeholder: string,
   label: string,
   displayContentItem: Function,
@@ -32,7 +32,7 @@ type AutoCompleteProps = {
   defaultSelectedItems: Array
 };
 
-export default class AutoComplete extends React.Component<AutoCompleteProps> {
+export default class Suggesttion extends React.Component<SuggesttionProps> {
   constructor(props) {
     super(props);
     this.state = {
