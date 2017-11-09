@@ -6,9 +6,5 @@ export default compose(
   connect(state => ({
     bottles: state.bottles.all
   })),
-  withProps({
-    viewMode: true,
-    isBoxClickable: () => false,
-    selectedCells: {}
-  })
+  withProps({})
 )(CellarSchema);
