@@ -2,7 +2,7 @@
 import React from "react";
 import ReactFauxDOM from "react-faux-dom";
 
-import { cellar } from "gitm-config";
+import { cellar } from "give-it-to-me-config";
 const { CANVAS_WIDTH, CANVAS_HEIGHT } = cellar;
 import { drawCellar, drawBottles } from "./utils";
 

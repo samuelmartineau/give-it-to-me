@@ -1,5 +1,5 @@
 import { select } from "d3";
-import { cellar } from "gitm-config";
+import { cellar } from "give-it-to-me-config";
 
 const {
   CELL_SIZE,

@@ -1,6 +1,6 @@
-import { compose, setDisplayName, pure, lifecycle } from "recompose";
+import { compose, setDisplayName } from "recompose";
 import { connect } from "react-redux";
-import { initStore, getCellar, reduxPage } from "../store";
+import { getCellar, reduxPage } from "../store";
 import withRoot from "../components/withRoot";
 import WithLayout from "../components/Layout/WithLayout";
 import CellarSchemaPresentation from "../components/Cellar/CellarSchemaPresentation";

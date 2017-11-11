@@ -1,196 +1,156 @@
-// @flow
 import React from "react";
-import IconButton from "material-ui/IconButton/IconButton";
+import { compose } from "recompose";
+import Autosuggest from "react-autosuggest";
+import { utils } from "give-it-to-me-config";
+import fuzzy from "fuzzy";
 import TextField from "material-ui/TextField";
-import Menu from "material-ui/Menu";
-import MenuItem from "material-ui-icons/Menu";
-import ContentClose from "material-ui-icons/Close";
-import Chip from "material-ui/Chip";
-import { debounce } from "lodash";
+import Paper from "material-ui/Paper";
+import { MenuItem } from "material-ui/Menu";
+import { withStyles } from "material-ui/styles";
+import debounce from "lodash.debounce";
 
-const autoCompleteStyle = {
-  autocomplete: {
-    position: "relative"
+function renderInput({ classes, autoFocus, value, ref, ...other }) {
+  return (
+    <TextField
+      autoFocus={autoFocus}
+      className={classes.textField}
+      value={value}
+      inputRef={ref}
+      InputProps={{
+        classes: {
+          input: classes.input
+        },
+        ...other
+      }}
+    />
+  );
+}
+
+function renderSuggestion(suggestion, { query, isHighlighted }) {
+  return (
+    <MenuItem selected={isHighlighted} component="div">
+      <span dangerouslySetInnerHTML={{ __html: suggestion.string }} />
+    </MenuItem>
+  );
+}
+
+function renderSuggestionsContainer(options) {
+  const { containerProps, children } = options;
+
+  return (
+    <Paper {...containerProps} square>
+      {children}
+    </Paper>
+  );
+}
+
+function getSuggestionValue(suggestion) {
+  return suggestion.original.label;
+}
+const styles = theme => ({
+  container: {
+    flexGrow: 1,
+    position: "relative",
+    height: 200
   },
-  clearButton: {
+  suggestionsContainerOpen: {
     position: "absolute",
-    top: 0,
-    bottom: 0,
-    margin: "auto"
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
+    left: 0,
+    right: 0
+  },
+  suggestion: {
+    display: "block"
+  },
+  suggestionsList: {
+    margin: 0,
+    padding: 0,
+    listStyleType: "none"
+  },
+  textField: {
+    width: "100%"
   }
-};
+});
 
-type AutoCompleteProps = {
-  placeholder: string,
-  label: string,
-  displayContentItem: Function,
-  onItemClicked: Function,
-  onMultipleUpdate: Function,
-  displaySelectedItemInField: Function,
-  filter: Function,
-  selectionMode: boolean,
-  defaultSelectedItems: Array
-};
+class AutoComplete extends React.Component {
+  constructor() {
+    super();
 
-export default class AutoComplete extends React.Component<AutoCompleteProps> {
-  constructor(props) {
-    super(props);
     this.state = {
-      searchEntry: "",
-      itemSelected: false,
-      textField: "",
-      filteredItems: [],
-      itemsSelected: props.defaultSelectedItems || []
+      value: "",
+      suggestions: [],
+      isLoading: false
     };
-    this.onItemSelected = this.onItemSelected.bind(this);
-    this.onClearInput = this.onClearInput.bind(this);
-    this.onFilter = debounce(this.onFilter, 600);
-    const { defaultItem, selectionMode, displaySelectedItemInField } = props;
-    if (defaultItem) {
-      this.state = {
-        ...this.state,
-        ...{
-          itemSelected: selectionMode,
-          textField: selectionMode
-            ? displaySelectedItemInField(defaultItem)
-            : "",
-          searchEntry: ""
-        }
-      };
-    }
+
+    this.debouncedLoadSuggestions = debounce(this.loadSuggestions, 300); // 1000ms is chosen for demo purposes only.
   }
 
-  onFilter = searchEntry => {
-    const { filter } = this.props;
-    const filteredItems = filter(searchEntry);
-    this.setState({ filteredItems: filteredItems });
-  };
-
-  onEntry = (evt, value) => {
-    this.onFilter(value);
-    this.setState({ searchEntry: value, textField: value });
-  };
-
-  onClearInput() {
-    this.setState({ itemSelected: false, textField: "" });
-  }
-
-  onChipTap(index) {
-    const { onMultipleUpdate } = this.props;
-    const { itemsSelected } = this.state;
-    itemsSelected.splice(index, 1);
-    onMultipleUpdate(itemsSelected);
-    this.setState({ itemsSelected: itemsSelected });
-  }
-
-  onItemSelected(item) {
-    const {
-      onMultipleUpdate,
-      selectionMode,
-      displaySelectedItemInField,
-      onItemClicked
-    } = this.props;
-    const { itemsSelected } = this.state;
-    itemsSelected.push(item);
-    if (selectionMode) {
-      onItemClicked(item);
-    } else {
-      onMultipleUpdate(itemsSelected);
-    }
+  loadSuggestions = value => {
+    const { datas } = this.props;
+    const inputValue = utils.cleanString(value);
+    const inputLength = inputValue.length;
+    const suggestions =
+      inputLength === 0
+        ? []
+        : fuzzy
+            .filter(inputValue, datas, {
+              pre: "<b>",
+              post: "</b>",
+              extract: el => el.searchKey
+            })
+            .slice(0, 5);
     this.setState({
-      itemSelected: selectionMode,
-      textField: selectionMode ? displaySelectedItemInField(item) : "",
-      searchEntry: "",
-      filteredItems: [],
-      itemsSelected: itemsSelected
+      isLoading: false,
+      suggestions
     });
-  }
+  };
 
-  renderChip(data, index) {
-    const { displayContentItem } = this.props;
-    return (
-      <Chip key={index} onRequestDelete={() => this.onChipTap(index)}>
-        {displayContentItem(data)}
-      </Chip>
-    );
-  }
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue
+    });
+  };
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.debouncedLoadSuggestions(value);
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
 
   render() {
-    const {
-      selectionMode,
-      label,
-      displayContentItem,
-      onClearButtonClicked,
-      placeholder
-    } = this.props;
-    const { itemsSelected, filteredItems } = this.state;
+    const { suggestions, value } = this.state;
+    const { classes, onSuggestionSelected } = this.props;
     return (
-      <div>
-        <div style={autoCompleteStyle.autocomplete}>
-          <TextField
-            placeholder={placeholder}
-            value={this.state.textField}
-            label={label}
-            disabled={selectionMode && this.state.itemSelected}
-            onChange={this.onEntry}
-          />
-          {selectionMode &&
-            this.state.itemSelected && (
-              <IconButton
-                onClick={() => {
-                  this.onClearInput();
-                  onClearButtonClicked();
-                }}
-                style={autoCompleteStyle.clearButton}
-                touch
-              >
-                <ContentClose />
-              </IconButton>
-            )}
-          {!!filteredItems.length && (
-            <Menu
-              disableAutoFocus
-              style={{
-                overflowY: "scroll",
-                maxHeight: "250px",
-                background: "rgba(158, 158, 158, 0.3)"
-              }}
-            >
-              {filteredItems.map((item, index) => (
-                <MenuItem
-                  key={index}
-                  children={displayContentItem(item)}
-                  onClick={this.onItemSelected.bind(this, item, index)}
-                />
-              ))}
-            </Menu>
-          )}
-        </div>
-        <div>
-          {!selectionMode && (
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap"
-              }}
-            >
-              {itemsSelected.map(this.renderChip, this)}
-            </div>
-          )}
-        </div>
-      </div>
+      <Autosuggest
+        theme={{
+          container: classes.container,
+          suggestionsContainerOpen: classes.suggestionsContainerOpen,
+          suggestionsList: classes.suggestionsList,
+          suggestion: classes.suggestion
+        }}
+        renderInputComponent={renderInput}
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        renderSuggestionsContainer={renderSuggestionsContainer}
+        getSuggestionValue={getSuggestionValue}
+        onSuggestionSelected={onSuggestionSelected}
+        renderSuggestion={renderSuggestion}
+        inputProps={{
+          autoFocus: true,
+          classes,
+          placeholder: "Search a country (start with a)",
+          value: value,
+          onChange: this.onChange
+        }}
+      />
     );
   }
 }
 
-// AutoComplete.propTypes = {
-//   hintText: PropTypes.string,
-//   textFieldLabel: PropTypes.string.isRequired,
-//   displayContentItem: PropTypes.func.isRequired,
-//   onItemClicked: PropTypes.func,
-//   onMultipleUpdate: PropTypes.func,
-//   displaySelectedItemInField: PropTypes.func.isRequired,
-//   filter: PropTypes.func.isRequired,
-//   selectionMode: PropTypes.bool,
-//   defaultSelectedItems: PropTypes.array
-// };
+export default compose(withStyles(styles))(AutoComplete);

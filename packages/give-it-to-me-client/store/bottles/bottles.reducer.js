@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { CELLAR_RECEIVED } from "../cellar/cellar.types";
-import { wineTypes } from "gitm-config";
+import { wineTypes } from "give-it-to-me-config";
 
 function getBottles(wines) {
   return wines.reduce(
