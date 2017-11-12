@@ -1,0 +1,5 @@
+PictureStep example:
+
+```jsx
+<PictureStep />
+```

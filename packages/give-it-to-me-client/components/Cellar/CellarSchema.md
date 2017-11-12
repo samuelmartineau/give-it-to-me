@@ -1,0 +1,5 @@
+CellarSchema example:
+
+```jsx
+<CellarSchema />
+```

@@ -35,7 +35,12 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <style>{`
+            html {
+              -webkit-font-smoothing: "antialiased"; // Antialiasing
+              -webkit-font-smoothing: "grayscale"; // Antialiasing
+            }
             body {
+              margin: 0;
               font-family: "Roboto", sans-serif;
             }
           `}</style>

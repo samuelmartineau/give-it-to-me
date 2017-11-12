@@ -1,6 +1,6 @@
+// @flow
 import React from "react";
 import { CircularProgress } from "material-ui/Progress";
-import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 
 const styles = theme => ({
@@ -15,33 +15,14 @@ const styles = theme => ({
   }
 });
 
-const Spinner = ({ classes }) => (
+type SpinnerProps = {
+  classes: {}
+};
+
+const Spinner = ({ classes }: SpinnerProps) => (
   <div className={classes.spinner}>
     <CircularProgress className={classes.progress} size={50} />
   </div>
 );
 
-Spinner.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-const SpinnerStyled = withStyles(styles)(Spinner);
-
-export const ApolloSpinner = Component => {
-  const ApolloSpinnerSwitch = props => {
-    const { loading } = props;
-    if (loading) {
-      return <SpinnerStyled />;
-    }
-    return <Component {...props} />;
-  };
-  ApolloSpinnerSwitch.propTypes = {
-    loading: PropTypes.bool
-  };
-  ApolloSpinnerSwitch.defaultProps = {
-    loading: false
-  };
-  return ApolloSpinnerSwitch;
-};
-
-export default SpinnerStyled;
+export default withStyles(styles)(Spinner);
