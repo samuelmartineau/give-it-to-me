@@ -15,4 +15,5 @@ export const makeStore = initialState => {
 
 export const reduxPage = withRedux(makeStore);
 
-export { getCellar } from "./actions";
+export { getCellar, setStep } from "./actions";
+export { isLastStep } from "./reducer";
