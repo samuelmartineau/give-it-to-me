@@ -18,8 +18,8 @@ const upload = multer({ storage: storage });
 const router = express.Router();
 
 router
-  .use(config.ROUTES.PICTURE, upload.single(config.PICTURE_UPLOAD.FILE_NAME))
-  .post((req, res) => {
+  .route(config.ROUTES.PICTURE)
+  .post(upload.single(config.PICTURE_UPLOAD.FILE_NAME), (req, res) => {
     let thumbnailFile;
     const fileExtension = path.extname(req.file.originalname);
     generateThumbnail(req.file.path, fileExtension)

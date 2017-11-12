@@ -8,7 +8,7 @@ const compression = require("compression");
 
 const config = require("../../config");
 const logger = require("./utils/logger");
-const { renderFullPage, fakeWindow, skip } = require("./utils");
+const { fakeWindow, skip } = require("./utils");
 
 const handleRoutes = require("./handleRoutes");
 const { handleChanges } = require("./handleChanges");
@@ -35,13 +35,10 @@ app.use(skip(config.API_BASE_URL, cookieParser()));
 app.use(skip(config.API_BASE_URL, fakeWindow()));
 app.use("/", express.static(path.join(__dirname, "..", "..", "assets")));
 app.use("/", express.static(path.join(__dirname, "..", "..", config.DIST)));
+app.use("/", express.static(path.join(__dirname, config.UPLOADS_PERM)));
 app.use(
   "/",
-  express.static(path.join(__dirname, "..", "..", config.UPLOADS_PERM))
-);
-app.use(
-  "/",
-  express.static(path.join(__dirname, "..", "..", config.UPLOADS_TMP_DIRECTORY))
+  express.static(path.join(__dirname, config.UPLOADS_TMP_DIRECTORY))
 );
 const serverHttp = http.createServer(app);
 
