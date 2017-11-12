@@ -2,7 +2,8 @@
 import React from "react";
 import throttle from "lodash.throttle";
 
-const DEFAULT_THROTTLE_WAIT = 500;
+const THROTTLE_WAIT = 500;
+const DEFAULT_DELAY = 500;
 
 type ImageProps = {
   src: string,
@@ -15,36 +16,41 @@ type ImageProps = {
 export default class Image extends React.Component<ImageProps> {
   static scrollFunction;
 
-  state = {
-    url: this.props.lazyLoader
-  };
+  constructor(props) {
+    super(props);
+    this.scrollFunction = this.trottleScroll.bind(this);
+    this.state = {
+      url: props.lazyLoader
+    };
+    this.delay = props.delay || DEFAULT_DELAY;
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ url: nextProps.src });
   }
 
   componentDidMount() {
-    this.scrollFunction = this.trottleScroll.bind(this);
-    this.handleScroll();
     window.addEventListener("scroll", this.scrollFunction);
+    this.trottleScroll();
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollFunction);
+    this.trottleScroll.cancel();
+    clearTimeout(this.timeout);
   }
 
-  trottleScroll = throttle(
-    this.handleScroll,
-    this.props.delay || DEFAULT_THROTTLE_WAIT
-  );
+  trottleScroll = throttle(this.handleScroll, THROTTLE_WAIT);
 
   handleScroll() {
-    const rect = this.imgNode.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    if (rect.top >= -200 && rect.top <= windowHeight) {
-      this.setState({ url: this.props.src });
-      window.removeEventListener("scroll", this.scrollFunction);
-    }
+    this.timeout = setTimeout(() => {
+      const rect = this.imgNode.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top >= -200 && rect.top <= windowHeight) {
+        this.setState({ url: this.props.src });
+        window.removeEventListener("scroll", this.scrollFunction);
+      }
+    }, this.delay);
   }
 
   render() {
