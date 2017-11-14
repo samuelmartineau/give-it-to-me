@@ -30,7 +30,7 @@ const getBottleInfos = (box, cell) => {
 };
 
 export const drawBottle = (svgContainer, bottle) => {
-  // console.log("bottle", bottle);
+  console.log("bottle", bottle);
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   select(svgContainer)
     .append("circle")

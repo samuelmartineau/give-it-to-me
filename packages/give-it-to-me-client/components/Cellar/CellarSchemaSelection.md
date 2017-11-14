@@ -1,0 +1,5 @@
+CellarSchemaSelection example:
+
+```jsx
+<CellarSchemaSelection />
+```
