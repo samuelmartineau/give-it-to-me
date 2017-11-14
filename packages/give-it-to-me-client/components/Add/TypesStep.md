@@ -1,0 +1,5 @@
+TypesStep example:
+
+```jsx
+<TypesStep />
+```
