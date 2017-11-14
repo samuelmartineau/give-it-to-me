@@ -1,6 +1,7 @@
 const cellar = require("./cellar");
 const wineTypes = require("./wineTypes");
 const wineFamilies = require("./wineFamilies");
+const bottleTypes = require("./bottleTypes");
 const utils = require("./utils");
 const defaultPort = process.env.PORT || 4000;
 
@@ -66,5 +67,6 @@ module.exports = {
   wineTypes,
   wineFamilies,
   utils,
+  bottleTypes,
   environment
 };
