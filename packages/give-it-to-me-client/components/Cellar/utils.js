@@ -30,7 +30,6 @@ const getBottleInfos = (box, cell) => {
 };
 
 export const drawBottle = (svgContainer, bottle) => {
-  console.log("bottle", bottle);
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   select(svgContainer)
     .append("circle")
@@ -49,7 +48,9 @@ export const drawCellar = svgContainer => {
     svgBox
       .attr("x", box.x)
       .attr("y", box.y)
+      .attr("class", "test")
       .attr("id", `${boxBaseId}${index}`)
+      .attr("boxid", index)
       .attr("width", box.width)
       .attr("height", box.height)
       .attr("stroke-width", BOX_BORDER_SIZE)
@@ -61,6 +62,19 @@ export const drawBottles = (svgContainer, bottles) => {
   return bottles.forEach(bottle => {
     drawBottle(svgContainer, bottle);
   });
+};
+
+function bindBoxId(callback) {
+  return function() {
+    callback(select(this).attr("boxid"));
+  };
+}
+
+export const addEventOnBox = (svgContainer, callback, classes) => {
+  select(svgContainer)
+    .selectAll("rect")
+    .attr("class", classes.boxClickable)
+    .on("click", bindBoxId(callback));
 };
 
 export default drawBottle;
