@@ -1,5 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import BoxSchema from "./BoxSchema";
 
 storiesOf("BoxSchema", module)
@@ -35,7 +36,7 @@ storiesOf("BoxSchema", module)
           cell: 6
         }
       ]}
-      onSelect={console.log}
+      onSelect={action("on-select")}
       selectableCells={[0, 1, 2, 3]}
     />
   ));

@@ -10,7 +10,8 @@ type ImageProps = {
   width: number,
   height: number,
   lazyLoader: string,
-  delay: number
+  delay: number,
+  className: String
 };
 
 export default class Image extends React.Component<ImageProps> {
@@ -54,9 +55,10 @@ export default class Image extends React.Component<ImageProps> {
   }
 
   render() {
-    const { width, height } = this.props;
+    const { width, height, className } = this.props;
     return (
       <img
+        className={className}
         ref={node => {
           this.imgNode = node;
         }}
