@@ -1,36 +1,45 @@
 // @flow
 import React from "react";
+import { withStyles } from "material-ui/styles";
 import ReactFauxDOM from "react-faux-dom";
 
-import { cellar } from "give-it-to-me-config";
-const { CANVAS_WIDTH, CANVAS_HEIGHT } = cellar;
-import { drawCellar, drawBottles, addEventOnBox } from "./utils";
+import { makeCellarUtils } from "./utils";
+let svgContainer = ReactFauxDOM.createElement("svg");
+const { drawCellar, drawBottlesInCellar, addEventOnBox } = makeCellarUtils(
+  svgContainer
+);
+
+const styles = () => ({
+  boxClickable: {
+    cursor: "pointer",
+    "&:hover": {
+      fill: "#7098d6"
+    }
+  }
+});
 
 type Props = {
   bottles: Array,
-  selectMode: boolean,
-  onBoxSelect: Function,
-  classes: {}
+  onSelect: Function,
+  classes: { boxClickable: String },
+  selectableBoxes: Array<number>
 };
 
 const CellarSchema = ({
   bottles = [],
-  selectMode = false,
-  onBoxSelect = () => {},
-  classes
+  onSelect,
+  classes,
+  selectableBoxes = []
 }: Props) => {
-  let svgContainer = ReactFauxDOM.createElement("svg");
-  svgContainer.setAttribute("viewBox", `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
+  drawCellar();
 
-  drawCellar(svgContainer);
+  drawBottlesInCellar(bottles);
 
-  drawBottles(svgContainer, bottles);
-
-  if (selectMode) {
-    addEventOnBox(svgContainer, onBoxSelect, classes);
+  if (onSelect) {
+    addEventOnBox(selectableBoxes, onSelect, classes);
   }
 
   return <div>{svgContainer.toReact()}</div>;
 };
 
-export default CellarSchema;
+export default withStyles(styles)(CellarSchema);
