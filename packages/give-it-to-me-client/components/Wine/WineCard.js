@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "material-ui/Button";
 import MenuIcon from "material-ui-icons/Menu";
+import classNames from "classnames";
 import { withStyles } from "material-ui/styles";
 import tinycolor from "tinycolor2";
 import fontColorContrast from "font-color-contrast";
@@ -26,11 +27,12 @@ const styles = () => ({
   },
   wineCardButton: {
     position: "absolute",
-    top: "16px",
-    right: "16px",
-    zIndex: 4
+    top: "10px",
+    right: "10px",
+    zIndex: 4,
+    transition: "transform 0.3s"
   },
-  imageContainer: {
+  WineCardImageContainer: {
     position: "absolute",
     top: "0px",
     left: "0px",
@@ -40,8 +42,23 @@ const styles = () => ({
     overflow: "hidden",
     transition: "transform 0.3s"
   },
+  wineCardImageContainerOpen: {
+    marginLeft: "0px",
+    width: "100%",
+    height: "100%"
+  },
+  pictureToAvatar: {
+    borderRadius: "50%",
+    transform: "scale(0.18, 0.14) translate(-650px, -1350px)",
+    zIndex: 4
+  },
   wineImage: {
     marginLeft: "16px"
+  },
+  wineImageOpen: {
+    marginLeft: "0px",
+    height: "auto",
+    width: "100%"
   },
   wineCorner: {
     position: "absolute",
@@ -51,6 +68,10 @@ const styles = () => ({
     borderTopColor: "transparent",
     bottom: "auto",
     top: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT - 16}px`
+  },
+  wineCornerOpen: {
+    borderBottomColor: "transparent",
+    transform: "translate(0px, -294px)"
   },
   winePane: {
     position: "absolute",
@@ -65,12 +86,29 @@ const styles = () => ({
     alignItems: "center",
     display: "flex",
     top: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px`
+  },
+  winePaneOpen: {
+    transform: `translate(0px, -${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px)`,
+    height: `${openInfosHeight}px`,
+    paddingLeft: "80px",
+    paddingRight: "80px"
+  },
+  wineCardContainer: {
+    position: "absolute",
+    top: `${openInfosHeight + 2 * paddingInfos}px`,
+    padding: "10px",
+    left: "16px",
+    bottom: "0px",
+    display: "block",
+    zIndex: 2,
+    right: "0px"
   }
 });
 
 type WineCardProps = {
   wine: WineType,
-  classes: {}
+  classes: {},
+  children: Function
 };
 
 class WineCard extends React.Component<WineCardProps> {
@@ -85,10 +123,13 @@ class WineCard extends React.Component<WineCardProps> {
   };
 
   render() {
-    const { wine = {}, classes } = this.props;
+    const { wine = {}, classes, children } = this.props;
     const { open } = this.state;
     const wineColor = WINE_TYPES[wine.wineType].color;
     const textColor = fontColorContrast(wineColor);
+    const softColor = tinycolor(wineColor)
+      .lighten(20)
+      .toString();
     const cornerColor = tinycolor(wineColor)
       .darken(20)
       .toString();
@@ -96,7 +137,10 @@ class WineCard extends React.Component<WineCardProps> {
       <div className={classes.wineCard}>
         <Button
           onClick={this.onToggle}
-          style={{ background: wineColor, color: textColor }}
+          style={{
+            background: softColor,
+            color: textColor
+          }}
           fab
           color="primary"
           aria-label="add"
@@ -104,25 +148,50 @@ class WineCard extends React.Component<WineCardProps> {
         >
           <MenuIcon />
         </Button>
-        <div className={classes.imageContainer}>
+        <div
+          className={classNames(classes.WineCardImageContainer, {
+            [classes.wineCardImageContainerOpen]: open,
+            [classes.pictureToAvatar]: open
+          })}
+        >
           <Image
-            className={classes.wineImage}
+            className={classNames(classes.wineImage, {
+              [classes.wineImageOpen]: open
+            })}
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
             src={wine.thumbnailFileName}
             lazyLoader={wine.blur}
           />
         </div>
-        {open && "card content"}
+        {open && (
+          <div
+            className={classes.wineCardContainer}
+            style={{ background: softColor, color: textColor }}
+          >
+            {children(wine)}
+          </div>
+        )}
         <div
-          style={{
-            borderRightColor: cornerColor,
-            borderBottomColor: cornerColor
-          }}
-          className={classes.wineCorner}
+          style={
+            open
+              ? {
+                  borderRightColor: cornerColor,
+                  borderTopColor: cornerColor
+                }
+              : {
+                  borderRightColor: cornerColor,
+                  borderBottomColor: cornerColor
+                }
+          }
+          className={classNames(classes.wineCorner, {
+            [classes.wineCornerOpen]: open
+          })}
         />
         <div
-          className={classes.winePane}
+          className={classNames(classes.winePane, {
+            [classes.winePaneOpen]: open
+          })}
           style={{ background: wineColor, color: textColor }}
         >
           {wine.name}
@@ -147,8 +216,8 @@ export default withStyles(styles)(WineCard);
 //   borderRightColor: cornerColor,
 //   borderBottomColor: cornerColor
 // };
-// const wineCardImageContainer = {
-//   ...wineCardStyle.wineCardImageContainer
+// const wineCardWineCardainer = {
+//   ...wineCardStyle.wineCardWineCardainer
 // };
 // const wineCardMenuButton = {
 //   ...wineCardStyle.wineCardMenuButton

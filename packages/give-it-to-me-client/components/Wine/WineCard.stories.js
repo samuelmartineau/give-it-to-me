@@ -14,7 +14,9 @@ storiesOf("WineCard", module)
         blur:
           "data:image/gif;base64,R0lGODlhAgADAPIAALlkW6RWTmxjjGJZfTJhoTJclwAAAAAAACH5BAAAAAAAIf8LSW1hZ2VNYWdpY2sNZ2FtbWE9MC40NTQ1NQAsAAAAAAIAAwAAAwQIIUOVADs="
       }}
-    />
+    >
+      {wine => wine.name}
+    </WineCard>
   ))
   .add("White wine", () => (
     <WineCard
@@ -26,7 +28,13 @@ storiesOf("WineCard", module)
         blur:
           "data:image/gif;base64,R0lGODlhAgADAPIAALlkW6RWTmxjjGJZfTJhoTJclwAAAAAAACH5BAAAAAAAIf8LSW1hZ2VNYWdpY2sNZ2FtbWE9MC40NTQ1NQAsAAAAAAIAAwAAAwQIIUOVADs="
       }}
-    />
+    >
+      {wine => (
+        <p>
+          Do what you want whith children function <b>{wine.name}</b>
+        </p>
+      )}
+    </WineCard>
   ))
   .add("Champagne", () => (
     <WineCard

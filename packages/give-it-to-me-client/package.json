@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "d3": "^4.11.0",
     "font-color-contrast": "^1.0.3",
     "fontfaceobserver": "^2.0.13",
