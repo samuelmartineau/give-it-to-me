@@ -1,6 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -28,6 +29,7 @@ if (typeof navigator === "undefined") {
 // =============================================================================
 const app = express();
 
+app.use(cors());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
