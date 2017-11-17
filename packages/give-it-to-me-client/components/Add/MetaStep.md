@@ -1,5 +1,0 @@
-MetaStep example:
-
-```jsx
-<MetaStep />
-```

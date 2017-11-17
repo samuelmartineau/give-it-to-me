@@ -39,6 +39,31 @@ const getBottleInfos = (box, cell) => {
     radius: CELL_SIZE / 2
   };
 };
+const getCellsCountFromSchema = schema => {
+  return schema.reduce((acc, value) => acc * value, 1);
+};
+export const getAvailableBoxes = bottles => {
+  const bottlesCount = bottles.reduce((acc, bottle) => {
+    if (!acc[bottle.box]) {
+      Object.assign(acc, {
+        [bottle.box]: 1
+      });
+    } else {
+      Object.assign(acc, {
+        [bottle.box]: acc[bottle.box] + 1
+      });
+    }
+    return acc;
+  }, {});
+  return CELLAR_SCHEMA.map((boxSchema, index) => ({ ...boxSchema, id: index }))
+    .filter((boxSchema, index) => {
+      return (
+        !bottlesCount[index] ||
+        getCellsCountFromSchema(boxSchema.schema) > bottlesCount[index]
+      );
+    })
+    .map(box => box.id);
+};
 
 const drawCommonBottle = (svgContainer, bottle) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
@@ -97,7 +122,6 @@ function bindId(callback, attribut) {
 }
 
 const addEventOnBox = svgContainer => (selectableBoxes, callback, classes) => {
-  console.log(selectableBoxes);
   selectableBoxes.forEach(boxId => {
     select(svgContainer)
       .selectAll(`rect[id="${getBoxId(boxId)}"]`)
