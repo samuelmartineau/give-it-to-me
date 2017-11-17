@@ -3,15 +3,18 @@ import Button from "material-ui/Button";
 import MenuIcon from "material-ui-icons/Menu";
 import { withStyles } from "material-ui/styles";
 import tinycolor from "tinycolor2";
-
+import fontColorContrast from "font-color-contrast";
 import { PICTURE_UPLOAD, wineTypes } from "give-it-to-me-config";
+
 import Image from "../Image/Image";
+import { WineType } from "./Wine.type";
 
 const { WINE_TYPES } = wineTypes;
 const openInfosHeight = 70;
 const closeInfosHeight = 50;
 const paddingInfos = 10;
-const styles = theme => ({
+
+const styles = () => ({
   wineCard: {
     width: `${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px`,
     display: "inline-block",
@@ -65,64 +68,35 @@ const styles = theme => ({
   }
 });
 
-class WineCard extends React.Component {
+type WineCardProps = {
+  wine: WineType,
+  classes: {}
+};
+
+class WineCard extends React.Component<WineCardProps> {
   state = {
     open: false
   };
 
   onToggle = () => {
-    this.setState({
-      open: !this.state.open
-    });
+    this.setState(state => ({
+      open: !state.open
+    }));
   };
 
   render() {
     const { wine = {}, classes } = this.props;
     const { open } = this.state;
-    const wineColor = WINE_TYPES[wine.wineType];
-    const cornerColor = tinycolor(wineColor.color)
+    const wineColor = WINE_TYPES[wine.wineType].color;
+    const textColor = fontColorContrast(wineColor);
+    const cornerColor = tinycolor(wineColor)
       .darken(20)
       .toString();
-
-    // const wineColor = WINE_TYPES[wine.wineType];
-    // const cornerColor = tinycolor(wineColor.color)
-    //   .darken(20)
-    //   .toString();
-    // const wineCardInfos = {
-    //   ...wineCardStyle.wineCardInfos,
-    //   background: wineColor.color
-    // };
-    // const wineCardInfosCorner = {
-    //   ...wineCardStyle.wineCardInfosCorner,
-    //   borderRightColor: cornerColor,
-    //   borderBottomColor: cornerColor
-    // };
-    // const wineCardImageContainer = {
-    //   ...wineCardStyle.wineCardImageContainer
-    // };
-    // const wineCardMenuButton = {
-    //   ...wineCardStyle.wineCardMenuButton
-    // };
-    // const wineCardImage = {
-    //   ...wineCardStyle.wineCardImage
-    // };
-
-    // if (open) {
-    //   Object.assign(wineCardInfos, wineCardStyle.wineCardInfosOpen);
-    //   Object.assign(
-    //     wineCardInfosCorner,
-    //     wineCardStyle.wineCardInfosCornerOpen,
-    //     { borderTopColor: cornerColor }
-    //   );
-    //   Object.assign(wineCardImageContainer, wineCardStyle.pictureToAvatar);
-    //   Object.assign(wineCardMenuButton, wineCardStyle.wineCardMenuButtonOpen);
-    //   Object.assign(wineCardImage, wineCardStyle.wineCardImageOpen);
-    // }
-
     return (
       <div className={classes.wineCard}>
         <Button
-          style={{ background: wineColor.color }}
+          onClick={this.onToggle}
+          style={{ background: wineColor, color: textColor }}
           fab
           color="primary"
           aria-label="add"
@@ -139,6 +113,7 @@ class WineCard extends React.Component {
             lazyLoader={wine.blur}
           />
         </div>
+        {open && "card content"}
         <div
           style={{
             borderRightColor: cornerColor,
@@ -148,7 +123,7 @@ class WineCard extends React.Component {
         />
         <div
           className={classes.winePane}
-          style={{ background: wineColor.color }}
+          style={{ background: wineColor, color: textColor }}
         >
           {wine.name}
         </div>
@@ -158,3 +133,38 @@ class WineCard extends React.Component {
 }
 
 export default withStyles(styles)(WineCard);
+
+// const wineColor = WINE_TYPES[wine.wineType];
+// const cornerColor = tinycolor(wineColor.color)
+//   .darken(20)
+//   .toString();
+// const wineCardInfos = {
+//   ...wineCardStyle.wineCardInfos,
+//   background: wineColor.color
+// };
+// const wineCardInfosCorner = {
+//   ...wineCardStyle.wineCardInfosCorner,
+//   borderRightColor: cornerColor,
+//   borderBottomColor: cornerColor
+// };
+// const wineCardImageContainer = {
+//   ...wineCardStyle.wineCardImageContainer
+// };
+// const wineCardMenuButton = {
+//   ...wineCardStyle.wineCardMenuButton
+// };
+// const wineCardImage = {
+//   ...wineCardStyle.wineCardImage
+// };
+
+// if (open) {
+//   Object.assign(wineCardInfos, wineCardStyle.wineCardInfosOpen);
+//   Object.assign(
+//     wineCardInfosCorner,
+//     wineCardStyle.wineCardInfosCornerOpen,
+//     { borderTopColor: cornerColor }
+//   );
+//   Object.assign(wineCardImageContainer, wineCardStyle.pictureToAvatar);
+//   Object.assign(wineCardMenuButton, wineCardStyle.wineCardMenuButtonOpen);
+//   Object.assign(wineCardImage, wineCardStyle.wineCardImageOpen);
+// }
