@@ -4,10 +4,15 @@ import { withStyles } from "material-ui/styles";
 import ReactFauxDOM from "react-faux-dom";
 
 import { makeCellarUtils } from "./utils";
-let svgContainer = ReactFauxDOM.createElement("svg");
-const { drawCellar, drawBottlesInCellar, addEventOnBox } = makeCellarUtils(
-  svgContainer
-);
+const svgContainer = ReactFauxDOM.createElement("svg");
+const {
+  drawCellar,
+  drawBottlesInCellar,
+  addEventOnBox,
+  clearBottles
+} = makeCellarUtils(svgContainer);
+
+drawCellar();
 
 const styles = () => ({
   boxClickable: {
@@ -31,8 +36,7 @@ const CellarSchema = ({
   classes,
   selectableBoxes = []
 }: Props) => {
-  drawCellar();
-
+  clearBottles();
   drawBottlesInCellar(bottles);
 
   if (onSelect) {

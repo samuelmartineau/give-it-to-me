@@ -67,7 +67,7 @@ export const getAvailableBoxes = bottles => {
 
 const drawCommonBottle = (svgContainer, bottle) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
-  const svgBottle = select(svgContainer).append("circle");
+  const svgBottle = svgContainer.append("circle");
   svgBottle
     .attr("pointer-events", "none")
     .attr("id", `${cellBaseId}${bottle.box}-${bottle.cell}`)
@@ -91,8 +91,10 @@ const drawBottleInBox = (svgContainer, bottle) => {
 
 const drawCellar = svgContainer => () => {
   svgContainer.setAttribute("viewBox", `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
+  const wrapper = select(svgContainer).append("g");
+  wrapper.attr("id", "svg-cellar");
   return CELLAR_SCHEMA.forEach((box, index) => {
-    let svgBox = select(svgContainer).append("rect");
+    let svgBox = wrapper.append("rect");
 
     svgBox
       .attr("x", box.x)
@@ -108,11 +110,19 @@ const drawCellar = svgContainer => () => {
   });
 };
 const drawBottlesInCellar = svgContainer => bottles => {
-  return bottles.map(bottle => drawBottleInCellar(svgContainer, bottle));
+  const wrapper = select(svgContainer).append("g");
+  wrapper.attr("id", "svg-bottles");
+  return bottles.map(bottle => drawBottleInCellar(wrapper, bottle));
 };
 
 const drawBottlesInBox = svgContainer => bottles => {
   return bottles.map(bottle => drawBottleInBox(svgContainer, bottle));
+};
+
+const clearBottles = svgContainer => () => {
+  select(svgContainer)
+    .selectAll(`g[id="svg-bottles"]`)
+    .remove();
 };
 
 function bindId(callback, attribut) {
@@ -187,5 +197,6 @@ export const makeCellarUtils = svgContainer => ({
   drawBottlesInBox: drawBottlesInBox(svgContainer),
   addEventOnBox: addEventOnBox(svgContainer),
   drawBox: drawBox(svgContainer),
-  addEventOnCell: addEventOnCell(svgContainer)
+  addEventOnCell: addEventOnCell(svgContainer),
+  clearBottles: clearBottles(svgContainer)
 });
