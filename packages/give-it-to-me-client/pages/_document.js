@@ -1,9 +1,9 @@
 // @flow weak
 
-import React from "react";
-import Document, { Head, Main, NextScript } from "next/document";
-import JssProvider from "react-jss/lib/JssProvider";
-import getContext from "../styles/getContext";
+import React from 'react';
+import Document, { Head, Main, NextScript } from 'next/document';
+import JssProvider from 'react-jss/lib/JssProvider';
+import getContext from '../styles/getContext';
 
 class MyDocument extends Document {
   render() {
@@ -16,8 +16,8 @@ class MyDocument extends Document {
           <meta
             name="viewport"
             content={
-              "user-scalable=0, initial-scale=1, " +
-              "minimum-scale=1, width=device-width, height=device-height"
+              'user-scalable=0, initial-scale=1, ' +
+              'minimum-scale=1, width=device-width, height=device-height'
             }
           />
           {/*

@@ -1,13 +1,17 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
-import React, { Component } from "react";
-import { withStyles, MuiThemeProvider } from "material-ui/styles";
-import wrapDisplayName from "recompose/wrapDisplayName";
-import getContext from "../styles/getContext";
+import React, { Component } from 'react';
+import {
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
+} from 'material-ui/styles';
+import wrapDisplayName from 'recompose/wrapDisplayName';
+import teal from 'material-ui/colors/teal';
 
 // Apply some reset
 const styles = theme => ({
-  "@global": {
+  '@global': {
     html: {
       background: theme.palette.background.default
     }
@@ -17,6 +21,12 @@ const styles = theme => ({
 let AppWrapper = props => props.children;
 
 AppWrapper = withStyles(styles)(AppWrapper);
+
+const theme = createMuiTheme({
+  palette: {
+    primary: teal
+  }
+});
 
 function withRoot(BaseComponent) {
   class WithRoot extends Component {
@@ -28,13 +38,9 @@ function withRoot(BaseComponent) {
       return {};
     }
 
-    componentWillMount() {
-      this.styleContext = getContext();
-    }
-
     componentDidMount() {
       // Remove the server-side injected CSS.
-      const jssStyles = document.querySelector("#jss-server-side");
+      const jssStyles = document.querySelector('#jss-server-side');
       if (jssStyles && jssStyles.parentNode) {
         jssStyles.parentNode.removeChild(jssStyles);
       }
@@ -42,10 +48,7 @@ function withRoot(BaseComponent) {
 
     render() {
       return (
-        <MuiThemeProvider
-          theme={this.styleContext.theme}
-          sheetsManager={this.styleContext.sheetsManager}
-        >
+        <MuiThemeProvider theme={theme}>
           <AppWrapper>
             <BaseComponent {...this.props} />
           </AppWrapper>
@@ -54,8 +57,8 @@ function withRoot(BaseComponent) {
     }
   }
 
-  if (process.env.NODE_ENV !== "production") {
-    WithRoot.displayName = wrapDisplayName(BaseComponent, "withRoot");
+  if (process.env.NODE_ENV !== 'production') {
+    WithRoot.displayName = wrapDisplayName(BaseComponent, 'withRoot');
   }
 
   return WithRoot;
