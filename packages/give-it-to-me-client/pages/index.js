@@ -1,9 +1,9 @@
-import { compose, setDisplayName } from "recompose";
-import { connect } from "react-redux";
-import { getCellar, reduxPage } from "../store";
-import withRoot from "../components/withRoot";
-import WithLayout from "../components/Layout/WithLayout";
-import CellarSchemaPresentation from "../components/Cellar/CellarSchemaPresentation";
+import { compose, setDisplayName, withProps } from 'recompose';
+import { connect } from 'react-redux';
+import { getCellar, reduxPage } from '../store';
+import withRoot from '../components/withRoot';
+import WithLayout from '../components/Layout/WithLayout';
+import CellarSchemaPresentation from '../components/Cellar/CellarSchemaPresentation';
 
 const Home = ({ cellar }) => (
   <div>
@@ -18,7 +18,10 @@ const HomeConnected = connect(state => {
 })(Home);
 
 const HomeWithLayout = compose(
-  setDisplayName("HomePage"),
+  setDisplayName('HomePage'),
+  withProps({
+    title: 'Mon activé'
+  }),
   withRoot,
   WithLayout
 )(HomeConnected);

@@ -107,27 +107,17 @@ const AppFrame = ({
       <div className={classes.drawer}>
         <Hidden lgUp>
           <Drawer
-            classes={{
-              paper: classes.paper
-            }}
+            classes={{ paper: classes.paper }}
             type="temporary"
             open={drawerDocked || drawerOpen}
-            onRequestClose={handleDrawerClose}
-            ModalProps={{
-              keepMounted: true
-            }}
+            onClose={handleDrawerClose}
+            ModalProps={{ keepMounted: true }}
           >
             {drawer}
           </Drawer>
         </Hidden>
         <Hidden lgDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.paper
-            }}
-            type="permanent"
-            open
-          >
+          <Drawer classes={{ paper: classes.paper }} type="permanent" open>
             {drawer}
           </Drawer>
         </Hidden>
