@@ -1,18 +1,19 @@
-import React from "react";
-import ReactFauxDOM from "react-faux-dom";
-import { withStyles } from "material-ui/styles";
-import { makeCellarUtils } from "./utils";
+// @flow
+import React from 'react';
+import ReactFauxDOM from 'react-faux-dom';
+import { withStyles } from 'material-ui/styles';
+import { makeCellarUtils } from './utils';
 
-let svgContainer = ReactFauxDOM.createElement("svg");
+let svgContainer = ReactFauxDOM.createElement('svg');
 const { drawBox, drawBottlesInBox, addEventOnCell } = makeCellarUtils(
   svgContainer
 );
 
 const styles = () => ({
   cellClickable: {
-    cursor: "pointer",
-    "&:hover": {
-      fill: "#7098d6"
+    cursor: 'pointer',
+    '&:hover': {
+      fill: '#7098d6'
     }
   }
 });

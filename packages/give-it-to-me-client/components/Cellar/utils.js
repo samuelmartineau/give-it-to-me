@@ -1,5 +1,5 @@
-import { select } from "d3";
-import { cellar } from "give-it-to-me-config";
+import { select } from 'd3';
+import { cellar } from 'give-it-to-me-config';
 
 const {
   CELL_SIZE,
@@ -12,8 +12,8 @@ const {
   CANVAS_WIDTH,
   CANVAS_HEIGHT
 } = cellar;
-const boxBaseId = "box-";
-const cellBaseId = "cell-";
+const boxBaseId = 'box-';
+const cellBaseId = 'cell-';
 
 function getBoxId(boxId) {
   return `${boxBaseId}${boxId}`;
@@ -67,56 +67,56 @@ export const getAvailableBoxes = bottles => {
 
 const drawCommonBottle = (svgContainer, bottle) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
-  const svgBottle = svgContainer.append("circle");
+  const svgBottle = svgContainer.append('circle');
   svgBottle
-    .attr("pointer-events", "none")
-    .attr("id", `${cellBaseId}${bottle.box}-${bottle.cell}`)
-    .attr("r", bottleInfos.radius)
-    .attr("fill", bottle.color);
+    .attr('pointer-events', 'none')
+    .attr('id', `${cellBaseId}${bottle.box}-${bottle.cell}`)
+    .attr('r', bottleInfos.radius)
+    .attr('fill', bottle.color);
   return svgBottle;
 };
 
 const drawBottleInCellar = (svgContainer, bottle) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   return drawCommonBottle(svgContainer, bottle)
-    .attr("cx", bottleInfos.cx)
-    .attr("cy", bottleInfos.cy);
+    .attr('cx', bottleInfos.cx)
+    .attr('cy', bottleInfos.cy);
 };
 const drawBottleInBox = (svgContainer, bottle) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   return drawCommonBottle(svgContainer, bottle)
-    .attr("cx", bottleInfos.cxRelative)
-    .attr("cy", bottleInfos.cyRelative);
+    .attr('cx', bottleInfos.cxRelative)
+    .attr('cy', bottleInfos.cyRelative);
 };
 
 const drawCellar = svgContainer => () => {
-  svgContainer.setAttribute("viewBox", `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
-  const wrapper = select(svgContainer).append("g");
-  wrapper.attr("id", "svg-cellar");
+  svgContainer.setAttribute('viewBox', `0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`);
+  const wrapper = select(svgContainer).append('g');
+  wrapper.attr('id', 'svg-cellar');
   return CELLAR_SCHEMA.forEach((box, index) => {
-    let svgBox = wrapper.append("rect");
+    let svgBox = wrapper.append('rect');
 
     svgBox
-      .attr("x", box.x)
-      .attr("y", box.y)
-      .attr("class", "test")
-      .attr("id", getBoxId(index))
-      .attr("boxid", index)
-      .attr("width", box.width)
-      .attr("height", box.height)
-      .attr("stroke-width", BOX_BORDER_SIZE)
-      .attr("stroke", BOX_BORDER_COLOR)
-      .attr("fill", BOX_COLOR);
+      .attr('x', box.x)
+      .attr('y', box.y)
+      .attr('class', 'test')
+      .attr('id', getBoxId(index))
+      .attr('boxid', index)
+      .attr('width', box.width)
+      .attr('height', box.height)
+      .attr('stroke-width', BOX_BORDER_SIZE)
+      .attr('stroke', BOX_BORDER_COLOR)
+      .attr('fill', BOX_COLOR);
   });
 };
 const drawBottlesInCellar = svgContainer => bottles => {
-  const wrapper = select(svgContainer).append("g");
-  wrapper.attr("id", "svg-bottles");
+  const wrapper = select(svgContainer).append('g');
+  wrapper.attr('id', 'svg-bottles');
   return bottles.map(bottle => drawBottleInCellar(wrapper, bottle));
 };
 
 const drawBottlesInBox = svgContainer => bottles => {
-  return bottles.map(bottle => drawBottleInBox(svgContainer, bottle));
+  return bottles.map(bottle => drawBottleInBox(select(svgContainer), bottle));
 };
 
 const clearBottles = svgContainer => () => {
@@ -135,8 +135,8 @@ const addEventOnBox = svgContainer => (selectableBoxes, callback, classes) => {
   selectableBoxes.forEach(boxId => {
     select(svgContainer)
       .selectAll(`rect[id="${getBoxId(boxId)}"]`)
-      .attr("class", classes.boxClickable)
-      .on("click", bindId(callback, "boxid"));
+      .attr('class', classes.boxClickable)
+      .on('click', bindId(callback, 'boxid'));
   });
 };
 
@@ -149,8 +149,8 @@ const addEventOnCell = svgContainer => (
   selectableCells.forEach(cellId => {
     select(svgContainer)
       .selectAll(`rect[id="${getCellId(boxId, cellId)}"]`)
-      .attr("class", classes.cellClickable)
-      .on("click", bindId(callback, "cellid"));
+      .attr('class', classes.cellClickable)
+      .on('click', bindId(callback, 'cellid'));
   });
 };
 
@@ -159,12 +159,12 @@ const drawBox = svgContainer => boxId => {
 
   const canvasWidth = box.schema[0] * CELL_SIZE;
   const canvasHeigh = box.schema[1] * CELL_SIZE;
-  svgContainer.style.setProperty("width", "100%");
-  svgContainer.style.setProperty("height", "100%");
+  svgContainer.style.setProperty('width', '100%');
+  svgContainer.style.setProperty('height', '100%');
 
-  svgContainer.setAttribute("viewBox", `0 0 ${canvasWidth} ${canvasHeigh}`);
-  svgContainer.setAttribute("width", FULL_BOX_WIDTH_CELLS * CELL_SIZE);
-  svgContainer.setAttribute("height", canvasHeigh);
+  svgContainer.setAttribute('viewBox', `0 0 ${canvasWidth} ${canvasHeigh}`);
+  svgContainer.setAttribute('width', FULL_BOX_WIDTH_CELLS * CELL_SIZE);
+  svgContainer.setAttribute('height', canvasHeigh);
 
   let cellId = 0;
 
@@ -174,18 +174,18 @@ const drawBox = svgContainer => boxId => {
       Array(box.schema[1])
         .fill()
         .forEach((_, yIndex) => {
-          const svgCell = select(svgContainer).append("rect");
+          const svgCell = select(svgContainer).append('rect');
 
           svgCell
-            .attr("x", xIndex * CELL_SIZE)
-            .attr("y", yIndex * CELL_SIZE)
-            .attr("width", CELL_SIZE)
-            .attr("height", CELL_SIZE)
-            .attr("id", getCellId(boxId, cellId))
-            .attr("cellid", cellId)
-            .attr("stroke-width", CELL_BORDER_SIZE)
-            .attr("stroke", BOX_BORDER_COLOR)
-            .attr("fill", BOX_COLOR);
+            .attr('x', xIndex * CELL_SIZE)
+            .attr('y', yIndex * CELL_SIZE)
+            .attr('width', CELL_SIZE)
+            .attr('height', CELL_SIZE)
+            .attr('id', getCellId(boxId, cellId))
+            .attr('cellid', cellId)
+            .attr('stroke-width', CELL_BORDER_SIZE)
+            .attr('stroke', BOX_BORDER_COLOR)
+            .attr('fill', BOX_COLOR);
           cellId += 1;
         });
     });
