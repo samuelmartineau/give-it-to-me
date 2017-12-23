@@ -8,6 +8,7 @@ import {
 } from 'material-ui/styles';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import teal from 'material-ui/colors/teal';
+import getContext from '../styles/getContext';
 
 // Apply some reset
 const styles = theme => ({
@@ -38,6 +39,10 @@ function withRoot(BaseComponent) {
       return {};
     }
 
+    componentWillMount() {
+      this.styleContext = getContext();
+    }
+
     componentDidMount() {
       // Remove the server-side injected CSS.
       const jssStyles = document.querySelector('#jss-server-side');
@@ -48,7 +53,10 @@ function withRoot(BaseComponent) {
 
     render() {
       return (
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider
+          theme={theme}
+          sheetsManager={this.styleContext.sheetsManager}
+        >
           <AppWrapper>
             <BaseComponent {...this.props} />
           </AppWrapper>
