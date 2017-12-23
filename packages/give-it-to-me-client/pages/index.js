@@ -7,7 +7,6 @@ import CellarSchemaPresentation from '../components/Cellar/CellarSchemaPresentat
 
 const Home = ({ cellar }) => (
   <div>
-    Welcome to next.js!
     {cellar.all.map(id => <i key={id}>{id}</i>)}
     <CellarSchemaPresentation />
   </div>
