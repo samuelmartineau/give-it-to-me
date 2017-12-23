@@ -1,38 +1,38 @@
 // @flow
-import React, { Component } from "react";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import classNames from "classnames";
-import Typography from "material-ui/Typography";
-import Drawer from "material-ui/Drawer";
-import Hidden from "material-ui/Hidden";
-import { compose, withState, withHandlers, pure } from "recompose";
-import IconButton from "material-ui/IconButton";
-import MenuIcon from "material-ui-icons/Menu";
-import Divider from "material-ui/Divider";
-import { withStyles } from "material-ui/styles";
-import withWidth, { isWidthUp } from "material-ui/utils/withWidth";
-import Menu from "./Menu";
+import React, { Component } from 'react';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import classNames from 'classnames';
+import Typography from 'material-ui/Typography';
+import Drawer from 'material-ui/Drawer';
+import Hidden from 'material-ui/Hidden';
+import { compose, withState, withHandlers, pure } from 'recompose';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
+import Divider from 'material-ui/Divider';
+import { withStyles } from 'material-ui/styles';
+import withWidth, { isWidthUp } from 'material-ui/utils/withWidth';
+import Menu from './Menu';
 
 const styleSheet = theme => ({
   layout: {
-    display: "flex",
-    alignItems: "stretch",
-    minHeight: "100vh",
-    width: "100%"
+    display: 'flex',
+    alignItems: 'stretch',
+    minHeight: '100vh',
+    width: '100%'
   },
   paper: {
     width: 250,
     backgroundColor: theme.palette.background.paper
   },
   appBar: {
-    transition: theme.transitions.create("width")
+    transition: theme.transitions.create('width')
   },
   content: theme.mixins.gutters({
     paddingTop: 80,
-    flex: "1 1 100%",
-    maxWidth: "100%",
-    margin: "0 auto"
+    flex: '1 1 100%',
+    maxWidth: '100%',
+    margin: '0 auto'
   }),
   [theme.breakpoints.up(948)]: {
     content: {
@@ -42,15 +42,15 @@ const styleSheet = theme => ({
   primary: {
     color: theme.palette.primary[500]
   },
-  [theme.breakpoints.up("lg")]: {
+  [theme.breakpoints.up('lg')]: {
     appBarShift: {
-      width: "calc(100% - 250px)"
+      width: 'calc(100% - 250px)'
     },
     drawer: {
-      width: "250px"
+      width: '250px'
     },
     navIconHide: {
-      display: "none"
+      display: 'none'
     }
   }
 });
@@ -74,13 +74,13 @@ const AppFrame = ({
   handleDrawerClose,
   drawerOpen
 }: AppFrameProps) => {
-  const drawerDocked = isWidthUp("lg", width);
+  const drawerDocked = isWidthUp('lg', width);
 
   const drawer = (
     <div className="">
       <Toolbar className="">
         <Typography type="title" gutterBottom color="inherit">
-          AXA
+          Give It To Me
         </Typography>
         <Divider absolute />
       </Toolbar>
@@ -141,7 +141,7 @@ const AppFrame = ({
 };
 
 const Layout = compose(
-  withState("drawerOpen", "setModalStatus", false),
+  withState('drawerOpen', 'setModalStatus', false),
   withHandlers({
     handleDrawerClose: ({ setModalStatus }) => () =>
       setModalStatus(() => false),
