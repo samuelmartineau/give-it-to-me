@@ -7,8 +7,8 @@ import {
   createMuiTheme
 } from 'material-ui/styles';
 import wrapDisplayName from 'recompose/wrapDisplayName';
-import teal from 'material-ui/colors/teal';
 import getContext from '../styles/getContext';
+import gitmTheme from './theme';
 
 // Apply some reset
 const styles = theme => ({
@@ -23,11 +23,7 @@ let AppWrapper = props => props.children;
 
 AppWrapper = withStyles(styles)(AppWrapper);
 
-const theme = createMuiTheme({
-  palette: {
-    primary: teal
-  }
-});
+const theme = createMuiTheme(gitmTheme);
 
 function withRoot(BaseComponent) {
   class WithRoot extends Component {
