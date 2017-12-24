@@ -1,14 +1,14 @@
-const urlJoin = require("url-join");
-const express = require("express");
+const urlJoin = require('url-join');
+const express = require('express');
 
-const config = require("../../../config");
-const { removeBottle } = require("./services");
-const { updateClients } = require("../handleChanges");
+const config = require('give-it-to-me-config');
+const { removeBottle } = require('./services');
+const { updateClients } = require('../handleChanges');
 
 const router = express.Router();
 
 router
-  .route(urlJoin(config.ROUTES.BOTTLE, ":bottleId"))
+  .route(urlJoin(config.ROUTES.BOTTLE, ':bottleId'))
   .delete((req, res, next) => {
     const { bottleId } = req.params;
     const { wineId } = req.body;

@@ -1,8 +1,8 @@
-const cellar = require("./cellar");
-const wineTypes = require("./wineTypes");
-const wineFamilies = require("./wineFamilies");
-const bottleTypes = require("./bottleTypes");
-const utils = require("./utils");
+const cellar = require('./cellar');
+const wineTypes = require('./wineTypes');
+const wineFamilies = require('./wineFamilies');
+const bottleTypes = require('./bottleTypes');
+const utils = require('./utils');
 const defaultPort = process.env.PORT || 4000;
 
 const environment = {
@@ -12,7 +12,7 @@ const environment = {
   production: {
     isProduction: true
   }
-}[process.env.NODE_ENV || "development"];
+}[process.env.NODE_ENV || 'development'];
 
 module.exports = {
   DB: {
@@ -21,48 +21,52 @@ module.exports = {
     host: process.env.HOST,
     database: process.env.DATABASE,
     timeout: 5,
-    filename: "gitm-5-11-2017.db",
+    filename: 'gitm-5-11-2017.db',
     tables: {
       WINE: {
-        name: "wine"
+        name: 'wine'
       },
       BOTTLE: {
-        name: "bottle",
-        indexes: ["wine_id"]
+        name: 'bottle',
+        indexes: ['wine_id']
       },
       TRANSACTION: {
-        name: "transaction"
+        name: 'transaction'
       }
     }
   },
   debug: !process.env.DEBUG,
   PORT: defaultPort,
   DEV_PORT: defaultPort + 1,
-  LOGGER_INFO_FILE_PATH: "info-logs.log",
-  LOGGER_ERROR_FILE_PATH: "error-logs.log",
-  DIST: "dist",
-  UPLOADS_PERM: "uploads",
-  UPLOADS_TMP_DIRECTORY: "temp_uploads/",
-  BUNDLE_FILENAME: "bundle.js",
+  LOGGER_INFO_FILE_PATH: 'info-logs.log',
+  LOGGER_ERROR_FILE_PATH: 'error-logs.log',
+  DIST: 'dist',
+  UPLOADS_PERM: 'uploads',
+  UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
+  BUNDLE_FILENAME: 'bundle.js',
   ROUTES: {
-    PICTURE: "/picture",
-    WINE: "/wine",
-    FAVORITE: "/favorite",
-    BOTTLE: "/bottle"
+    PICTURE: '/picture',
+    WINE: '/wine',
+    FAVORITE: '/favorite',
+    BOTTLE: '/bottle'
   },
   PICTURE_UPLOAD: {
-    FILE_NAME: "winePicture",
+    FILE_NAME: 'winePicture',
     THUMBNAIL: {
       WIDTH: 300,
       HEIGHT: 400,
       QUALITY: 30
     }
   },
-  API_BASE_URL: "/api",
+  API_BASE_URL: '/api',
   API_URL:
-    process.env.NODE_ENV === "production"
-      ? ""
+    process.env.NODE_ENV === 'production'
+      ? ''
       : `http://localhost:${defaultPort}`,
+  CORS_CONFIG:
+    process.env.NODE_ENV === 'production'
+      ? {}
+      : { origin: true, credentials: true },
   cellar,
   wineTypes,
   wineFamilies,

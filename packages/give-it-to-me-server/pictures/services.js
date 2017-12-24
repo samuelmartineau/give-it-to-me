@@ -1,11 +1,11 @@
-const { subClass } = require("gm");
-const uuid = require("uuid/v4");
-const path = require("path");
-const fs = require("fs");
-const bluebird = require("bluebird");
+const { subClass } = require('gm');
+const uuid = require('uuid/v4');
+const path = require('path');
+const fs = require('fs');
+const bluebird = require('bluebird');
 
-const config = require("../../../config");
-const logger = require("../utils/logger");
+const config = require('give-it-to-me-config');
+const logger = require('../utils/logger');
 
 bluebird.promisifyAll(fs);
 
@@ -13,29 +13,29 @@ const gm = subClass({ imageMagick: true });
 
 const generateThumbnail = (sourcePath, extension) => {
   return new Promise((resolve, reject) => {
-    const filename = [uuid.v1(), extension].join("");
+    const filename = [uuid.v1(), extension].join('');
     const tmpFileName = path.join(config.UPLOADS_TMP_DIRECTORY, filename);
     gm(sourcePath)
       .resize(
         config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
         config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT,
-        "^"
+        '^'
       )
-      .gravity("Center")
+      .gravity('Center')
       .crop(
         config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
         config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT
       )
       .quality(config.PICTURE_UPLOAD.THUMBNAIL.QUALITY)
-      .on("error", error => {
+      .on('error', error => {
         logger.error(error);
-        return reject("Erreur de paramètre avec l’image uploadée");
+        return reject('Erreur de paramètre avec l’image uploadée');
       })
       .write(tmpFileName, error => {
         if (error) {
           logger.error(error);
           return reject({
-            message: "Erreur lors de la génération de la miniature"
+            message: 'Erreur lors de la génération de la miniature'
           });
         }
         return resolve({ name: filename, path: tmpFileName });
@@ -46,17 +46,17 @@ const generateBlur = path => {
   return new Promise((resolve, reject) => {
     gm(path)
       .resize(3, 3)
-      .toBuffer("GIF", (error, buffer) => {
+      .toBuffer('GIF', (error, buffer) => {
         if (error) {
           logger.error(error);
-          return reject({ message: "Erreur lors de la génération du flou" });
+          return reject({ message: 'Erreur lors de la génération du flou' });
         }
 
-        return resolve(`data:image/gif;base64,${buffer.toString("base64")}`);
+        return resolve(`data:image/gif;base64,${buffer.toString('base64')}`);
       })
-      .on("error", function(error) {
+      .on('error', function(error) {
         logger.error(error);
-        return reject("Erreur de paramètre avec le flou");
+        return reject('Erreur de paramètre avec le flou');
       });
   });
 };
@@ -75,7 +75,7 @@ const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
     pictureFileName
   );
   const fileExtension = path.extname(pictureFileName);
-  const newFileName = [uuid.v1(), fileExtension].join("");
+  const newFileName = [uuid.v1(), fileExtension].join('');
   const permPictureFileNamePath = path.join(config.UPLOADS_PERM, newFileName);
   let promises = [];
   promises.push(
@@ -91,7 +91,7 @@ const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
     .catch(error => {
       logger.error(error);
       return Promise.reject({
-        message: "Erreur lors du déplacement des images temporaires"
+        message: 'Erreur lors du déplacement des images temporaires'
       });
     });
 };

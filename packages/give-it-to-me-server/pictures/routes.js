@@ -1,10 +1,10 @@
-const multer = require("multer");
-const path = require("path");
-const express = require("express");
+const multer = require('multer');
+const path = require('path');
+const express = require('express');
 
-const logger = require("../utils/logger");
-const config = require("../../../config");
-const { generateThumbnail, generateBlur } = require("./services");
+const logger = require('../utils/logger');
+const config = require('give-it-to-me-config');
+const { generateThumbnail, generateBlur } = require('./services');
 
 const storage = multer.diskStorage({
   destination: path.join(config.UPLOADS_TMP_DIRECTORY),
@@ -35,7 +35,7 @@ router
         });
       })
       .catch(error => {
-        logger.error("error during picture processing", error);
+        logger.error('error during picture processing', error);
         res.status(500).json({ error: error });
       });
   });

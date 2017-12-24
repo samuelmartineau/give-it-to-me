@@ -1,9 +1,9 @@
-const urlJoin = require("url-join");
-const express = require("express");
+const urlJoin = require('url-join');
+const express = require('express');
 
-const config = require("../../../config");
-const { addToFavorite, removeFromFavorite } = require("./services");
-const { updateClients } = require("../handleChanges");
+const config = require('give-it-to-me-config');
+const { addToFavorite, removeFromFavorite } = require('./services');
+const { updateClients } = require('../handleChanges');
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.route(config.ROUTES.FAVORITE).post((req, res, next) => {
     });
 });
 router
-  .route(urlJoin(config.ROUTES.FAVORITE, ":wineId"))
+  .route(urlJoin(config.ROUTES.FAVORITE, ':wineId'))
   .delete((req, res, next) => {
     return removeFromFavorite(req.params.wineId)
       .then(message => {

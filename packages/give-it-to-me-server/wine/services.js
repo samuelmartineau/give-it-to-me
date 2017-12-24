@@ -1,7 +1,7 @@
-const { knexInstance, Wine } = require("../utils/db");
-const logger = require("../utils/logger");
-const { CELLAR_SCHEMA } = require("../../../config/cellar");
-const { removeItem } = require("../../../utils");
+const { knexInstance, Wine } = require('../utils/db');
+const logger = require('../utils/logger');
+const { CELLAR_SCHEMA } = require('give-it-to-me-config/cellar');
+const { removeItem } = require('../../../utils');
 
 const getCellar = () => {
   return Wine.where({ _deleted: 0 })
@@ -18,7 +18,7 @@ const getCellar = () => {
       return wines.toJSON();
     })
     .catch(error => {
-      logger.log("error", error);
+      logger.log('error', error);
     });
 };
 
@@ -30,8 +30,8 @@ const addWine = (wine, contextualData) => {
   return knexInstance
     .transaction(trx => {
       return trx
-        .insert(wine, "id")
-        .into("wines")
+        .insert(wine, 'id')
+        .into('wines')
         .then(ids => {
           const wineId = ids[0];
           if (wine.isInBoxes) {
@@ -41,13 +41,13 @@ const addWine = (wine, contextualData) => {
                 ...{ wine_id: wineId }
               };
             });
-            return trx.batchInsert("bottles", bottles);
+            return trx.batchInsert('bottles', bottles);
           }
         });
     })
-    .then(() => ({ message: "Vin ajouté avec succés" }))
+    .then(() => ({ message: 'Vin ajouté avec succés' }))
     .catch(error => {
-      logger.error("Error adding Wine", error);
+      logger.error('Error adding Wine', error);
       return Promise.reject({
         message: "Probleme lors de l'ajout dans la base de données"
       });
@@ -57,7 +57,7 @@ const addWine = (wine, contextualData) => {
 const updateWine = (wineId, data) => {
   let updateData = data;
 
-  return knexInstance("wines")
+  return knexInstance('wines')
     .where({ id: wineId })
     .then(wines => {
       const wine = wines[0];
@@ -69,14 +69,14 @@ const updateWine = (wineId, data) => {
         });
         delete updateData.removeBottlesCount;
       }
-      return knexInstance("wines")
+      return knexInstance('wines')
         .where({ id: wineId })
         .update(updateData);
     })
     .catch(error => {
-      logger.error("Error getting Wine", error);
+      logger.error('Error getting Wine', error);
       return Promise.reject({
-        message: "Probleme lors de la récupération du vin"
+        message: 'Probleme lors de la récupération du vin'
       });
     });
 };
