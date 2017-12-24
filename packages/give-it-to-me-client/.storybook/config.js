@@ -8,7 +8,10 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-addDecorator(ProviderDecorator);
 addDecorator(ThemeDecorator);
 
-configure(loadStories, module);
+(async function() {
+  const ProviderDecoratorLoaded = await ProviderDecorator();
+  addDecorator(ProviderDecoratorLoaded);
+  configure(loadStories, module);
+})();

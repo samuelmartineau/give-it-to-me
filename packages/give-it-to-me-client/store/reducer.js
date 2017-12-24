@@ -13,3 +13,6 @@ export default combineReducers({
 
 export const isLastStep = (state, index) =>
   stepper.isLastStep(state.stepper, index);
+
+export const getWineById = (state, wineId) =>
+  cellar.getWineById(state.cellar.map, wineId);

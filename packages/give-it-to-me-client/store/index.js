@@ -16,4 +16,4 @@ export const makeStore = initialState => {
 export const reduxPage = withRedux(makeStore);
 
 export { getCellar, setStep } from './actions';
-export { isLastStep } from './reducer';
+export { isLastStep, getWineById } from './reducer';

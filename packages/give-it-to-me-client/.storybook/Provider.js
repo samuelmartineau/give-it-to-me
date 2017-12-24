@@ -5,10 +5,9 @@ import { getCellar } from '../store';
 
 const store = makeStore({});
 
-(async function() {
+export default async () => {
   await store.dispatch(getCellar());
-})();
-
-export default function ProviderDecorator(storyFn) {
-  return <ReduxProvider store={store}>{storyFn()}</ReduxProvider>;
-}
+  return function ProviderDecorator(storyFn) {
+    return <ReduxProvider store={store}>{storyFn()}</ReduxProvider>;
+  };
+};
