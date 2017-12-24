@@ -1,9 +1,9 @@
-import React from "react";
-import { withStyles } from "material-ui/styles";
-import Radio, { RadioGroup } from "material-ui/Radio";
-import { FormLabel, FormControl, FormControlLabel } from "material-ui/Form";
+import React from 'react';
+import { withStyles } from 'material-ui/styles';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
 
-import config from "give-it-to-me-config";
+import config from 'give-it-to-me-config';
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 const { BOTTLE_TYPES, DEFAULT_TYPE } = config.bottleTypes;
 
@@ -18,7 +18,7 @@ const bottleTypes = Object.keys(BOTTLE_TYPES).map(key => ({
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: 'flex'
   },
   formControl: {
     margin: theme.spacing.unit * 3
@@ -38,7 +38,7 @@ class TypesStep extends React.Component {
     const newState = {
       ...this.state
     };
-    if (evt.target.name === "wineType") {
+    if (evt.target.name === 'wineType') {
       newState.wineType = value;
       newState.wineCategory = WINE_TYPES[value].categories[0];
     } else {
@@ -70,7 +70,7 @@ class TypesStep extends React.Component {
               <FormControlLabel
                 key={wineType.id}
                 value={wineType.id}
-                control={<Radio />}
+                control={<Radio style={{ color: wineType.color }} />}
                 label={wineType.label}
               />
             ))}
