@@ -1,8 +1,20 @@
-import React from "react";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
-import Switch from "material-ui/Switch";
-import CellarSchema from "../Cellar/CellarSchema";
-import { getAvailableBoxes } from "../Cellar/utils";
+import React from 'react';
+import { withStyles } from 'material-ui/styles';
+import CellarSchema from '../Cellar/CellarSchema';
+import { getAvailableBoxes } from '../Cellar/utils';
+import BoxSchema from '../Cellar/BoxSchema';
+
+const styles = () => ({
+  boxes: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  box: {
+    minWidth: '200px',
+    flex: 1,
+    margin: '1em'
+  }
+});
 
 class CellsSelector extends React.Component {
   state = {
@@ -21,14 +33,15 @@ class CellsSelector extends React.Component {
     }));
   };
   render() {
-    const { bottles } = this.props;
+    const { bottles, classes } = this.props;
     const { selection } = this.state;
-    const selectedBottles = Object.keys(selection).reduce((acc, boxId) => {
+    const boxesSelected = Object.keys(selection);
+    const selectedBottles = boxesSelected.reduce((acc, boxId) => {
       return acc.concat(
         selection[boxId].map(cellId => ({
           box: boxId,
           cell: cellId,
-          color: "blue"
+          color: 'blue'
         }))
       );
     }, []);
@@ -43,9 +56,27 @@ class CellsSelector extends React.Component {
           onSelect={this.onBoxSelect}
           selectableBoxes={availableBoxes}
         />
+        <div className={classes.boxes}>
+          {boxesSelected.map(boxeId => (
+            <BoxSchema
+              className={classes.box}
+              key={boxeId}
+              boxId={boxeId}
+              bottles={[
+                {
+                  id: 1,
+                  box: 23,
+                  cell: 6
+                }
+              ]}
+              onSelect={console.log}
+              selectableCells={[0, 1, 2, 3]}
+            />
+          ))}
+        </div>
       </div>
     );
   }
 }
 
-export default CellsSelector;
+export default withStyles(styles)(CellsSelector);
