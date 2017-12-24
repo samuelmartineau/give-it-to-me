@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { withStyles } from 'material-ui/styles';
 import CellarSchema from '../Cellar/CellarSchema';
 import { getAvailableBoxes } from '../Cellar/utils';
@@ -14,14 +16,6 @@ const styles = () => ({
 });
 
 class CellsSelector extends React.Component {
-  state = {
-    checked: false,
-    test: [12, 13, 14],
-    selection: {
-      12: [0]
-    }
-  };
-
   onBoxSelect = boxId => {
     this.setState(state => ({
       selection: {
@@ -31,11 +25,10 @@ class CellsSelector extends React.Component {
     }));
   };
   render() {
-    const { bottles, classes } = this.props;
-    const { selection } = this.state;
-    const selectedBottles = Object.keys(selection).reduce((acc, boxId) => {
+    const { bottles, classes, boxes, cells } = this.props;
+    const selectedBottles = Object.keys(boxes).reduce((acc, boxId) => {
       return acc.concat(
-        selection[boxId].map(cellId => ({
+        cells[boxId].map(cellId => ({
           box: boxId,
           cell: cellId,
           color: 'blue'
@@ -45,7 +38,6 @@ class CellsSelector extends React.Component {
     // console.log("selectedBottles", selectedBottles);
     const realBottlesAndSelected = bottles.concat(selectedBottles);
     const availableBoxes = getAvailableBoxes(bottles);
-    // console.log("availableBoxes", availableBoxes);
     return (
       <div>
         <CellarSchema
@@ -53,27 +45,16 @@ class CellsSelector extends React.Component {
           onSelect={this.onBoxSelect}
           selectableBoxes={availableBoxes}
         />
-        <div className={classes.boxes}>
-          {this.state.test.map(boxeId => (
-            <BoxSchema
-              className={classes.box}
-              key={boxeId}
-              boxId={boxeId}
-              bottles={[
-                {
-                  id: 1,
-                  box: 23,
-                  cell: 6
-                }
-              ]}
-              onSelect={console.log}
-              selectableCells={[0, 1, 2, 3]}
-            />
-          ))}
-        </div>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(CellsSelector);
+export default compose(
+  withStyles(styles),
+  connect(state => ({
+    bottles: state.cellar.boxes,
+    boxes: state.adding.boxes,
+    cells: state.adding.cells
+  }))
+)(CellsSelector);

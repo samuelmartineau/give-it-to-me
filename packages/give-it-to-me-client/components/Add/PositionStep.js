@@ -3,6 +3,7 @@ import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import PositionDescription from './PositionDescription';
 import CellsSelector from './CellsSelector';
+import BoxesSelector from './BoxesSelector';
 
 class PositionStep extends React.Component {
   state = {
@@ -16,7 +17,6 @@ class PositionStep extends React.Component {
   };
   render() {
     const { checked } = this.state;
-    const { bottles } = this.props;
     return (
       <div>
         <FormControlLabel
@@ -24,7 +24,12 @@ class PositionStep extends React.Component {
           label="Les bouteilles sont-elles dans les caisses?"
         />
         {checked && <PositionDescription />}
-        {!checked && <CellsSelector bottles={bottles} />}
+        {!checked && (
+          <div>
+            <BoxesSelector />
+            <CellsSelector />
+          </div>
+        )}
       </div>
     );
   }
