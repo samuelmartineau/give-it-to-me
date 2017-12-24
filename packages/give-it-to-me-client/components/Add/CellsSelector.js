@@ -6,14 +6,11 @@ import BoxSchema from '../Cellar/BoxSchema';
 
 const styles = () => ({
   boxes: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gridGap: '10px'
   },
-  box: {
-    minWidth: '200px',
-    flex: 1,
-    margin: '1em'
-  }
+  box: {}
 });
 
 class CellsSelector extends React.Component {
