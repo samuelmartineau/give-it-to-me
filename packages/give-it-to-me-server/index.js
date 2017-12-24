@@ -28,7 +28,6 @@ if (typeof navigator === 'undefined') {
 // API REST
 // =============================================================================
 const app = express();
-console.log('config', config.CORS_CONFIG);
 app.use(cors(config.CORS_CONFIG));
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));

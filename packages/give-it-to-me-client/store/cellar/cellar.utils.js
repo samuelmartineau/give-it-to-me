@@ -1,3 +1,5 @@
+import { utils } from 'give-it-to-me-config';
+
 const computeCellar = wines => {
   let boxId = 0;
   let availableCells = {};
@@ -15,7 +17,7 @@ const computeCellar = wines => {
   wines.forEach(wine => {
     if (wine.isInBoxes) {
       wine.bottles.forEach(bottle => {
-        const availableCellsInBox = removeItem(
+        const availableCellsInBox = utils.removeItem(
           availableCells[bottle.box],
           availableCells[bottle.box].indexOf(bottle.cell)
         );
@@ -58,7 +60,7 @@ const computeCellar = wines => {
     } = selectableCells;
     selectableCells = res;
   } else {
-    selectableCells[selectableBoxes[0]] = removeItem(
+    selectableCells[selectableBoxes[0]] = utils.removeItem(
       availableCells[selectableBoxes[0]],
       0
     );

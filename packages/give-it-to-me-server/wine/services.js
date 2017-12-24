@@ -1,7 +1,6 @@
 const { knexInstance, Wine } = require('../utils/db');
 const logger = require('../utils/logger');
-const { CELLAR_SCHEMA } = require('give-it-to-me-config/cellar');
-const { removeItem } = require('../../../utils');
+const { CELLAR_SCHEMA, utils } = require('give-it-to-me-config/cellar');
 
 const getCellar = () => {
   return Wine.where({ _deleted: 0 })
