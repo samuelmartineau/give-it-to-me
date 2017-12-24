@@ -1,4 +1,4 @@
-import { CELLAR_REQUEST, CELLAR_RECEIVED, CELLAR_FAILED } from "./cellar.types";
+import { CELLAR_REQUEST, CELLAR_RECEIVED, CELLAR_FAILED } from './cellar.types';
 
 export const setCellar = cellar => ({
   type: CELLAR_RECEIVED,
@@ -19,7 +19,7 @@ export function getCellar() {
       dispatch(setCellar(cellar));
       return cellar;
     } catch (e) {
-      console.error("getCellar error", e);
+      console.error('getCellar error', e);
       dispatch(cellarFailed());
     }
   };

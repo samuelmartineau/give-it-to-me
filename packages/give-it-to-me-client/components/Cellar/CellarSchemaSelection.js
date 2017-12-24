@@ -1,13 +1,13 @@
-import CellarSchema from "./CellarSchema";
-import { connect } from "react-redux";
-import { compose, withProps } from "recompose";
-import { withStyles } from "material-ui/styles";
+import CellarSchema from './CellarSchema';
+import { connect } from 'react-redux';
+import { compose, withProps } from 'recompose';
+import { withStyles } from 'material-ui/styles';
 
 const styles = () => ({
   boxClickable: {
-    cursor: "pointer",
-    "&:hover": {
-      fill: "#7098d6"
+    cursor: 'pointer',
+    '&:hover': {
+      fill: '#7098d6'
     }
   }
 });

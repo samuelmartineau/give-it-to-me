@@ -1,23 +1,23 @@
-import React from "react";
-import Link from "next/link";
-import List, { ListItem } from "material-ui/List";
+import React from 'react';
+import Link from 'next/link';
+import List, { ListItem } from 'material-ui/List';
 
 const routes = [
   {
-    label: "home",
-    href: "/"
+    label: 'home',
+    href: '/'
   },
   {
-    label: "Add",
-    href: "/add"
+    label: 'Add',
+    href: '/add'
   },
   {
-    label: "Search",
-    href: "/search"
+    label: 'Search',
+    href: '/search'
   },
   {
-    label: "Browse",
-    href: "/browse"
+    label: 'Browse',
+    href: '/browse'
   }
 ];
 

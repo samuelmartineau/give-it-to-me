@@ -1,14 +1,14 @@
-import React from "react";
-import Button from "material-ui/Button";
-import MenuIcon from "material-ui-icons/Menu";
-import classNames from "classnames";
-import { withStyles } from "material-ui/styles";
-import tinycolor from "tinycolor2";
-import fontColorContrast from "font-color-contrast";
-import { PICTURE_UPLOAD, wineTypes } from "give-it-to-me-config";
+import React from 'react';
+import Button from 'material-ui/Button';
+import MenuIcon from 'material-ui-icons/Menu';
+import classNames from 'classnames';
+import { withStyles } from 'material-ui/styles';
+import tinycolor from 'tinycolor2';
+import fontColorContrast from 'font-color-contrast';
+import { PICTURE_UPLOAD, wineTypes } from 'give-it-to-me-config';
 
-import Image from "../Image/Image";
-import { WineType } from "./Wine.type";
+import Image from '../Image/Image';
+import { WineType } from './Wine.type';
 
 const { WINE_TYPES } = wineTypes;
 const openInfosHeight = 70;
@@ -18,90 +18,90 @@ const paddingInfos = 10;
 const styles = () => ({
   wineCard: {
     width: `${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px`,
-    display: "inline-block",
-    position: "relative",
+    display: 'inline-block',
+    position: 'relative',
     height: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT +
       closeInfosHeight +
       2 * paddingInfos}px`,
-    margin: "1em"
+    margin: '1em'
   },
   wineCardButton: {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
     zIndex: 4,
-    transition: "transform 0.3s"
+    transition: 'transform 0.3s'
   },
   WineCardImageContainer: {
-    position: "absolute",
-    top: "0px",
-    left: "0px",
-    right: "0px",
-    height: "100%",
-    display: "block",
-    overflow: "hidden",
-    transition: "transform 0.3s"
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    right: '0px',
+    height: '100%',
+    display: 'block',
+    overflow: 'hidden',
+    transition: 'transform 0.3s'
   },
   wineCardImageContainerOpen: {
-    marginLeft: "0px",
-    width: "100%",
-    height: "100%"
+    marginLeft: '0px',
+    width: '100%',
+    height: '100%'
   },
   pictureToAvatar: {
-    borderRadius: "50%",
-    transform: "scale(0.18, 0.14) translate(-650px, -1350px)",
+    borderRadius: '50%',
+    transform: 'scale(0.18, 0.14) translate(-650px, -1350px)',
     zIndex: 4
   },
   wineImage: {
-    marginLeft: "16px"
+    marginLeft: '16px'
   },
   wineImageOpen: {
-    marginLeft: "0px",
-    height: "auto",
-    width: "100%"
+    marginLeft: '0px',
+    height: 'auto',
+    width: '100%'
   },
   wineCorner: {
-    position: "absolute",
-    border: "8px solid",
-    transition: "transform 0.3s",
-    borderLeftColor: "transparent",
-    borderTopColor: "transparent",
-    bottom: "auto",
+    position: 'absolute',
+    border: '8px solid',
+    transition: 'transform 0.3s',
+    borderLeftColor: 'transparent',
+    borderTopColor: 'transparent',
+    bottom: 'auto',
     top: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT - 16}px`
   },
   wineCornerOpen: {
-    borderBottomColor: "transparent",
-    transform: "translate(0px, -294px)"
+    borderBottomColor: 'transparent',
+    transform: 'translate(0px, -294px)'
   },
   winePane: {
-    position: "absolute",
-    right: "0px",
-    left: "0px",
+    position: 'absolute',
+    right: '0px',
+    left: '0px',
     padding: `${paddingInfos}px 16px`,
     paddingLeft: `${paddingInfos}px`,
-    transition: "transform 0.3s",
+    transition: 'transform 0.3s',
     height: `${closeInfosHeight}px`,
     zIndex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
     top: `${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px`
   },
   winePaneOpen: {
     transform: `translate(0px, -${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px)`,
     height: `${openInfosHeight}px`,
-    paddingLeft: "80px",
-    paddingRight: "80px"
+    paddingLeft: '80px',
+    paddingRight: '80px'
   },
   wineCardContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: `${openInfosHeight + 2 * paddingInfos}px`,
-    padding: "10px",
-    left: "16px",
-    bottom: "0px",
-    display: "block",
+    padding: '10px',
+    left: '16px',
+    bottom: '0px',
+    display: 'block',
     zIndex: 2,
-    right: "0px"
+    right: '0px'
   }
 });
 

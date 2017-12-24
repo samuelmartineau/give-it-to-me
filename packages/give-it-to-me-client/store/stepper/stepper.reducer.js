@@ -1,4 +1,4 @@
-import { SET_STEP } from "./stepper.types";
+import { SET_STEP } from './stepper.types';
 
 export const reducer = (
   state = {

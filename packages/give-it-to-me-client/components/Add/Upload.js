@@ -1,9 +1,9 @@
 // @flow
-import React from "react";
-import Dropzone from "react-dropzone";
-import Button from "material-ui/Button";
-import { withStyles } from "material-ui/styles";
-import AddAPhotoIcon from "material-ui-icons/AddAPhoto";
+import React from 'react';
+import Dropzone from 'react-dropzone';
+import Button from 'material-ui/Button';
+import { withStyles } from 'material-ui/styles';
+import AddAPhotoIcon from 'material-ui-icons/AddAPhoto';
 
 const styles = theme => ({
   button: {

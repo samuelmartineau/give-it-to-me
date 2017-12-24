@@ -1,6 +1,6 @@
 // @flow
-import React from "react";
-import throttle from "lodash.throttle";
+import React from 'react';
+import throttle from 'lodash.throttle';
 
 const THROTTLE_WAIT = 500;
 const DEFAULT_DELAY = 500;
@@ -31,12 +31,12 @@ export default class Image extends React.Component<ImageProps> {
   }
 
   componentDidMount() {
-    window.addEventListener("scroll", this.scrollFunction);
+    window.addEventListener('scroll', this.scrollFunction);
     this.trottleScroll();
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.scrollFunction);
+    window.removeEventListener('scroll', this.scrollFunction);
     this.trottleScroll.cancel();
     clearTimeout(this.timeout);
   }
@@ -49,7 +49,7 @@ export default class Image extends React.Component<ImageProps> {
       const windowHeight = window.innerHeight;
       if (rect.top >= -200 && rect.top <= windowHeight) {
         this.setState({ url: this.props.src });
-        window.removeEventListener("scroll", this.scrollFunction);
+        window.removeEventListener('scroll', this.scrollFunction);
       }
     }, this.delay);
   }

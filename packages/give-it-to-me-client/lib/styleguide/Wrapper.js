@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Provider } from "react-redux";
-import { makeStore } from "../../store";
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { makeStore } from '../../store';
 const initialState = {
   cellar: {
     bottles: {

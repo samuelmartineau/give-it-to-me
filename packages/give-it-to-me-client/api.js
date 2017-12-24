@@ -1,5 +1,5 @@
-import "isomorphic-unfetch";
-import config from "give-it-to-me-config";
+import 'isomorphic-unfetch';
+import config from 'give-it-to-me-config';
 
 const apiBase = `http://localhost:4000${config.API_BASE_URL}`;
 
@@ -17,12 +17,12 @@ function checkStatus(response) {
 }
 
 function errorHandler(error) {
-  console.error("error", error);
+  console.error('error', error);
   throw error;
 }
 
 export const getCellar = () =>
-  fetch(`${apiBase}${config.ROUTES.WINE}`, { credentials: "include" })
+  fetch(`${apiBase}${config.ROUTES.WINE}`, { credentials: 'include' })
     .then(checkStatus)
     .catch(errorHandler);
 
@@ -30,7 +30,7 @@ export const uploadWinePicture = picture => {
   const data = new window.FormData();
   data.append(config.PICTURE_UPLOAD.FILE_NAME, picture);
   return fetch(`${apiBase}${config.ROUTES.PICTURE}`, {
-    method: "POST",
+    method: 'POST',
     body: data
   })
     .then(checkStatus)

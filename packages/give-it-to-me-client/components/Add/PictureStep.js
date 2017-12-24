@@ -1,12 +1,12 @@
-import React from "react";
-import Spinner from "../Layout/Spinner";
-import Button from "material-ui/Button";
-import Delete from "material-ui-icons/Delete";
-import { withStyles } from "material-ui/styles";
-import Upload from "./Upload";
-import { uploadWinePicture } from "../../api";
-import { PICTURE_UPLOAD, API_URL } from "give-it-to-me-config";
-import Image from "../Image/Image";
+import React from 'react';
+import Spinner from '../Layout/Spinner';
+import Button from 'material-ui/Button';
+import Delete from 'material-ui-icons/Delete';
+import { withStyles } from 'material-ui/styles';
+import Upload from './Upload';
+import { uploadWinePicture } from '../../api';
+import { PICTURE_UPLOAD, API_URL } from 'give-it-to-me-config';
+import Image from '../Image/Image';
 
 const styles = theme => ({
   button: {
@@ -50,9 +50,9 @@ class PictureStep extends React.Component {
       render = (
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
           <Image
@@ -79,7 +79,7 @@ class PictureStep extends React.Component {
       render = <Upload onDrop={this.onDrop} />;
     }
 
-    return <div style={{ textAlign: "center" }}>{render}</div>;
+    return <div style={{ textAlign: 'center' }}>{render}</div>;
   }
 }
 

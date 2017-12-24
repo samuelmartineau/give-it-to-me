@@ -1,5 +1,5 @@
-const { knexInstance, Wine } = require("../utils/db");
-const logger = require("../utils/logger");
+const { knexInstance, Wine } = require('../utils/db');
+const logger = require('../utils/logger');
 
 const removeBottle = (wineId, bottleId) => {
   return Wine.where({ id: wineId })
@@ -19,7 +19,7 @@ const removeBottle = (wineId, bottleId) => {
       const isLastBottle = bottles.length === 1;
       if (bottle) {
         return knexInstance.transaction(trx => {
-          return knexInstance("bottles")
+          return knexInstance('bottles')
             .where({ id: bottleId })
             .update({
               _deleted: true
@@ -27,10 +27,10 @@ const removeBottle = (wineId, bottleId) => {
             .transacting(trx)
             .then(() => {
               const successMessage = {
-                message: "Bouteille supprimée avec succés"
+                message: 'Bouteille supprimée avec succés'
               };
               if (isLastBottle) {
-                return knexInstance("wines")
+                return knexInstance('wines')
                   .where({ id: wineId })
                   .update({
                     _deleted: true,
@@ -45,14 +45,14 @@ const removeBottle = (wineId, bottleId) => {
             });
         });
       } else {
-        logger.error("Bottle not found");
+        logger.error('Bottle not found');
       }
     })
     .catch(error => {
-      logger.log("error", error);
+      logger.log('error', error);
       Promise.reject({
         message:
-          "Probleme lors de la suppression de la bouteille dans la base de données"
+          'Probleme lors de la suppression de la bouteille dans la base de données'
       });
     });
 };

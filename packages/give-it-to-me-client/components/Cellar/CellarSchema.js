@@ -1,10 +1,10 @@
 // @flow
-import React from "react";
-import { withStyles } from "material-ui/styles";
-import ReactFauxDOM from "react-faux-dom";
+import React from 'react';
+import { withStyles } from 'material-ui/styles';
+import ReactFauxDOM from 'react-faux-dom';
 
-import { makeCellarUtils } from "./utils";
-const svgContainer = ReactFauxDOM.createElement("svg");
+import { makeCellarUtils } from './utils';
+const svgContainer = ReactFauxDOM.createElement('svg');
 const {
   drawCellar,
   drawBottlesInCellar,
@@ -16,9 +16,9 @@ drawCellar();
 
 const styles = () => ({
   boxClickable: {
-    cursor: "pointer",
-    "&:hover": {
-      fill: "#7098d6"
+    cursor: 'pointer',
+    '&:hover': {
+      fill: '#7098d6'
     }
   }
 });

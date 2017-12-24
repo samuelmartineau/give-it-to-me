@@ -1,4 +1,4 @@
-const { version } = require("../../../package.json");
+const { version } = require('../../../package.json');
 
 function renderFullPage(html, initialState, bundleFilename) {
   return `
@@ -36,7 +36,7 @@ function skip(path, middleware) {
 
 function fakeWindow() {
   return (req, res, next) => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       global.window = {
         __CURRENT_VERSION__: version,
         innerWidth: req.headers.WS_WIDTH, // comes from device-infos middleware

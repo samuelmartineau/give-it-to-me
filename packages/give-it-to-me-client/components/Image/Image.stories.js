@@ -1,9 +1,9 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import Image from "./Image";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import Image from './Image';
 
-storiesOf("Image", module).add("Default", () => (
+storiesOf('Image', module).add('Default', () => (
   <Image
     src="https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png"
     width={191}

@@ -1,13 +1,13 @@
-import React from "react";
-import { compose } from "recompose";
-import Autosuggest from "react-autosuggest";
-import { utils } from "give-it-to-me-config";
-import fuzzy from "fuzzy";
-import TextField from "material-ui/TextField";
-import Paper from "material-ui/Paper";
-import { MenuItem } from "material-ui/Menu";
-import { withStyles } from "material-ui/styles";
-import debounce from "lodash.debounce";
+import React from 'react';
+import { compose } from 'recompose';
+import Autosuggest from 'react-autosuggest';
+import { utils } from 'give-it-to-me-config';
+import fuzzy from 'fuzzy';
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
+import { MenuItem } from 'material-ui/Menu';
+import { withStyles } from 'material-ui/styles';
+import debounce from 'lodash.debounce';
 
 function renderInput({ classes, autoFocus, value, ref, ...other }) {
   return (
@@ -50,26 +50,26 @@ function getSuggestionValue(suggestion) {
 const styles = theme => ({
   container: {
     flexGrow: 1,
-    position: "relative",
+    position: 'relative',
     height: 200
   },
   suggestionsContainerOpen: {
-    position: "absolute",
+    position: 'absolute',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 3,
     left: 0,
     right: 0
   },
   suggestion: {
-    display: "block"
+    display: 'block'
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: "none"
+    listStyleType: 'none'
   },
   textField: {
-    width: "100%"
+    width: '100%'
   }
 });
 
@@ -78,7 +78,7 @@ class AutoComplete extends React.Component {
     super();
 
     this.state = {
-      value: "",
+      value: '',
       suggestions: [],
       isLoading: false
     };
@@ -95,8 +95,8 @@ class AutoComplete extends React.Component {
         ? []
         : fuzzy
             .filter(inputValue, datas, {
-              pre: "<b>",
-              post: "</b>",
+              pre: '<b>',
+              post: '</b>',
               extract: el => el.searchKey
             })
             .slice(0, 5);
@@ -144,7 +144,7 @@ class AutoComplete extends React.Component {
         inputProps={{
           autoFocus: true,
           classes,
-          placeholder: "Search a country (start with a)",
+          placeholder: 'Search a country (start with a)',
           value: value,
           onChange: this.onChange
         }}

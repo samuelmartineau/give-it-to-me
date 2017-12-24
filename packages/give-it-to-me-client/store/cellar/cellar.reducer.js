@@ -1,5 +1,5 @@
-import { combineReducers } from "redux";
-import { CELLAR_RECEIVED } from "./cellar.types";
+import { combineReducers } from 'redux';
+import { CELLAR_RECEIVED } from './cellar.types';
 
 export const mapReducer = (state = {}, action) => {
   switch (action.type) {

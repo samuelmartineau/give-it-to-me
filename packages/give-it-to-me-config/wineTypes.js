@@ -1,48 +1,48 @@
 const WINE_TYPES = {
   RED: {
-    label: "Rouge",
-    categories: ["REGULAR", "SPARKLING", "DRY"],
-    color: "#9C27B0"
+    label: 'Rouge',
+    categories: ['REGULAR', 'SPARKLING', 'DRY'],
+    color: '#9C27B0'
   },
   WHITE: {
-    label: "Blanc",
-    categories: ["REGULAR", "SPARKLING", "LIQUOROUS", "DRY"],
-    color: "#CDDC39"
+    label: 'Blanc',
+    categories: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
+    color: '#CDDC39'
   },
   CHAMPAGNE: {
-    label: "Champagne",
-    categories: ["BRUT", "BLANC_DE_BLANCS", "BLANC_DE_NOIRS", "PINK"],
-    color: "#9E9E9E"
+    label: 'Champagne',
+    categories: ['BRUT', 'BLANC_DE_BLANCS', 'BLANC_DE_NOIRS', 'PINK'],
+    color: '#9E9E9E'
   }
 };
 
 const WINE_CATEGORIES = {
   REGULAR: {
-    label: "normal"
+    label: 'normal'
   },
   SPARKLING: {
-    label: "effervescent"
+    label: 'effervescent'
   },
   LIQUOROUS: {
-    label: "liquoreux"
+    label: 'liquoreux'
   },
   SOFT: {
-    label: "moelleux"
+    label: 'moelleux'
   },
   DRY: {
-    label: "sec"
+    label: 'sec'
   },
   PINK: {
-    label: "rosé"
+    label: 'rosé'
   },
   BRUT: {
-    label: "brut"
+    label: 'brut'
   },
   BLANC_DE_BLANCS: {
-    label: "blanc de blancs"
+    label: 'blanc de blancs'
   },
   BLANC_DE_NOIRS: {
-    label: "blanc de noirs"
+    label: 'blanc de noirs'
   }
 };
 
