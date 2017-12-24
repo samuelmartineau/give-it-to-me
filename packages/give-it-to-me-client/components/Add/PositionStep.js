@@ -1,8 +1,8 @@
-import React from "react";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
-import Switch from "material-ui/Switch";
-import PositionDescription from "./PositionDescription";
-import CellsSelector from "./CellsSelector";
+import React from 'react';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
+import PositionDescription from './PositionDescription';
+import CellsSelector from './CellsSelector';
 
 class PositionStep extends React.Component {
   state = {
