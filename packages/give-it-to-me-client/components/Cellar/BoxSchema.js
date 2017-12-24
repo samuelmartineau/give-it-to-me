@@ -25,7 +25,8 @@ type boxSchemaProps = {
     cellClickable: String
   },
   onSelect: Function,
-  selectableCells: Array<number>
+  selectableCells: Array<number>,
+  className: {}
 };
 
 const BoxSchema = ({
@@ -33,7 +34,8 @@ const BoxSchema = ({
   bottles = [],
   classes,
   onSelect,
-  selectableCells = []
+  selectableCells = [],
+  className
 }: boxSchemaProps) => {
   drawBox(boxId);
   drawBottlesInBox(bottles);
@@ -42,7 +44,7 @@ const BoxSchema = ({
     addEventOnCell(boxId, selectableCells, onSelect, classes);
   }
 
-  return <div> {svgContainer.toReact()} </div>;
+  return <div className={className}> {svgContainer.toReact()} </div>;
 };
 
 export default withStyles(styles)(BoxSchema);
