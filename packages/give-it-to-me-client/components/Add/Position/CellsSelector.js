@@ -1,8 +1,15 @@
+// @flow
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import CellarSchema from '../../Cellar/CellarSchema';
-import { getAvailableBoxes } from '../../Cellar/utils';
-import BoxSchema from '../../Cellar/BoxSchema';
+import BoxSchemaConnected from '../../Cellar/BoxSchemaConnected';
+
+type CellsSelectorProps = {
+  selectedBoxes: Array<number>,
+  classes: {
+    boxes: any,
+    box: any
+  }
+};
 
 const styles = () => ({
   boxes: {
@@ -13,22 +20,15 @@ const styles = () => ({
   box: {}
 });
 
-const CellsSelector = ({ classes }) => (
+const CellsSelector = ({ selectedBoxes = [], classes }: CellsSelectorProps) => (
   <div className={classes.boxes}>
-    {[2, 12, 25].map(boxeId => (
-      <BoxSchema
+    {selectedBoxes.map(boxeId => (
+      <BoxSchemaConnected
         className={classes.box}
         key={boxeId}
         boxId={boxeId}
-        bottles={[
-          {
-            id: 1,
-            box: 23,
-            cell: 6
-          }
-        ]}
+        selectableCells={[]}
         onSelect={console.log}
-        selectableCells={[0, 1, 2, 3]}
       />
     ))}
   </div>

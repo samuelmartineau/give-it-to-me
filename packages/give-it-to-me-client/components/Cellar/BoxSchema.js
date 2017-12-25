@@ -37,7 +37,7 @@ const BoxSchema = ({
   selectableCells = [],
   className
 }: boxSchemaProps) => {
-  console.log('render', boxId);
+  console.log(bottles, boxId);
   drawBox(boxId);
   drawBottlesInBox(bottles);
 

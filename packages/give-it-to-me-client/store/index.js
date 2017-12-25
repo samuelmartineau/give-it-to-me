@@ -21,5 +21,7 @@ export {
   getWineById,
   getSelectedBoxes,
   getSelectedCells,
-  getbottlesInBox
+  getCellsUsedInBox,
+  getBottleById,
+  getBottlesInBox
 } from './reducer';

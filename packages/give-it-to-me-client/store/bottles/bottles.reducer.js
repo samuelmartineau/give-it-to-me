@@ -59,8 +59,17 @@ export const cellsReducer = (state = {}, action) => {
   }
 };
 
-export const getbottlesInBox = (state, boxId) =>
-  state[boxId] ? Object.keys(state[boxId]) : [];
+export const getCellsUsedInBox = (state, boxId) => {
+  return state[boxId] ? Object.keys(state[boxId]) : [];
+};
+
+export const getBottleById = (state, boxId) => {
+  return state[boxId];
+};
+
+export const getBottlesInBox = (state, boxId) => {
+  return Object.keys(state[boxId]).map(cellId => state[boxId][cellId]);
+};
 
 const reducer = combineReducers({
   map: mapReducer,
