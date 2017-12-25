@@ -39,9 +39,10 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.2.15",
-    "@storybook/addon-links": "^3.2.15",
-    "@storybook/react": "^3.2.15",
+    "@storybook/addon-actions": "3.2.16",
+    "@storybook/addon-knobs": "3.2.16",
+    "@storybook/addon-options": "3.2.16",
+    "@storybook/react": "3.2.16",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "flow-bin": "^0.58.0",
     "npm-run-all": "^4.1.2",

@@ -8,6 +8,6 @@ storiesOf('CellarSchema', module)
   .add('Selection', () => (
     <CellarSchema
       onSelect={action('on-select')}
-      selectableBoxes={[0, 1, 2, 3, 23, 24, 25]}
+      selectableBoxes={[0, 1, 2, 3, 23, 24, 25, 42]}
     />
   ));

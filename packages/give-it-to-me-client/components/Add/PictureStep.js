@@ -3,7 +3,7 @@ import Spinner from '../Layout/Spinner';
 import Button from 'material-ui/Button';
 import Delete from 'material-ui-icons/Delete';
 import { withStyles } from 'material-ui/styles';
-import Upload from './Upload';
+import Upload from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
 import { PICTURE_UPLOAD, API_URL } from 'give-it-to-me-config';
 import Image from '../Image/Image';

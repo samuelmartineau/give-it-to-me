@@ -2,8 +2,7 @@ import { SET_STEP } from './adding.types';
 
 export const reducer = (
   state = {
-    boxes: [],
-    cells: {}
+    selectedCells: {}
   },
   action
 ) => {
@@ -19,6 +18,16 @@ export const reducer = (
   }
 };
 
-export const isLastStep = ({ steps }, index) => index === steps - 1;
+export const getSelectedCells = selectedCells =>
+  Object.keys(selectedCells).reduce((acc, boxId) => {
+    return acc.concat(
+      selectedCells[boxId].map(cellId => ({
+        box: boxId,
+        cell: cellId
+      }))
+    );
+  }, []);
+
+export const getSelectedBoxes = selectedCells => Object.keys(selectedCells);
 
 export default reducer;

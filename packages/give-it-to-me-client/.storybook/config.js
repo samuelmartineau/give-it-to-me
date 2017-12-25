@@ -1,4 +1,5 @@
 import { configure, addDecorator } from '@storybook/react';
+import { withKnobs } from '@storybook/addon-knobs';
 import ProviderDecorator from './Provider';
 import ThemeDecorator from './Theme';
 
@@ -9,6 +10,7 @@ function loadStories() {
 }
 
 addDecorator(ThemeDecorator);
+addDecorator(withKnobs);
 
 (async function() {
   const ProviderDecoratorLoaded = await ProviderDecorator();
