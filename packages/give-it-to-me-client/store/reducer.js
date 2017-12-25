@@ -21,3 +21,5 @@ export const getSelectedBoxes = state =>
   adding.getSelectedBoxes(state.adding.selectedCells);
 export const getSelectedCells = state =>
   adding.getSelectedCells(state.adding.selectedCells);
+export const getbottlesInBox = (state, boxId) =>
+  bottles.getbottlesInBox(state.bottles.cells, boxId);

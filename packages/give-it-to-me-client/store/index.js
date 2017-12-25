@@ -15,10 +15,11 @@ export const makeStore = initialState => {
 
 export const reduxPage = withRedux(makeStore);
 
-export { getCellar, setStep } from './actions';
+export { getCellar, setStep, selectBox } from './actions';
 export {
   isLastStep,
   getWineById,
   getSelectedBoxes,
-  getSelectedCells
+  getSelectedCells,
+  getbottlesInBox
 } from './reducer';

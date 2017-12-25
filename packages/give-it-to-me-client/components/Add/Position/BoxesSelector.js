@@ -1,24 +1,21 @@
+// @flow
 import React from 'react';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withStyles } from 'material-ui/styles';
 import CellarSchema from '../../Cellar/CellarSchema';
 import { getAvailableBoxes } from '../../Cellar/utils';
-import { getSelectedCells } from '../../../store';
 
 const styles = () => ({});
 
-class BoxesSelector extends React.Component {
-  onBoxSelect = boxId => {
-    this.setState(state => ({
-      selection: {
-        ...state.selection,
-        [boxId]: [0]
-      }
-    }));
-  };
+type BoxesSelectorProps = {
+  bottles: Array<any>,
+  selectedBottles: Function,
+  onSelect: Function
+};
+
+class BoxesSelector extends React.Component<BoxesSelectorProps> {
   render() {
-    const { selectedBottles, bottles } = this.props;
+    const { selectedBottles, bottles, onSelect } = this.props;
     const selectedBottlesStyled = selectedBottles.map(bottle => ({
       ...bottle,
       color: 'blue'
@@ -30,7 +27,7 @@ class BoxesSelector extends React.Component {
       <div>
         <CellarSchema
           bottles={realBottlesAndSelected}
-          onSelect={console.log}
+          onSelect={onSelect}
           selectableBoxes={availableBoxes}
         />
       </div>
@@ -38,10 +35,4 @@ class BoxesSelector extends React.Component {
   }
 }
 
-export default compose(
-  withStyles(styles),
-  connect(state => ({
-    selectedBottles: getSelectedCells(state),
-    bottles: state.bottles.all
-  }))
-)(BoxesSelector);
+export default compose(withStyles(styles))(BoxesSelector);

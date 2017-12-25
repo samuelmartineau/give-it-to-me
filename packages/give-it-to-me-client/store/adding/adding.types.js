@@ -1,1 +1,1 @@
-export const SET_STEP = 'SET_STEP';
+export const SELECT_BOX = 'SELECT_BOX';

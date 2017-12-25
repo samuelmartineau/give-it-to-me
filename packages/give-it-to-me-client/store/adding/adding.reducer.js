@@ -1,18 +1,11 @@
-import { SET_STEP } from './adding.types';
+import { combineReducers } from 'redux';
+import { SELECT_BOX } from './adding.types';
 
-export const reducer = (
-  state = {
-    selectedCells: {}
-  },
-  action
-) => {
+export const selectedCellsReducer = (state = {}, action) => {
   switch (action.type) {
-    // case SET_STEP: {
-    //   return {
-    //     ...state,
-    //     currentStep: action.index
-    //   };
-    // }
+    case SELECT_BOX: {
+      return { ...state, [action.boxId]: [action.cellId] };
+    }
     default:
       return state;
   }
@@ -29,5 +22,9 @@ export const getSelectedCells = selectedCells =>
   }, []);
 
 export const getSelectedBoxes = selectedCells => Object.keys(selectedCells);
+
+const reducer = combineReducers({
+  selectedCells: selectedCellsReducer
+});
 
 export default reducer;

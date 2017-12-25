@@ -59,6 +59,9 @@ export const cellsReducer = (state = {}, action) => {
   }
 };
 
+export const getbottlesInBox = (state, boxId) =>
+  state[boxId] ? Object.keys(state[boxId]) : [];
+
 const reducer = combineReducers({
   map: mapReducer,
   cells: cellsReducer,

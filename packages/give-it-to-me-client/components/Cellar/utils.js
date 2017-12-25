@@ -1,5 +1,6 @@
 import { select } from 'd3';
 import { cellar } from 'give-it-to-me-config';
+import { range } from 'ramda';
 
 const {
   CELL_SIZE,
@@ -168,27 +169,30 @@ const drawBox = svgContainer => boxId => {
 
   let cellId = 0;
 
-  Array(box.schema[0])
-    .fill()
-    .forEach((_, xIndex) => {
-      Array(box.schema[1])
-        .fill()
-        .forEach((_, yIndex) => {
-          const svgCell = select(svgContainer).append('rect');
+  range(0, box.schema[0]).forEach(xIndex => {
+    range(0, box.schema[1]).forEach(yIndex => {
+      const svgCell = select(svgContainer).append('rect');
 
-          svgCell
-            .attr('x', xIndex * CELL_SIZE)
-            .attr('y', yIndex * CELL_SIZE)
-            .attr('width', CELL_SIZE)
-            .attr('height', CELL_SIZE)
-            .attr('id', getCellId(boxId, cellId))
-            .attr('cellid', cellId)
-            .attr('stroke-width', CELL_BORDER_SIZE)
-            .attr('stroke', BOX_BORDER_COLOR)
-            .attr('fill', BOX_COLOR);
-          cellId += 1;
-        });
+      svgCell
+        .attr('x', xIndex * CELL_SIZE)
+        .attr('y', yIndex * CELL_SIZE)
+        .attr('width', CELL_SIZE)
+        .attr('height', CELL_SIZE)
+        .attr('id', getCellId(boxId, cellId))
+        .attr('cellid', cellId)
+        .attr('stroke-width', CELL_BORDER_SIZE)
+        .attr('stroke', BOX_BORDER_COLOR)
+        .attr('fill', BOX_COLOR);
+      cellId += 1;
     });
+  });
+};
+
+export const getBoxCell = boxId => {
+  const boxSchema = CELLAR_SCHEMA[boxId].schema;
+  const row = boxSchema[0];
+  const column = boxSchema[1];
+  return range(0, row * column);
 };
 
 export const makeCellarUtils = svgContainer => ({

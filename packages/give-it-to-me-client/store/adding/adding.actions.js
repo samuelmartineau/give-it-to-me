@@ -1,6 +1,7 @@
-import { SET_STEP } from './stepper.types';
+import { SELECT_BOX } from './adding.types';
 
-export const setStep = index => ({
-  type: SET_STEP,
-  index
+export const selectBox = (boxId, cellId) => ({
+  type: SELECT_BOX,
+  boxId,
+  cellId
 });
