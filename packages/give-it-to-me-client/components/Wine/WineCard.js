@@ -137,10 +137,7 @@ class WineCard extends React.Component<WineCardProps> {
       <div className={classes.wineCard}>
         <Button
           onClick={this.onToggle}
-          style={{
-            background: softColor,
-            color: textColor
-          }}
+          style={{ background: softColor, color: textColor }}
           fab
           color="primary"
           aria-label="add"
@@ -148,7 +145,9 @@ class WineCard extends React.Component<WineCardProps> {
         >
           <MenuIcon />
         </Button>
-        <div
+        <a
+          href={wine.pictureFileName}
+          target="_blank"
           className={classNames(classes.WineCardImageContainer, {
             [classes.wineCardImageContainerOpen]: open,
             [classes.pictureToAvatar]: open
@@ -160,10 +159,10 @@ class WineCard extends React.Component<WineCardProps> {
             })}
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-            src={wine.thumbnailFileName}
+            src={wine.pictureFileName}
             lazyLoader={wine.blur}
           />
-        </div>
+        </a>
         {open && (
           <div
             className={classes.wineCardContainer}
@@ -175,10 +174,7 @@ class WineCard extends React.Component<WineCardProps> {
         <div
           style={
             open
-              ? {
-                  borderRightColor: cornerColor,
-                  borderTopColor: cornerColor
-                }
+              ? { borderRightColor: cornerColor, borderTopColor: cornerColor }
               : {
                   borderRightColor: cornerColor,
                   borderBottomColor: cornerColor
