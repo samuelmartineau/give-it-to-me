@@ -1,15 +1,14 @@
 const fs = require('fs');
-const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const config = require('give-it-to-me-config');
+const next = require('next');
+const { createServer } = require('http');
 
 const logger = require('./utils/logger');
-const { fakeWindow, skip } = require('./utils');
 
 const handleRoutes = require('./handleRoutes');
 const { handleChanges } = require('./handleChanges');
@@ -19,36 +18,52 @@ if (!fs.existsSync(config.UPLOADS_PERM)) {
   fs.mkdirSync(config.UPLOADS_PERM);
 }
 
-if (typeof navigator === 'undefined') {
-  global.navigator = {
-    userAgent: 'all'
-  };
-}
-
 // API REST
 // =============================================================================
-const app = express();
-app.use(cors(config.CORS_CONFIG));
-app.use(compression());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(skip(config.API_BASE_URL, cookieParser()));
-app.use(skip(config.API_BASE_URL, fakeWindow()));
-app.use('/', express.static(path.join(__dirname, '..', '..', 'assets')));
-app.use('/', express.static(path.join(__dirname, '..', '..', config.DIST)));
-app.use('/', express.static(path.join(__dirname, config.UPLOADS_PERM)));
-app.use(
-  '/',
-  express.static(path.join(__dirname, config.UPLOADS_TMP_DIRECTORY))
-);
-const serverHttp = http.createServer(app);
-
-serverHttp.listen(config.PORT, () => {
-  logger.info(`🚀  Server started on http://localhost:${config.PORT}`);
-  handleChanges(serverHttp);
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({
+  dev,
+  dir: path.resolve(__dirname, '../give-it-to-me-client/')
 });
+const handle = app.getRequestHandler();
+app.prepare().then(() => {
+  const server = express();
 
-handleRoutes(app);
+  server.use(cors(config.CORS_CONFIG));
+  server.use(compression());
+  server.use(bodyParser.urlencoded({ extended: true }));
+  server.use(bodyParser.json());
+  server.use('/', express.static(path.join(__dirname, '..', '..', 'assets')));
+  server.use(
+    '/',
+    express.static(path.join(__dirname, '..', '..', config.DIST))
+  );
+  server.use('/', express.static(path.join(__dirname, config.UPLOADS_PERM)));
+  server.use(
+    '/',
+    express.static(path.join(__dirname, config.UPLOADS_TMP_DIRECTORY))
+  );
+  const serverHttp = createServer(server);
+
+  serverHttp.listen(config.PORT, () => {
+    logger.info(`🚀  Server started on http://localhost:${config.PORT}`);
+    handleChanges(serverHttp);
+  });
+
+  handleRoutes(server);
+
+  server.get('/add', (req, res) => {
+    return app.render(req, res, '/add', req.query);
+  });
+
+  server.get('/browse', (req, res) => {
+    return app.render(req, res, '/browse', req.query);
+  });
+
+  server.get('*', (req, res) => {
+    return handle(req, res);
+  });
+});
 
 process.on('unhandledRejection', function(reason, p) {
   logger.error(

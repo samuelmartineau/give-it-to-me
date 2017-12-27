@@ -21,3 +21,19 @@ Init db tables
 ```
 npm run init
 ```
+
+## Developpement
+
+```
+npm run dev
+```
+
+will start API server + client dev server + storybook server
+
+## Production
+
+```
+npm start
+```
+
+will build the client + launch the server

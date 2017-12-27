@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "./scripts/dev.sh",
+    "start": "./scripts/start.sh",
     "init": "./scripts/init.sh",
     "lint": "eslint ./**/*.js",
     "precommit": "lint-staged"
