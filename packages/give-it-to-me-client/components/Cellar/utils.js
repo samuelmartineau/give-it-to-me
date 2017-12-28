@@ -66,6 +66,11 @@ export const getAvailableBoxes = bottles => {
     .map(box => box.id);
 };
 
+export const getAvailableCells = (boxId, bottles) => {
+  const cellsUsed = bottles.map(bottle => bottle.cell);
+  return getBoxCells(boxId).filter(cellId => !cellsUsed.includes(cellId));
+};
+
 const drawCommonBottle = (svgContainer, bottle) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   const svgBottle = svgContainer.append('circle');
@@ -188,7 +193,7 @@ const drawBox = svgContainer => boxId => {
   });
 };
 
-export const getBoxCell = boxId => {
+export const getBoxCells = boxId => {
   const boxSchema = CELLAR_SCHEMA[boxId].schema;
   const row = boxSchema[0];
   const column = boxSchema[1];

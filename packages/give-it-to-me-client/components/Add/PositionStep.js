@@ -2,8 +2,8 @@ import React from 'react';
 import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import PositionDescription from './Position/PositionDescription';
-import CellsSelector from './Position/CellsSelector';
-import BoxesSelector from './Position/BoxesSelector';
+import BoxesSelectorConnected from './Position/BoxesSelectorConnected';
+import CellsSelectorsConnected from './Position/CellsSelectorsConnected';
 
 class PositionStep extends React.Component {
   state = {
@@ -26,8 +26,8 @@ class PositionStep extends React.Component {
         {checked && <PositionDescription />}
         {!checked && (
           <div>
-            <BoxesSelector />
-            <CellsSelector />
+            <BoxesSelectorConnected />
+            <CellsSelectorsConnected />
           </div>
         )}
       </div>

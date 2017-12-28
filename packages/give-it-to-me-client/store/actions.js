@@ -1,11 +1,12 @@
 import * as cellar from './cellar/cellar.actions';
 import { difference } from 'ramda';
 import * as adding from './adding/adding.actions';
-import { getBoxCell } from '../components/Cellar/utils';
+import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox } from './';
 
 // export * from "./cellar/cellar.actions";
 export * from './stepper/stepper.actions';
+export { unselectBox } from './adding/adding.actions';
 
 export const getCellar = () => {
   return dispatch => {
@@ -14,7 +15,7 @@ export const getCellar = () => {
 };
 export const selectBox = boxId => {
   return (dispatch, getState) => {
-    const cells = getBoxCell(boxId).map(id => id.toString());
+    const cells = getBoxCells(boxId).map(id => id.toString());
     const state = getState();
     const bottles = getCellsUsedInBox(state, boxId);
     const availablesCells = difference(cells, bottles);

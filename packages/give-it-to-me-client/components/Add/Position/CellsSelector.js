@@ -1,37 +1,52 @@
 // @flow
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import BoxSchemaConnected from '../../Cellar/BoxSchemaConnected';
+import BoxSchema from '../../Cellar/BoxSchema';
+import { getAvailableCells } from '../../Cellar/utils';
 
 type CellsSelectorProps = {
-  selectedBoxes: Array<number>,
+  boxId: number,
+  onUnselect: Function,
+  bottles: Array<any>,
+  selectedCells: Array<any>,
   classes: {
-    boxes: any,
-    box: any
+    box: any,
+    onSelect: Function
   }
 };
 
 const styles = () => ({
-  boxes: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gridGap: '10px'
-  },
   box: {}
 });
 
-const CellsSelector = ({ selectedBoxes = [], classes }: CellsSelectorProps) => (
-  <div className={classes.boxes}>
-    {selectedBoxes.map(boxeId => (
-      <BoxSchemaConnected
+const CellsSelector = ({
+  boxId,
+  bottles,
+  onSelect,
+  onUnselect,
+  selectedCells,
+  classes
+}: CellsSelectorProps) => {
+  console.log('test', selectedCells, bottles);
+  const selectedCellsStyled = selectedCells.map(cellId => ({
+    cell: cellId,
+    box: boxId,
+    color: 'blue'
+  }));
+  const realBottlesAndSelected = bottles.concat(selectedCellsStyled);
+  const availableBoxes = getAvailableCells(boxId, bottles);
+  return (
+    <div className={classes.box}>
+      <button onClick={onUnselect}>close</button>
+      <BoxSchema
         className={classes.box}
-        key={boxeId}
-        boxId={boxeId}
+        boxId={boxId}
+        bottles={realBottlesAndSelected}
         selectableCells={[]}
-        onSelect={console.log}
+        onSelect={onSelect}
       />
-    ))}
-  </div>
-);
+    </div>
+  );
+};
 
 export default withStyles(styles)(CellsSelector);

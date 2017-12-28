@@ -27,3 +27,5 @@ export const getBottleById = (state, boxId) =>
   bottles.getBottleById(state.bottles.map, boxId);
 export const getBottlesInBox = (state, boxId) =>
   bottles.getBottlesInBox(state.bottles.cells, boxId);
+export const getSelectedCellsInBox = (state, boxId) =>
+  adding.getSelectedCellsInBox(state.adding.selectedCells, boxId);

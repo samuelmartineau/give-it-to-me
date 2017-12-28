@@ -4,8 +4,8 @@ import { action } from '@storybook/addon-actions';
 import { array } from '@storybook/addon-knobs';
 import BoxesSelector from './BoxesSelector';
 import BoxesSelectorConnected from './BoxesSelectorConnected';
-import CellsSelector from './CellsSelector';
-import CellsSelectorConnected from './CellsSelectorConnected';
+import CellsSelectors from './CellsSelectors';
+import CellsSelectorsConnected from './CellsSelectorsConnected';
 
 storiesOf('Position', module)
   .add('Boxes Selector', () => (
@@ -17,6 +17,6 @@ storiesOf('Position', module)
   ))
   .add('Boxes Selector Connected', () => <BoxesSelectorConnected />)
   .add('Cells selector', () => (
-    <CellsSelector selectedBoxes={array('selectedBoxes', [12], ',')} />
+    <CellsSelectors selectedBoxes={array('selectedBoxes', [12], ',')} />
   ))
-  .add('Cells selector Connected', () => <CellsSelectorConnected />);
+  .add('Cells selector Connected', () => <CellsSelectorsConnected />);
