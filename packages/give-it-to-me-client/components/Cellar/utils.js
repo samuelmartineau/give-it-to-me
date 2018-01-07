@@ -16,14 +16,14 @@ const {
 const boxBaseId = 'box-';
 const cellBaseId = 'cell-';
 
-function getBoxId(boxId) {
+export function getBoxId(boxId) {
   return `${boxBaseId}${boxId}`;
 }
-function getCellId(boxId, cellId) {
+export function getCellId(boxId, cellId) {
   return `${boxBaseId}${boxId}-${cellBaseId}${cellId}`;
 }
 
-const getBottleInfos = (box, cell) => {
+export const getBottleInfos = (box, cell) => {
   return {
     cx:
       BOX_BORDER_SIZE +

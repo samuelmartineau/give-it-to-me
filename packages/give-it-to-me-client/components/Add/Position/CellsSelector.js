@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import BoxSchema from '../../Cellar/BoxSchema';
+import BoxSchema from '../../Cellar/Box/BoxSchema';
 import { getAvailableCells } from '../../Cellar/utils';
 
 type CellsSelectorProps = {

@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactFauxDOM from 'react-faux-dom';
 import { withStyles } from 'material-ui/styles';
-import { makeCellarUtils } from './utils';
+import { makeCellarUtils } from '../utils';
 
 let svgContainer = ReactFauxDOM.createElement('svg');
 const { drawBox, drawBottlesInBox, addEventOnCell } = makeCellarUtils(

@@ -2,8 +2,12 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withStyles } from 'material-ui/styles';
-import CellarSchema from '../../Cellar/CellarSchema';
 import { getAvailableBoxes } from '../../Cellar/utils';
+import CellarContainer from '../../Cellar/CellarContainer';
+import CellarBoxes from '../../Cellar/CellarBoxes';
+import CellarBox from '../../Cellar/CellarBox';
+import CellarBoxSelectable from '../../Cellar/CellarBoxSelectable';
+import CellarBottles from '../../Cellar/CellarBottles';
 
 const styles = () => ({});
 
@@ -24,13 +28,17 @@ class BoxesSelector extends React.Component<BoxesSelectorProps> {
     const realBottlesAndSelected = bottles.concat(selectedBottlesStyled);
     const availableBoxes = getAvailableBoxes(bottles);
     return (
-      <div>
-        <CellarSchema
-          bottles={realBottlesAndSelected}
-          onSelect={onSelect}
-          selectableBoxes={availableBoxes}
-        />
-      </div>
+      <CellarContainer>
+        <CellarBoxes>
+          {boxId => {
+            if (availableBoxes.includes(boxId)) {
+              return <CellarBoxSelectable boxId={boxId} onSelect={onSelect} />;
+            }
+            return <CellarBox boxId={boxId} />;
+          }}
+        </CellarBoxes>
+        <CellarBottles bottles={realBottlesAndSelected} />
+      </CellarContainer>
     );
   }
 }
