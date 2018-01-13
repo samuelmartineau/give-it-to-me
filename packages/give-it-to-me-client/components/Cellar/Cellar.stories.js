@@ -25,15 +25,12 @@ storiesOf('Cellar', module)
     <CellarContainer>
       <CellarBoxes>
         {boxId => {
-          if ([0, 1, 2, 3, 23, 24, 25, 42].includes(boxId)) {
-            return (
-              <CellarBoxSelectable
-                boxId={boxId}
-                onSelect={action('on-select')}
-              />
-            );
-          }
-          return <CellarBox boxId={boxId} />;
+          return (
+            <CellarBoxSelectable
+              boxId={boxId}
+              onSelect={action('on-select', boxId)}
+            />
+          );
         }}
       </CellarBoxes>
       <CellarBottlesConnected />
