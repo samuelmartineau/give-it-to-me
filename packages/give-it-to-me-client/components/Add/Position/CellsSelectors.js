@@ -2,9 +2,14 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import CellsSelectorConnected from './CellsSelectorConnected';
+import { cellar } from 'give-it-to-me-config';
+import { range } from 'ramda';
+import { getBoxCells } from '../../Cellar/utils';
+
+const { CELLAR_SCHEMA } = cellar;
+const boxes = range(0, CELLAR_SCHEMA.length);
 
 type CellsSelectorsProps = {
-  selectedBoxes: Array<number>,
   classes: {
     cellSelectors: any
   }
@@ -18,14 +23,16 @@ const styles = () => ({
   }
 });
 
-const CellsSelectors = ({
-  selectedBoxes = [],
-  classes
-}: CellsSelectorsProps) => {
+const CellsSelectors = ({ classes }: CellsSelectorsProps) => {
+  console.log('CellsSelectors');
   return (
     <div className={classes.cellSelectors}>
-      {selectedBoxes.map(boxId => (
-        <CellsSelectorConnected key={boxId} boxId={boxId} />
+      {boxes.map(boxId => (
+        <CellsSelectorConnected
+          key={boxId}
+          boxId={boxId}
+          cellsIds={getBoxCells(boxId)}
+        />
       ))}
     </div>
   );

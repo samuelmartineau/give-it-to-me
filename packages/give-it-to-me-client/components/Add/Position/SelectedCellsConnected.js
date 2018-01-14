@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { getSelectedCells, selectBox } from '../../../store';
+import { getSelectedCells } from '../../../store';
 import SelectedCells from './SelectedCells';
 
 export default compose(
-  connect(state => ({
-    selectedCells: getSelectedCells(state)
-  }))
+  connect(state => {
+    return { selectedCells: getSelectedCells(state) };
+  })
 )(SelectedCells);

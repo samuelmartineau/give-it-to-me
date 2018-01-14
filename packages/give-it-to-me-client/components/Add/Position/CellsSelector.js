@@ -21,20 +21,30 @@ const styles = () => ({
 
 const CellsSelector = ({
   boxId,
-  bottles,
   onSelect,
   onUnselect,
-  selectedCells,
+  selectedCellsInBox,
+  bottlesInBox,
+  cellsIds,
   classes
 }: CellsSelectorProps) => {
-  console.log('test', selectedCells, bottles);
+  console.log('CellsSelector render', boxId);
+  const selectedCells = selectedCellsInBox
+    ? Object.keys(selectedCellsInBox)
+    : [];
+  if (!selectedCells.length) {
+    return null;
+  }
+  const bottles = bottlesInBox
+    ? Object.keys(bottlesInBox).map(cellId => bottlesInBox[cellId])
+    : [];
   const selectedCellsStyled = selectedCells.map(cellId => ({
     cell: cellId,
     box: boxId,
     color: 'blue'
   }));
+
   const realBottlesAndSelected = bottles.concat(selectedCellsStyled);
-  const availableBoxes = getAvailableCells(boxId, bottles);
   return (
     <div className={classes.box}>
       <button onClick={onUnselect}>close</button>

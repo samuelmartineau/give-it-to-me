@@ -67,10 +67,9 @@ export const getBottleById = (state, boxId) => {
   return state[boxId];
 };
 
-export const getBottlesInBox = (state, boxId) =>
-  state[boxId]
-    ? Object.keys(state[boxId]).map(cellId => state[boxId][cellId])
-    : [];
+export const getBottlesInBox = (state, boxId) => state[boxId];
+/*     ? Object.keys(state[boxId]).map(cellId => state[boxId][cellId])
+    : []; */
 
 const reducer = combineReducers({
   map: mapReducer,

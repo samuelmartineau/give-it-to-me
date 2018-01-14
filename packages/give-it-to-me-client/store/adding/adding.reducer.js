@@ -27,7 +27,7 @@ export const getSelectedCells = selectedCells =>
 
 export const getSelectedBoxes = selectedCells => Object.keys(selectedCells);
 export const getSelectedCellsInBox = (selectedCells, boxId) => {
-  return selectedCells[boxId] ? Object.keys(selectedCells[boxId]) : [];
+  return selectedCells[boxId];
 };
 
 const reducer = combineReducers({
