@@ -15,12 +15,16 @@ const {
 } = cellar;
 const boxBaseId = 'box-';
 const cellBaseId = 'cell-';
+const bottleBaseId = 'bottle-';
 
 export function getBoxId(boxId) {
   return `${boxBaseId}${boxId}`;
 }
 export function getCellId(boxId, cellId) {
   return `${boxBaseId}${boxId}-${cellBaseId}${cellId}`;
+}
+export function getBottleId(boxId, cellId) {
+  return `${bottleBaseId}${boxBaseId}${boxId}-${cellBaseId}${cellId}`;
 }
 
 export const getBottleInfos = (box, cell) => {

@@ -17,10 +17,6 @@ export const isLastStep = (state, index) =>
 export const getWineById = (state, wineId) =>
   cellar.getWineById(state.cellar.map, wineId);
 
-export const getSelectedBoxes = state =>
-  adding.getSelectedBoxes(state.adding.selectedCells);
-export const getSelectedCells = state =>
-  adding.getSelectedCells(state.adding.selectedCells);
 export const getCellsUsedInBox = (state, boxId) =>
   bottles.getCellsUsedInBox(state.bottles.cells, boxId);
 export const getBottleById = (state, boxId) =>
@@ -29,3 +25,5 @@ export const getBottlesInBox = (state, boxId) =>
   bottles.getBottlesInBox(state.bottles.cells, boxId);
 export const getSelectedCellsInBox = (state, boxId) =>
   adding.getSelectedCellsInBox(state.adding.selectedCells, boxId);
+export const isCellSelected = (state, boxId, cellId) =>
+  adding.isCellSelected(state.adding.selectedCells, boxId, cellId);

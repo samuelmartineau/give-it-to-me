@@ -19,10 +19,9 @@ export { getCellar, setStep, selectBox, unselectBox } from './actions';
 export {
   isLastStep,
   getWineById,
-  getSelectedBoxes,
-  getSelectedCells,
   getCellsUsedInBox,
   getBottleById,
   getBottlesInBox,
-  getSelectedCellsInBox
+  getSelectedCellsInBox,
+  isCellSelected
 } from './reducer';
