@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import BoxSchema from '../../Cellar/Box/BoxSchema';
 import { getAvailableCells } from '../../Cellar/utils';
 
 type CellsSelectorProps = {
@@ -29,9 +28,7 @@ const CellsSelector = ({
   classes
 }: CellsSelectorProps) => {
   console.log('CellsSelector render', boxId);
-  const selectedCells = selectedCellsInBox
-    ? Object.keys(selectedCellsInBox)
-    : [];
+  const selectedCells = selectedCellsInBox || [];
   if (!selectedCells.length) {
     return null;
   }
@@ -48,13 +45,13 @@ const CellsSelector = ({
   return (
     <div className={classes.box}>
       <button onClick={onUnselect}>close</button>
-      <BoxSchema
+      {/* <BoxSchema
         className={classes.box}
         boxId={boxId}
         bottles={realBottlesAndSelected}
         selectableCells={[]}
         onSelect={onSelect}
-      />
+      /> */}
     </div>
   );
 };
