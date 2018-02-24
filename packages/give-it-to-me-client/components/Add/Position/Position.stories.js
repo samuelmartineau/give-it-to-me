@@ -1,9 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { array } from '@storybook/addon-knobs';
-import BoxesSelector from './BoxesSelector';
-import CellsSelectors from './CellsSelectors';
+import BoxesSelector from './Boxes/BoxesSelector';
+import CellsSelectors from './Cells/CellsSelectors';
 
 storiesOf('Position', module)
   .add('Boxes Selector', () => <BoxesSelector />)

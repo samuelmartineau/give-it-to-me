@@ -6,7 +6,7 @@ import { cellar } from 'give-it-to-me-config';
 const { CELL_SIZE, CELLAR_SCHEMA, FULL_BOX_WIDTH_CELLS } = cellar;
 
 type Props = {
-  children: any,
+  children: Function,
   boxId: number
 };
 

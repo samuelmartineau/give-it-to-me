@@ -1,28 +1,47 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import Bottle from './Bottle';
-import { getBottleInfos, getBottleId } from './utils';
+import Cells from './Cells/Cells';
+import { getBottleByPosition } from '../../store';
+import { getCellId, getBottleInfos, getBottleId } from './utils';
 
-type Props = {
-  bottles: Array<any>
-};
-
-const CellarBottles = ({ bottles = [] }: Props) => {
+const CellarBottles = () => {
   return (
-    <g>
-      {bottles.map(bottle => {
-        const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
+    <Cells>
+      {(boxId, cellId) => {
         return (
-          <Bottle
-            key={getBottleId(bottle.box, bottle.cell)}
-            cx={bottleInfos.cx}
-            cy={bottleInfos.cy}
-            bottle={bottle}
+          <CellConnected
+            key={getCellId(boxId, cellId)}
+            boxId={boxId}
+            cellId={cellId}
           />
         );
-      })}
-    </g>
+      }}
+    </Cells>
   );
 };
 
 export default CellarBottles;
+
+const Cell = ({ bottle, boxId, cellId }) => {
+  if (!bottle) {
+    return null;
+  }
+  const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
+  return (
+    <Bottle
+      key={getBottleId(bottle.box, bottle.cell)}
+      cx={bottleInfos.cx}
+      cy={bottleInfos.cy}
+      bottle={bottle}
+    />
+  );
+};
+
+const CellConnected = compose(
+  connect((state, { boxId, cellId }) => ({
+    bottle: getBottleByPosition(state, boxId, cellId)
+  }))
+)(Cell);

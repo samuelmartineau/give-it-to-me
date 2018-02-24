@@ -4,8 +4,8 @@ import {
   getSelectedCellsInBox,
   getBottlesInBox,
   selectBox
-} from '../../../store';
-import CellarBoxSelectable from '../../Cellar/CellarBoxSelectable';
+} from '../../../../store';
+import CellarBoxSelectable from '../../../Cellar/CellarBoxSelectable';
 
 export default compose(
   connect(

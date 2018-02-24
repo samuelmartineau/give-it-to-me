@@ -23,7 +23,11 @@ export const getBottleById = (state, boxId) =>
   bottles.getBottleById(state.bottles.map, boxId);
 export const getBottlesInBox = (state, boxId) =>
   bottles.getBottlesInBox(state.bottles.cells, boxId);
+export const getBottleByPosition = (state, boxId, cellId) =>
+  bottles.getBottleByPosition(state.bottles.cells, boxId, cellId);
 export const getSelectedCellsInBox = (state, boxId) =>
   adding.getSelectedCellsInBox(state.adding.selectedCells, boxId);
 export const isCellSelected = (state, boxId, cellId) =>
   adding.isCellSelected(state.adding.selectedCells, boxId, cellId);
+export const isBoxSelected = (state, boxId) =>
+  adding.isBoxSelected(state.adding.selectedBoxes, boxId);

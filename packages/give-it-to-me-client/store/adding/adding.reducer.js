@@ -31,6 +31,10 @@ export const selectedCellsReducer = (state = {}, action) => {
   }
 };
 
+export const isBoxSelected = (state, boxId) => {
+  return state.includes(boxId);
+};
+
 export const getSelectedCellsInBox = (selectedCells, boxId) => {
   return selectedCells[boxId];
 };

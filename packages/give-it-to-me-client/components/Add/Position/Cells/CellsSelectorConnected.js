@@ -1,15 +1,10 @@
 import { connect } from 'react-redux';
-import {
-  getSelectedCellsInBox,
-  getBottlesInBox,
-  unselectBox
-} from '../../../store';
+import { isBoxSelected, unselectBox } from '../../../../store';
 import CellsSelector from './CellsSelector';
 
 export default connect(
   (state, { boxId }) => ({
-    selectedCellsInBox: getSelectedCellsInBox(state, boxId),
-    bottlesInBox: getBottlesInBox(state, boxId)
+    isBoxSelected: isBoxSelected(state, boxId)
   }),
   (dispatch, { boxId }) => ({
     onUnselect() {
