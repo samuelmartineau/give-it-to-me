@@ -3,12 +3,18 @@ import { connect } from 'react-redux';
 import { getCellar, reduxPage } from '../store';
 import withRoot from '../components/withRoot';
 import WithLayout from '../components/Layout/WithLayout';
-import CellarSchemaPresentation from '../components/Cellar/CellarSchemaPresentation';
+import CellarContainer from '../components/Cellar/CellarContainer';
+import CellarBoxes from '../components/Cellar/CellarBoxes';
+import CellarBottles from '../components/Cellar/CellarBottles';
+import CellarBox from '../components/Cellar/CellarBox';
 
 const Home = ({ cellar }) => (
   <div>
     {cellar.all.map(id => <i key={id}>{id}</i>)}
-    <CellarSchemaPresentation />
+    <CellarContainer>
+      <CellarBoxes>{boxId => <CellarBox boxId={boxId} />}</CellarBoxes>
+      <CellarBottles />
+    </CellarContainer>
   </div>
 );
 
