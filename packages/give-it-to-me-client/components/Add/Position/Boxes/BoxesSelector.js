@@ -8,7 +8,7 @@ import CellarBottles from '../../../Cellar/CellarBottles';
 import SwitchBox from './SwitchBox';
 import { getCellId } from '../../../Cellar/utils';
 import SelectedCell from './SelectedCell';
-import Cells from '../../../Cellar/Cells/Cells';
+import CellarCells from '../../../Cellar/Cells/CellarCells';
 
 const styles = () => ({});
 
@@ -20,21 +20,19 @@ class BoxesSelector extends React.Component<BoxesSelectorProps> {
       <CellarContainer>
         <CellarBoxes>
           {boxId => {
-            return <SwitchBox boxId={boxId} />;
+            return <SwitchBox key={boxId} boxId={boxId} />;
           }}
         </CellarBoxes>
         <CellarBottles />
-        <Cells>
-          {(boxId, cellId) => {
-            return (
-              <SelectedCell
-                key={getCellId(boxId, cellId)}
-                boxId={boxId}
-                cellId={cellId}
-              />
-            );
-          }}
-        </Cells>
+        <CellarCells>
+          {(boxId, cellId) => (
+            <SelectedCell
+              key={getCellId(boxId, cellId)}
+              boxId={boxId}
+              cellId={cellId}
+            />
+          )}
+        </CellarCells>
       </CellarContainer>
     );
   }

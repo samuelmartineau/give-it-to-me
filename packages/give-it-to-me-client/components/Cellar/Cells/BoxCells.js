@@ -8,18 +8,13 @@ const { CELLAR_SCHEMA } = cellar;
 const boxes = range(0, CELLAR_SCHEMA.length);
 
 type Props = {
+  boxId: number,
   children: Function
 };
 
-const Cells = ({ children = () => {} }: Props) => {
-  return (
-    <g>
-      {boxes.map(boxId => {
-        const cells = getBoxCells(boxId);
-        return cells.map(cellId => children(boxId, cellId));
-      })}
-    </g>
-  );
+const BoxCells = ({ boxId, children = () => {} }: Props) => {
+  const cells = getBoxCells(boxId);
+  return cells.map(cellId => children(cellId));
 };
 
-export default Cells;
+export default BoxCells;

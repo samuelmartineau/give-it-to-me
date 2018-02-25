@@ -213,3 +213,5 @@ export const makeCellarUtils = svgContainer => ({
   addEventOnCell: addEventOnCell(svgContainer),
   clearBottles: clearBottles(svgContainer)
 });
+
+export const boxes = range(0, CELLAR_SCHEMA.length);

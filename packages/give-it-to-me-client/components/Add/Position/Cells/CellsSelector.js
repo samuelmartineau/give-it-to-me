@@ -3,6 +3,8 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import BoxContainer from '../../../Cellar/Box/BoxContainer';
 import BoxCell from '../../../Cellar/Box/BoxCell';
+import BoxBottles from '../../../Cellar/Box/BoxBottles';
+import BoxCells from '../../../Cellar/Cells/BoxCells';
 import { getAvailableCells } from '../../../Cellar/utils';
 
 type CellsSelectorProps = {
@@ -43,14 +45,21 @@ const CellsSelector = ({
   //  const realBottlesAndSelected = bottles.concat(selectedCellsStyled);
 
   console.log(isBoxSelected, boxId);
-  return isBoxSelected ? (
+
+  if (!isBoxSelected) {
+    return null;
+  }
+  return (
     <div className={classes.box}>
       <button onClick={onUnselect}>close</button>
       <BoxContainer boxId={boxId}>
-        {cellId => <BoxCell key={cellId} boxId={boxId} cellId={cellId} />}
+        <BoxCells boxId={boxId}>
+          {cellId => <BoxCell key={cellId} boxId={boxId} cellId={cellId} />}
+        </BoxCells>
+        <BoxBottles boxId={boxId} />
       </BoxContainer>
     </div>
-  ) : null;
+  );
 };
 
 export default withStyles(styles)(CellsSelector);

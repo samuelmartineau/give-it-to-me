@@ -9,3 +9,13 @@ export const unselectBox = boxId => ({
   type: UNSELECT_BOX,
   boxId
 });
+export const selectCell = (boxId, cellId) => ({
+  type: SELECT_BOX,
+  boxId,
+  cellId
+});
+export const unselectCell = (boxId, cellId) => ({
+  type: UNSELECT_BOX,
+  boxId,
+  cellId
+});

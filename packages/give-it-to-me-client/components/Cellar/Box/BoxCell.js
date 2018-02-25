@@ -1,26 +1,20 @@
 // @flow
 import React from 'react';
-import { range } from 'ramda';
 import { cellar } from 'give-it-to-me-config';
 
-const {
-  CELL_SIZE,
-  CELLAR_SCHEMA,
-  CELL_BORDER_SIZE,
-  BOX_BORDER_COLOR,
-  BOX_COLOR
-} = cellar;
+const { CELL_SIZE, CELL_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = cellar;
 
 type Props = {
   cellId: number,
-  boxId: number
+  onSelect: Function
 };
 
-const BoxCell = ({ boxId, cellId }: Props) => {
+const BoxCell = ({ cellId, onSelect = () => {} }: Props) => {
   const column = Math.floor(cellId / 3);
   const row = cellId % 3;
   return (
     <rect
+      onClick={onSelect}
       x={column * CELL_SIZE}
       y={row * CELL_SIZE}
       width={CELL_SIZE}

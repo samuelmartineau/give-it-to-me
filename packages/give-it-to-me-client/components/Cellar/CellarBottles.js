@@ -3,27 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Bottle from './Bottle';
-import Cells from './Cells/Cells';
+import CellarCells from './Cells/CellarCells';
 import { getBottleByPosition } from '../../store';
 import { getCellId, getBottleInfos, getBottleId } from './utils';
-
-const CellarBottles = () => {
-  return (
-    <Cells>
-      {(boxId, cellId) => {
-        return (
-          <CellConnected
-            key={getCellId(boxId, cellId)}
-            boxId={boxId}
-            cellId={cellId}
-          />
-        );
-      }}
-    </Cells>
-  );
-};
-
-export default CellarBottles;
 
 const Cell = ({ bottle, boxId, cellId }) => {
   if (!bottle) {
@@ -40,8 +22,24 @@ const Cell = ({ bottle, boxId, cellId }) => {
   );
 };
 
-const CellConnected = compose(
-  connect((state, { boxId, cellId }) => ({
-    bottle: getBottleByPosition(state, boxId, cellId)
-  }))
-)(Cell);
+const CellConnected = connect((state, { boxId, cellId }) => ({
+  bottle: getBottleByPosition(state, boxId, cellId)
+}))(Cell);
+
+const CellarBottles = () => {
+  return (
+    <CellarCells>
+      {(boxId, cellId) => {
+        return (
+          <CellConnected
+            key={getCellId(boxId, cellId)}
+            boxId={boxId}
+            cellId={cellId}
+          />
+        );
+      }}
+    </CellarCells>
+  );
+};
+
+export default CellarBottles;

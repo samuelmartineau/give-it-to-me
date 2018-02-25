@@ -8,26 +8,19 @@ import {
 import CellarBox from '../../../Cellar/CellarBox';
 import CellarBoxSelectable from '../../../Cellar/CellarBoxSelectable';
 
-const SelectBox = connect(
-  () => {},
-  dispatch => ({
-    onSelect: boxId => {
-      dispatch(selectBox(boxId));
-    }
-  })
-)(CellarBoxSelectable);
+const SelectBox = connect(null, dispatch => ({
+  onSelect: boxId => {
+    dispatch(selectBox(boxId));
+  }
+}))(CellarBoxSelectable);
 
-const UnSelectBox = connect(
-  () => {},
-  dispatch => ({
-    onSelect: boxId => {
-      dispatch(unselectBox(boxId));
-    }
-  })
-)(CellarBoxSelectable);
+const UnSelectBox = connect(null, dispatch => ({
+  onSelect: boxId => {
+    dispatch(unselectBox(boxId));
+  }
+}))(CellarBoxSelectable);
 
 const SelectableBoxSwitch = ({ isBoxSelected, isBoxSelectable, boxId }) => {
-  console.log('switch', boxId, isBoxSelected, isBoxSelectable);
   if (isBoxSelected) {
     return <UnSelectBox boxId={boxId} />;
   } else if (isBoxSelectable) {

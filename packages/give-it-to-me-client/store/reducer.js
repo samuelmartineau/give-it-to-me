@@ -36,6 +36,10 @@ export const isBoxSelectable = (state, boxId) => {
   const alreadySelected = isBoxSelected(state, boxId);
   const bottles = getCellsUsedInBox(state, boxId);
   const cells = getBoxCells(boxId);
-  console.log(alreadySelected, cells, bottles);
   return !alreadySelected && cells.length > bottles.length;
+};
+export const isCellSelectable = (state, boxId, cellId) => {
+  const alreadySelected = isCellSelected(state, boxId, cellId);
+  const cellIds = getCellsUsedInBox(state, boxId);
+  return !alreadySelected && !cellIds.includes(cellId);
 };

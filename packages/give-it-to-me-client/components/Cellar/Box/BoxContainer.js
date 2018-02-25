@@ -1,12 +1,11 @@
 // @flow
 import React from 'react';
 import { cellar } from 'give-it-to-me-config';
-import { getBoxCells } from '../utils';
 
 const { CELL_SIZE, CELLAR_SCHEMA, FULL_BOX_WIDTH_CELLS } = cellar;
 
 type Props = {
-  children: Function,
+  children: any,
   boxId: number
 };
 
@@ -21,7 +20,7 @@ const BoxContainer = ({ boxId, children }: Props) => {
       height={canvasHeigh}
       viewBox={`0 0 ${canvasWidth} ${canvasHeigh}`}
     >
-      <g>{getBoxCells(boxId).map(cellId => children(cellId))}</g>
+      {children}
     </svg>
   );
 };

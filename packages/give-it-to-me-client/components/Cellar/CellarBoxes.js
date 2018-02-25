@@ -1,13 +1,9 @@
 // @flow
 import React from 'react';
-import { cellar } from 'give-it-to-me-config';
-import { range } from 'ramda';
-
-const { CELLAR_SCHEMA } = cellar;
-const boxes = range(0, CELLAR_SCHEMA.length);
+import { boxes } from './utils';
 
 type Props = {
-  children: any
+  children: Function
 };
 
 const CellarBoxes = ({ children }: Props) => {
