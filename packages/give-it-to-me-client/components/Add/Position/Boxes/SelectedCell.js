@@ -1,18 +1,13 @@
 // @flow
 import React from 'react';
-import { cellar } from 'give-it-to-me-config';
-import { range } from 'ramda';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { isCellSelected } from '../../../../store';
 import Bottle from '../../../Cellar/Bottle';
 import { getBottleInfos } from '../../../Cellar/utils';
 
-const { CELLAR_SCHEMA } = cellar;
-const boxes = range(0, CELLAR_SCHEMA.length);
-
 type Props = {
-  selectedCells: Array<any>
+  selected: Bool
 };
 
 const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {

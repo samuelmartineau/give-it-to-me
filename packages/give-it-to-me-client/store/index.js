@@ -25,5 +25,6 @@ export {
   getSelectedCellsInBox,
   isCellSelected,
   isBoxSelected,
-  getBottleByPosition
+  getBottleByPosition,
+  isBoxSelectable
 } from './reducer';

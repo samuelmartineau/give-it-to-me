@@ -6,7 +6,6 @@ import CellarBoxes from './CellarBoxes';
 import CellarBox from './CellarBox';
 import CellarBoxSelectable from './CellarBoxSelectable';
 import CellarBottles from './CellarBottles';
-import CellarBottlesConnected from './CellarBottlesConnected';
 
 storiesOf('Cellar', module)
   .add('Presentation', () => (
@@ -18,7 +17,7 @@ storiesOf('Cellar', module)
   .add('Connected', () => (
     <CellarContainer>
       <CellarBoxes>{boxId => <CellarBox boxId={boxId} />}</CellarBoxes>
-      <CellarBottlesConnected />
+      <CellarBottles />
     </CellarContainer>
   ))
   .add('Selection', () => (
@@ -33,6 +32,6 @@ storiesOf('Cellar', module)
           );
         }}
       </CellarBoxes>
-      <CellarBottlesConnected />
+      <CellarBottles />
     </CellarContainer>
   ));

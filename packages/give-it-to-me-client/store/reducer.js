@@ -3,6 +3,7 @@ import cellarReducer, * as cellar from './cellar/cellar.reducer';
 import bottlesReducer, * as bottles from './bottles/bottles.reducer';
 import stepperReducer, * as stepper from './stepper/stepper.reducer';
 import addingReducer, * as adding from './adding/adding.reducer';
+import { getBoxCells } from '../components/Cellar/utils';
 
 export default combineReducers({
   cellar: cellarReducer,
@@ -31,3 +32,10 @@ export const isCellSelected = (state, boxId, cellId) =>
   adding.isCellSelected(state.adding.selectedCells, boxId, cellId);
 export const isBoxSelected = (state, boxId) =>
   adding.isBoxSelected(state.adding.selectedBoxes, boxId);
+export const isBoxSelectable = (state, boxId) => {
+  const alreadySelected = isBoxSelected(state, boxId);
+  const bottles = getCellsUsedInBox(state, boxId);
+  const cells = getBoxCells(boxId);
+  console.log(alreadySelected, cells, bottles);
+  return !alreadySelected && cells.length > bottles.length;
+};
