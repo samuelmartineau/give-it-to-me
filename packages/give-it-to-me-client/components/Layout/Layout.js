@@ -42,14 +42,18 @@ const styleSheet = theme => ({
   primary: {
     color: theme.palette.primary[500]
   },
-  [theme.breakpoints.up('lg')]: {
-    appBarShift: {
+  appBarShift: {
+    [theme.breakpoints.up('lg')]: {
       width: 'calc(100% - 250px)'
-    },
-    drawer: {
-      width: '250px'
-    },
-    navIconHide: {
+    }
+  },
+  drawer: {
+    [theme.breakpoints.up('lg')]: {
+      width: 250
+    }
+  },
+  navIconHide: {
+    [theme.breakpoints.up('lg')]: {
       display: 'none'
     }
   }
@@ -66,7 +70,6 @@ type AppFrameProps = {
 };
 
 const AppFrame = ({
-  width,
   classes,
   title,
   children,
@@ -74,8 +77,6 @@ const AppFrame = ({
   handleDrawerClose,
   drawerOpen
 }: AppFrameProps) => {
-  const drawerDocked = isWidthUp('lg', width);
-
   const drawer = (
     <div className="">
       <Toolbar className="">
@@ -93,7 +94,7 @@ const AppFrame = ({
       <AppBar className={classNames(classes.appBar, classes.appBarShift)}>
         <Toolbar>
           <IconButton
-            color="contrast"
+            color="inherit"
             onClick={handleDrawerToggle}
             className={classNames(classes.icon, classes.navIconHide)}
           >
@@ -108,16 +109,17 @@ const AppFrame = ({
         <Hidden lgUp>
           <Drawer
             classes={{ paper: classes.paper }}
-            type="temporary"
-            open={drawerDocked || drawerOpen}
+            variant="temporary"
+            open={drawerOpen}
             onClose={handleDrawerClose}
             ModalProps={{ keepMounted: true }}
           >
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden lgDown implementation="css">
-          <Drawer classes={{ paper: classes.paper }} type="permanent" open>
+        <Hidden mdDown>
+          <h1>sam sam 2</h1>
+          <Drawer classes={{ paper: classes.paper }} variant="permanent" open>
             {drawer}
           </Drawer>
         </Hidden>
@@ -139,8 +141,7 @@ const Layout = compose(
       setModalStatus(open => !open)
   }),
   withStyles(styleSheet),
-  withWidth(),
-  pure
+  withWidth()
 )(AppFrame);
 
 export default Layout;
