@@ -8,30 +8,36 @@ import {
 import BoxCell from '../../../Cellar/Box/BoxCell';
 import BoxCellSelectable from '../../../Cellar/Box/BoxCellSelectable';
 
-const SelectCell = connect(null, dispatch => ({
-  onSelect: boxId => {
-    dispatch(selectCell(boxId));
+const SelectCell = connect(null, (dispatch, { boxId, cellId }) => ({
+  onSelect: () => {
+    dispatch(selectCell(boxId, cellId));
   }
 }))(BoxCellSelectable);
 
-const UnSelectCell = connect(null, dispatch => ({
-  onSelect: boxId => {
-    dispatch(unselectCell(boxId));
+const UnSelectCell = connect(null, (dispatch, { boxId, cellId }) => ({
+  onSelect: () => {
+    dispatch(unselectCell(boxId, cellId));
   }
 }))(BoxCellSelectable);
+
+type SelectableBoxSwitchProps = {
+  boxId: number,
+  cellId: number,
+  isCellSelected: boolean,
+  isCellSelectable: boolean
+};
 
 const SelectableBoxSwitch = ({
   isCellSelected,
   isCellSelectable,
   boxId,
   cellId
-}) => {
+}: SelectableBoxSwitchProps) => {
   console.log(
-    'SelectableBoxSwitch',
+    'isCellSelected',
     isCellSelected,
-    isCellSelectable,
-    boxId,
-    cellId
+    'isCellSelectable',
+    isCellSelectable
   );
   if (isCellSelected) {
     return <UnSelectCell boxId={boxId} cellId={cellId} />;

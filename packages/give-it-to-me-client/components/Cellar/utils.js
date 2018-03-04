@@ -30,7 +30,7 @@ export const getBottleInfos = (box, cell) => {
       CELL_SIZE / 2,
     cxRelative: Math.floor(cell / 3) * CELL_SIZE + CELL_SIZE / 2,
     cyRelative: (cell % 3) * CELL_SIZE + CELL_SIZE / 2,
-    radius: CELL_SIZE / 2
+    radius: CELL_SIZE / 2 - 0.1
   };
 };
 const getCellsCountFromSchema = schema => {

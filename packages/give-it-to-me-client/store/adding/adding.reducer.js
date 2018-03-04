@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
-import { SELECT_BOX, UNSELECT_BOX } from './adding.types';
+import {
+  SELECT_BOX,
+  UNSELECT_BOX,
+  SELECT_CELL,
+  UNSELECT_CELL
+} from './adding.types';
 import { omit } from 'ramda';
 
 export const selectedBoxesReducer = (state = [], action) => {
@@ -22,10 +27,18 @@ export const selectedCellsReducer = (state = {}, action) => {
     case UNSELECT_BOX: {
       return omit([action.boxId], state);
     }
-    // case UNSELECT_CELL: {
-    //   const { [action.boxId]: _, ...rest } = state;
-    //   return rest;
-    // }
+    case SELECT_CELL: {
+      return {
+        ...state,
+        [action.boxId]: state[action.boxId].concat(action.cellId)
+      };
+    }
+    case UNSELECT_CELL: {
+      return {
+        ...state,
+        [action.boxId]: state[action.boxId].filter(id => id !== action.cellId)
+      };
+    }
     default:
       return state;
   }
@@ -39,7 +52,7 @@ export const getSelectedCellsInBox = (selectedCells, boxId) => {
   return selectedCells[boxId];
 };
 export const isCellSelected = (state, boxId, cellId) => {
-  return state[boxId] && state[boxId].includes(String(cellId));
+  return state[boxId] && state[boxId].includes(cellId);
 };
 
 const reducer = combineReducers({

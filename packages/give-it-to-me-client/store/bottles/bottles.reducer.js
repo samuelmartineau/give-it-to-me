@@ -60,7 +60,9 @@ export const cellsReducer = (state = {}, action) => {
 };
 
 export const getCellsUsedInBox = (state, boxId) => {
-  return state[boxId] ? Object.keys(state[boxId]) : [];
+  return state[boxId]
+    ? Object.keys(state[boxId]).map(id => parseInt(id, 10))
+    : [];
 };
 
 export const getBottleById = (state, boxId) => {
