@@ -19,7 +19,6 @@ const styles = () => ({
 });
 
 const CellsSelectors = ({ classes }: CellsSelectorsProps) => {
-  console.log('CellsSelectors');
   return (
     <div className={classes.cellSelectors}>
       {boxes.map(boxId => <BoxFilter key={boxId} boxId={boxId} />)}

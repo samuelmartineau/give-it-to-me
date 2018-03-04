@@ -15,7 +15,14 @@ export const makeStore = initialState => {
 
 export const reduxPage = withRedux(makeStore);
 
-export { getCellar, setStep, selectBox, unselectBox } from './actions';
+export {
+  getCellar,
+  setStep,
+  selectBox,
+  unselectBox,
+  selectCell,
+  unselectCell
+} from './actions';
 export {
   isLastStep,
   getWineById,

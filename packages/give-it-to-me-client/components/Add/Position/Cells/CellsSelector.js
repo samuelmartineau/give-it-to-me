@@ -2,9 +2,11 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import BoxContainer from '../../../Cellar/Box/BoxContainer';
-import BoxCell from '../../../Cellar/Box/BoxCell';
 import BoxBottles from '../../../Cellar/Box/BoxBottles';
 import BoxCells from '../../../Cellar/Cells/BoxCells';
+import SwitchCell from './SwitchCell';
+import SelectedCell from './SelectedCell';
+import { getCellId } from '../../../Cellar/utils';
 import { getAvailableCells } from '../../../Cellar/utils';
 
 type CellsSelectorProps = {
@@ -54,9 +56,18 @@ const CellsSelector = ({
       <button onClick={onUnselect}>close</button>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
-          {cellId => <BoxCell key={cellId} boxId={boxId} cellId={cellId} />}
+          {cellId => <SwitchCell key={cellId} boxId={boxId} cellId={cellId} />}
         </BoxCells>
         <BoxBottles boxId={boxId} />
+        <BoxCells boxId={boxId}>
+          {cellId => (
+            <SelectedCell
+              key={getCellId(boxId, cellId)}
+              boxId={boxId}
+              cellId={cellId}
+            />
+          )}
+        </BoxCells>
       </BoxContainer>
     </div>
   );

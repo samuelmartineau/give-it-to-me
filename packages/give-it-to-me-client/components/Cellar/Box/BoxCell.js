@@ -10,6 +10,7 @@ type Props = {
 };
 
 const BoxCell = ({ cellId, onSelect = () => {} }: Props) => {
+  console.log('cellId', cellId);
   const column = Math.floor(cellId / 3);
   const row = cellId % 3;
   return (
