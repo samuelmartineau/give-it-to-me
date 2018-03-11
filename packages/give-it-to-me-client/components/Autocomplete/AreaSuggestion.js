@@ -11,6 +11,7 @@ const AreaSuggestion = ({ onSuggestionSelected }) => (
   <Autocomplete
     datas={AreasFormated}
     onSuggestionSelected={onSuggestionSelected}
+    placeholder="Commncer à taper le nom de l'AOC"
   />
 );
 

@@ -146,7 +146,7 @@ class AutoComplete extends React.Component {
         inputProps={{
           autoFocus: true,
           classes,
-          placeholder: 'Search a country (start with a)',
+          placeholder: this.props.placeholder,
           value: value,
           onChange: this.onChange
         }}
