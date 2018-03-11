@@ -26,7 +26,6 @@ export const unselectCell = (boxId, cellId) => {
   return (dispatch, getState) => {
     const state = getState();
     const cellsSelected = getSelectedCellsInBox(state, boxId);
-    console.log('cellsSelected', cellsSelected);
 
     if (cellsSelected.length === 1) {
       return dispatch(adding.unselectBox(boxId));

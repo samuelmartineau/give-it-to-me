@@ -33,12 +33,6 @@ const SelectableBoxSwitch = ({
   boxId,
   cellId
 }: SelectableBoxSwitchProps) => {
-  console.log(
-    'isCellSelected',
-    isCellSelected,
-    'isCellSelectable',
-    isCellSelectable
-  );
   if (isCellSelected) {
     return <UnSelectCell boxId={boxId} cellId={cellId} />;
   } else if (isCellSelectable) {

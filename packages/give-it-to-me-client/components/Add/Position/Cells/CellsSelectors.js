@@ -10,11 +10,25 @@ type CellsSelectorsProps = {
   }
 };
 
-const styles = () => ({
+const styles = theme => ({
   cellSelectors: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gridGap: '10px'
+    gridGap: '10px',
+    [theme.breakpoints.only('xs')]: {
+      gridTemplateColumns: 'repeat(1, auto)'
+    },
+    [theme.breakpoints.only('sm')]: {
+      gridTemplateColumns: 'repeat(2, auto)'
+    },
+    [theme.breakpoints.only('md')]: {
+      gridTemplateColumns: 'repeat(4, auto)'
+    },
+    [theme.breakpoints.only('lg')]: {
+      gridTemplateColumns: 'repeat(3, auto)'
+    },
+    [theme.breakpoints.only('xl')]: {
+      gridTemplateColumns: 'repeat(5, auto)'
+    }
   }
 });
 

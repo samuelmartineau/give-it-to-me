@@ -7,7 +7,6 @@ import BoxCells from '../../../Cellar/Cells/BoxCells';
 import SwitchCell from './SwitchCell';
 import SelectedCell from './SelectedCell';
 import { getCellId } from '../../../Cellar/utils';
-import { getAvailableCells } from '../../../Cellar/utils';
 
 type CellsSelectorProps = {
   boxId: number,
@@ -17,7 +16,8 @@ type CellsSelectorProps = {
   classes: {
     box: any,
     onSelect: Function
-  }
+  },
+  isBoxSelected: boolean
 };
 
 const styles = () => ({
@@ -30,24 +30,6 @@ const CellsSelector = ({
   onUnselect,
   classes
 }: CellsSelectorProps) => {
-  console.log('CellsSelector render', boxId);
-  // const selectedCells = selectedCellsInBox || [];
-  // if (!selectedCells.length) {
-  //   return null;
-  // }
-  // const bottles = bottlesInBox
-  //   ? Object.keys(bottlesInBox).map(cellId => bottlesInBox[cellId])
-  //   : [];
-  // const selectedCellsStyled = selectedCells.map(cellId => ({
-  //   cell: cellId,
-  //   box: boxId,
-  //   color: 'blue'
-  // }));
-
-  //  const realBottlesAndSelected = bottles.concat(selectedCellsStyled);
-
-  console.log(isBoxSelected, boxId);
-
   if (!isBoxSelected) {
     return null;
   }
