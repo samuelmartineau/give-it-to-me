@@ -126,7 +126,7 @@ class AutoComplete extends React.Component {
 
   render() {
     const { suggestions, value } = this.state;
-    const { classes, onSuggestionSelected } = this.props;
+    const { classes, onSuggestionSelected, placeholder, name } = this.props;
     return (
       <Autosuggest
         theme={{
@@ -146,7 +146,7 @@ class AutoComplete extends React.Component {
         inputProps={{
           autoFocus: true,
           classes,
-          placeholder: this.props.placeholder,
+          placeholder,
           value: value,
           onChange: this.onChange
         }}
