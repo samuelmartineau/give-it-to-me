@@ -17,14 +17,14 @@ class PositionStep extends React.Component {
   render() {
     const { checked } = this.state;
     return (
-      <div>
+      <React.Fragment>
         <FormControlLabel
           control={<Switch checked={checked} onChange={this.toggleMode} />}
           label="Les bouteilles sont-elles dans les caisses?"
         />
         {checked && <PositionDescription />}
         {!checked && <PositionSelector />}
-      </div>
+      </React.Fragment>
     );
   }
 }

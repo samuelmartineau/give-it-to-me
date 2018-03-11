@@ -4,7 +4,7 @@ import AreaSuggestion from '../Autocomplete/AreaSuggestion';
 
 const MetaStep = () => {
   return (
-    <div>
+    <React.Fragment>
       <TextField
         label="Nom"
         placeholder="Domaine de ..."
@@ -26,7 +26,7 @@ const MetaStep = () => {
         margin="normal"
       />
       <AreaSuggestion onSuggestionSelected={console.log} />
-    </div>
+    </React.Fragment>
   );
 };
 
