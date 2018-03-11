@@ -69,7 +69,9 @@ const styles = theme => ({
     listStyleType: 'none'
   },
   textField: {
-    width: '100%'
+    width: '100%',
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit
   }
 });
 
