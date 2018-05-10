@@ -47,10 +47,10 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.2.16",
-    "@storybook/addon-knobs": "^3.2.16",
-    "@storybook/addon-options": "3.2.16",
-    "@storybook/react": "3.2.16",
+    "@storybook/addon-actions": "^3.4.3",
+    "@storybook/addon-knobs": "^3.4.3",
+    "@storybook/addon-options": "^3.4.3",
+    "@storybook/react": "^3.4.3",
     "babel-eslint": "^8.0.2",
     "babel-plugin-root-import": "^5.1.0",
     "babel-plugin-styled-components": "^1.5.1",
