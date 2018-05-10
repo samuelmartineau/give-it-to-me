@@ -1,17 +1,16 @@
 import { compose, setDisplayName, withProps } from 'recompose';
-import { getCellar, reduxPage, setStep } from '../../store';
-import withRoot from '../../components/withRoot';
-import WithLayout from '../../components/Layout/WithLayout';
-import AddSteps from '../../components/Add/AddSteps';
+import { getCellar } from '../../client/store';
+import WithLayout from '../../client/components/Layout/WithLayout';
+
+const Add = () => <div>add wine</div>;
 
 const AddWithLayout = compose(
   setDisplayName('AddPage'),
   withProps({
     title: 'Ajouter une nouvelle bouteille'
   }),
-  withRoot,
   WithLayout
-)(AddSteps);
+)(Add);
 
 AddWithLayout.getInitialProps = async ({ store }) => {
   const result = await store.dispatch(getCellar());
@@ -20,4 +19,4 @@ AddWithLayout.getInitialProps = async ({ store }) => {
   };
 };
 
-export default reduxPage(AddWithLayout);
+export default AddWithLayout;

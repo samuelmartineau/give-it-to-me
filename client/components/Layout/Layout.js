@@ -1,63 +1,16 @@
 // @flow
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import classNames from 'classnames';
-import Typography from 'material-ui/Typography';
-import Drawer from 'material-ui/Drawer';
-import Hidden from 'material-ui/Hidden';
+import styled, { injectGlobal } from 'styled-components';
 import { compose, withState, withHandlers, pure } from 'recompose';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import Divider from 'material-ui/Divider';
-import { withStyles } from 'material-ui/styles';
-import withWidth, { isWidthUp } from 'material-ui/utils/withWidth';
-import Menu from './Menu';
 
-const styleSheet = theme => ({
-  layout: {
-    display: 'flex',
-    alignItems: 'stretch',
-    minHeight: '100vh',
-    width: '100%'
-  },
-  paper: {
-    width: 250,
-    backgroundColor: theme.palette.background.paper
-  },
-  appBar: {
-    transition: theme.transitions.create('width')
-  },
-  content: theme.mixins.gutters({
-    paddingTop: 80,
-    flex: '1 1 100%',
-    maxWidth: '100%',
-    margin: '0 auto'
-  }),
-  [theme.breakpoints.up(948)]: {
-    content: {
-      maxWidth: 900
-    }
-  },
-  primary: {
-    color: theme.palette.primary[500]
-  },
-  appBarShift: {
-    [theme.breakpoints.up('lg')]: {
-      width: 'calc(100% - 250px)'
-    }
-  },
-  drawer: {
-    [theme.breakpoints.up('lg')]: {
-      width: 250
-    }
-  },
-  navIconHide: {
-    [theme.breakpoints.up('lg')]: {
-      display: 'none'
-    }
+import Header from './Header';
+
+injectGlobal`
+  body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
   }
-});
+`;
 
 type AppFrameProps = {
   width: Number,
@@ -69,66 +22,25 @@ type AppFrameProps = {
   drawerOpen: boolean
 };
 
+const App = styled.div`
+  background: green;
+`;
+const Main = styled.div`
+  background: red;
+`;
+
 const AppFrame = ({
-  classes,
   title,
   children,
   handleDrawerToggle,
   handleDrawerClose,
   drawerOpen
 }: AppFrameProps) => {
-  const drawer = (
-    <div className="">
-      <Toolbar className="">
-        <Typography type="title" gutterBottom color="inherit">
-          Give It To Me
-        </Typography>
-        <Divider absolute />
-      </Toolbar>
-      <Menu />
-    </div>
-  );
-
   return (
-    <div className={classes.layout}>
-      <AppBar className={classNames(classes.appBar, classes.appBarShift)}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            onClick={handleDrawerToggle}
-            className={classNames(classes.icon, classes.navIconHide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit" className="">
-            {title}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.drawer}>
-        <Hidden lgUp>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            variant="temporary"
-            open={drawerOpen}
-            onClose={handleDrawerClose}
-            ModalProps={{ keepMounted: true }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden mdDown>
-          <h1>sam sam 2</h1>
-          <Drawer classes={{ paper: classes.paper }} variant="permanent" open>
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </div>
-
-      <div className={classNames(classes.content, classes.root)}>
-        {children}
-      </div>
-    </div>
+    <App>
+      <Header>title {title}</Header>
+      <Main>{children}</Main>
+    </App>
   );
 };
 
@@ -139,9 +51,7 @@ const Layout = compose(
       setModalStatus(() => false),
     handleDrawerToggle: ({ setModalStatus }) => () =>
       setModalStatus(open => !open)
-  }),
-  withStyles(styleSheet),
-  withWidth()
+  })
 )(AppFrame);
 
 export default Layout;

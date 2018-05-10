@@ -2,7 +2,7 @@ import { compose, setDisplayName, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { getCellar } from '../client/store';
 // import withRoot from '../components/withRoot';
-// import WithLayout from '../components/Layout/WithLayout';
+import WithLayout from '../client/components/Layout/WithLayout';
 // import CellarContainer from '../components/Cellar/CellarContainer';
 // import CellarBoxes from '../components/Cellar/CellarBoxes';
 // import CellarBottles from '../components/Cellar/CellarBottles';
@@ -26,9 +26,8 @@ const HomeWithLayout = compose(
   setDisplayName('HomePage'),
   withProps({
     title: 'Mon activé'
-  })
-  // withRoot,
-  // WithLayout
+  }),
+  WithLayout
 )(HomeConnected);
 
 HomeWithLayout.getInitialProps = async ({ store }) => {
