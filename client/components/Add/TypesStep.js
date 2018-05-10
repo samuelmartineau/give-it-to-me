@@ -1,5 +1,4 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
 
@@ -126,5 +125,3 @@ class TypesStep extends React.Component {
     );
   }
 }
-
-export default withStyles(styles)(TypesStep);

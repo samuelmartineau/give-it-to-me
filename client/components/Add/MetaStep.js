@@ -1,12 +1,14 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
 import AreaSuggestion from '../Autocomplete/AreaSuggestion';
+
+const TextField = styled.input``;
 
 class MetaStep extends React.Component {
   state = {
     model: {
       name: '',
-      year: null,
+      year: '',
       source: '',
       area: ''
     }
@@ -22,11 +24,13 @@ class MetaStep extends React.Component {
 
   handleField = evt => {
     const { value, name } = evt.target;
-    this.setState(() => ({ model: { [name]: value } }));
+    this.setState(({ model }) => ({ model: { ...model, [name]: value } }));
   };
 
   handleArea = (event, { suggestion }) => {
-    this.setState(() => ({ model: { area: suggestion.original.id } }));
+    this.setState(({ model }) => ({
+      model: { ...model, area: suggestion.original.id }
+    }));
   };
 
   submit() {
@@ -39,8 +43,6 @@ class MetaStep extends React.Component {
         {...props}
         onChange={this.handleField}
         value={this.state.model[props.name]}
-        fullWidth
-        margin="normal"
       />
     );
   };
@@ -52,31 +54,25 @@ class MetaStep extends React.Component {
           name: 'name',
           label: 'Nom',
           required: true,
-          inputProps: { required: true },
           placeholder: 'Domaine de ...'
         })}
 
-        <TextField
-          model={this.state.model}
-          name="year"
-          type="number"
-          label="Année"
-          required
-          inputProps={{ required: true }}
-          placeholder="2014"
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          name="source"
-          type="text"
-          label="Provenance"
-          placeholder="France"
-          fullWidth
-          margin="normal"
-        />
+        {this.buildField({
+          name: 'year',
+          type: 'number',
+          label: 'Année',
+          required: true,
+          placeholder: '2014'
+        })}
+        {this.buildField({
+          name: 'source',
+          type: 'text',
+          label: 'Provenance',
+
+          placeholder: 'France'
+        })}
         <AreaSuggestion
-          selected={[this.state.model.area]}
+          selected={this.state.model.area}
           onSuggestionSelected={this.handleArea}
         />
         <button type="submit">Submit</button>

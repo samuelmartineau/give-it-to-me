@@ -1,47 +1,51 @@
 import React from 'react';
-import { compose } from 'recompose';
 import Autosuggest from 'react-autosuggest';
 import { utils } from '~/config';
 import fuzzy from 'fuzzy';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
-import { MenuItem } from 'material-ui/Menu';
-import { withStyles } from 'material-ui/styles';
+import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 
-function renderInput({ classes, autoFocus, value, ref, ...other }) {
-  return (
-    <TextField
-      autoFocus={autoFocus}
-      className={classes.textField}
-      value={value}
-      inputRef={ref}
-      InputProps={{
-        classes: {
-          input: classes.input
-        },
-        ...other
-      }}
-    />
-  );
+const TextField = styled.input`
+  width: '100%';
+  margin: 5px;
+`;
+
+const classNames = {
+  // container: 'react-autosuggest__container',
+  // containerOpen: 'react-autosuggest__input'
+};
+
+// container: classes.container,
+//   suggestionsContainerOpen: classes.suggestionsContainerOpen,
+//     suggestionsList: classes.suggestionsList,
+//       suggestion: classes.suggestion
+
+const AutosuggestWrapper = styled.div.attrs(classNames)`
+  .${classNames.container} {
+    // Some styles here
+  }
+  .${classNames.input} {
+    // Some styles here
+  }
+}
+`;
+
+function renderInput(inputProps) {
+  return <TextField {...inputProps} />;
 }
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   return (
-    <MenuItem selected={isHighlighted} component="div">
+    <div>
       <span dangerouslySetInnerHTML={{ __html: suggestion.string }} />
-    </MenuItem>
+    </div>
   );
 }
 
 function renderSuggestionsContainer(options) {
   const { containerProps, children } = options;
 
-  return (
-    <Paper {...containerProps} square>
-      {children}
-    </Paper>
-  );
+  return <div {...containerProps}>{children}</div>;
 }
 
 function getSuggestionValue(suggestion) {
@@ -126,33 +130,31 @@ class AutoComplete extends React.Component {
 
   render() {
     const { suggestions, value } = this.state;
-    const { classes, onSuggestionSelected, placeholder, name } = this.props;
+    const { onSuggestionSelected, placeholder, name } = this.props;
     return (
-      <Autosuggest
-        theme={{
-          container: classes.container,
-          suggestionsContainerOpen: classes.suggestionsContainerOpen,
-          suggestionsList: classes.suggestionsList,
-          suggestion: classes.suggestion
-        }}
-        renderInputComponent={renderInput}
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        renderSuggestionsContainer={renderSuggestionsContainer}
-        getSuggestionValue={getSuggestionValue}
-        onSuggestionSelected={onSuggestionSelected}
-        renderSuggestion={renderSuggestion}
-        inputProps={{
-          autoFocus: true,
-          classes,
-          placeholder,
-          value: value,
-          onChange: this.onChange
-        }}
-      />
+      <AutosuggestWrapper>
+        <Autosuggest
+          theme={classNames}
+          focusInputOnSuggestionClick={false}
+          renderInputComponent={renderInput}
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          renderSuggestionsContainer={renderSuggestionsContainer}
+          getSuggestionValue={getSuggestionValue}
+          onSuggestionSelected={onSuggestionSelected}
+          renderSuggestion={renderSuggestion}
+          inputProps={{
+            type: 'text',
+            autoFocus: true,
+            placeholder,
+            value,
+            onChange: this.onChange
+          }}
+        />
+      </AutosuggestWrapper>
     );
   }
 }
 
-export default compose(withStyles(styles))(AutoComplete);
+export default AutoComplete;
