@@ -14,7 +14,7 @@ type ImageProps = {
   className: String
 };
 
-export default class Image extends React.Component<ImageProps> {
+export class Image extends React.Component<ImageProps> {
   static scrollFunction;
 
   constructor(props) {

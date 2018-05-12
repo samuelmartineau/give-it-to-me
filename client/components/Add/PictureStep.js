@@ -1,20 +1,12 @@
 import React from 'react';
-import Spinner from '../Layout/Spinner';
-import Button from 'material-ui/Button';
-import Delete from 'material-ui-icons/Delete';
-import { withStyles } from 'material-ui/styles';
-import Upload from './Upload/Upload';
+import { Spinner } from '../Layout/Spinner';
+import { Upload } from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
 import { PICTURE_UPLOAD, API_URL } from '~/config';
-import Image from '../Image/Image';
+import { Image } from '../Image/Image';
+import { Button } from '~/client/components/Toolkit';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  }
-});
-
-class PictureStep extends React.Component {
+export class PictureStep extends React.Component {
   state = {
     isUploaded: false,
     isUploading: false
@@ -43,7 +35,6 @@ class PictureStep extends React.Component {
 
   render() {
     const { isUploaded, isUploading, result } = this.state;
-    const { classes } = this.props;
     let render;
 
     if (isUploaded) {
@@ -62,14 +53,9 @@ class PictureStep extends React.Component {
             lazyLoader={result.blur}
             delay={1000}
           />
-          <Button
-            onClick={this.resetUpload}
-            className={classes.button}
-            raised
-            color="accent"
-          >
+          <Button onClick={this.resetUpload}>
             Changer de photo
-            <Delete className={classes.rightIcon} />
+            <i className="material-icons">delete</i>
           </Button>
         </div>
       );
@@ -82,5 +68,3 @@ class PictureStep extends React.Component {
     return <div style={{ textAlign: 'center' }}>{render}</div>;
   }
 }
-
-export default withStyles(styles)(PictureStep);

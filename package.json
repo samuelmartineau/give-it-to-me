@@ -34,6 +34,7 @@
     "sqlite3": "^3.1.13",
     "sse": "0.0.6",
     "styled-components": "^3.2.6",
+    "styled-spinkit": "^0.3.0",
     "tinycolor2": "^1.4.1",
     "url-join": "^2.0.2",
     "uuid": "^3.1.0",

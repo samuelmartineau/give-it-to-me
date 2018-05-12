@@ -1,28 +1,17 @@
 // @flow
 import React from 'react';
-import { CircularProgress } from 'material-ui/Progress';
-import { withStyles } from 'material-ui/styles';
+import { Circle } from 'styled-spinkit';
+import styled from 'styled-components';
 
-const styles = theme => ({
-  spinner: {
-    display: 'flex',
-    'align-items': 'center',
-    'justify-content': 'center',
-    margin: '3em 0'
-  },
-  progress: {
-    margin: `0 ${theme.spacing.unit * 2}px`
-  }
-});
+const Wrapper = styled.div`
+  display: 'flex';
+  align-items: center;
+  justify-content: center;
+  margin: 3em 0;
+`;
 
-type SpinnerProps = {
-  classes: {}
-};
-
-const Spinner = ({ classes }: SpinnerProps) => (
-  <div className={classes.spinner}>
-    <CircularProgress className={classes.progress} size={50} />
-  </div>
+export const Spinner = () => (
+  <Wrapper>
+    <Circle size={50} />
+  </Wrapper>
 );
-
-export default withStyles(styles)(Spinner);

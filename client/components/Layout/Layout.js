@@ -22,11 +22,10 @@ type AppFrameProps = {
   drawerOpen: boolean
 };
 
-const App = styled.div`
-  background: green;
-`;
+const App = styled.div``;
 const Main = styled.div`
-  background: red;
+  display: inline-block;
+  width: 100%;
 `;
 
 const AppFrame = ({
