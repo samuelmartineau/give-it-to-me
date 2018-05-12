@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle';
 const THROTTLE_WAIT = 500;
 const DEFAULT_DELAY = 500;
 
-type ImageProps = {
+type Props = {
   src: string,
   width: number,
   height: number,
@@ -14,15 +14,14 @@ type ImageProps = {
   className: String
 };
 
-export class Image extends React.Component<ImageProps> {
+export class Image extends React.Component<Props> {
   static scrollFunction;
+  scrollFunction: Function;
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.scrollFunction = this.trottleScroll.bind(this);
-    this.state = {
-      url: props.lazyLoader
-    };
+    this.state = { url: props.lazyLoader };
     this.delay = props.delay || DEFAULT_DELAY;
   }
 

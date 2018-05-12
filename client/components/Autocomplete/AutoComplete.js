@@ -4,11 +4,7 @@ import { utils } from '~/config';
 import fuzzy from 'fuzzy';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
-
-const TextField = styled.input`
-  width: '100%';
-  margin: 5px;
-`;
+import { TextField } from '~/client/components/Toolkit';
 
 const classNames = {
   // container: 'react-autosuggest__container',

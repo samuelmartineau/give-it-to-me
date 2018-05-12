@@ -12,7 +12,7 @@ export const Upload = ({ onDrop }: UploadProps) => (
   <div>
     <p>Cliquez sur le bouton pour prendre la photo</p>
     <Dropzone style={{}} onDrop={onDrop} multiple={false} accept="image/*">
-      <Button>
+      <Button type="button">
         <i className="material-icons">add_a_photo</i>
       </Button>
     </Dropzone>

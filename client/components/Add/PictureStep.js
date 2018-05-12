@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Spinner } from '../Layout/Spinner';
 import { Upload } from './Upload/Upload';
@@ -7,35 +9,46 @@ import { Image } from '../Image/Image';
 import { Button } from '~/client/components/Toolkit';
 import styled from 'styled-components';
 
+type Props = {
+  onUpload: Function,
+  onReset: Function
+};
+type State = {
+  isUploaded: boolean,
+  isUploading: boolean,
+  result?: {
+    thumbnailFileName: string,
+    pictureFileName: string,
+    blur: string
+  }
+};
+
 const Wrapper = styled.div`
   text-align: center;
 `;
 
-export class PictureStep extends React.Component {
-  state = {
-    isUploaded: false,
-    isUploading: false
-  };
-  onDrop = async files => {
+export class PictureStep extends React.Component<Props, State> {
+  state = { isUploaded: false, isUploading: false };
+  onDrop = async (files: Array<string>) => {
     const winePicture = files[0];
     this.setState({ isUploading: true });
     try {
       const result = await uploadWinePicture(winePicture);
+      this.props.onUpload(result);
       this.setState({
         isUploading: false,
         isUploaded: true,
         result
       });
     } catch (error) {
+      console.log(error);
       this.setState({ isUploaded: false, isUploading: false });
     }
   };
 
   resetUpload = () => {
-    this.setState({
-      isUploading: false,
-      isUploaded: false
-    });
+    this.props.onReset();
+    this.setState({ isUploading: false, isUploaded: false });
   };
 
   render() {

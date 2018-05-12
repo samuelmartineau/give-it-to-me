@@ -7,7 +7,7 @@ const AreasFormated = Object.keys(wineFamilies).map(id => ({
   searchKey: utils.cleanString(wineFamilies[id])
 }));
 
-export const AreaSuggestion = ({ onSuggestionSelected, selected }) => (
+export const AreaSuggestion = ({ onSuggestionSelected }) => (
   <Autocomplete
     datas={AreasFormated}
     onSuggestionSelected={onSuggestionSelected}

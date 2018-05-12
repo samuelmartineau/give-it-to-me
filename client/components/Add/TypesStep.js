@@ -1,42 +1,31 @@
 import React from 'react';
-
 import config from '~/config';
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
-const { BOTTLE_TYPES, DEFAULT_TYPE } = config.bottleTypes;
+import {
+  wineTypes,
+  bottleTypes,
+  defaultSelectedTypes
+} from './types/defaultTypes';
 
-const wineTypes = Object.keys(WINE_TYPES).map(key => ({
-  id: key,
-  ...WINE_TYPES[key]
-}));
-const bottleTypes = Object.keys(BOTTLE_TYPES).map(key => ({
-  id: key,
-  ...BOTTLE_TYPES[key]
-}));
 export class TypesStep extends React.Component {
-  state = {
-    wineTypeChecked: wineTypes[0].id,
-    wineCategoryChecked: wineTypes[0].categories[0],
-    bottleTypeChecked: DEFAULT_TYPE
-  };
+  state = defaultSelectedTypes;
   handleChange = evt => {
-    const { value } = evt.target;
-    const newState = {
-      ...this.state
-    };
-    if (evt.target.name === 'wineType') {
-      newState.wineTypeChecked = value;
-      newState.wineCategoryChecked = WINE_TYPES[value].categories[0];
+    const { value, name } = evt.target;
+    const newState = { ...this.state };
+    if (name === 'wineType') {
+      newState.wineType = value;
+      newState.wineCategory = WINE_TYPES[value].categories[0];
     } else {
-      newState[`${evt.target.name}Checked`] = value;
+      newState[name] = value;
     }
+    this.props.onTypeChange(newState);
     this.setState(newState);
   };
 
   render() {
     const {
-      wineTypeChecked,
-      wineCategoryChecked,
-      bottleTypeChecked
+      wineType: wineTypeChecked,
+      wineCategory: wineCategoryChecked
     } = this.state;
 
     return (
@@ -73,7 +62,6 @@ export class TypesStep extends React.Component {
             <input
               type="radio"
               name="bottleType"
-              checked={bottleType.id === bottleTypeChecked}
               onChange={this.handleChange}
               value={bottleType.id}
             />{' '}
