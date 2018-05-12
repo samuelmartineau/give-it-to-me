@@ -130,7 +130,7 @@ class AutoComplete extends React.Component {
 
   render() {
     const { suggestions, value } = this.state;
-    const { onSuggestionSelected, placeholder, name } = this.props;
+    const { onSuggestionSelected, placeholder } = this.props;
     return (
       <AutosuggestWrapper>
         <Autosuggest

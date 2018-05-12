@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import AreaSuggestion from '../Autocomplete/AreaSuggestion';
+import { AreaSuggestionField } from '../Autocomplete/AreaSuggestionField';
+import { Text } from 'react-form';
 
-const TextField = styled.input``;
+const TextField = styled(Text)``;
 
 export class MetaStep extends React.Component {
   state = {
@@ -26,43 +27,26 @@ export class MetaStep extends React.Component {
   };
 
   buildField = props => {
-    return (
-      <TextField
-        {...props}
-        onChange={this.handleField}
-        value={this.state.model[props.name]}
-      />
-    );
+    return <TextField {...props} value={this.state.model[props.name]} />;
   };
 
   render() {
     return (
       <React.Fragment>
-        {this.buildField({
-          name: 'name',
-          label: 'Nom',
-          required: true,
-          placeholder: 'Domaine de ...'
-        })}
+        <p>Domaine</p>
+        <label>
+          <TextField field="name" required placeholder="Domaine de ..." />
+        </label>
+        <p>Année</p>
+        <label>
+          <TextField field="year" type="number" required placeholder="2014" />
+        </label>
+        <p>Provenance</p>
+        <label>
+          <TextField field="source" type="text" placeholder="France" />
+        </label>
 
-        {this.buildField({
-          name: 'year',
-          type: 'number',
-          label: 'Année',
-          required: true,
-          placeholder: '2014'
-        })}
-        {this.buildField({
-          name: 'source',
-          type: 'text',
-          label: 'Provenance',
-
-          placeholder: 'France'
-        })}
-        <AreaSuggestion
-          selected={this.state.model.area}
-          onSuggestionSelected={this.handleArea}
-        />
+        <AreaSuggestionField field="area" />
       </React.Fragment>
     );
   }

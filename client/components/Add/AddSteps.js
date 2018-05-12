@@ -5,20 +5,25 @@ import { MetaStep } from './MetaStep';
 import { PositionStep } from './PositionStep';
 import { TypesStep } from './TypesStep';
 import { Button } from '~/client/components/Toolkit';
+import { Form } from 'react-form';
 
 export class AddSteps extends React.Component {
-  onSubmit = () => {
-    console.log('good');
+  onSubmit = submittedValues => {
+    console.log('good', submittedValues);
   };
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <PictureStep />
-        <MetaStep />
-        <TypesStep />
-        <PositionStep />
-        <Button type="submit">Envoyer</Button>
-      </form>
+      <Form onSubmit={this.onSubmit}>
+        {formApi => (
+          <form onSubmit={formApi.submitForm}>
+            <PictureStep />
+            <MetaStep />
+            <TypesStep />
+            <PositionStep />
+            <Button type="submit">Envoyer</Button>
+          </form>
+        )}
+      </Form>
     );
   }
 }

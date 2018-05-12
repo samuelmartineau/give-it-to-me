@@ -7,12 +7,10 @@ const AreasFormated = Object.keys(wineFamilies).map(id => ({
   searchKey: utils.cleanString(wineFamilies[id])
 }));
 
-const AreaSuggestion = ({ onSuggestionSelected }) => (
+export const AreaSuggestion = ({ onSuggestionSelected, selected }) => (
   <Autocomplete
     datas={AreasFormated}
     onSuggestionSelected={onSuggestionSelected}
     placeholder="Commncer à taper le nom de l'AOC"
   />
 );
-
-export default AreaSuggestion;
