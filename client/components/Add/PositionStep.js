@@ -1,10 +1,8 @@
 import React from 'react';
-import { FormControlLabel } from 'material-ui/Form';
-import Switch from 'material-ui/Switch';
 import PositionDescription from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
 
-class PositionStep extends React.Component {
+export class PositionStep extends React.Component {
   state = {
     checked: false
   };
@@ -18,15 +16,13 @@ class PositionStep extends React.Component {
     const { checked } = this.state;
     return (
       <React.Fragment>
-        <FormControlLabel
-          control={<Switch checked={checked} onChange={this.toggleMode} />}
-          label="Les bouteilles sont-elles dans les caisses?"
-        />
+        <label>
+          <input onChange={this.toggleMode} type="checkbox" checked={checked} />
+          Les bouteilles sont-elles dans les caisses?
+        </label>
         {checked && <PositionDescription />}
         {!checked && <PositionSelector />}
       </React.Fragment>
     );
   }
 }
-
-export default PositionStep;

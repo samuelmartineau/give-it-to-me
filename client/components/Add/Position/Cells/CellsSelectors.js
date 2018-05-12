@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
 import BoxFilter from './BoxFilter';
 import { boxes } from '../../../Cellar/utils';
 
@@ -32,12 +31,10 @@ const styles = theme => ({
   }
 });
 
-const CellsSelectors = ({ classes }: CellsSelectorsProps) => {
+const CellsSelectors = ({  }: CellsSelectorsProps) => {
   return (
-    <div className={classes.cellSelectors}>
-      {boxes.map(boxId => <BoxFilter key={boxId} boxId={boxId} />)}
-    </div>
+    <div>{boxes.map(boxId => <BoxFilter key={boxId} boxId={boxId} />)}</div>
   );
 };
 
-export default withStyles(styles)(CellsSelectors);
+export default CellsSelectors;

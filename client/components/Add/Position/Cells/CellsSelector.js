@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
 import BoxContainer from '../../../Cellar/Box/BoxContainer';
 import BoxBottles from '../../../Cellar/Box/BoxBottles';
 import BoxCells from '../../../Cellar/Cells/BoxCells';
@@ -20,21 +19,16 @@ type CellsSelectorProps = {
   isBoxSelected: boolean
 };
 
-const styles = () => ({
-  box: {}
-});
-
 const CellsSelector = ({
   boxId,
   isBoxSelected,
-  onUnselect,
-  classes
+  onUnselect
 }: CellsSelectorProps) => {
   if (!isBoxSelected) {
     return null;
   }
   return (
-    <div className={classes.box}>
+    <div>
       <button onClick={onUnselect}>close</button>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
@@ -55,4 +49,4 @@ const CellsSelector = ({
   );
 };
 
-export default withStyles(styles)(CellsSelector);
+export default CellsSelector;
