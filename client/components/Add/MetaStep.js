@@ -22,8 +22,8 @@ export class MetaStep extends React.Component<Props> {
   render() {
     return (
       <React.Fragment>
-        <p>Domaine</p>
         <label>
+          Domaine
           <TextField
             name="name"
             required
@@ -31,8 +31,8 @@ export class MetaStep extends React.Component<Props> {
             onChange={this.handleField}
           />
         </label>
-        <p>Année</p>
         <label>
+          Année
           <TextField
             name="year"
             type="number"
@@ -41,8 +41,8 @@ export class MetaStep extends React.Component<Props> {
             onChange={this.handleField}
           />
         </label>
-        <p>Provenance</p>
         <label>
+          Provenance
           <TextField
             name="source"
             type="text"

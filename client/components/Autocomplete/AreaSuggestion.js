@@ -8,9 +8,12 @@ const AreasFormated = Object.keys(wineFamilies).map(id => ({
 }));
 
 export const AreaSuggestion = ({ onSuggestionSelected }) => (
-  <Autocomplete
-    datas={AreasFormated}
-    onSuggestionSelected={onSuggestionSelected}
-    placeholder="Commncer à taper le nom de l'AOC"
-  />
+  <label>
+    AOC
+    <Autocomplete
+      datas={AreasFormated}
+      onSuggestionSelected={onSuggestionSelected}
+      placeholder="Commncer à taper le nom de l'AOC"
+    />
+  </label>
 );

@@ -5,5 +5,10 @@ export const media = {
     @media (max-width: 600px) {
       ${css(...args)};
     }
+  `,
+  screen: (...args) => css`
+    @media (min-width: 600px) {
+      ${css(...args)};
+    }
   `
 };
