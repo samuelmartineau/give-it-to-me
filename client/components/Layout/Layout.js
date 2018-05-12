@@ -1,7 +1,7 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
-import { compose, withState, withHandlers, pure } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 
 import Header from './Header';
 
@@ -16,10 +16,7 @@ type AppFrameProps = {
   width: Number,
   classes: {},
   title: string,
-  children: ReactElement,
-  handleDrawerToggle: Function,
-  handleDrawerClose: Function,
-  drawerOpen: boolean
+  children: ReactElement
 };
 
 const App = styled.div``;
@@ -28,13 +25,7 @@ const Main = styled.div`
   width: 100%;
 `;
 
-const AppFrame = ({
-  title,
-  children,
-  handleDrawerToggle,
-  handleDrawerClose,
-  drawerOpen
-}: AppFrameProps) => {
+const AppFrame = ({ title, children }: AppFrameProps) => {
   return (
     <App>
       <Header>title {title}</Header>
