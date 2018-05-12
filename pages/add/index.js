@@ -1,7 +1,7 @@
 import { compose, setDisplayName, withProps } from 'recompose';
 import { getCellar } from '../../client/store';
 import WithLayout from '../../client/components/Layout/WithLayout';
-import { PositionStep } from '../../client/components/Add/PositionStep';
+import { AddSteps } from '../../client/components/Add/AddSteps';
 
 const Add = () => <div>add wine</div>;
 
@@ -11,7 +11,7 @@ const AddWithLayout = compose(
     title: 'Ajouter une nouvelle bouteille'
   }),
   WithLayout
-)(PositionStep);
+)(AddSteps);
 
 AddWithLayout.getInitialProps = async ({ store }) => {
   const result = await store.dispatch(getCellar());

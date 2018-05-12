@@ -4,7 +4,7 @@ import PositionSelector from './Position/PositionSelector';
 
 export class PositionStep extends React.Component {
   state = {
-    checked: false
+    checked: true
   };
 
   toggleMode = () => {
@@ -20,8 +20,8 @@ export class PositionStep extends React.Component {
           <input onChange={this.toggleMode} type="checkbox" checked={checked} />
           Les bouteilles sont-elles dans les caisses?
         </label>
-        {checked && <PositionDescription />}
-        {!checked && <PositionSelector />}
+        {!checked && <PositionDescription />}
+        {checked && <PositionSelector />}
       </React.Fragment>
     );
   }

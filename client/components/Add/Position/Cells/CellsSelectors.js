@@ -2,6 +2,7 @@
 import React from 'react';
 import BoxFilter from './BoxFilter';
 import { boxes } from '../../../Cellar/utils';
+import styled from 'styled-components';
 
 type CellsSelectorsProps = {
   classes: {
@@ -9,31 +10,17 @@ type CellsSelectorsProps = {
   }
 };
 
-const styles = theme => ({
-  cellSelectors: {
-    display: 'grid',
-    gridGap: '10px',
-    [theme.breakpoints.only('xs')]: {
-      gridTemplateColumns: 'repeat(1, auto)'
-    },
-    [theme.breakpoints.only('sm')]: {
-      gridTemplateColumns: 'repeat(2, auto)'
-    },
-    [theme.breakpoints.only('md')]: {
-      gridTemplateColumns: 'repeat(4, auto)'
-    },
-    [theme.breakpoints.only('lg')]: {
-      gridTemplateColumns: 'repeat(3, auto)'
-    },
-    [theme.breakpoints.only('xl')]: {
-      gridTemplateColumns: 'repeat(5, auto)'
-    }
-  }
-});
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 30px;
+`;
 
 const CellsSelectors = ({  }: CellsSelectorsProps) => {
   return (
-    <div>{boxes.map(boxId => <BoxFilter key={boxId} boxId={boxId} />)}</div>
+    <Wrapper>
+      {boxes.map(boxId => <BoxFilter key={boxId} boxId={boxId} />)}
+    </Wrapper>
   );
 };
 

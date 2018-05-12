@@ -5,6 +5,11 @@ import { uploadWinePicture } from '../../api';
 import { PICTURE_UPLOAD, API_URL } from '~/config';
 import { Image } from '../Image/Image';
 import { Button } from '~/client/components/Toolkit';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  text-align: center;
+`;
 
 export class PictureStep extends React.Component {
   state = {
@@ -65,6 +70,6 @@ export class PictureStep extends React.Component {
       render = <Upload onDrop={this.onDrop} />;
     }
 
-    return <div style={{ textAlign: 'center' }}>{render}</div>;
+    return <Wrapper>{render}</Wrapper>;
   }
 }

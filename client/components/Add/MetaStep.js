@@ -4,7 +4,7 @@ import AreaSuggestion from '../Autocomplete/AreaSuggestion';
 
 const TextField = styled.input``;
 
-class MetaStep extends React.Component {
+export class MetaStep extends React.Component {
   state = {
     model: {
       name: '',
@@ -13,14 +13,6 @@ class MetaStep extends React.Component {
       area: ''
     }
   };
-
-  disableButton() {
-    this.setState({ canSubmit: false });
-  }
-
-  enableButton() {
-    this.setState({ canSubmit: true });
-  }
 
   handleField = evt => {
     const { value, name } = evt.target;
@@ -32,10 +24,6 @@ class MetaStep extends React.Component {
       model: { ...model, area: suggestion.original.id }
     }));
   };
-
-  submit() {
-    console.log('model', this);
-  }
 
   buildField = props => {
     return (
@@ -49,7 +37,7 @@ class MetaStep extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.submit}>
+      <React.Fragment>
         {this.buildField({
           name: 'name',
           label: 'Nom',
@@ -75,10 +63,7 @@ class MetaStep extends React.Component {
           selected={this.state.model.area}
           onSuggestionSelected={this.handleArea}
         />
-        <button type="submit">Submit</button>
-      </form>
+      </React.Fragment>
     );
   }
 }
-
-export default MetaStep;
