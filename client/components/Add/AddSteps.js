@@ -1,20 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { PictureStepConnected } from './PictureStep';
 import { MetaStepConnected } from './MetaStep';
 import { PositionStepConnected } from './PositionStep';
 import { TypesStepConnected } from './TypesStep';
-import { Button } from '~/client/components/Toolkit';
-
+import { Button, Spinner } from '~/client/components/Toolkit';
+import { isModelValid, addWine } from '~/client/store/';
 class AddSteps extends React.Component {
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   const nextState = {
-  //     ...prevState
-  //   };
-  //   nextState.model.selectedCells = nextProps.selectedCells;
-  //   return nextState;
-  // }
+  state = { isSending: false };
 
   updateModel = name => value => {
     this.setState(({ model }) => ({
@@ -40,22 +33,37 @@ class AddSteps extends React.Component {
   };
   onSubmit = evt => {
     evt.preventDefault();
-    console.log('good', this.state.model);
-    // this.forceUpdate();
+    const { isModelValid } = this.props;
+    if (!isModelValid) {
+      alert('Il manque des champs');
+    } else {
+      this.props.addWine();
+    }
   };
   render() {
-    return (
-      <form onSubmit={this.onSubmit}>
-        <PictureStepConnected />
-        <MetaStepConnected />
-        <TypesStepConnected />
-        <PositionStepConnected />
-        <Button type="submit">Envoyer</Button>
-      </form>
-    );
+    const { isSending } = this.state;
+    if (!isSending) {
+      return (
+        <form onSubmit={this.onSubmit}>
+          <PictureStepConnected />
+          <MetaStepConnected />
+          <TypesStepConnected />
+          <PositionStepConnected />
+          <Button type="submit">Envoyer</Button>
+        </form>
+      );
+    }
+    return <Spinner />;
   }
 }
 
-export const AddStepsConnected = connect(state => ({
-  // model: state.adding.model
-}))(AddSteps);
+export const AddStepsConnected = connect(
+  state => ({
+    isModelValid: isModelValid(state)
+  }),
+  dispatch => ({
+    addWine() {
+      dispatch(addWine());
+    }
+  })
+)(AddSteps);

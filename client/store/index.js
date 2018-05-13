@@ -22,7 +22,8 @@ export {
   unselectBox,
   selectCell,
   unselectCell,
-  updateModel
+  updateModel,
+  addWine
 } from './actions';
 export {
   isLastStep,
@@ -35,5 +36,7 @@ export {
   isBoxSelected,
   getBottleByPosition,
   isBoxSelectable,
-  isCellSelectable
+  isCellSelectable,
+  isModelValid,
+  getAddModel
 } from './reducer';

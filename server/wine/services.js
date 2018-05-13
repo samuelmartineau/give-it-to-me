@@ -21,9 +21,13 @@ const getCellar = () => {
     });
 };
 
-const addWine = (wine, contextualData) => {
-  if (!wine.isInBoxes) {
-    wine = { ...wine, ...contextualData };
+const addWine = wine => {
+  const { bottles } = wine;
+
+  delete wine.bottles;
+  if (wine.isInBoxes) {
+    delete wine.positionComment;
+    delete wine.count;
   }
 
   return knexInstance
@@ -34,13 +38,13 @@ const addWine = (wine, contextualData) => {
         .then(ids => {
           const wineId = ids[0];
           if (wine.isInBoxes) {
-            const bottles = contextualData.bottles.map(bottle => {
+            const bottlesFormated = bottles.map(bottle => {
               return {
                 ...bottle,
                 ...{ wine_id: wineId }
               };
             });
-            return trx.batchInsert('bottles', bottles);
+            return trx.batchInsert('bottles', bottlesFormated);
           }
         });
     })
@@ -85,3 +89,5 @@ module.exports = {
   addWine,
   updateWine
 };
+
+// {"wine":{"isInBoxes":true,"name":"Domaine test","wineFamily":"56","year":"2000","bottleType":"1","wineCategory":"REGULAR","wineType":"WHITE","blur":"data:image/gif;base64,R0lGODlhAwADAPIAABcXFzk5OWJiYoqKip+fn729vQAAAAAAACH5BAAAAAAAIf8LSW1hZ2VNYWdpY2sNZ2FtbWE9MC40NTQ1NQAsAAAAAAIAAwAAAwRIUDGSADs=","thumbnailFileName":"b6371ff0-56b7-11e8-94ba-93d7d7438749.png","pictureFileName":"projectavatar.png","source":"France"},"contextualData":{"bottles":[{"box":19,"cell":0},{"box":19,"cell":3},{"box":19,"cell":6},{"box":19,"cell":7},{"box":19,"cell":4},{"box":33,"cell":0}]}}

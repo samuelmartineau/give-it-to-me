@@ -3,7 +3,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { AreaSuggestion } from '../Autocomplete/AreaSuggestion';
+import { WineFamilySuggestion } from '../Autocomplete/WineFamilySuggestion';
 import { TextField } from '~/client/components/Toolkit';
 import { updateModel } from '~/client/store/';
 
@@ -47,10 +47,10 @@ class MetaStep extends React.Component<Props> {
           />
         </label>
 
-        <AreaSuggestion
-          selected={this.props.model.area}
-          onSuggestionSelected={this.props.onAreaChange}
-          onClear={this.props.onAreaClear}
+        <WineFamilySuggestion
+          selected={this.props.model.wineFamily}
+          onSuggestionSelected={this.props.onFamilyChange}
+          onClear={this.props.onFamilyClear}
         />
       </React.Fragment>
     );
@@ -64,11 +64,11 @@ export const MetaStepConnected = connect(
       const { value, name } = evt.target;
       dispatch(updateModel(name, value));
     },
-    onAreaChange(evt, { suggestion }) {
-      dispatch(updateModel('area', suggestion.original.id));
+    onFamilyChange(evt, { suggestion }) {
+      dispatch(updateModel('wineFamily', suggestion.original.id));
     },
-    onAreaClear() {
-      dispatch(updateModel('area', ''));
+    onFamilyClear() {
+      dispatch(updateModel('wineFamily', ''));
     }
   })
 )(MetaStep);

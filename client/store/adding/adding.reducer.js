@@ -6,9 +6,33 @@ import {
   UNSELECT_BOX,
   SELECT_CELL,
   UNSELECT_CELL,
-  UPDATE_MODEL
+  UPDATE_MODEL,
+  RESET_ADD_WINE
 } from './adding.types';
 import { defaultSelectedTypes } from '../../components/Add/types/defaultTypes';
+const defaultModel = {
+  isInBoxes: true,
+  ...defaultSelectedTypes,
+  name: '',
+  year: '',
+  source: '',
+  positionComment: '',
+  count: ''
+};
+
+const requiredKeys = [
+  'name',
+  'year',
+  'wineFamily',
+  'blur',
+  'thumbnailFileName',
+  'pictureFileName',
+  'thumbnailFileName',
+  'wineType',
+  'wineCategory',
+  'bottleType',
+  'isInBoxes'
+];
 
 import { omit } from 'ramda';
 
@@ -19,6 +43,9 @@ export const selectedBoxesReducer = (state = [], action) => {
     }
     case UNSELECT_BOX: {
       return state.filter(id => id !== action.boxId);
+    }
+    case RESET_ADD_WINE: {
+      return [];
     }
     default:
       return state;
@@ -44,20 +71,14 @@ export const selectedCellsReducer = (state = {}, action) => {
         [action.boxId]: state[action.boxId].filter(id => id !== action.cellId)
       };
     }
+    case RESET_ADD_WINE: {
+      return {};
+    }
     default:
       return state;
   }
 };
-export const modelReducer = (
-  state = {
-    isInBoxes: true,
-    ...defaultSelectedTypes,
-    name: '',
-    year: undefined,
-    source: ''
-  },
-  action
-) => {
+export const modelReducer = (state = { ...defaultModel }, action) => {
   switch (action.type) {
     case UPDATE_MODEL: {
       if (action.name === 'wineType') {
@@ -68,6 +89,9 @@ export const modelReducer = (
         };
       }
       return { ...state, [action.name]: action.value };
+    }
+    case RESET_ADD_WINE: {
+      return { ...defaultModel };
     }
     default:
       return state;
@@ -83,6 +107,35 @@ export const getSelectedCellsInBox = (selectedCells, boxId) => {
 };
 export const isCellSelected = (state, boxId, cellId) => {
   return state[boxId] && state[boxId].includes(cellId);
+};
+
+export const isModelValid = (model, selectedBoxes) => {
+  let valid = requiredKeys.every(
+    key => ![null, 0, '', undefined].includes(model[key])
+  );
+  if (model.isInBoxes) {
+    valid = valid && selectedBoxes.length > 0;
+  } else {
+    valid = valid && !!selectedBoxes.positionComment;
+  }
+  return valid;
+};
+
+export const getAddModel = (model, selectedCells) => {
+  const formModel = { ...model };
+  if (formModel.isInBoxes) {
+    delete formModel.positionComment;
+    delete formModel.count;
+    formModel.bottles = Object.keys(selectedCells).reduce((acc, box) => {
+      return acc.concat(
+        selectedCells[box].map(cell => ({
+          box,
+          cell
+        }))
+      );
+    }, []);
+  }
+  return formModel;
 };
 
 const reducer = combineReducers({

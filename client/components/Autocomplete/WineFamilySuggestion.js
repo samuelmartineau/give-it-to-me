@@ -7,7 +7,11 @@ const AreasFormated = Object.keys(wineFamilies).map(id => ({
   searchKey: utils.cleanString(wineFamilies[id])
 }));
 
-export const AreaSuggestion = ({ onSuggestionSelected, selected, onClear }) => {
+export const WineFamilySuggestion = ({
+  onSuggestionSelected,
+  selected,
+  onClear
+}) => {
   if (selected) {
     const wineFamily = wineFamilies[selected];
     return (

@@ -30,7 +30,7 @@ router
           ...req.body.wine,
           ...fileUploaded
         };
-        return addWine(computeWineData, req.body.contextualData);
+        return addWine(computeWineData);
       })
       .then(message => {
         updateClients();

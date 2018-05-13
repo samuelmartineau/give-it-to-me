@@ -27,6 +27,10 @@ export const isCellSelected = (state, boxId, cellId) =>
   adding.isCellSelected(state.adding.selectedCells, boxId, cellId);
 export const isBoxSelected = (state, boxId) =>
   adding.isBoxSelected(state.adding.selectedBoxes, boxId);
+export const isModelValid = state =>
+  adding.isModelValid(state.adding.model, state.adding.selectedBoxes);
+export const getAddModel = state =>
+  adding.getAddModel(state.adding.model, state.adding.selectedCells);
 export const isBoxSelectable = (state, boxId) => {
   const alreadySelected = isBoxSelected(state, boxId);
   const bottles = getCellsUsedInBox(state, boxId);

@@ -36,3 +36,16 @@ export const uploadWinePicture = picture => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const addWine = wine => {
+  return fetch(`${apiBase}${config.ROUTES.WINE}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ wine })
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};

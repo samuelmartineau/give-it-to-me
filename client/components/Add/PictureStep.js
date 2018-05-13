@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Spinner } from '../Layout/Spinner';
 import { Upload } from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
 import { PICTURE_UPLOAD, API_URL } from '~/config';
 import { Image } from '../Image/Image';
-import { Button } from '~/client/components/Toolkit';
+import { Button, Spinner } from '~/client/components/Toolkit';
 import styled from 'styled-components';
 import { updateModel } from '~/client/store/';
 

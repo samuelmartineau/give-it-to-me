@@ -2,7 +2,7 @@ import * as cellar from './cellar/cellar.actions';
 import { difference } from 'ramda';
 import * as adding from './adding/adding.actions';
 import { getBoxCells } from '../components/Cellar/utils';
-import { getCellsUsedInBox, getSelectedCellsInBox } from './';
+import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
 export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 
@@ -29,5 +29,13 @@ export const unselectCell = (boxId, cellId) => {
       return dispatch(adding.unselectBox(boxId));
     }
     return dispatch(adding.unselectCell(boxId, cellId));
+  };
+};
+export const addWine = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const formModel = getAddModel(state);
+
+    return dispatch(adding.addWine(formModel));
   };
 };
