@@ -21,6 +21,9 @@ type AppFrameProps = {
 };
 
 const App = styled.div``;
+const PageTitle = styled.h1`
+  text-align: center;
+`;
 const Main = styled.div`
   ${media.screen`
     margin-left: auto;
@@ -35,7 +38,8 @@ const Main = styled.div`
 const AppFrame = ({ title, children }: AppFrameProps) => {
   return (
     <App>
-      <Header>title {title}</Header>
+      <Header />
+      <PageTitle>{title}</PageTitle>
       <Main>{children}</Main>
     </App>
   );

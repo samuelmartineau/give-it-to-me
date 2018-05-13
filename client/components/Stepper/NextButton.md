@@ -1,5 +1,0 @@
-NextButton example:
-
-```jsx
-<NextButton />
-```
