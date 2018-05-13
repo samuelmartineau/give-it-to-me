@@ -1,33 +1,39 @@
 import React from 'react';
-import styled from 'styled-components';
+import { TextField } from '~/client/components/Toolkit';
+import { connect } from 'react-redux';
+import { updateModel } from '~/client/store/';
 
-const TextField = styled.input``;
-
-function bindValue(callback) {
-  return evt => {
-    const { value, name } = evt.target;
-    callback(name, value);
-  };
-}
-
-export const PositionDescription = ({ onChange }) => (
+export const PositionDescription = ({ onChange, model }) => (
   <div>
     <label>
       Position dans la cave
       <TextField
         name="positionComment"
+        required
+        value={model.positionComment}
         placeholder="Dans les caisses à droite..."
-        onChange={bindValue(onChange)}
+        onChange={onChange}
       />
     </label>
     <label>
       Nombre de bouteille
       <TextField
         name="count"
+        value={model.count}
         type="number"
         placeholder="6"
-        onChange={bindValue(onChange)}
+        onChange={onChange}
       />
     </label>
   </div>
 );
+
+export const PositionDescriptionConnected = connect(
+  state => ({ model: state.adding.model }),
+  dispatch => ({
+    onChange(evt) {
+      const { value, name } = evt.target;
+      dispatch(updateModel(name, value));
+    }
+  })
+)(PositionDescription);
