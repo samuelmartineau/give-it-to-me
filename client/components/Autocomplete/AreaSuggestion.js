@@ -12,7 +12,7 @@ export const AreaSuggestion = ({ onSuggestionSelected, selected, onClear }) => {
     const wineFamily = wineFamilies[selected];
     return (
       <div>
-        <p>{wineFamily}</p>
+        <span>{wineFamily}</span>
         <button type="button" onClick={onClear}>
           x
         </button>

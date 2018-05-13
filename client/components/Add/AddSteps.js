@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { PictureStep } from './PictureStep';
 import { MetaStepConnected } from './MetaStep';
 import { PositionStep } from './PositionStep';
-import { TypesStep } from './TypesStep';
+import { TypesStepConnected } from './TypesStep';
 import { Button } from '~/client/components/Toolkit';
 
 class AddSteps extends React.Component {
@@ -48,7 +48,7 @@ class AddSteps extends React.Component {
       <form onSubmit={this.onSubmit}>
         <PictureStep />
         <MetaStepConnected />
-        <TypesStep />
+        <TypesStepConnected />
         <PositionStep />
         <Button type="submit">Envoyer</Button>
       </form>

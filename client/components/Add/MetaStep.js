@@ -12,10 +12,6 @@ type Props = {
 };
 
 class MetaStep extends React.Component<Props> {
-  handleArea = (event, { suggestion }) => {
-    this.props.onMetaChange('area');
-  };
-
   render() {
     return (
       <React.Fragment>

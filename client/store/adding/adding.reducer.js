@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import config from '~/config';
+const { WINE_TYPES } = config.wineTypes;
 import {
   SELECT_BOX,
   UNSELECT_BOX,
@@ -58,6 +60,13 @@ export const modelReducer = (
 ) => {
   switch (action.type) {
     case UPDATE_MODEL: {
+      if (action.name === 'wineType') {
+        return {
+          ...state,
+          wineType: action.value,
+          wineCategory: WINE_TYPES[action.value].categories[0]
+        };
+      }
       return { ...state, [action.name]: action.value };
     }
     default:
