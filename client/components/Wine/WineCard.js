@@ -3,6 +3,7 @@ import tinycolor from 'tinycolor2';
 import fontColorContrast from 'font-color-contrast';
 import { PICTURE_UPLOAD, wineTypes } from '~/config';
 import styled from 'styled-components';
+import { API_URL } from '~/config';
 
 import { Image } from '../Image/Image';
 import { WineType } from './Wine.type';
@@ -23,12 +24,12 @@ const WineCardWrapper = styled.div`
 `;
 
 const MenuButton = styled.button`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 4,
-    transition: transform 0.3s;
-  `;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  transition: transform 0.3s;
+`;
 const WineCardImageContainer = styled.a`
   position: absolute;
   top: 0px;
@@ -45,7 +46,7 @@ const WineCardImageContainer = styled.a`
     width: 100%;
     height: '100%';
     border-radius: 50%;
-    transform: scale(0.18, 0.14) translate(-650px, -1350px);
+    transform: scale(0.21,0.14) translate(-550px,-1350px);
     z-index: 4;
   `};
 `;
@@ -55,9 +56,9 @@ const WineImage = styled(Image)`
   ${({ open }) =>
     open &&
     `
-    margin-left: 0px;
-    height: auto;
+    height: 100%;
     width: 100%;
+    margin-left: 0px;
   `};
 `;
 
@@ -99,10 +100,10 @@ const WinePane = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  top: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px
-    ${({ open }) =>
-      open &&
-      `
+  top: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px;
+  ${({ open }) =>
+    open &&
+    `
     transform: translate(0px, -${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px);
     height: ${openInfosHeight}px;
     padding-left: 80px;
@@ -156,7 +157,7 @@ export class WineCard extends React.Component<WineCardProps> {
             open={open}
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-            src={wine.pictureFileName}
+            src={`${API_URL}/${wine.pictureFileName}`}
             lazyLoader={wine.blur}
           />
         </WineCardImageContainer>
@@ -168,6 +169,7 @@ export class WineCard extends React.Component<WineCardProps> {
           </WineCardContainer>
         )}
         <WineCorner
+          open={open}
           style={
             open
               ? { borderRightColor: cornerColor, borderTopColor: cornerColor }
@@ -177,7 +179,10 @@ export class WineCard extends React.Component<WineCardProps> {
                 }
           }
         />
-        <WinePane style={{ background: wineColor, color: textColor }}>
+        <WinePane
+          open={open}
+          style={{ background: wineColor, color: textColor }}
+        >
           {wine.name}
         </WinePane>
       </WineCardWrapper>

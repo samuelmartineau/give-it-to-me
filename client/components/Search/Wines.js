@@ -10,7 +10,9 @@ export const Wines = props => {
   return (
     <div>
       {props.wines.map(wineId => (
-        <WineCardConnected key={wineId} wineId={wineId} />
+        <WineCardConnected key={wineId} wineId={wineId}>
+          {wine => wine.name}
+        </WineCardConnected>
       ))}
     </div>
   );
