@@ -21,7 +21,8 @@ export {
   selectBox,
   unselectBox,
   selectCell,
-  unselectCell
+  unselectCell,
+  updateModel
 } from './actions';
 export {
   isLastStep,

@@ -4,9 +4,7 @@ import * as adding from './adding/adding.actions';
 import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox, getSelectedCellsInBox } from './';
 
-// export * from "./cellar/cellar.actions";
-export * from './stepper/stepper.actions';
-export { unselectBox, selectCell } from './adding/adding.actions';
+export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 
 export const getCellar = () => {
   return dispatch => {

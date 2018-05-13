@@ -118,12 +118,6 @@ class AutoComplete extends React.Component {
     this.debouncedLoadSuggestions(value);
   };
 
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
-
   render() {
     const { suggestions, value } = this.state;
     const { onSuggestionSelected, placeholder } = this.props;
@@ -131,11 +125,11 @@ class AutoComplete extends React.Component {
       <AutosuggestWrapper>
         <Autosuggest
           theme={classNames}
+          alwaysRenderSuggestions={true}
           focusInputOnSuggestionClick={false}
           renderInputComponent={renderInput}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           renderSuggestionsContainer={renderSuggestionsContainer}
           getSuggestionValue={getSuggestionValue}
           onSuggestionSelected={onSuggestionSelected}

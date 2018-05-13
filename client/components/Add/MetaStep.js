@@ -2,21 +2,18 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { AreaSuggestion } from '../Autocomplete/AreaSuggestion';
 import { TextField } from '~/client/components/Toolkit';
+import { updateModel } from '~/client/store/';
 
 type Props = {
   onMetaChange: Function
 };
 
-export class MetaStep extends React.Component<Props> {
-  handleField = (evt: SyntheticEvent) => {
-    const { value, name } = evt.target;
-    this.props.onMetaChange(name, value);
-  };
-
+class MetaStep extends React.Component<Props> {
   handleArea = (event, { suggestion }) => {
-    this.props.onMetaChange('area', suggestion.original.id);
+    this.props.onMetaChange('area');
   };
 
   render() {
@@ -26,33 +23,56 @@ export class MetaStep extends React.Component<Props> {
           Domaine
           <TextField
             name="name"
+            value={this.props.model.name}
             required
             placeholder="Domaine de ..."
-            onChange={this.handleField}
+            onChange={this.props.onMetaChange}
           />
         </label>
         <label>
           Année
           <TextField
             name="year"
+            value={this.props.model.year}
             type="number"
             required
             placeholder="2014"
-            onChange={this.handleField}
+            onChange={this.props.onMetaChange}
           />
         </label>
         <label>
           Provenance
           <TextField
             name="source"
+            value={this.props.model.source}
             type="text"
             placeholder="France"
-            onChange={this.handleField}
+            onChange={this.props.onMetaChange}
           />
         </label>
 
-        <AreaSuggestion onSuggestionSelected={this.handleArea} />
+        <AreaSuggestion
+          selected={this.props.model.area}
+          onSuggestionSelected={this.props.onAreaChange}
+          onClear={this.props.onAreaClear}
+        />
       </React.Fragment>
     );
   }
 }
+
+export const MetaStepConnected = connect(
+  state => ({ model: state.adding.model }),
+  dispatch => ({
+    onMetaChange(evt) {
+      const { value, name } = evt.target;
+      dispatch(updateModel(name, value));
+    },
+    onAreaChange(evt, { suggestion }) {
+      dispatch(updateModel('area', suggestion.original.id));
+    },
+    onAreaClear() {
+      dispatch(updateModel('area', ''));
+    }
+  })
+)(MetaStep);

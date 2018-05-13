@@ -3,8 +3,11 @@ import {
   SELECT_BOX,
   UNSELECT_BOX,
   SELECT_CELL,
-  UNSELECT_CELL
+  UNSELECT_CELL,
+  UPDATE_MODEL
 } from './adding.types';
+import { defaultSelectedTypes } from '../../components/Add/types/defaultTypes';
+
 import { omit } from 'ramda';
 
 export const selectedBoxesReducer = (state = [], action) => {
@@ -43,6 +46,24 @@ export const selectedCellsReducer = (state = {}, action) => {
       return state;
   }
 };
+export const modelReducer = (
+  state = {
+    isInBoxes: true,
+    ...defaultSelectedTypes,
+    name: '',
+    year: undefined,
+    source: ''
+  },
+  action
+) => {
+  switch (action.type) {
+    case UPDATE_MODEL: {
+      return { ...state, [action.name]: action.value };
+    }
+    default:
+      return state;
+  }
+};
 
 export const isBoxSelected = (state, boxId) => {
   return state.includes(boxId);
@@ -57,7 +78,8 @@ export const isCellSelected = (state, boxId, cellId) => {
 
 const reducer = combineReducers({
   selectedBoxes: selectedBoxesReducer,
-  selectedCells: selectedCellsReducer
+  selectedCells: selectedCellsReducer,
+  model: modelReducer
 });
 
 export default reducer;

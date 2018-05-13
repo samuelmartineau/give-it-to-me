@@ -2,27 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { PictureStep } from './PictureStep';
-import { MetaStep } from './MetaStep';
+import { MetaStepConnected } from './MetaStep';
 import { PositionStep } from './PositionStep';
 import { TypesStep } from './TypesStep';
 import { Button } from '~/client/components/Toolkit';
-import { defaultSelectedTypes } from './types/defaultTypes';
 
 class AddSteps extends React.Component {
-  state = {
-    model: {
-      isInBoxes: true,
-      ...defaultSelectedTypes
-    }
-  };
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const nextState = {
-      ...prevState
-    };
-    nextState.model.selectedCells = nextProps.selectedCells;
-    return nextState;
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   const nextState = {
+  //     ...prevState
+  //   };
+  //   nextState.model.selectedCells = nextProps.selectedCells;
+  //   return nextState;
+  // }
 
   updateModel = name => value => {
     this.setState(({ model }) => ({
@@ -54,13 +46,10 @@ class AddSteps extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <PictureStep
-          onUpload={this.updateModel('image')}
-          onReset={this.resetImage}
-        />
-        <MetaStep onMetaChange={this.onFieldChange} />
-        <TypesStep onTypeChange={this.onTypeChange} />
-        <PositionStep onChange={this.onFieldChange} />
+        <PictureStep />
+        <MetaStepConnected />
+        <TypesStep />
+        <PositionStep />
         <Button type="submit">Envoyer</Button>
       </form>
     );
@@ -68,5 +57,5 @@ class AddSteps extends React.Component {
 }
 
 export const AddStepsConnected = connect(state => ({
-  selectedCells: state.adding.selectedCells
+  // model: state.adding.model
 }))(AddSteps);

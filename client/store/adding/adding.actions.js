@@ -2,7 +2,8 @@ import {
   SELECT_BOX,
   UNSELECT_BOX,
   SELECT_CELL,
-  UNSELECT_CELL
+  UNSELECT_CELL,
+  UPDATE_MODEL
 } from './adding.types';
 
 export const selectBox = (boxId, cellId) => ({
@@ -23,4 +24,9 @@ export const unselectCell = (boxId, cellId) => ({
   type: UNSELECT_CELL,
   boxId,
   cellId
+});
+export const updateModel = (name, value) => ({
+  type: UPDATE_MODEL,
+  name,
+  value
 });
