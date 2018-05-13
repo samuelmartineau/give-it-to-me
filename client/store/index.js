@@ -38,5 +38,6 @@ export {
   isBoxSelectable,
   isCellSelectable,
   isModelValid,
-  getAddModel
+  getAddModel,
+  getWinesFiltered
 } from './reducer';

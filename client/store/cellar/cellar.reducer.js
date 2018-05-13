@@ -20,6 +20,12 @@ export const mapReducer = (state = {}, action) => {
 };
 export const getWineById = (state, id) => state[id];
 
+export const getWinesFiltered = (state, filters) =>
+  state.all
+    .map(id => state.map[id])
+    .filter(() => true)
+    .map(p => p.id);
+
 export const allReducer = (state = [], action) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {

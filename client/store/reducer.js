@@ -2,12 +2,14 @@ import { combineReducers } from 'redux';
 import cellarReducer, * as cellar from './cellar/cellar.reducer';
 import bottlesReducer, * as bottles from './bottles/bottles.reducer';
 import addingReducer, * as adding from './adding/adding.reducer';
+import searchReducer, * as search from './search/search.reducer';
 import { getBoxCells } from '../components/Cellar/utils';
 
 export default combineReducers({
   cellar: cellarReducer,
   bottles: bottlesReducer,
-  adding: addingReducer
+  adding: addingReducer,
+  search: searchReducer
 });
 
 export const getWineById = (state, wineId) =>
@@ -42,3 +44,5 @@ export const isCellSelectable = (state, boxId, cellId) => {
   const cellIds = getCellsUsedInBox(state, boxId);
   return !alreadySelected && !cellIds.includes(cellId);
 };
+export const getWinesFiltered = state =>
+  cellar.getWinesFiltered(state.cellar, state.search);
