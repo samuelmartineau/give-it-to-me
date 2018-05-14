@@ -9,7 +9,15 @@ import {
   UPDATE_MODEL,
   RESET_ADD_WINE
 } from './adding.types';
-import { defaultSelectedTypes } from '../../components/Add/types/defaultTypes';
+const { DEFAULT_TYPE } = config.bottleTypes;
+const { WINE_TYPES_ALL } = config.wineTypes;
+
+const defaultSelectedTypes = {
+  wineType: WINE_TYPES_ALL[0].id,
+  wineCategory: WINE_TYPES_ALL[0].categories[0],
+  bottleType: DEFAULT_TYPE
+};
+
 const defaultModel = {
   isInBoxes: true,
   ...defaultSelectedTypes,

@@ -49,9 +49,21 @@ const WINE_CATEGORIES = {
 const DEFAULT_TYPE = 0;
 const DEFAULT_CATEGORY = 0;
 
+const WINE_TYPES_ALL = Object.keys(WINE_TYPES).map(key => ({
+  id: key,
+  ...WINE_TYPES[key]
+}));
+
+const WINE_CATEGORIES_ALL = Object.keys(WINE_CATEGORIES).map(key => ({
+  id: key,
+  ...WINE_CATEGORIES[key]
+}));
+
 module.exports = {
   WINE_TYPES,
   WINE_CATEGORIES,
   DEFAULT_TYPE,
-  DEFAULT_CATEGORY
+  DEFAULT_CATEGORY,
+  WINE_TYPES_ALL,
+  WINE_CATEGORIES_ALL
 };

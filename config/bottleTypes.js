@@ -23,7 +23,13 @@ const BOTTLE_TYPES = {
 
 const DEFAULT_TYPE = '1';
 
+const BOTTLE_TYPES_ALL = Object.keys(BOTTLE_TYPES).map(key => ({
+  id: key,
+  ...BOTTLE_TYPES[key]
+}));
+
 module.exports = {
   DEFAULT_TYPE,
-  BOTTLE_TYPES
+  BOTTLE_TYPES,
+  BOTTLE_TYPES_ALL
 };

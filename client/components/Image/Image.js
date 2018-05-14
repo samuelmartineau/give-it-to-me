@@ -48,9 +48,7 @@ export class Image extends React.Component<Props> {
     const rect = this.imgNode.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     if (!this.timeout && rect.bottom >= 0 && rect.top <= windowHeight) {
-      console.log(this.imgNode, this.delay);
       this.timeout = setTimeout(() => {
-        console.log('good');
         this.setState({ url: this.props.src });
         window.removeEventListener('scroll', this.scrollFunction);
         window.removeEventListener('resize', this.scrollFunction);

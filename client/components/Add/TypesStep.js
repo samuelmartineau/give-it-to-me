@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import config from '~/config';
-const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
-import { wineTypes, bottleTypes } from './types/defaultTypes';
+const { WINE_TYPES_ALL, WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+const { BOTTLE_TYPES_ALL } = config.bottleTypes;
 import { updateModel } from '~/client/store/';
 
 export class TypesStep extends React.Component {
@@ -10,7 +10,7 @@ export class TypesStep extends React.Component {
     return (
       <div>
         <legend>Famile</legend>
-        {wineTypes.map(wineType => (
+        {WINE_TYPES_ALL.map(wineType => (
           <label key={wineType.id}>
             <input
               type="radio"
@@ -36,7 +36,7 @@ export class TypesStep extends React.Component {
           </label>
         ))}
         <legend>Taille de la bouteille</legend>
-        {bottleTypes.map(bottleType => (
+        {BOTTLE_TYPES_ALL.map(bottleType => (
           <label key={bottleType.id}>
             <input
               type="radio"
