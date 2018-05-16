@@ -145,7 +145,7 @@ export class WineCard extends React.Component<WineCardProps> {
       .darken(20)
       .toString();
     return (
-      <WineCardWrapper>
+      <WineCardWrapper className={this.props.className}>
         <MenuButton
           open={open}
           type="button"

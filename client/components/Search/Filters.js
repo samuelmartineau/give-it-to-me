@@ -50,6 +50,7 @@ export const FiltersConnected = connect(
   }),
   dispatch => ({
     updateFilter(evt) {
+      debugger;
       const { value } = evt.target;
       console.log(value);
     }

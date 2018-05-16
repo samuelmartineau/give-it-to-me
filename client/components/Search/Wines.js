@@ -12,18 +12,22 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
-    minmax(${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px, 1fr)
+    minmax(calc(${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px + 2em), 1fr)
   );
   grid-gap: 30px;
+`;
+const WineCardConnectedStyled = styled(WineCardConnected)`
+  align-self: center;
+  justify-self: center;
 `;
 
 export const Wines = props => {
   return (
     <Wrapper>
       {props.wines.map(wineId => (
-        <WineCardConnected key={wineId} wineId={wineId}>
+        <WineCardConnectedStyled key={wineId} wineId={wineId}>
           {wine => wine.name}
-        </WineCardConnected>
+        </WineCardConnectedStyled>
       ))}
     </Wrapper>
   );
