@@ -29,6 +29,11 @@ const MenuButton = styled.button`
   right: 10px;
   z-index: 4;
   transition: transform 0.3s;
+  ${({ open }) =>
+    open &&
+    `
+    transform: translate(20px,-20px);
+  `};
 `;
 const WineCardImageContainer = styled.a`
   position: absolute;
@@ -142,6 +147,7 @@ export class WineCard extends React.Component<WineCardProps> {
     return (
       <WineCardWrapper>
         <MenuButton
+          open={open}
           type="button"
           onClick={this.onToggle}
           style={{ background: softColor, color: textColor }}
