@@ -8,7 +8,6 @@ type Props = {};
 export const Search = () => {
   return (
     <div>
-      seach
       <FiltersConnected />
       <WinesConnected />
     </div>

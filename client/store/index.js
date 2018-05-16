@@ -24,7 +24,8 @@ export {
   unselectCell,
   updateModel,
   addWine,
-  toggleCheckbox
+  toggleCheckboxFilter,
+  updateInputFilter
 } from './actions';
 export {
   isLastStep,

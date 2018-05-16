@@ -1,4 +1,8 @@
-import { SET_FILTER, TOGGLE_CHECKBOX_FILTER } from './search.types';
+import {
+  SET_FILTER,
+  TOGGLE_CHECKBOX_FILTER,
+  UPDATE_INPUT_FILTER
+} from './search.types';
 
 export default (
   state = {
@@ -22,6 +26,14 @@ export default (
         newFilters = [...state[key], value];
       }
       return { ...state, [key]: newFilters };
+    }
+    case UPDATE_INPUT_FILTER: {
+      const { key, value } = action;
+      let valueFormated = value;
+      if (['minYear', 'maxYear'].includes(key)) {
+        valueFormated = parseInt(value, 10);
+      }
+      return { ...state, [key]: valueFormated };
     }
 
     default:

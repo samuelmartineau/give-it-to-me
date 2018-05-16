@@ -36,6 +36,12 @@ export const getWinesFiltered = (state, filters) =>
       ) {
         return false;
       }
+      if (filters.minYear && wine.year < filters.minYear) {
+        return false;
+      }
+      if (filters.maxYear && wine.year > filters.maxYear) {
+        return false;
+      }
       return true;
     })
     .map(p => p.id);

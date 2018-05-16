@@ -6,7 +6,10 @@ import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
 export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
-export { toggleCheckbox } from './search/search.actions';
+export {
+  toggleCheckboxFilter,
+  updateInputFilter
+} from './search/search.actions';
 
 export const getCellar = () => {
   return dispatch => {
