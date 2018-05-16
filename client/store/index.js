@@ -23,7 +23,8 @@ export {
   selectCell,
   unselectCell,
   updateModel,
-  addWine
+  addWine,
+  toggleCheckbox
 } from './actions';
 export {
   isLastStep,

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWinesFiltered } from '~/client/store/';
+import { getWinesFiltered, toggleCheckbox } from '~/client/store/';
 import { WineCardConnected } from '../Wine/WineCardConnected';
 import config from '~/config';
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
@@ -22,8 +22,9 @@ export class Filters extends React.Component {
                 <input
                   type="checkbox"
                   onClick={this.props.updateFilter}
-                  name="type"
+                  name="wineTypes"
                   value={type.id}
+                  checked={this.props.filters.wineTypes.includes(type.id)}
                 />
                 {type.label}
               </label>
@@ -33,7 +34,15 @@ export class Filters extends React.Component {
           {WINE_CATEGORIES_ALL.map(category => {
             return (
               <label key={category.id}>
-                <input type="checkbox" name="category" value={category.id} />
+                <input
+                  type="checkbox"
+                  onClick={this.props.updateFilter}
+                  name="wineCategories"
+                  value={category.id}
+                  checked={this.props.filters.wineCategories.includes(
+                    category.id
+                  )}
+                />
                 {category.label}
               </label>
             );
@@ -50,9 +59,8 @@ export const FiltersConnected = connect(
   }),
   dispatch => ({
     updateFilter(evt) {
-      debugger;
-      const { value } = evt.target;
-      console.log(value);
+      const { value, name } = evt.target;
+      dispatch(toggleCheckbox(name, value));
     }
   })
 )(Filters);

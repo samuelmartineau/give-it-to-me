@@ -1,10 +1,12 @@
 import * as cellar from './cellar/cellar.actions';
 import { difference } from 'ramda';
 import * as adding from './adding/adding.actions';
+import * as search from './search/search.actions';
 import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
 export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
+export { toggleCheckbox } from './search/search.actions';
 
 export const getCellar = () => {
   return dispatch => {

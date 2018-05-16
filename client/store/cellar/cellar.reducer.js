@@ -23,7 +23,21 @@ export const getWineById = (state, id) => state[id];
 export const getWinesFiltered = (state, filters) =>
   state.all
     .map(id => state.map[id])
-    .filter(() => true)
+    .filter(wine => {
+      if (
+        filters.wineCategories.length &&
+        !filters.wineCategories.includes(wine.wineCategory)
+      ) {
+        return false;
+      }
+      if (
+        filters.wineTypes.length &&
+        !filters.wineTypes.includes(wine.wineType)
+      ) {
+        return false;
+      }
+      return true;
+    })
     .map(p => p.id);
 
 export const allReducer = (state = [], action) => {
