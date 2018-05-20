@@ -1,33 +1,33 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import { compose, pure } from 'recompose';
+import styled from 'styled-components';
 
-const styleSheet = theme => ({
-  root: {
-    textAlign: 'center',
-    flex: 1,
-    color: theme.palette.secondary[500]
-  },
-  title: { fontSize: '30px' },
-  message: { fontSize: '20px', maxWidth: '400px', display: 'inline-block' }
-});
+const Wrapper = styled.div`
+  text-align: center;
+  flex: 1;
+  color: palevioletred;
+`;
+const Icon = styled.i`
+  text-align: center;
+  flex: 1;
+  color: palevioletred;
+  font-size: 100px;
+}
+`;
+const Title = styled.h1`
+  font-size: 30px;
+`;
+const Content = styled.p`
+  font-size: 20px;
+  max-width: 400px;
+  display: inline-block;
+`;
 
-const MessageManager = ({ icon, classes, title, message }) => {
-  const iconStylized = React.cloneElement(icon, {
-    style: {
-      width: '200px',
-      height: '200px'
-    }
-  });
+export const MessageManager = ({ icon, classes, title, message }) => {
   return (
-    <div className={classes.root}>
-      <div>{iconStylized}</div>
-      <h1 className={classes.title}>{title}</h1>
-      <p className={classes.message}>{message}</p>
-    </div>
+    <Wrapper>
+      <Icon className="material-icons">{icon}</Icon>
+      <Title>{title}</Title>
+      <Content>{message}</Content>
+    </Wrapper>
   );
 };
-
-const Layout = compose(withStyles(styleSheet), pure)(MessageManager);
-
-export default Layout;

@@ -1,10 +1,11 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import throttle from 'lodash/throttle';
 import styled from 'styled-components';
-import { getWinesFiltered } from '~/client/store/';
-import { WineCardConnected } from '../Wine/WineCardConnected';
+import { WineSwitchConnected } from './WineSwitch';
 import { PICTURE_UPLOAD } from '~/config';
+import { getNextHits } from '~/client/store';
 
 type Props = {};
 
@@ -16,23 +17,58 @@ const Wrapper = styled.div`
   );
   grid-gap: 30px;
 `;
-const WineCardConnectedStyled = styled(WineCardConnected)`
-  align-self: center;
-  justify-self: center;
-`;
 
-export const Wines = props => {
-  return (
-    <Wrapper>
-      {props.wines.map(wineId => (
-        <WineCardConnectedStyled key={wineId} wineId={wineId}>
-          {wine => wine.name}
-        </WineCardConnectedStyled>
-      ))}
-    </Wrapper>
-  );
-};
+const THROTTLE_WAIT = 100;
 
-export const WinesConnected = connect(state => ({
-  wines: getWinesFiltered(state)
-}))(Wines);
+class Wines extends React.Component {
+  static scrollFunction;
+  scrollFunction: Function;
+
+  constructor(props: Props) {
+    super(props);
+    this.scrollFunction = this.trottleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollFunction);
+    window.addEventListener('resize', this.scrollFunction);
+    this.trottleScroll();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollFunction);
+    window.removeEventListener('resize', this.scrollFunction);
+  }
+
+  trottleScroll = throttle(this.handleScroll, THROTTLE_WAIT);
+
+  handleScroll() {
+    if (
+      window.scrollY + window.innerHeight >
+      document.body.scrollHeight - 200
+    ) {
+      this.props.getNextHits();
+    }
+  }
+  render() {
+    const { wines } = this.props;
+    return (
+      <Wrapper>
+        {wines.map(wineId => (
+          <WineSwitchConnected key={wineId} wineId={wineId}>
+            {wine => wine.name}
+          </WineSwitchConnected>
+        ))}
+      </Wrapper>
+    );
+  }
+}
+
+export const WinesConnected = connect(
+  state => ({ wines: state.cellar.all }),
+  dispatch => ({
+    getNextHits() {
+      dispatch(getNextHits());
+    }
+  })
+)(Wines);

@@ -44,5 +44,9 @@ export const isCellSelectable = (state, boxId, cellId) => {
   const cellIds = getCellsUsedInBox(state, boxId);
   return !alreadySelected && !cellIds.includes(cellId);
 };
+export const isWineFiltered = (state, wineId) =>
+  search.isWineFiltered(state.search, wineId, state.cellar.all);
+
 export const getWinesFiltered = state =>
-  cellar.getWinesFiltered(state.cellar, state.search);
+  search.getWinesFiltered(state.cellar, state.search);
+export const hasNoResult = state => search.hasNoResult(state.search);

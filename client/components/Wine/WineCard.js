@@ -118,19 +118,14 @@ const WinePane = styled.div`
 
 type WineCardProps = {
   wine: WineType,
-  classes: {},
   children: Function
 };
 
 export class WineCard extends React.Component<WineCardProps> {
-  state = {
-    open: false
-  };
+  state = { open: false };
 
   onToggle = () => {
-    this.setState(state => ({
-      open: !state.open
-    }));
+    this.setState(state => ({ open: !state.open }));
   };
 
   render() {
@@ -144,6 +139,7 @@ export class WineCard extends React.Component<WineCardProps> {
     const cornerColor = tinycolor(wineColor)
       .darken(20)
       .toString();
+
     return (
       <WineCardWrapper className={this.props.className}>
         <MenuButton

@@ -25,7 +25,8 @@ export {
   updateModel,
   addWine,
   toggleCheckboxFilter,
-  updateInputFilter
+  updateInputFilter,
+  getNextHits
 } from './actions';
 export {
   isLastStep,
@@ -41,5 +42,7 @@ export {
   isCellSelectable,
   isModelValid,
   getAddModel,
-  getWinesFiltered
+  isWineFiltered,
+  getWinesFiltered,
+  hasNoResult
 } from './reducer';

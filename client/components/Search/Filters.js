@@ -1,11 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  getWinesFiltered,
-  toggleCheckboxFilter,
-  updateInputFilter
-} from '~/client/store/';
+import { toggleCheckboxFilter, updateInputFilter } from '~/client/store/';
 import { WineCardConnected } from '../Wine/WineCardConnected';
 import config from '~/config';
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
@@ -14,7 +10,6 @@ type Props = {};
 
 export class Filters extends React.Component {
   render() {
-    console.log(this.props.filters);
     return (
       <div>
         <p>Couleur</p>
@@ -54,13 +49,23 @@ export class Filters extends React.Component {
           onChange={this.props.onInputChange}
           type="number"
           name="minYear"
+          value={this.props.filters.minYear}
           placeholder="Borne Inférieur"
         />
         <input
           onChange={this.props.onInputChange}
           type="number"
           name="maxYear"
+          value={this.props.filters.maxYear}
           placeholder="Borne Supérieur"
+        />
+        <p>Nom</p>
+        <input
+          onChange={this.props.onInputChange}
+          type="text"
+          name="name"
+          value={this.props.filters.name}
+          placeholder="Nom"
         />
       </div>
     );
