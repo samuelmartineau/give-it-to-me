@@ -47,21 +47,13 @@ export const addWine = () => {
   };
 };
 
-const updateWinesFiltered = (dispatch, getState) => {
-  const state = getState();
-  const wines = getWinesFiltered(state);
-  dispatch(search.setSelectedWines(wines));
-};
-
 export const toggleCheckboxFilter = (key, value) => {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(search.toggleCheckboxFilter(key, value));
-    updateWinesFiltered(dispatch, getState);
   };
 };
 export const updateInputFilter = (key, value) => {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(search.updateInputFilter(key, value));
-    updateWinesFiltered(dispatch, getState);
   };
 };

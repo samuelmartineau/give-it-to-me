@@ -1,7 +1,11 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleCheckboxFilter, updateInputFilter } from '~/client/store/';
+import {
+  toggleCheckboxFilter,
+  updateInputFilter,
+  getWinesFiltered
+} from '~/client/store/';
 import { WineCardConnected } from '../Wine/WineCardConnected';
 import config from '~/config';
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
@@ -12,6 +16,7 @@ export class Filters extends React.Component {
   render() {
     return (
       <div>
+        <h2>Filtres: {this.props.count} résultats</h2>
         <p>Couleur</p>
         {WINE_TYPES_ALL.map(type => {
           return (
@@ -74,7 +79,8 @@ export class Filters extends React.Component {
 
 export const FiltersConnected = connect(
   state => ({
-    filters: state.search
+    filters: state.search,
+    count: getWinesFiltered(state).length
   }),
   dispatch => ({
     updateCheckbox(evt) {

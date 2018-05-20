@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { hasNoResult } from '~/client/store/';
+import { getWinesFiltered } from '~/client/store/';
 import { MessageManager } from '../MessageManager/MessageManager';
 
 type Props = {};
@@ -20,5 +20,5 @@ const EmptyResults = ({ hasNoResult }) => {
 };
 
 export const EmptyResultsConnected = connect(state => ({
-  hasNoResult: hasNoResult(state)
+  hasNoResult: getWinesFiltered(state).length === 0
 }))(EmptyResults);

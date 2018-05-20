@@ -2,8 +2,7 @@ import {
   SET_FILTER,
   TOGGLE_CHECKBOX_FILTER,
   UPDATE_INPUT_FILTER,
-  GET_NEXT_HITS,
-  SET_SELECTED_WINES
+  GET_NEXT_HITS
 } from './search.types';
 
 const hitsByPage = 10;
@@ -16,8 +15,7 @@ export default (
     minYear: undefined,
     maxYear: undefined,
     name: undefined,
-    hitsDisplayed: hitsByPage,
-    selectedWines: []
+    hitsDisplayed: hitsByPage
   },
   action
 ) => {
@@ -46,13 +44,6 @@ export default (
     case GET_NEXT_HITS: {
       return { ...state, hitsDisplayed: state.hitsDisplayed + hitsByPage };
     }
-    case SET_SELECTED_WINES: {
-      return {
-        ...state,
-        selectedWines: action.wines,
-        hitsDisplayed: hitsByPage
-      };
-    }
 
     default:
       return state;
@@ -63,7 +54,7 @@ function nameMatch(filter, name) {
   return name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
 }
 
-function hasFilters(filters) {
+function hasFiltersSet(filters) {
   let has = false;
   has = ['wineFamilies', 'wineTypes', 'wineCategories'].some(
     key => filters[key].length > 0
@@ -74,21 +65,16 @@ function hasFilters(filters) {
 export const getWinesFiltered = (state, filters) => {
   return state.all.filter(wineId => isWineMatch(state, filters, wineId));
 };
-export const isWineFiltered = (state, wineId, wines) => {
-  if (state.selectedWines.length) {
-    const index = state.selectedWines.indexOf(wineId);
-    return index > -1 && index < state.hitsDisplayed;
-  } else if (!hasFilters(state)) {
-    return wines.indexOf(wineId) < state.hitsDisplayed;
-  }
-  return false;
-};
-
-export const hasNoResult = state => {
-  return hasFilters(state) && state.selectedWines.length === 0;
+export const isWineFiltered = (state, selectedWines, wineId) => {
+  const index = selectedWines.indexOf(wineId);
+  return index > -1 && index < state.hitsDisplayed;
 };
 
 const isWineMatch = (state, filters, wineId) => {
+  const filtersSet = hasFiltersSet(filters);
+  if (!filtersSet) {
+    return true;
+  }
   const wine = state.map[wineId];
   if (
     filters.wineCategories.length &&
