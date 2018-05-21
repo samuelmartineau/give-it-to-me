@@ -1,14 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import MetaStep from './MetaStep';
-import PictureStep from './PictureStep';
-import TypesStep from './TypesStep';
-import PositionStep from './PositionStep';
-import AddSteps from './AddSteps';
+import { MetaStepConnected } from './MetaStep';
+import { PictureStepConnected } from './PictureStep';
+import { TypesStepConnected } from './TypesStep';
+import { PositionStepConnected } from './PositionStep';
+import { AddStepsConnected } from './AddSteps';
 
 storiesOf('Steps', module)
-  .add('Full Stepper', () => <AddSteps />)
-  .add('Meta', () => <MetaStep />)
-  .add('Picture', () => <PictureStep />)
-  .add('Types', () => <TypesStep />)
-  .add('Position', () => <PositionStep />);
+  .add('Full Stepper', () => <AddStepsConnected />)
+  .add('Meta', () => <MetaStepConnected />)
+  .add('Picture', () => <PictureStepConnected />)
+  .add('Types', () => <TypesStepConnected />)
+  .add('Position', () => <PositionStepConnected />);
