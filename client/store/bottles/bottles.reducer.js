@@ -69,7 +69,8 @@ export const getBottleById = (state, boxId) => {
   return state[boxId];
 };
 
-export const getBottlesInBox = (state, boxId) => state[boxId] || [];
+export const getBottlesInBox = (state, boxId) =>
+  state[boxId] ? Object.values(state[boxId]) : [];
 
 export const getBottleByPosition = (state, boxId, cellId) => {
   if (state[boxId] && state[boxId][cellId]) {

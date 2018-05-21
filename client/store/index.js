@@ -43,5 +43,6 @@ export {
   isModelValid,
   getAddModel,
   isWineFiltered,
-  getWinesFiltered
+  getWinesFiltered,
+  isWineInBox
 } from './reducer';

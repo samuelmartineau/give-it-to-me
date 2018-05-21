@@ -3,6 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import styled from 'styled-components';
+import CellarContainer from '../Cellar/CellarContainer';
+import CellarBoxes from '../Cellar/CellarBoxes';
+import { CellarBoxConnected } from './CellarBox';
 import { WineSwitchConnected } from './WineSwitch';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
@@ -56,7 +59,24 @@ class Wines extends React.Component {
       <Wrapper>
         {wines.map(wineId => (
           <WineSwitchConnected key={wineId} wineId={wineId}>
-            {wine => wine.name}
+            {wine => {
+              console.log(wine);
+              return (
+                <React.Fragment>
+                  <CellarContainer>
+                    <CellarBoxes>
+                      {boxId => (
+                        <CellarBoxConnected
+                          boxId={boxId}
+                          wineId={wine.id}
+                          key={boxId}
+                        />
+                      )}
+                    </CellarBoxes>
+                  </CellarContainer>
+                </React.Fragment>
+              );
+            }}
           </WineSwitchConnected>
         ))}
       </Wrapper>
