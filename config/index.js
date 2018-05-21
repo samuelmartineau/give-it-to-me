@@ -4,6 +4,8 @@ const wineFamilies = require('./wineFamilies');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 4000;
+const apiUrl = `http://localhost:${defaultPort}`;
+const assetsBaseUrl = '/assets';
 
 const environment = {
   development: {
@@ -37,7 +39,6 @@ module.exports = {
   },
   debug: !process.env.DEBUG,
   PORT: defaultPort,
-  DEV_PORT: defaultPort + 1,
   LOGGER_INFO_FILE_PATH: 'info-logs.log',
   LOGGER_ERROR_FILE_PATH: 'error-logs.log',
   DIST: 'dist',
@@ -58,19 +59,18 @@ module.exports = {
       QUALITY: 30
     }
   },
+  ASSETS_BASE_URL: assetsBaseUrl,
   API_BASE_URL: '/api',
-  API_URL:
-    process.env.NODE_ENV === 'production'
-      ? ''
-      : `http://localhost:${defaultPort}`,
-  CORS_CONFIG:
-    process.env.NODE_ENV === 'production'
-      ? {}
-      : { origin: true, credentials: true },
+  API_URL: apiUrl,
+  CORS_CONFIG: { origin: true, credentials: true },
   cellar,
   wineTypes,
   wineFamilies,
   utils,
   bottleTypes,
-  environment
+  environment,
+  buildAssetsUrl(url) {
+    const separator = url[0] === '/' ? '' : '/';
+    return `${apiUrl}${assetsBaseUrl}${separator}${url}`;
+  }
 };

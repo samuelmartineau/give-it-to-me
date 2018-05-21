@@ -3,7 +3,7 @@ import tinycolor from 'tinycolor2';
 import fontColorContrast from 'font-color-contrast';
 import { PICTURE_UPLOAD, wineTypes } from '~/config';
 import styled from 'styled-components';
-import { API_URL } from '~/config';
+import { buildAssetsUrl } from '~/config';
 
 import { Image } from '../Image/Image';
 import { WineType } from './Wine.type';
@@ -152,14 +152,14 @@ export class WineCard extends React.Component<WineCardProps> {
         </MenuButton>
         <WineCardImageContainer
           open={open}
-          href={wine.pictureFileName}
+          href={buildAssetsUrl(wine.pictureFileName)}
           target="_blank"
         >
           <WineImage
             open={open}
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-            src={`${API_URL}/${wine.pictureFileName}`}
+            src={buildAssetsUrl(wine.pictureFileName)}
             lazyLoader={wine.blur}
           />
         </WineCardImageContainer>

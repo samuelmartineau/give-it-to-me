@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document';
+import { buildAssetsUrl } from '~/config';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
@@ -15,7 +16,12 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>My page</title>
+          <title>Give It To Me</title>
+          <link
+            rel="icon"
+            href={buildAssetsUrl('favicon.png')}
+            type="image/png"
+          />
           {this.props.styleTags}
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
