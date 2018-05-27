@@ -28,7 +28,7 @@ const MenuButton = styled.button`
   top: 10px;
   right: 10px;
   z-index: 4;
-  transition: transform 0.3s;
+  transition: transform 0.2s;
   ${({ open }) =>
     open &&
     `
@@ -43,7 +43,7 @@ const WineCardImageContainer = styled.a`
   height: 100%;
   display: block;
   overflow: hidden;
-  transition: transform 0.3s;
+  transition: transform 0.2s;
   ${({ open }) =>
     open &&
     `
@@ -81,7 +81,7 @@ const WineCardContainer = styled.div`
 const WineCorner = styled.div`
   position: absolute;
   border: 8px solid;
-  transition: transform 0.3s;
+  transition: transform 0.2s;
   border-left-color: transparent;
   border-top-color: transparent;
   bottom: auto;
@@ -99,7 +99,7 @@ const WinePane = styled.div`
   left: 0px;
   padding: ${paddingInfos}px 16px;
   padding-left: ${paddingInfos}px;
-  transition: transform 0.3s;
+  transition: transform 0.2s;
   height: ${closeInfosHeight}px;
   z-index: 3;
   justify-content: center;

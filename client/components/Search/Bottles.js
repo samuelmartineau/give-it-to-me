@@ -4,13 +4,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Bottle from '../Cellar/Bottle';
 import CellarCells from '../Cellar/Cells/CellarCells';
-import { getBottleByPosition } from '../../store';
+import { getBottleById } from '../../store';
 import { getCellId, getBottleInfos, getBottleId } from '../Cellar/utils';
 
-const Cell = ({ bottle, boxId, cellId, wineId }) => {
-  if (!bottle || bottle.wine_id !== wineId) {
-    return null;
-  }
+const Cell = ({ bottle }) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   return (
     <Bottle
@@ -22,23 +19,10 @@ const Cell = ({ bottle, boxId, cellId, wineId }) => {
   );
 };
 
-const CellConnected = connect((state, { boxId, cellId }) => ({
-  bottle: getBottleByPosition(state, boxId, cellId)
+const CellConnected = connect((state, { bottleId }) => ({
+  bottle: getBottleById(state, bottleId)
 }))(Cell);
 
-export const CellarBottles = ({ wineId }) => {
-  return (
-    <CellarCells>
-      {(boxId, cellId) => {
-        return (
-          <CellConnected
-            key={getCellId(boxId, cellId)}
-            boxId={boxId}
-            cellId={cellId}
-            wineId={wineId}
-          />
-        );
-      }}
-    </CellarCells>
-  );
+export const CellarBottles = ({ bottles }) => {
+  return <g>{bottles.map(id => <CellConnected key={id} bottleId={id} />)}</g>;
 };

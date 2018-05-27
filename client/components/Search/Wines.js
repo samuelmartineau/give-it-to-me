@@ -61,6 +61,7 @@ class Wines extends React.Component {
         {wines.map(wineId => (
           <WineSwitchConnected key={wineId} wineId={wineId}>
             {wine => {
+              console.log(wine);
               return (
                 <React.Fragment>
                   <CellarContainer>
@@ -73,8 +74,28 @@ class Wines extends React.Component {
                         />
                       )}
                     </CellarBoxes>
-                    <CellarBottles wineId={wine.id} />
+                    <CellarBottles bottles={wine.bottles} />
                   </CellarContainer>
+                  <div>
+                    <span>Millésime: </span>
+                    <span>{wine.year}</span>
+                  </div>
+                  <div>
+                    <span>AOC: </span>
+                    <span>{wine.year}</span>
+                  </div>
+                  <div>
+                    <span>Taille: </span>
+                    <span>{wine.year}</span>
+                  </div>
+                  <div>
+                    <span>Type: </span>
+                    <span>{wine.wineType}</span>
+                  </div>
+                  <div>
+                    <span>Source: </span>
+                    <span>{wine.source}</span>
+                  </div>
                 </React.Fragment>
               );
             }}
