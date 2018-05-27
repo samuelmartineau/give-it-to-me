@@ -7,6 +7,7 @@ import CellarContainer from '../Cellar/CellarContainer';
 import CellarBoxes from '../Cellar/CellarBoxes';
 import { CellarBoxConnected } from './CellarBox';
 import { WineSwitchConnected } from './WineSwitch';
+import { CellarBottles } from './Bottles';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
 
@@ -60,7 +61,6 @@ class Wines extends React.Component {
         {wines.map(wineId => (
           <WineSwitchConnected key={wineId} wineId={wineId}>
             {wine => {
-              console.log(wine);
               return (
                 <React.Fragment>
                   <CellarContainer>
@@ -73,6 +73,7 @@ class Wines extends React.Component {
                         />
                       )}
                     </CellarBoxes>
+                    <CellarBottles wineId={wine.id} />
                   </CellarContainer>
                 </React.Fragment>
               );
