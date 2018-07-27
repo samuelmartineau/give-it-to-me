@@ -1,11 +1,9 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import Bottle from '../Cellar/Bottle';
-import CellarCells from '../Cellar/Cells/CellarCells';
 import { getBottleById } from '../../store';
-import { getCellId, getBottleInfos, getBottleId } from '../Cellar/utils';
+import { getBottleInfos, getBottleId } from '../Cellar/utils';
 
 const Cell = ({ bottle }) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);

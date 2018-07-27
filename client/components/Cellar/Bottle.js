@@ -4,7 +4,11 @@ import React from 'react';
 import { getBottleInfos } from './utils';
 
 type Props = {
-  bottle: {}
+  bottle: {
+    box: number,
+    cell: number,
+    color: string
+  }
 };
 
 const Bottle = ({ bottle, ...rest }: Props) => {

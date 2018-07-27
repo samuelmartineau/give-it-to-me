@@ -16,6 +16,7 @@ const CellarBoxStyled = styled(CellarBox)`
 
 type Props = {
   boxId: number,
+  isWineInBox: boolean,
   onSelect?: Function,
   className: string
 };

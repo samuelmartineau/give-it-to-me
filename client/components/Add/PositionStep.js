@@ -6,7 +6,10 @@ import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
 import { updateModel } from '~/client/store/';
 
-type Props = {};
+type Props = {
+  toggle: Function,
+  model: { isInBoxes: boolean }
+};
 type State = {
   checked: boolean
 };

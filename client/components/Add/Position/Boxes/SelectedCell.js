@@ -7,7 +7,9 @@ import Bottle from '../../../Cellar/Bottle';
 import { getBottleInfos } from '../../../Cellar/utils';
 
 type Props = {
-  selected: Bool
+  selected: boolean,
+  boxId: number,
+  cellId: number
 };
 
 const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {

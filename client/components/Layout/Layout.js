@@ -17,7 +17,7 @@ type AppFrameProps = {
   width: Number,
   classes: {},
   title: string,
-  children: ReactElement
+  children: React$Node
 };
 
 const App = styled.div``;

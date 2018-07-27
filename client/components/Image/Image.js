@@ -1,9 +1,5 @@
 // @flow
 import React from 'react';
-import throttle from 'lodash/throttle';
-
-const THROTTLE_WAIT = 100;
-const DEFAULT_DELAY = 300;
 
 type Props = {
   src: string,
@@ -11,7 +7,7 @@ type Props = {
   height: number,
   lazyLoader: string,
   delay: number,
-  className: String
+  className?: String
 };
 
 export class Image extends React.Component<Props> {

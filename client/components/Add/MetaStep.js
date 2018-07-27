@@ -1,14 +1,18 @@
 // @flow
 
 import * as React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { WineFamilySuggestion } from '../Autocomplete/WineFamilySuggestion';
 import { TextField } from '~/client/components/Toolkit';
 import { updateModel } from '~/client/store/';
 
+import type { WineType } from '~/client/components/Wine/Wine.type';
+
 type Props = {
-  onMetaChange: Function
+  onMetaChange: Function,
+  onFamilyChange: Function,
+  onFamilyClear: Function,
+  model: WineType
 };
 
 class MetaStep extends React.Component<Props> {

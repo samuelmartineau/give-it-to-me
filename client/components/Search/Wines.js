@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 
 const THROTTLE_WAIT = 100;
 
-class Wines extends React.Component {
+class Wines extends React.Component<Props> {
   static scrollFunction;
   scrollFunction: Function;
 
