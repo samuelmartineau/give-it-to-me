@@ -22,5 +22,11 @@ const CellConnected = connect((state, { bottleId }) => ({
 }))(Cell);
 
 export const CellarBottles = ({ bottles }) => {
-  return <g>{bottles.map(id => <CellConnected key={id} bottleId={id} />)}</g>;
+  return (
+    <g>
+      {bottles.map(id => (
+        <CellConnected key={id} bottleId={id} />
+      ))}
+    </g>
+  );
 };

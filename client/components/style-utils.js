@@ -7,7 +7,7 @@ export const media = {
     }
   `,
   screen: (...args) => css`
-    @media (min-width: 600px) {
+    @media (min-width: 601px) {
       ${css(...args)};
     }
   `

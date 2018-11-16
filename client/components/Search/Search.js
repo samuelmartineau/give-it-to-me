@@ -4,8 +4,6 @@ import { WinesConnected } from './Wines';
 import { FiltersConnected } from './Filters';
 import { EmptyResultsConnected } from './EmptyResults';
 
-type Props = {};
-
 export const Search = () => {
   return (
     <div>

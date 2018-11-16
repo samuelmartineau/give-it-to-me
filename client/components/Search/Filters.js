@@ -9,7 +9,18 @@ import {
 import config from '~/config';
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
 
-type Props = {};
+type Props = {
+  count: number,
+  updateCheckbox: Function,
+  onInputChange: Function,
+  filters: {
+    wineTypes: Array<string>,
+    wineCategories: Array<string>,
+    maxYear: string,
+    minYear: string,
+    name: string
+  }
+};
 
 export const Filters = (props: Props) => (
   <div>
@@ -20,7 +31,7 @@ export const Filters = (props: Props) => (
         <label key={type.id}>
           <input
             type="checkbox"
-            onClick={props.updateCheckbox}
+            onChange={props.updateCheckbox}
             name="wineTypes"
             value={type.id}
             checked={props.filters.wineTypes.includes(type.id)}
@@ -35,7 +46,7 @@ export const Filters = (props: Props) => (
         <label key={category.id}>
           <input
             type="checkbox"
-            onClick={props.updateCheckbox}
+            onChange={props.updateCheckbox}
             name="wineCategories"
             value={category.id}
             checked={props.filters.wineCategories.includes(category.id)}

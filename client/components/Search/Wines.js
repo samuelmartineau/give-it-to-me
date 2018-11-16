@@ -5,13 +5,18 @@ import throttle from 'lodash/throttle';
 import styled from 'styled-components';
 import CellarContainer from '../Cellar/CellarContainer';
 import CellarBoxes from '../Cellar/CellarBoxes';
+import WineDetails from './WineDetails';
+import WineModalButton from './WineModalButton';
 import { CellarBoxConnected } from './CellarBox';
 import { WineSwitchConnected } from './WineSwitch';
 import { CellarBottles } from './Bottles';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
 
-type Props = {};
+type Props = {
+  getNextHits: Function,
+  wines: Array<string>
+};
 
 const Wrapper = styled.div`
   display: grid;
@@ -76,26 +81,8 @@ class Wines extends React.Component<Props> {
                     </CellarBoxes>
                     <CellarBottles bottles={wine.bottles} />
                   </CellarContainer>
-                  <div>
-                    <span>Millésime: </span>
-                    <span>{wine.year}</span>
-                  </div>
-                  <div>
-                    <span>AOC: </span>
-                    <span>{wine.year}</span>
-                  </div>
-                  <div>
-                    <span>Taille: </span>
-                    <span>{wine.year}</span>
-                  </div>
-                  <div>
-                    <span>Type: </span>
-                    <span>{wine.wineType}</span>
-                  </div>
-                  <div>
-                    <span>Source: </span>
-                    <span>{wine.source}</span>
-                  </div>
+                  <WineDetails wine={wine} />
+                  <WineModalButton wineId={wine.id} />
                 </React.Fragment>
               );
             }}

@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { compose, withState, withHandlers } from 'recompose';
 import { media } from '~/client/components/style-utils';
 
 import Header from './Header';
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
@@ -25,6 +25,7 @@ const PageTitle = styled.h1`
   text-align: center;
 `;
 const Main = styled.div`
+  padding: 1rem;
   ${media.screen`
     margin-left: auto;
     margin-right: auto;
@@ -39,6 +40,7 @@ const AppFrame = ({ title, children }: AppFrameProps) => {
   return (
     <App>
       <Header />
+      <GlobalStyle />
       <PageTitle>{title}</PageTitle>
       <Main>{children}</Main>
     </App>

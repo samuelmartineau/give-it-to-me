@@ -17,7 +17,6 @@ export const reduxPage = withRedux(makeStore);
 
 export {
   getCellar,
-  setStep,
   selectBox,
   unselectBox,
   selectCell,
@@ -29,7 +28,6 @@ export {
   getNextHits
 } from './actions';
 export {
-  isLastStep,
   getWineById,
   getCellsUsedInBox,
   getBottleById,

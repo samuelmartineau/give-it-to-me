@@ -118,7 +118,8 @@ const WinePane = styled.div`
 
 type WineCardProps = {
   wine: WineType,
-  children: Function
+  children: Function,
+  className: string
 };
 
 export class WineCard extends React.Component<WineCardProps> {
