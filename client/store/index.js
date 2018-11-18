@@ -46,5 +46,6 @@ export {
   getWinesFiltered,
   isWineInBox,
   getWineBottles,
-  getRemovedBottles
+  getRemovedBottles,
+  isBottleSelectedToBeRemoved
 } from './reducer';

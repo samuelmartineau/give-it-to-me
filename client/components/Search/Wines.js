@@ -8,7 +8,7 @@ import CellarBoxes from '../Cellar/CellarBoxes';
 import WineDetails from './WineDetails';
 import WineModalButton from './WineModal/WineModalButton';
 import { CellarBoxConnected } from './CellarBox';
-import { WineSwitchConnected } from './WineSwitch';
+import FilteredWine from './FilteredWine';
 import { CellarBottles } from './Bottles';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
@@ -64,7 +64,7 @@ class Wines extends React.Component<Props> {
     return (
       <Wrapper>
         {wines.map(wineId => (
-          <WineSwitchConnected key={wineId} wineId={wineId}>
+          <FilteredWine key={wineId} wineId={wineId}>
             {wine => {
               console.log(wine);
               return (
@@ -86,7 +86,7 @@ class Wines extends React.Component<Props> {
                 </React.Fragment>
               );
             }}
-          </WineSwitchConnected>
+          </FilteredWine>
         ))}
       </Wrapper>
     );

@@ -75,3 +75,5 @@ export const getWineBottles = (state, wineId) => {
 
 export const getRemovedBottles = state =>
   remove.getRemovedBottles(state.remove);
+export const isBottleSelectedToBeRemoved = (state, bottleId) =>
+  remove.isBottleSelectedToBeRemoved(state.remove, bottleId);

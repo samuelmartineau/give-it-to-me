@@ -25,27 +25,41 @@ const BoxBottles = ({ boxId }: { boxId: number }) => {
   );
 };
 
-export default BoxBottles;
-
-const Cell = ({ bottle, boxId, cellId }: {}) => {
-  if (!bottle) {
+const Cell = ({
+  hasBottle,
+  bottleColor,
+  boxId,
+  cellId
+}: {
+  hasBottle: boolean,
+  bottleColor: string,
+  boxId: number,
+  cellId: number
+}) => {
+  if (!hasBottle) {
     return null;
   }
-  const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
+  const bottleInfos = getBottleInfos(boxId, cellId);
   return (
     <Bottle
-      key={getBottleId(bottle.box, bottle.cell)}
+      key={getBottleId(boxId, cellId)}
       cx={bottleInfos.cxRelative}
       cy={bottleInfos.cyRelative}
-      cell={bottle.cell}
-      box={bottle.box}
-      color={bottle.color}
+      cell={cellId}
+      box={boxId}
+      color={bottleColor}
     />
   );
 };
 
 const CellConnected = compose(
-  connect((state, { boxId, cellId }) => ({
-    bottle: getBottleByPosition(state, boxId, cellId)
-  }))
+  connect((state, { boxId, cellId }) => {
+    const bottle = getBottleByPosition(state, boxId, cellId);
+    return {
+      hasBottle: !!bottle,
+      bottleColor: bottle && bottle.color
+    };
+  })
 )(Cell);
+
+export default BoxBottles;

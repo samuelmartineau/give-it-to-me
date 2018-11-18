@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getWineBottles, getRemovedBottles, getWineById } from '~/client/store';
 import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
-import BoxBottles from '~/client/components/Cellar/Box/BoxBottles';
+import BoxBottles from './BoxBottles';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
 import ClickHandlerCell from './ClickHandlerCell';
 
@@ -14,7 +14,7 @@ type Props = {
 
 class WineModalFolders extends React.PureComponent<Props> {
   render() {
-    const { bottles, removedBottles } = this.props;
+    const { bottles, removedBottles, bottleIds } = this.props;
     console.log({ bottles, removedBottles });
     return Object.keys(bottles).map(boxId => (
       <div key={boxId}>
@@ -38,7 +38,7 @@ class WineModalFolders extends React.PureComponent<Props> {
               );
             }}
           </BoxCells>
-          <BoxBottles boxId={boxId} />
+          <BoxBottles boxId={boxId} selectableBottleIds={bottleIds} />
           {/* <BoxCells boxId={boxId}>
             {cellId => (
               <SelectedCell
@@ -56,6 +56,7 @@ class WineModalFolders extends React.PureComponent<Props> {
 
 export default connect(
   (state, { wineId }) => ({
+    bottleIds: getWineById(state, wineId).bottleIds,
     bottles: getWineBottles(state, wineId),
     removedBottles: getRemovedBottles(state, wineId)
   }),

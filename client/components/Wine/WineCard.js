@@ -162,7 +162,7 @@ export class WineCard extends React.Component<WineCardProps> {
             open={open}
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-            src={buildAssetsUrl(wine.pictureFileName)}
+            src={buildAssetsUrl(wine.thumbnailFileName)}
             lazyLoader={wine.blur}
           />
         </WineCardImageContainer>

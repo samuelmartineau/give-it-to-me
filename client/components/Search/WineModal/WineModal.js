@@ -28,6 +28,9 @@ class WineModal extends React.PureComponent<Props> {
           <Button onClick={closeModal} type="button">
             Annuler
           </Button>
+          <Button primary type="button">
+            Supprimer
+          </Button>
         </ModalActions>
       </Modal>
     );

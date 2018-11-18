@@ -10,7 +10,7 @@ const WineCardStyled = styled(WineCard)`
   justify-self: center;
 `;
 
-class WineSwitch extends React.Component {
+class FilteredWine extends React.Component {
   state = {
     cachedComp: null
   };
@@ -32,7 +32,7 @@ class WineSwitch extends React.Component {
   }
 }
 
-export const WineSwitchConnected = connect((state, { wineId }) => ({
+export default connect((state, { wineId }) => ({
   wine: getWineById(state, wineId),
   isFiltered: isWineFiltered(state, wineId)
-}))(WineSwitch);
+}))(FilteredWine);
