@@ -1,22 +1,21 @@
 // @flow
 import React from 'react';
 import { cellar } from '~/config';
-import classNames from 'classnames';
 
 const { CELL_SIZE, CELL_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = cellar;
 
 type Props = {
   cellId: number,
   onSelect: Function,
-  classes: {}
+  className: string
 };
 
-const BoxCell = ({ cellId, onSelect = () => {}, classes = {} }: Props) => {
+const BoxCell = ({ cellId, onSelect = () => {}, className }: Props) => {
   const column = Math.floor(cellId / 3);
   const row = cellId % 3;
   return (
     <rect
-      className={classNames(Object.values(classes))}
+      className={className}
       onClick={onSelect}
       x={column * CELL_SIZE}
       y={row * CELL_SIZE}

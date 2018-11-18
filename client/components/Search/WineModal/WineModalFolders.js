@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Button } from '~/client/components/Toolkit';
 import { getWineBottles } from '~/client/store';
+import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
+import BoxBottles from '~/client/components/Cellar/Box/BoxBottles';
+import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
+import { getCellId } from '~/client/components/Cellar/utils';
 
 type Props = {
   wineId: boolean,
@@ -13,8 +17,27 @@ type Props = {
 class WineModalFolders extends React.PureComponent<Props> {
   render() {
     const { bottles } = this.props;
-    console.log({ bottles });
-    return <div>blabla</div>;
+    return Object.keys(bottles).map(boxId => (
+      <div key={boxId}>
+        <BoxContainer boxId={boxId}>
+          {/* <BoxCells boxId={boxId}>
+            {cellId => (
+              <SwitchCell key={cellId} boxId={boxId} cellId={cellId} />
+            )}
+          </BoxCells> */}
+          <BoxBottles boxId={boxId} />
+          {/* <BoxCells boxId={boxId}>
+            {cellId => (
+              <SelectedCell
+                key={getCellId(boxId, cellId)}
+                boxId={boxId}
+                cellId={cellId}
+              />
+            )}
+          </BoxCells> */}
+        </BoxContainer>
+      </div>
+    ));
   }
 }
 

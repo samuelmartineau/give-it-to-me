@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
-import BoxContainer from '../../../Cellar/Box/BoxContainer';
-import BoxBottles from '../../../Cellar/Box/BoxBottles';
-import BoxCells from '../../../Cellar/Cells/BoxCells';
-import SwitchCell from './SwitchCell';
+import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
+import BoxBottles from '~/client/components/Cellar/Box/BoxBottles';
+import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
+import { getCellId } from '~/client/components/Cellar/utils';
+import ClickHandlerCell from './ClickHandlerCell';
 import SelectedCell from './SelectedCell';
-import { getCellId } from '../../../Cellar/utils';
 
 type CellsSelectorProps = {
   boxId: number,
@@ -32,7 +32,9 @@ const CellsSelector = ({
       <button onClick={onUnselect}>close</button>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
-          {cellId => <SwitchCell key={cellId} boxId={boxId} cellId={cellId} />}
+          {cellId => (
+            <ClickHandlerCell key={cellId} boxId={boxId} cellId={cellId} />
+          )}
         </BoxCells>
         <BoxBottles boxId={boxId} />
         <BoxCells boxId={boxId}>

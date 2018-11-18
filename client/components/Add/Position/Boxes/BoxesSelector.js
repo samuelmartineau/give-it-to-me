@@ -3,7 +3,7 @@ import React from 'react';
 import CellarContainer from '../../../Cellar/CellarContainer';
 import CellarBoxes from '../../../Cellar/CellarBoxes';
 import CellarBottles from '../../../Cellar/CellarBottles';
-import SwitchBox from './SwitchBox';
+import ClickHandlerBox from './ClickHandlerBox';
 import { getCellId } from '../../../Cellar/utils';
 import SelectedCell from './SelectedCell';
 import CellarCells from '../../../Cellar/Cells/CellarCells';
@@ -15,9 +15,7 @@ class BoxesSelector extends React.Component<BoxesSelectorProps> {
     return (
       <CellarContainer>
         <CellarBoxes>
-          {boxId => {
-            return <SwitchBox key={boxId} boxId={boxId} />;
-          }}
+          {boxId => <ClickHandlerBox key={boxId} boxId={boxId} />}
         </CellarBoxes>
         <CellarBottles />
         <CellarCells>
