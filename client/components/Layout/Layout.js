@@ -11,6 +11,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: 'Open Sans', sans-serif;
   }
+  * {
+    box-sizing: border-box;
+  } 
 `;
 
 type AppFrameProps = {
@@ -25,7 +28,6 @@ const PageTitle = styled.h1`
   text-align: center;
 `;
 const Main = styled.div`
-  padding: 1rem;
   ${media.screen`
     margin-left: auto;
     margin-right: auto;

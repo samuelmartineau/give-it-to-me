@@ -1,4 +1,4 @@
-import { CELLAR_REQUEST, CELLAR_RECEIVED, CELLAR_FAILED } from './cellar.types';
+import { CELLAR_REQUEST, CELLAR_RECEIVED, CELLAR_FAILED } from './wines.types';
 
 export const setCellar = cellar => ({
   type: CELLAR_RECEIVED,

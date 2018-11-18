@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import CellarContainer from '../Cellar/CellarContainer';
 import CellarBoxes from '../Cellar/CellarBoxes';
 import WineDetails from './WineDetails';
-import WineModalButton from './WineModalButton';
+import WineModalButton from './WineModal/WineModalButton';
 import { CellarBoxConnected } from './CellarBox';
 import { WineSwitchConnected } from './WineSwitch';
 import { CellarBottles } from './Bottles';
@@ -79,7 +79,7 @@ class Wines extends React.Component<Props> {
                         />
                       )}
                     </CellarBoxes>
-                    <CellarBottles bottles={wine.bottles} />
+                    <CellarBottles bottles={wine.bottleIds} />
                   </CellarContainer>
                   <WineDetails wine={wine} />
                   <WineModalButton wineId={wine.id} />
@@ -94,7 +94,7 @@ class Wines extends React.Component<Props> {
 }
 
 export const WinesConnected = connect(
-  state => ({ wines: state.cellar.all }),
+  state => ({ wines: state.wines.all }),
   dispatch => ({
     getNextHits() {
       dispatch(getNextHits());

@@ -28,7 +28,7 @@ npm run init
 npm run dev
 ```
 
-will start API server + client dev server + storybook server
+will start API server + client dev server
 
 ## Production
 

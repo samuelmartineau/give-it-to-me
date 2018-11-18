@@ -1,11 +1,10 @@
 {
-  "plugins": ["react", "flowtype"],
+  "plugins": ["react"],
   "parser": "babel-eslint",
   "extends": ["plugin:react/recommended"],
   "rules": {
     "react/display-name": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-console": ["error", { "allow": ["warn", "error"] }]
+    "react/react-in-jsx-scope": "off"
   },
   "env": {
     "browser": true,

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { CELLAR_RECEIVED } from '../cellar/cellar.types';
+import { CELLAR_RECEIVED } from '../wines/wines.types';
 import { wineTypes } from '~/config';
 
 function getBottles(wines) {

@@ -1,16 +1,19 @@
 import { compose, setDisplayName, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { getCellar } from '../client/store';
-// import withRoot from '../components/withRoot';
 import WithLayout from '../client/components/Layout/WithLayout';
 // import CellarContainer from '../components/Cellar/CellarContainer';
 // import CellarBoxes from '../components/Cellar/CellarBoxes';
 // import CellarBottles from '../components/Cellar/CellarBottles';
 // import CellarBox from '../components/Cellar/CellarBox';
 
-const Home = ({ cellar }) => (
+const Home = ({ wines }) => (
   <div>
-    {cellar.all.map(id => <i key={id}>{id}</i>)}
+    {wines.all.map(id => (
+      <span style={{ display: 'inline-block' }} key={id}>
+        {id}
+      </span>
+    ))}
     {/* <CellarContainer>
       <CellarBoxes>{boxId => <CellarBox boxId={boxId} />}</CellarBoxes>
       <CellarBottles />
@@ -19,7 +22,7 @@ const Home = ({ cellar }) => (
 );
 
 const HomeConnected = connect(state => {
-  return { cellar: state.cellar };
+  return { wines: state.wines };
 })(Home);
 
 const HomeWithLayout = compose(

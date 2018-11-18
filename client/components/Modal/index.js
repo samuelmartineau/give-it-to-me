@@ -1,16 +1,22 @@
 // @flow
 import React from 'react';
+import ReactModal from 'react-modal';
 import styled, { createGlobalStyle } from 'styled-components';
-import Modal from 'react-modal';
 
 type Props = {
-  modalIsOpen: boolean,
-  closeModal: Function
+  isOpen: boolean,
+  onRequestClose: Function,
+  children: React$Node
 };
 
 function ReactModalAdapter({ className, modalClassName, ...props }) {
   return (
-    <Modal className={modalClassName} portalClassName={className} {...props} />
+    <ReactModal
+      ariaHideApp={false}
+      className={modalClassName}
+      portalClassName={className}
+      {...props}
+    />
   );
 }
 
@@ -34,7 +40,7 @@ const StyledModal = styled(ReactModalAdapter).attrs({
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,28 +50,36 @@ const StyledModal = styled(ReactModalAdapter).attrs({
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     max-width: 800px;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
-class WineModal extends React.PureComponent<Props> {
+export const ModalHeader = styled.div`
+  font-size: 21px;
+  margin: 1rem;
+  text-align: center;
+`;
+export const ModalContent = styled.div`
+  flex: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background: pink;
+`;
+export const ModalActions = styled.div`
+  margin: 1rem;
+`;
+
+export class Modal extends React.PureComponent<Props> {
   render() {
-    const { modalIsOpen, closeModal } = this.props;
+    const { isOpen, onRequestClose, children } = this.props;
     return (
       <React.Fragment>
         <GlobalStyle />
-        <StyledModal isOpen={modalIsOpen} onRequestClose={closeModal}>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+        <StyledModal isOpen={isOpen} onRequestClose={onRequestClose}>
+          {children}
         </StyledModal>
       </React.Fragment>
     );
   }
 }
-
-export default WineModal;

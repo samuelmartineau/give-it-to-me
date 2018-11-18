@@ -1,11 +1,5 @@
 // @flow
-import React from 'react';
-import { cellar } from '~/config';
-import { range } from 'ramda';
 import { getBoxCells } from '../utils';
-
-const { CELLAR_SCHEMA } = cellar;
-const boxes = range(0, CELLAR_SCHEMA.length);
 
 type Props = {
   boxId: number,

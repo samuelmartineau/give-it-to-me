@@ -5,7 +5,7 @@ import { Button } from '~/client/components/Toolkit';
 import WineModal from './WineModal';
 
 type Props = {
-  wine: {}
+  wineId: number
 };
 type State = {
   modalIsOpen: boolean
@@ -31,12 +31,16 @@ class WineModalButton extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { wine } = this.props;
+    const { wineId } = this.props;
     const { modalIsOpen } = this.state;
     return (
       <Wrapper>
         <Button onClick={this.openModal}>Suppression de bouteille</Button>
-        <WineModal modalIsOpen={modalIsOpen} closeModal={this.closeModal} />
+        <WineModal
+          wineId={wineId}
+          modalIsOpen={modalIsOpen}
+          closeModal={this.closeModal}
+        />
       </Wrapper>
     );
   }

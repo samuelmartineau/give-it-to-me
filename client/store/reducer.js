@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
-import cellarReducer, * as cellar from './cellar/cellar.reducer';
+import winesReducer, * as wines from './wines/wines.reducer';
 import bottlesReducer, * as bottles from './bottles/bottles.reducer';
 import addingReducer, * as adding from './adding/adding.reducer';
 import searchReducer, * as search from './search/search.reducer';
 import { getBoxCells } from '../components/Cellar/utils';
 
 export default combineReducers({
-  cellar: cellarReducer,
+  wines: winesReducer,
   bottles: bottlesReducer,
   adding: addingReducer,
   search: searchReducer
 });
 
 export const getWineById = (state, wineId) =>
-  cellar.getWineById(state.cellar.map, wineId);
+  wines.getWineById(state.wines.map, wineId);
 
 export const getCellsUsedInBox = (state, boxId) =>
   bottles.getCellsUsedInBox(state.bottles.cells, boxId);
@@ -50,9 +50,23 @@ export const isWineFiltered = (state, wineId) => {
 };
 
 export const getWinesFiltered = state =>
-  search.getWinesFiltered(state.cellar, state.search);
+  search.getWinesFiltered(state.wines, state.search);
 
 export const isWineInBox = (state, boxId, wineId) => {
   const wineIds = getBottlesInBox(state, boxId).map(bottle => bottle.wine_id);
   return wineIds.includes(wineId);
+};
+
+export const getWineBottles = (state, wineId) => {
+  const { bottleIds } = getWineById(state, wineId);
+  const bottlesGroupedByBox = bottleIds
+    .map(bottleId => getBottleById(state, bottleId))
+    .reduce((acc, bottle) => {
+      if (!acc[bottle.box]) {
+        acc[bottle.box] = [];
+      }
+      acc[bottle.box].push(bottle);
+      return acc;
+    }, {});
+  return bottlesGroupedByBox;
 };

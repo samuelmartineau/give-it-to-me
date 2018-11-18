@@ -7,7 +7,7 @@ import BoxCells from '../Cells/BoxCells';
 import { getBottleByPosition } from '../../../store';
 import { getCellId, getBottleInfos, getBottleId } from '../utils';
 
-const BoxBottles = ({ boxId }) => {
+const BoxBottles = ({ boxId }: { boxId: number }) => {
   return (
     <g>
       <BoxCells boxId={boxId}>

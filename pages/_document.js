@@ -17,6 +17,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <title>Give It To Me</title>
+          <meta name="viewport" content="width=device-width" />
           <link
             rel="icon"
             href={buildAssetsUrl('favicon.png')}

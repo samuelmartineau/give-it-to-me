@@ -1,7 +1,7 @@
 const SSE = require('sse');
 
 const logger = require('./utils/logger');
-const { SET_CELLAR } = require('../client/store/cellar/cellar.types');
+const { SET_CELLAR } = require('../client/store/wines/wines.types');
 const { getCellar } = require('./wine/services');
 
 const clients = [];
@@ -20,7 +20,7 @@ const handleChanges = serverHttp => {
   });
 };
 
-const updateClients = type => {
+const updateClients = () => {
   getCellar().then(cellar => {
     clients.forEach(stream => {
       stream.send(JSON.stringify({ action: SET_CELLAR, state: cellar }));
