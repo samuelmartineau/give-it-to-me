@@ -7,6 +7,10 @@ import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
 export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 export { getNextHits } from './search/search.actions';
+export {
+  selectBottleToDelete,
+  unselectBottleToDelete
+} from './remove/remove.actions';
 
 export const getCellar = () => {
   return dispatch => {

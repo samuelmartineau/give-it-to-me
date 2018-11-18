@@ -25,7 +25,9 @@ export {
   addWine,
   toggleCheckboxFilter,
   updateInputFilter,
-  getNextHits
+  getNextHits,
+  selectBottleToDelete,
+  unselectBottleToDelete
 } from './actions';
 export {
   getWineById,
@@ -43,5 +45,6 @@ export {
   isWineFiltered,
   getWinesFiltered,
   isWineInBox,
-  getWineBottles
+  getWineBottles,
+  getRemovedBottles
 } from './reducer';

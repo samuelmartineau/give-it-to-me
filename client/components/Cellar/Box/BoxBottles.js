@@ -27,7 +27,7 @@ const BoxBottles = ({ boxId }: { boxId: number }) => {
 
 export default BoxBottles;
 
-const Cell = ({ bottle, boxId, cellId }) => {
+const Cell = ({ bottle, boxId, cellId }: {}) => {
   if (!bottle) {
     return null;
   }
@@ -37,7 +37,9 @@ const Cell = ({ bottle, boxId, cellId }) => {
       key={getBottleId(bottle.box, bottle.cell)}
       cx={bottleInfos.cxRelative}
       cy={bottleInfos.cyRelative}
-      bottle={bottle}
+      cell={bottle.cell}
+      box={bottle.box}
+      color={bottle.color}
     />
   );
 };

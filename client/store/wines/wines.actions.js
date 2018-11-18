@@ -2,7 +2,7 @@ import { CELLAR_REQUEST, CELLAR_RECEIVED, CELLAR_FAILED } from './wines.types';
 
 export const setCellar = cellar => ({
   type: CELLAR_RECEIVED,
-  cellar
+  payload: { cellar }
 });
 export const cellarRequest = () => ({
   type: CELLAR_REQUEST

@@ -47,10 +47,14 @@ import { omit } from 'ramda';
 export const selectedBoxesReducer = (state = [], action) => {
   switch (action.type) {
     case SELECT_BOX: {
-      return [...state, action.boxId];
+      const { boxId } = action.payload;
+
+      return [...state, boxId];
     }
     case UNSELECT_BOX: {
-      return state.filter(id => id !== action.boxId);
+      const { boxId } = action.payload;
+
+      return state.filter(id => id !== boxId);
     }
     case RESET_ADD_WINE: {
       return [];
@@ -62,21 +66,29 @@ export const selectedBoxesReducer = (state = [], action) => {
 export const selectedCellsReducer = (state = {}, action) => {
   switch (action.type) {
     case SELECT_BOX: {
-      return { ...state, [action.boxId]: [action.cellId] };
+      const { boxId, cellId } = action.payload;
+
+      return { ...state, [boxId]: [cellId] };
     }
     case UNSELECT_BOX: {
-      return omit([action.boxId], state);
+      const { boxId } = action.payload;
+
+      return omit([boxId], state);
     }
     case SELECT_CELL: {
+      const { boxId, cellId } = action.payload;
+
       return {
         ...state,
-        [action.boxId]: state[action.boxId].concat(action.cellId)
+        [boxId]: state[boxId].concat(cellId)
       };
     }
     case UNSELECT_CELL: {
+      const { boxId, cellId } = action.payload;
+
       return {
         ...state,
-        [action.boxId]: state[action.boxId].filter(id => id !== action.cellId)
+        [boxId]: state[boxId].filter(id => id !== cellId)
       };
     }
     case RESET_ADD_WINE: {
@@ -89,14 +101,15 @@ export const selectedCellsReducer = (state = {}, action) => {
 export const modelReducer = (state = { ...defaultModel }, action) => {
   switch (action.type) {
     case UPDATE_MODEL: {
-      if (action.name === 'wineType') {
+      const { value, name } = action.payload;
+      if (name === 'wineType') {
         return {
           ...state,
-          wineType: action.value,
-          wineCategory: WINE_TYPES[action.value].categories[0]
+          wineType: value,
+          wineCategory: WINE_TYPES[value].categories[0]
         };
       }
-      return { ...state, [action.name]: action.value };
+      return { ...state, [name]: value };
     }
     case RESET_ADD_WINE: {
       return { ...defaultModel };

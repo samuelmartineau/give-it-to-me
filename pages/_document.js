@@ -29,6 +29,14 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css?family=Ranga"
+            rel="stylesheet"
+          />
+          <link
             href="https://fonts.googleapis.com/css?family=Open+Sans"
             rel="stylesheet"
           />

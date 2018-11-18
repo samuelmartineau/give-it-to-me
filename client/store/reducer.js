@@ -3,13 +3,15 @@ import winesReducer, * as wines from './wines/wines.reducer';
 import bottlesReducer, * as bottles from './bottles/bottles.reducer';
 import addingReducer, * as adding from './adding/adding.reducer';
 import searchReducer, * as search from './search/search.reducer';
+import removeReducer, * as remove from './remove/remove.reducer';
 import { getBoxCells } from '../components/Cellar/utils';
 
 export default combineReducers({
   wines: winesReducer,
   bottles: bottlesReducer,
   adding: addingReducer,
-  search: searchReducer
+  search: searchReducer,
+  remove: removeReducer
 });
 
 export const getWineById = (state, wineId) =>
@@ -63,10 +65,13 @@ export const getWineBottles = (state, wineId) => {
     .map(bottleId => getBottleById(state, bottleId))
     .reduce((acc, bottle) => {
       if (!acc[bottle.box]) {
-        acc[bottle.box] = [];
+        acc[bottle.box] = {};
       }
-      acc[bottle.box].push(bottle);
+      acc[bottle.box][bottle.cell] = bottle;
       return acc;
     }, {});
   return bottlesGroupedByBox;
 };
+
+export const getRemovedBottles = state =>
+  remove.getRemovedBottles(state.remove);

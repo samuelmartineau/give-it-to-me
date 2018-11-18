@@ -4,9 +4,9 @@ import {
   isBoxSelectable,
   selectBox,
   unselectBox
-} from '../../../../store';
-import CellarBox from '../../../Cellar/CellarBox';
-import CellarBoxSelectable from '../../../Cellar/CellarBoxSelectable';
+} from '~/client/store';
+import CellarBox from '~/client/components/Cellar/CellarBox';
+import CellarBoxSelectable from '~/client/components/Cellar/CellarBoxSelectable';
 
 const SelectableBox = connect(
   null,
@@ -26,7 +26,15 @@ const UnSelectableBox = connect(
   })
 )(CellarBoxSelectable);
 
-const ClickHandlerBox = ({ isBoxSelected, isBoxSelectable, boxId }) => {
+const ClickHandlerBox = ({
+  isBoxSelected,
+  isBoxSelectable,
+  boxId
+}: {
+  isBoxSelected: boolean,
+  isBoxSelectable: boolean,
+  boxId: number
+}) => {
   if (isBoxSelected) {
     return <UnSelectableBox boxId={boxId} />;
   } else if (isBoxSelectable) {

@@ -2,29 +2,34 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { withRouter } from 'next/router';
-import classNames from 'classnames';
 
 const routes = [
   {
     label: 'home',
-    href: '/'
+    href: '/',
+    icon: 'home'
   },
   {
     label: 'Add',
-    href: '/add'
+    href: '/add',
+    icon: 'add'
   },
   {
     label: 'Search',
-    href: '/search'
+    href: '/search',
+    icon: 'search'
   },
   {
     label: 'Browse',
-    href: '/browse'
+    href: '/browse',
+    icon: 'folder_open'
   }
 ];
 
 const Header = styled.header`
-  background-color: #333;
+  background-color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.onPrimary};
+  user-select: none;
 `;
 const List = styled.ul`
   margin: 0;
@@ -40,15 +45,29 @@ const ListItem = styled.li`
   font-size: 17px;
   cursor: pointer;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
-    background-color: green;
-    color: black;
+    background-color: ${props => props.theme.colors.primaryVarient};
+    color: ${props => props.theme.colors.onPrimary};
   }
-  ${({ router, route }) =>
+  ${({ router, route, theme }) =>
     router.pathname === route.href &&
     `
-    background: green;
+    background: ${theme.colors.secondary};
+    color: ${theme.colors.onSecondary};
   `};
+`;
+const ListItemIcon = styled.i`
+  font-size: 30px;
+  padding: 0 2px;
+`;
+const ListItemName = styled.span`
+  ${props => props.theme.media.handheld`
+display: none;
+`};
 `;
 
 const Menu = ({ router }) => (
@@ -58,7 +77,10 @@ const Menu = ({ router }) => (
         return (
           <Link key={route.href} href={route.href}>
             <ListItem route={route} router={router}>
-              {route.label}
+              <ListItemIcon className="material-icons">
+                {route.icon}
+              </ListItemIcon>
+              <ListItemName>{route.label}</ListItemName>
             </ListItem>
           </Link>
         );

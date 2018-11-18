@@ -12,11 +12,11 @@ const WineCardStyled = styled(WineCard)`
 
 class WineSwitch extends React.Component {
   state = {
-    comp: null
+    cachedComp: null
   };
   componentDidMount() {
     this.setState({
-      comp: (
+      cachedComp: (
         <WineCardStyled wine={this.props.wine}>
           {this.props.children}
         </WineCardStyled>
@@ -28,7 +28,7 @@ class WineSwitch extends React.Component {
     if (!isFiltered) {
       return null;
     }
-    return this.state.comp;
+    return this.state.cachedComp;
   }
 }
 

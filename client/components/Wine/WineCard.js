@@ -9,8 +9,8 @@ import { Image } from '../Image/Image';
 import { WineType } from './Wine.type';
 
 const { WINE_TYPES } = wineTypes;
-const openInfosHeight = 70;
-const closeInfosHeight = 50;
+const openInfosHeight = 90;
+const closeInfosHeight = 90;
 const paddingInfos = 10;
 
 const WineCardWrapper = styled.div`
@@ -51,7 +51,7 @@ const WineCardImageContainer = styled.a`
     width: 100%;
     height: '100%';
     border-radius: 50%;
-    transform: scale(0.21,0.14) translate(-550px,-1350px);
+    transform: scale(0.21,0.14) translate(-550px,-1500px);
     z-index: 4;
   `};
 `;
@@ -69,7 +69,7 @@ const WineImage = styled(Image)`
 
 const WineCardContainer = styled.div`
   position: absolute;
-  top: ${openInfosHeight + 2 * paddingInfos}px;
+  top: ${openInfosHeight}px;
   padding: 10px;
   left: 16px;
   bottom: 0px;
@@ -94,6 +94,8 @@ const WineCorner = styled.div`
   `};
 `;
 const WinePane = styled.div`
+  font-family: 'Ranga', cursive;
+  font-size: 20px;
   position: absolute;
   right: 0px;
   left: 0px;
@@ -112,7 +114,7 @@ const WinePane = styled.div`
     transform: translate(0px, -${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px);
     height: ${openInfosHeight}px;
     padding-left: 80px;
-    padding-right: '80px';
+    padding-right: 80px;
   `};
 `;
 

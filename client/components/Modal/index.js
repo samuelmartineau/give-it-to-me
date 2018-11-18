@@ -64,7 +64,6 @@ export const ModalContent = styled.div`
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  background: pink;
 `;
 export const ModalActions = styled.div`
   margin: 1rem;

@@ -16,7 +16,9 @@ const Cell = ({ bottle, boxId, cellId }) => {
       key={getBottleId(bottle.box, bottle.cell)}
       cx={bottleInfos.cx}
       cy={bottleInfos.cy}
-      bottle={bottle}
+      cell={bottle.cell}
+      box={bottle.box}
+      color={bottle.color}
     />
   );
 };

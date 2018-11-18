@@ -18,7 +18,8 @@ function getBottles(wines) {
 export const mapReducer = (state = {}, action) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
-      return getBottles(action.cellar).reduce(
+      const { cellar } = action.payload;
+      return getBottles(cellar).reduce(
         (acc, bottle) =>
           Object.assign(acc, {
             [bottle.id]: bottle
@@ -33,7 +34,9 @@ export const mapReducer = (state = {}, action) => {
 export const allReducer = (state = [], action) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
-      return getBottles(action.cellar);
+      const { cellar } = action.payload;
+
+      return getBottles(cellar);
     }
     default:
       return state;
@@ -43,7 +46,9 @@ export const allReducer = (state = [], action) => {
 export const cellsReducer = (state = {}, action) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
-      return getBottles(action.cellar).reduce((acc, bottle) => {
+      const { cellar } = action.payload;
+
+      return getBottles(cellar).reduce((acc, bottle) => {
         if (!acc[bottle.box]) {
           acc[bottle.box] = {};
         }

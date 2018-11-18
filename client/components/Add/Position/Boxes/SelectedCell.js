@@ -21,7 +21,9 @@ const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {
     <Bottle
       cx={bottleInfos.cx}
       cy={bottleInfos.cy}
-      bottle={{ cell: cellId, box: boxId }}
+      cell={cellId}
+      box={boxId}
+      color="blue"
     />
   );
 };

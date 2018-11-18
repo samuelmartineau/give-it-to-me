@@ -7,8 +7,8 @@ import { getBottleInfos } from '../../../Cellar/utils';
 
 type Props = {
   selected: boolean,
-  boxId: Number,
-  cellId: Number
+  boxId: number,
+  cellId: number
 };
 
 const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {
@@ -20,7 +20,9 @@ const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {
     <Bottle
       cx={bottleInfos.cxRelative}
       cy={bottleInfos.cyRelative}
-      bottle={{ cell: cellId, box: boxId }}
+      cell={cellId}
+      box={boxId}
+      color="blue"
     />
   );
 };

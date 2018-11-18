@@ -3,8 +3,8 @@ import { CELLAR_RECEIVED } from './wines.types';
 
 export const mapReducer = (state = {}, action) => {
   switch (action.type) {
-    case CELLAR_RECEIVED:
-      return action.cellar.reduce((acc, wine) => {
+    case CELLAR_RECEIVED: {
+      return action.payload.cellar.reduce((acc, wine) => {
         const { bottles, ...rest } = wine;
         return Object.assign(acc, {
           [wine.id]: {
@@ -13,6 +13,8 @@ export const mapReducer = (state = {}, action) => {
           }
         });
       }, {});
+    }
+
     default:
       return state;
   }
@@ -22,7 +24,7 @@ export const getWineById = (state, id) => state[id];
 export const allReducer = (state = [], action) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
-      return action.cellar.map(wine => wine.id);
+      return action.payload.cellar.map(wine => wine.id);
     }
     default:
       return state;

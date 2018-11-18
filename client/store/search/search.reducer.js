@@ -1,5 +1,4 @@
 import {
-  SET_FILTER,
   TOGGLE_CHECKBOX_FILTER,
   UPDATE_INPUT_FILTER,
   GET_NEXT_HITS
@@ -20,11 +19,8 @@ export default (
   action
 ) => {
   switch (action.type) {
-    case SET_FILTER: {
-      return { ...state };
-    }
     case TOGGLE_CHECKBOX_FILTER: {
-      const { key, value } = action;
+      const { key, value } = action.payload;
       let newFilters;
       if (state[key].includes(value)) {
         newFilters = state[key].filter(item => item !== value);
@@ -34,7 +30,7 @@ export default (
       return { ...state, [key]: newFilters };
     }
     case UPDATE_INPUT_FILTER: {
-      const { key, value } = action;
+      const { key, value } = action.payload;
       let valueFormated = value;
       if (['minYear', 'maxYear'].includes(key)) {
         valueFormated = parseInt(value, 10);
