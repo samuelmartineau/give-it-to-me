@@ -1,60 +1,100 @@
-const { knexInstance, Wine } = require('../utils/db');
+const { db } = require('../utils/db');
 const logger = require('../utils/logger');
 const { CELLAR_SCHEMA, utils } = require('../../config/cellar');
 
 const getCellar = () => {
-  return Wine.where({ _deleted: 0 })
-    .fetchAll({
-      withRelated: [
-        {
-          bottles: query => {
-            query.where({ _deleted: 0 });
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.all(
+        `
+        SELECT w.*, (SELECT 
+          json_group_array(
+            json_object('id', id, 'box', box, 'cell', cell)
+          ) AS json_result
+          FROM (SELECT * FROM bottles AS b WHERE 
+            b.wine_id = w.id
+            AND b._deleted = 0  
+          )) as bottles
+          FROM wines AS w
+          WHERE w._deleted = 0
+      `,
+        (err, wines) => {
+          if (err) {
+            logger.log('error', err);
+            reject(err);
           }
+          wines.forEach(wine => {
+            wine.bottles = JSON.parse(wine.bottles);
+          });
+          resolve(wines);
         }
-      ]
-    })
-    .then(wines => {
-      return wines.toJSON();
-    })
-    .catch(error => {
-      logger.log('error', error);
+      );
     });
+  });
 };
 
 const addWine = wine => {
   const { bottles } = wine;
 
-  delete wine.bottles;
-  if (wine.isInBoxes) {
-    delete wine.positionComment;
-    delete wine.count;
-  }
+  return new Promise((resolve, reject) => {
+    db.run('BEGIN');
+    db.serialize(() => {
+      db.run(
+        `INSERT INTO wines 
+        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, stock, count)
+        VALUES(
+        $name,
+        $year,
+        $wineFamily,
+        $blur,
+        $thumbnailFileName,
+        $pictureFileName,
+        $wineType,
+        $wineCategory,
+        $bottleType,
+        $isInBoxes,
+        $stock,
+        $count
+      )`,
+        {
+          $name: wine.name,
+          $year: wine.year,
+          $wineFamily: wine.wineFamily,
+          $blur: wine.blur,
+          $thumbnailFileName: wine.thumbnailFileName,
+          $pictureFileName: wine.pictureFileName,
+          $wineType: wine.wineType,
+          $wineCategory: wine.wineCategory,
+          $bottleType: wine.bottleType,
+          $isInBoxes: wine.isInBoxes,
+          $stock: wine.isInBoxes ? wine.bottles.length : null,
+          $count: !wine.isInBoxes ? wine.count : null
+        },
+        function(err) {
+          if (err) throw reject(err);
 
-  return knexInstance
-    .transaction(trx => {
-      return trx
-        .insert(wine, 'id')
-        .into('wines')
-        .then(ids => {
-          const wineId = ids[0];
+          const wineId = this.lastID;
           if (wine.isInBoxes) {
-            const bottlesFormated = bottles.map(bottle => {
-              return {
-                ...bottle,
-                ...{ wine_id: wineId }
-              };
+            var stmt = db.prepare(
+              'INSERT INTO bottles (wine_id, box, cell) VALUES ($wine_id, $box, $cell)'
+            );
+            bottles.forEach(bottle => {
+              stmt.run({
+                $wine_id: wineId,
+                $box: bottle.box,
+                $cell: bottle.cell
+              });
             });
-            return trx.batchInsert('bottles', bottlesFormated);
+            stmt.finalize(err => {
+              if (err) throw reject(err);
+              db.run('COMMIT');
+              resolve({ message: 'Vin ajouté avec succés' });
+            });
           }
-        });
-    })
-    .then(() => ({ message: 'Vin ajouté avec succés' }))
-    .catch(error => {
-      logger.error('Error adding Wine', error);
-      return Promise.reject({
-        message: "Probleme lors de l'ajout dans la base de données"
-      });
+        }
+      );
     });
+  });
 };
 
 const updateWine = (wineId, data) => {

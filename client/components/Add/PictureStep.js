@@ -12,8 +12,11 @@ import { updateModel } from '~/client/store/';
 
 type Props = {
   onUpload: Function,
-  onReset: Function
+  onReset: Function,
+  thumbnailFileName: string,
+  blur: string
 };
+
 type State = {
   isUploading: boolean
 };
@@ -46,7 +49,7 @@ export class PictureStep extends React.Component<Props, State> {
 
   render() {
     const { isUploading } = this.state;
-    const { thumbnailFileName, blur } = this.props.model;
+    const { thumbnailFileName, blur } = this.props;
     let render;
 
     if (blur) {
@@ -82,7 +85,10 @@ export class PictureStep extends React.Component<Props, State> {
 }
 
 export const PictureStepConnected = connect(
-  state => ({ model: state.adding.model }),
+  state => ({
+    thumbnailFileName: state.adding.model.thumbnailFileName,
+    blur: state.adding.model.blur
+  }),
   dispatch => ({
     onUpload({ thumbnailFileName, pictureFileName, blur }) {
       dispatch(updateModel('thumbnailFileName', thumbnailFileName));

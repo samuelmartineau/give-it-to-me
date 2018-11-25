@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '~/client/components/Toolkit';
 import WineModalFolders from './WineModalFolders';
+import WineModalDeleteButton from './WineModalDeleteButton';
 import {
   Modal,
   ModalHeader,
@@ -28,9 +29,7 @@ class WineModal extends React.PureComponent<Props> {
           <Button onClick={closeModal} type="button">
             Annuler
           </Button>
-          <Button primary type="button">
-            Supprimer
-          </Button>
+          <WineModalDeleteButton />
         </ModalActions>
       </Modal>
     );

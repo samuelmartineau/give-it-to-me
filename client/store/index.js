@@ -27,7 +27,8 @@ export {
   updateInputFilter,
   getNextHits,
   selectBottleToDelete,
-  unselectBottleToDelete
+  unselectBottleToDelete,
+  removeBottles
 } from './actions';
 export {
   getWineById,

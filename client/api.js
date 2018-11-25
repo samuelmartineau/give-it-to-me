@@ -49,3 +49,16 @@ export const addWine = wine => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const removeBottles = bottleIds => {
+  return fetch(`${apiBase}${config.ROUTES.BOTTLE}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ bottleIds })
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};

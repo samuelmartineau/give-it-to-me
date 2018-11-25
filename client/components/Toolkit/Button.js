@@ -16,4 +16,6 @@ export const Button = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  opacity: ${props => (props.disabled ? 0.65 : 1)};
+  cursor: ${props => (props.disabled ? ' not-allowed' : 'normal')};
 `;

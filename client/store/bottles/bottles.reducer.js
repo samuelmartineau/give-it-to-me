@@ -7,6 +7,7 @@ function getBottles(wines) {
     (acc, wine) =>
       acc.concat(
         wine.bottles.map(bottle => ({
+          wine_id: wine.id,
           ...bottle,
           color: wineTypes.WINE_TYPES[wine.wineType].color
         }))

@@ -2,6 +2,7 @@ import * as wines from './wines/wines.actions';
 import { difference } from 'ramda';
 import * as adding from './adding/adding.actions';
 import * as search from './search/search.actions';
+import * as remove from './remove/remove.actions';
 import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
@@ -54,5 +55,12 @@ export const toggleCheckboxFilter = (key, value) => {
 export const updateInputFilter = (key, value) => {
   return dispatch => {
     dispatch(search.updateInputFilter(key, value));
+  };
+};
+
+export const removeBottles = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    return dispatch(remove.removeBottles(state.remove.bottleIds));
   };
 };

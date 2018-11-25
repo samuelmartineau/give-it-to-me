@@ -1,5 +1,5 @@
 const { subClass } = require('gm');
-const uuid = require('uuid/v4');
+const uuidv4 = require('uuid/v4');
 const path = require('path');
 const fs = require('fs');
 const bluebird = require('bluebird');
@@ -13,7 +13,7 @@ const gm = subClass({ imageMagick: true });
 
 const generateThumbnail = (sourcePath, extension) => {
   return new Promise((resolve, reject) => {
-    const filename = [uuid.v1(), extension].join('');
+    const filename = [uuidv4(), extension].join('');
     const tmpFileName = path.join(config.UPLOADS_TMP_DIRECTORY, filename);
     gm(sourcePath)
       .resize(
@@ -75,7 +75,7 @@ const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
     pictureFileName
   );
   const fileExtension = path.extname(pictureFileName);
-  const newFileName = [uuid.v1(), fileExtension].join('');
+  const newFileName = [uuidv4(), fileExtension].join('');
   const permPictureFileNamePath = path.join(config.UPLOADS_PERM, newFileName);
   let promises = [];
   promises.push(
@@ -89,6 +89,7 @@ const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
       return { thumbnailFileName, pictureFileName: newFileName };
     })
     .catch(error => {
+      console.log('sam', error);
       logger.error(error);
       return Promise.reject({
         message: 'Erreur lors du déplacement des images temporaires'

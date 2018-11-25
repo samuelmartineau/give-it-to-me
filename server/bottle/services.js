@@ -1,7 +1,19 @@
-const { knexInstance, Wine } = require('../utils/db');
+const { knexInstance, Wine, Bottle } = require('../utils/db');
 const logger = require('../utils/logger');
 
-const removeBottle = (wineId, bottleId) => {
+const removeBottles = bottleIds => {
+  return knex.transaction(trx => {
+    return Bottle.where('id', 'in', bottleIds)
+      .fetchAll({})
+      .then(response => {
+        console.log('good', response);
+        return response;
+      })
+      .catch(error => {
+        console.log('sam sam', error);
+      });
+  });
+
   return Wine.where({ id: wineId })
     .fetch({
       withRelated: [
@@ -58,5 +70,5 @@ const removeBottle = (wineId, bottleId) => {
 };
 
 module.exports = {
-  removeBottle
+  removeBottles
 };

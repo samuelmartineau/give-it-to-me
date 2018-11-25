@@ -7,5 +7,8 @@
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
     ]
   },
-  "extends": ["eslint:recommended", "prettier"]
+  "extends": ["eslint:recommended", "prettier"],
+  "env": {
+    "es6": true
+  }
 }

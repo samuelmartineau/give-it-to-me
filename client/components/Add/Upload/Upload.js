@@ -4,7 +4,6 @@ import Dropzone from 'react-dropzone';
 import { Button } from '~/client/components/Toolkit';
 
 type UploadProps = {
-  classes: {},
   onDrop: Function
 };
 

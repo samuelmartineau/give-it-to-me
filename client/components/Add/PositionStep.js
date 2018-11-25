@@ -8,7 +8,7 @@ import { updateModel } from '~/client/store/';
 
 type Props = {
   toggle: Function,
-  model: { isInBoxes: boolean }
+  isInBoxes: boolean
 };
 type State = {
   checked: boolean
@@ -16,7 +16,7 @@ type State = {
 
 export class PositionStep extends React.Component<Props, State> {
   render() {
-    const { isInBoxes } = this.props.model;
+    const { isInBoxes } = this.props;
     return (
       <React.Fragment>
         <label>
@@ -35,7 +35,7 @@ export class PositionStep extends React.Component<Props, State> {
 }
 
 export const PositionStepConnected = connect(
-  state => ({ model: state.adding.model }),
+  state => ({ isInBoxes: state.adding.model.isInBoxes }),
   {
     toggle() {
       return (dispatch, getState) => {

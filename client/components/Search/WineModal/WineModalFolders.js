@@ -39,15 +39,6 @@ class WineModalFolders extends React.PureComponent<Props> {
             }}
           </BoxCells>
           <BoxBottles boxId={boxId} selectableBottleIds={bottleIds} />
-          {/* <BoxCells boxId={boxId}>
-            {cellId => (
-              <SelectedCell
-                key={getCellId(boxId, cellId)}
-                boxId={boxId}
-                cellId={cellId}
-              />
-            )}
-          </BoxCells> */}
         </BoxContainer>
       </div>
     ));

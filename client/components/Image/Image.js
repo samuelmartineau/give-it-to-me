@@ -7,7 +7,7 @@ type Props = {
   height: number,
   lazyLoader: string,
   delay: number,
-  className?: String
+  className?: string
 };
 
 export class Image extends React.Component<Props> {

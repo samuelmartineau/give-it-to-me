@@ -35,7 +35,6 @@ const requiredKeys = [
   'blur',
   'thumbnailFileName',
   'pictureFileName',
-  'thumbnailFileName',
   'wineType',
   'wineCategory',
   'bottleType',

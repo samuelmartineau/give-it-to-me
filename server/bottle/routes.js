@@ -2,15 +2,14 @@ const urlJoin = require('url-join');
 const express = require('express');
 
 const config = require('../../config');
-const { removeBottle } = require('./services');
+const { removeBottles } = require('./services');
 const { updateClients } = require('../handleChanges');
 
 const router = express.Router();
 
-router.route(urlJoin(config.ROUTES.BOTTLE, ':bottleId')).delete((req, res) => {
-  const { bottleId } = req.params;
-  const { wineId } = req.body;
-  return removeBottle(parseInt(wineId), parseInt(bottleId))
+router.route(urlJoin(config.ROUTES.BOTTLE)).delete((req, res) => {
+  const { bottleIds } = req.body;
+  return removeBottles(bottleIds)
     .then(message => {
       updateClients();
       res.status(200).json(message);
