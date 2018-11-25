@@ -17,21 +17,21 @@ const WineCardWrapper = styled.div`
   width: ${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px;
   display: inline-block;
   position: relative;
-  height: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT +
-    closeInfosHeight +
-    2 * paddingInfos}px;
+  height: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px;
   margin: 1em;
 `;
 
 const MenuButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
+  padding: 10px;
   z-index: 4;
   transition: transform 0.2s;
   ${({ open }) =>
     open &&
     `
+    padding: 5px;
     transform: translate(20px,-20px);
   `};
 `;
@@ -51,7 +51,7 @@ const WineCardImageContainer = styled.a`
     width: 100%;
     height: '100%';
     border-radius: 50%;
-    transform: scale(0.21,0.14) translate(-550px,-1500px);
+    transform: scale(0.21,0.14) translate(-550px,-1440px);
     z-index: 4;
   `};
 `;
@@ -115,6 +115,7 @@ const WinePane = styled.div`
     height: ${openInfosHeight}px;
     padding-left: 80px;
     padding-right: 80px;
+    font-size: 18px;
   `};
 `;
 
