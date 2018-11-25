@@ -1,10 +1,5 @@
-PROJECT_ROOT=$(pwd)
-export NODE_ENV=production
+#build app
+npm run build
 
-echo "Run client"
-npx next build
-npx next start &
-
-echo "Run server"
-cd $PROJECT_ROOT'/server'
-node index.js
+#export app
+NODE_ENV=production node index.js

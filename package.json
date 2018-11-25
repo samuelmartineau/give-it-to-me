@@ -45,7 +45,7 @@
   "scripts": {
     "dev": "./scripts/dev.sh",
     "start": "./scripts/start.sh",
-    "init": "./scripts/init.sh",
+    "build": "next build",
     "lint": "eslint ./**/*.js",
     "precommit": "lint-staged"
   },

@@ -1,6 +1,5 @@
 const { db } = require('../utils/db');
 const logger = require('../utils/logger');
-const { CELLAR_SCHEMA, utils } = require('../../config/cellar');
 
 const getCellar = () => {
   return new Promise((resolve, reject) => {
@@ -16,17 +15,18 @@ const getCellar = () => {
             AND b._deleted = 0  
           )) as bottles
           FROM wines AS w
-          WHERE w._deleted = 0
+          WHERE w.stock > 0
       `,
         (err, wines) => {
           if (err) {
             logger.log('error', err);
             reject(err);
+          } else {
+            wines.forEach(wine => {
+              wine.bottles = JSON.parse(wine.bottles);
+            });
+            resolve(wines);
           }
-          wines.forEach(wine => {
-            wine.bottles = JSON.parse(wine.bottles);
-          });
-          resolve(wines);
         }
       );
     });
@@ -67,29 +67,31 @@ const addWine = wine => {
           $wineCategory: wine.wineCategory,
           $bottleType: wine.bottleType,
           $isInBoxes: wine.isInBoxes,
-          $stock: wine.isInBoxes ? wine.bottles.length : null,
-          $count: !wine.isInBoxes ? wine.count : null
+          $stock: wine.isInBoxes ? wine.bottles.length : wine.count,
+          $count: null
         },
         function(err) {
-          if (err) throw reject(err);
-
-          const wineId = this.lastID;
-          if (wine.isInBoxes) {
-            var stmt = db.prepare(
-              'INSERT INTO bottles (wine_id, box, cell) VALUES ($wine_id, $box, $cell)'
-            );
-            bottles.forEach(bottle => {
-              stmt.run({
-                $wine_id: wineId,
-                $box: bottle.box,
-                $cell: bottle.cell
+          if (err) {
+            reject(err);
+          } else {
+            const wineId = this.lastID;
+            if (wine.isInBoxes) {
+              var stmt = db.prepare(
+                'INSERT INTO bottles (wine_id, box, cell) VALUES ($wine_id, $box, $cell)'
+              );
+              bottles.forEach(bottle => {
+                stmt.run({
+                  $wine_id: wineId,
+                  $box: bottle.box,
+                  $cell: bottle.cell
+                });
               });
-            });
-            stmt.finalize(err => {
-              if (err) throw reject(err);
-              db.run('COMMIT');
-              resolve({ message: 'Vin ajouté avec succés' });
-            });
+              stmt.finalize(err => {
+                if (err) reject(err);
+                db.run('COMMIT');
+                resolve({ message: 'Vin ajouté avec succés' });
+              });
+            }
           }
         }
       );

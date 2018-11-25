@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Bottle from '../Cellar/Bottle';
-import { getBottleById } from '../../store';
+import { getWineBottles } from '~/client/store';
 import { getBottleInfos, getBottleId } from '../Cellar/utils';
 
 const Cell = ({ bottle }) => {
@@ -19,16 +19,16 @@ const Cell = ({ bottle }) => {
   );
 };
 
-const CellConnected = connect((state, { bottleId }) => ({
-  bottle: getBottleById(state, bottleId)
-}))(Cell);
-
 export const CellarBottles = ({ bottles }) => {
   return (
     <g>
-      {bottles.map(id => (
-        <CellConnected key={id} bottleId={id} />
+      {bottles.map(bottle => (
+        <Cell bottle={bottle} />
       ))}
     </g>
   );
 };
+
+export default connect((state, { wineId }) => ({
+  bottles: getWineBottles(state, wineId)
+}))(CellarBottles);

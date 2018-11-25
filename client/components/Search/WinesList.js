@@ -9,7 +9,7 @@ import WineDetails from './WineDetails';
 import WineModalButton from './WineModal/WineModalButton';
 import { CellarBoxConnected } from './CellarBox';
 import FilteredWine from './FilteredWine';
-import { CellarBottles } from './Bottles';
+import CellarBottles from './CellarBottles';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
 
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
 const THROTTLE_WAIT = 100;
 
-class Wines extends React.Component<Props> {
+class WinesList extends React.Component<Props> {
   static scrollFunction;
   scrollFunction: Function;
 
@@ -66,7 +66,6 @@ class Wines extends React.Component<Props> {
         {wines.map(wineId => (
           <FilteredWine key={wineId} wineId={wineId}>
             {wine => {
-              console.log(wine);
               return (
                 <React.Fragment>
                   <CellarContainer>
@@ -79,7 +78,7 @@ class Wines extends React.Component<Props> {
                         />
                       )}
                     </CellarBoxes>
-                    <CellarBottles bottles={wine.bottleIds} />
+                    <CellarBottles wineId={wine.id} />
                   </CellarContainer>
                   <WineDetails wine={wine} />
                   <WineModalButton wineId={wine.id} />
@@ -93,11 +92,11 @@ class Wines extends React.Component<Props> {
   }
 }
 
-export const WinesConnected = connect(
+export default connect(
   state => ({ wines: state.wines.all }),
   dispatch => ({
     getNextHits() {
       dispatch(getNextHits());
     }
   })
-)(Wines);
+)(WinesList);

@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { getWinesFiltered } from '~/client/store/';
 import { MessageManager } from '../MessageManager/MessageManager';
 
-type Props = {};
+type Props = {
+  hasNoResult: boolean
+};
 
-const EmptyResults = ({ hasNoResult }) => {
+const EmptyResults = ({ hasNoResult }: Props) => {
   if (hasNoResult) {
     return (
       <MessageManager
@@ -19,6 +21,6 @@ const EmptyResults = ({ hasNoResult }) => {
   return null;
 };
 
-export const EmptyResultsConnected = connect(state => ({
+export default connect(state => ({
   hasNoResult: getWinesFiltered(state).length === 0
 }))(EmptyResults);

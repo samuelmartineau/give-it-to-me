@@ -1,7 +1,11 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWineBottles, getRemovedBottles, getWineById } from '~/client/store';
+import {
+  getWineBottlesAsMap,
+  getRemovedBottles,
+  getWineById
+} from '~/client/store';
 import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
 import BoxBottles from './BoxBottles';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
@@ -48,7 +52,7 @@ class WineModalFolders extends React.PureComponent<Props> {
 export default connect(
   (state, { wineId }) => ({
     bottleIds: getWineById(state, wineId).bottleIds,
-    bottles: getWineBottles(state, wineId),
+    bottles: getWineBottlesAsMap(state, wineId),
     removedBottles: getRemovedBottles(state, wineId)
   }),
   dispatch => ({})

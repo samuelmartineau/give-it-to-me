@@ -8,6 +8,8 @@ import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
 export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 export { getNextHits } from './search/search.actions';
+export { setCellar } from './wines/wines.actions';
+
 export {
   selectBottleToDelete,
   unselectBottleToDelete

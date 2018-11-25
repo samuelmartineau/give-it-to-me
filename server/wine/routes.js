@@ -1,8 +1,7 @@
-const urlJoin = require('url-join');
 const express = require('express');
 
 const config = require('../../config');
-const { getCellar, addWine, updateWine } = require('./services');
+const { getCellar, addWine } = require('./services');
 const { moveWineToPermanetFolder } = require('../pictures/services');
 const { updateClients } = require('../handleChanges');
 
@@ -10,7 +9,7 @@ const router = express.Router();
 
 router
   .route(config.ROUTES.WINE)
-  .get((req, res, next) => {
+  .get((req, res) => {
     return getCellar()
       .then(cellar => {
         updateClients();
@@ -20,7 +19,7 @@ router
         res.status(500).json(error);
       });
   })
-  .post((req, res, next) => {
+  .post((req, res) => {
     return moveWineToPermanetFolder(
       req.body.wine.thumbnailFileName,
       req.body.wine.pictureFileName
@@ -40,21 +39,5 @@ router
         res.status(500).json(error);
       });
   });
-
-router.route(urlJoin(config.ROUTES.WINE, ':wineId')).put((req, res) => {
-  const { wineId } = req.params;
-  let { data } = req.body;
-
-  return updateWine(wineId, data)
-    .then(() => {
-      updateClients();
-      res.status(200).json({
-        message: 'Bouteille(s) supprimé avec succés'
-      });
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-});
 
 module.exports = router;

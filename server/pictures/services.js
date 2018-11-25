@@ -11,10 +11,16 @@ bluebird.promisifyAll(fs);
 
 const gm = subClass({ imageMagick: true });
 
+const rootFolder = path.resolve(__dirname, '../..');
+
 const generateThumbnail = (sourcePath, extension) => {
   return new Promise((resolve, reject) => {
     const filename = [uuidv4(), extension].join('');
-    const tmpFileName = path.join(config.UPLOADS_TMP_DIRECTORY, filename);
+    const tmpFileName = path.resolve(
+      rootFolder,
+      config.UPLOADS_TMP_DIRECTORY,
+      filename
+    );
     gm(sourcePath)
       .resize(
         config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
@@ -62,21 +68,28 @@ const generateBlur = path => {
 };
 
 const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
-  const tempThumbnailFileNamePath = path.join(
+  const tempThumbnailFileNamePath = path.resolve(
+    rootFolder,
     config.UPLOADS_TMP_DIRECTORY,
     thumbnailFileName
   );
-  const permThumbnailFileNamePath = path.join(
+  const permThumbnailFileNamePath = path.resolve(
+    rootFolder,
     config.UPLOADS_PERM,
     thumbnailFileName
   );
-  const tempPictureFileNamePath = path.join(
+  const tempPictureFileNamePath = path.resolve(
+    rootFolder,
     config.UPLOADS_TMP_DIRECTORY,
     pictureFileName
   );
   const fileExtension = path.extname(pictureFileName);
   const newFileName = [uuidv4(), fileExtension].join('');
-  const permPictureFileNamePath = path.join(config.UPLOADS_PERM, newFileName);
+  const permPictureFileNamePath = path.resolve(
+    rootFolder,
+    config.UPLOADS_PERM,
+    newFileName
+  );
   let promises = [];
   promises.push(
     fs.renameAsync(tempThumbnailFileNamePath, permThumbnailFileNamePath)
@@ -89,7 +102,6 @@ const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
       return { thumbnailFileName, pictureFileName: newFileName };
     })
     .catch(error => {
-      console.log('sam', error);
       logger.error(error);
       return Promise.reject({
         message: 'Erreur lors du déplacement des images temporaires'

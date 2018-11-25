@@ -40,7 +40,7 @@ let logger = new winston.Logger({
 
 module.exports = logger;
 module.exports.stream = {
-  write: (message, encoding) => {
+  write: message => {
     logger.info(message);
   }
 };

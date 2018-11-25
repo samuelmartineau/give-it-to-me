@@ -23,7 +23,7 @@ const handleChanges = serverHttp => {
 const updateClients = () => {
   getCellar().then(cellar => {
     clients.forEach(stream => {
-      stream.send(JSON.stringify({ action: SET_CELLAR, state: cellar }));
+      stream.send(JSON.stringify({ cellar }));
     });
   });
 };

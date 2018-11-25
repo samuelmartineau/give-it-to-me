@@ -22,7 +22,7 @@ type Props = {
   }
 };
 
-export const Filters = (props: Props) => (
+export const SearchFilters = (props: Props) => (
   <div>
     <h2>Filtres: {props.count} résultats</h2>
     <p>Couleur</p>
@@ -81,7 +81,7 @@ export const Filters = (props: Props) => (
   </div>
 );
 
-export const FiltersConnected = connect(
+export default connect(
   state => ({
     filters: state.search,
     count: getWinesFiltered(state).length
@@ -96,4 +96,4 @@ export const FiltersConnected = connect(
       dispatch(updateInputFilter(name, value));
     }
   })
-)(Filters);
+)(SearchFilters);

@@ -16,6 +16,7 @@ export const makeStore = initialState => {
 export const reduxPage = withRedux(makeStore);
 
 export {
+  setCellar,
   getCellar,
   selectBox,
   unselectBox,
@@ -46,7 +47,8 @@ export {
   isWineFiltered,
   getWinesFiltered,
   isWineInBox,
-  getWineBottles,
+  getWineBottlesAsMap,
   getRemovedBottles,
-  isBottleSelectedToBeRemoved
+  isBottleSelectedToBeRemoved,
+  getWineBottles
 } from './reducer';

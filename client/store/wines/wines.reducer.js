@@ -6,7 +6,6 @@ export const mapReducer = (state = {}, action) => {
     case CELLAR_RECEIVED: {
       return action.payload.cellar.reduce((acc, wine) => {
         const { bottles, ...rest } = wine;
-        console.log(wine.bottles);
         return Object.assign(acc, {
           [wine.id]: {
             ...rest,

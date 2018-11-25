@@ -61,16 +61,17 @@ export const isWineInBox = (state, boxId, wineId) => {
 
 export const getWineBottles = (state, wineId) => {
   const { bottleIds } = getWineById(state, wineId);
-  const bottlesGroupedByBox = bottleIds
-    .map(bottleId => getBottleById(state, bottleId))
-    .reduce((acc, bottle) => {
-      if (!acc[bottle.box]) {
-        acc[bottle.box] = {};
-      }
-      acc[bottle.box][bottle.cell] = bottle;
-      return acc;
-    }, {});
-  return bottlesGroupedByBox;
+  return bottleIds.map(bottleId => getBottleById(state, bottleId));
+};
+
+export const getWineBottlesAsMap = (state, wineId) => {
+  return getWineBottles(state, wineId).reduce((acc, bottle) => {
+    if (!acc[bottle.box]) {
+      acc[bottle.box] = {};
+    }
+    acc[bottle.box][bottle.cell] = bottle;
+    return acc;
+  }, {});
 };
 
 export const getRemovedBottles = state =>
