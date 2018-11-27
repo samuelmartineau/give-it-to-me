@@ -1,22 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Autocomplete from './AutoComplete';
-import { wineFamilies, utils } from '~/config';
-const AreasFormated = Object.keys(wineFamilies).map(id => ({
-  id,
-  label: wineFamilies[id],
-  searchKey: utils.cleanString(wineFamilies[id])
-}));
+import { utils } from '~/config';
 
-export const WineFamilySuggestion = ({
+const WineFamilySuggestion = ({
+  wineFamilies,
   onSuggestionSelected,
-  selected,
+  selectedFamily,
   onClear
 }) => {
-  if (selected) {
-    const wineFamily = wineFamilies[selected];
+  const AreasFormated = wineFamilies.map(wineFamily => ({
+    id: wineFamily.id,
+    label: wineFamily.name,
+    searchKey: utils.cleanString(wineFamily.name)
+  }));
+  if (selectedFamily) {
     return (
       <div>
-        <span>{wineFamily}</span>
+        <span>{selectedFamily.name}</span>
         <button type="button" onClick={onClear}>
           x
         </button>
@@ -34,3 +35,8 @@ export const WineFamilySuggestion = ({
     </label>
   );
 };
+
+export default connect((state, { selected }) => ({
+  wineFamilies: state.wineFamilies.all,
+  selectedFamily: state.wineFamilies.map[selected]
+}))(WineFamilySuggestion);

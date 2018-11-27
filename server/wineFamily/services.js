@@ -1,23 +1,21 @@
 const { db } = require('../utils/db');
 const logger = require('../utils/logger');
 
-const removeBottles = bottleIds => {
+const getWineFamilies = () => {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.run(
+      db.all(
         `
-      UPDATE bottles
-      SET _deleted = 1
-      WHERE
-        id IN (${bottleIds.map(() => '?')})
+        SELECT * FROM wineFamilies
+          
       `,
-        bottleIds,
-        err => {
+        (err, wineFamilies) => {
           if (err) {
             logger.log('error', err);
             reject(err);
+          } else {
+            resolve(wineFamilies);
           }
-          resolve({ message: 'Bouteille supprimée avec succés' });
         }
       );
     });
@@ -25,5 +23,5 @@ const removeBottles = bottleIds => {
 };
 
 module.exports = {
-  removeBottles
+  getWineFamilies
 };

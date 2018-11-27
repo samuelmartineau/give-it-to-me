@@ -62,3 +62,14 @@ export const removeBottles = bottleIds => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const getWineFamilies = () => {
+  return fetch(`${apiBase}${config.ROUTES.WINE_FAMILY}`, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};

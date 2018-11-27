@@ -1,6 +1,6 @@
 import { compose, setDisplayName, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { getCellar } from '../client/store';
+import { getCellar, getWineFamilies } from '../client/store';
 import WithLayout from '../client/components/Layout/WithLayout';
 // import CellarContainer from '../components/Cellar/CellarContainer';
 // import CellarBoxes from '../components/Cellar/CellarBoxes';
@@ -34,7 +34,10 @@ const HomeWithLayout = compose(
 )(HomeConnected);
 
 HomeWithLayout.getInitialProps = async ({ store }) => {
-  const result = await store.dispatch(getCellar());
+  const result = await Promise.all([
+    store.dispatch(getCellar()),
+    store.dispatch(getWineFamilies())
+  ]);
   return {
     result
   };

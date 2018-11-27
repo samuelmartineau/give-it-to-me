@@ -1,6 +1,5 @@
 const cellar = require('./cellar');
 const wineTypes = require('./wineTypes');
-const wineFamilies = require('./wineFamilies');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 3000;
@@ -14,7 +13,8 @@ module.exports = {
     host: process.env.HOST,
     database: process.env.DATABASE,
     timeout: 5,
-    filename: 'gitm-5-11-2017.db',
+    filename: 'db_v0.db',
+    // filename: 'gitm-5-11-2017.db',
     tables: {
       WINE: {
         name: 'wine'
@@ -40,7 +40,8 @@ module.exports = {
     PICTURE: '/picture',
     WINE: '/wine',
     FAVORITE: '/favorite',
-    BOTTLE: '/bottle'
+    BOTTLE: '/bottle',
+    WINE_FAMILY: '/wineFamily'
   },
   PICTURE_UPLOAD: {
     FILE_NAME: 'winePicture',
@@ -56,7 +57,6 @@ module.exports = {
   CORS_CONFIG: { origin: true, credentials: true, allowedHeaders: '*' },
   cellar,
   wineTypes,
-  wineFamilies,
   utils,
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',

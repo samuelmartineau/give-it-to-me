@@ -29,7 +29,8 @@ export {
   getNextHits,
   selectBottleToDelete,
   unselectBottleToDelete,
-  removeBottles
+  removeBottles,
+  getWineFamilies
 } from './actions';
 export {
   getWineById,

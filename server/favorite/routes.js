@@ -7,7 +7,7 @@ const { updateClients } = require('../handleChanges');
 
 const router = express.Router();
 
-router.route(config.ROUTES.FAVORITE).post((req, res, next) => {
+router.route(config.ROUTES.FAVORITE).post((req, res) => {
   return addToFavorite(req.body.wineId)
     .then(message => {
       updateClients();

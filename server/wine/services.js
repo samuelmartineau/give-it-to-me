@@ -11,11 +11,11 @@ const getCellar = () => {
             json_object('id', id, 'box', box, 'cell', cell)
           ) AS json_result
           FROM (SELECT * FROM bottles AS b WHERE 
-            b.wine_id = w.id
+            b.wineId = w.id
             AND b._deleted = 0  
           )) as bottles
           FROM wines AS w
-          WHERE w.stock > 0
+          WHERE w.bottlesCount > 0
       `,
         (err, wines) => {
           if (err) {
@@ -41,7 +41,7 @@ const addWine = wine => {
     db.serialize(() => {
       db.run(
         `INSERT INTO wines 
-        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, stock, count)
+        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount)
         VALUES(
         $name,
         $year,
@@ -53,8 +53,7 @@ const addWine = wine => {
         $wineCategory,
         $bottleType,
         $isInBoxes,
-        $stock,
-        $count
+        $bottlesCount
       )`,
         {
           $name: wine.name,
@@ -67,27 +66,30 @@ const addWine = wine => {
           $wineCategory: wine.wineCategory,
           $bottleType: wine.bottleType,
           $isInBoxes: wine.isInBoxes,
-          $stock: wine.isInBoxes ? wine.bottles.length : wine.count,
-          $count: null
+          $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count
         },
         function(err) {
           if (err) {
+            logger.error('Error adding Wine', err);
             reject(err);
           } else {
             const wineId = this.lastID;
             if (wine.isInBoxes) {
               var stmt = db.prepare(
-                'INSERT INTO bottles (wine_id, box, cell) VALUES ($wine_id, $box, $cell)'
+                'INSERT INTO bottles (wineId, box, cell) VALUES ($wineId, $box, $cell)'
               );
               bottles.forEach(bottle => {
                 stmt.run({
-                  $wine_id: wineId,
+                  $wineId: wineId,
                   $box: bottle.box,
                   $cell: bottle.cell
                 });
               });
               stmt.finalize(err => {
-                if (err) reject(err);
+                if (err) {
+                  logger.error('Error adding bottles', err);
+                  reject(err);
+                }
                 db.run('COMMIT');
                 resolve({ message: 'Vin ajouté avec succés' });
               });
@@ -99,37 +101,7 @@ const addWine = wine => {
   });
 };
 
-const updateWine = (wineId, data) => {
-  let updateData = data;
-
-  return knexInstance('wines')
-    .where({ id: wineId })
-    .then(wines => {
-      const wine = wines[0];
-      if (data.removeBottlesCount) {
-        Object.assign(updateData, {
-          _deleted: wine.count <= data.removeBottlesCount,
-          count: wine.count - data.removeBottlesCount,
-          isFavorite: wine.count <= data.removeBottlesCount
-        });
-        delete updateData.removeBottlesCount;
-      }
-      return knexInstance('wines')
-        .where({ id: wineId })
-        .update(updateData);
-    })
-    .catch(error => {
-      logger.error('Error getting Wine', error);
-      return Promise.reject({
-        message: 'Probleme lors de la récupération du vin'
-      });
-    });
-};
-
 module.exports = {
   getCellar,
-  addWine,
-  updateWine
+  addWine
 };
-
-// {"wine":{"isInBoxes":true,"name":"Domaine test","wineFamily":"56","year":"2000","bottleType":"1","wineCategory":"REGULAR","wineType":"WHITE","blur":"data:image/gif;base64,R0lGODlhAwADAPIAABcXFzk5OWJiYoqKip+fn729vQAAAAAAACH5BAAAAAAAIf8LSW1hZ2VNYWdpY2sNZ2FtbWE9MC40NTQ1NQAsAAAAAAIAAwAAAwRIUDGSADs=","thumbnailFileName":"b6371ff0-56b7-11e8-94ba-93d7d7438749.png","pictureFileName":"projectavatar.png","source":"France"},"contextualData":{"bottles":[{"box":19,"cell":0},{"box":19,"cell":3},{"box":19,"cell":6},{"box":19,"cell":7},{"box":19,"cell":4},{"box":33,"cell":0}]}}
