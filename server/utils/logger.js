@@ -1,8 +1,7 @@
 const winston = require('winston');
 const config = require('../../config');
-winston.emitErrs = true;
 
-let logger = new winston.Logger({
+let logger = winston.createLogger({
   transports: [
     new winston.transports.File({
       name: 'info-to-file',

@@ -25,7 +25,6 @@ CREATE TABLE "wines" (
     "pictureFileName" varchar(255) NOT NULL, 
     "positionComment" varchar(255), 
     "isInBoxes" boolean NOT NULL,
-    "isFavorite" boolean default '0', 
     "bottleType" integer NOT NULL, 
     "year" integer NOT NULL, 
     "bottlesCount" integer NOT NULL, 
@@ -96,12 +95,13 @@ CREATE TRIGGER sync_wine_count
 AFTER UPDATE On wines
 WHEN new.bottlesCount = 0
 BEGIN
-   DELETE FROM favorites WHERE wineId = new.id;
+   UPDATE favorites SET _deleted = 1 WHERE wineId = new.id;
 END;
 
 CREATE TABLE "favorites" (
     "id" integer not null primary key autoincrement, 
-    "wineId" integer, 
+    "wineId" integer,
+    "_deleted" boolean default '0', 
     "createdAt" datetime default CURRENT_TIMESTAMP,
     "updatedAt" datetime default CURRENT_TIMESTAMP,
     foreign key("wineId") references "wines"("id")
@@ -113,3 +113,6 @@ WHEN new.bottlesCount = 0
 BEGIN
    UPDATE favorites SET updatedAt = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
+
+-- INSERT INTO favorites (wineId)  VALUES  (1)
+-- UPDATE bottles SET _deleted = 1 WHERE id = 1;

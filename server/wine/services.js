@@ -10,6 +10,7 @@ const getCellar = () => {
           json_group_array(
             json_object('id', id, 'box', box, 'cell', cell)
           ) AS json_result
+          CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END AS isFavorite
           FROM (SELECT * FROM bottles AS b WHERE 
             b.wineId = w.id
             AND b._deleted = 0  
