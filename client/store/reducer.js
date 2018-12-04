@@ -5,6 +5,7 @@ import addingReducer, * as adding from './adding/adding.reducer';
 import searchReducer, * as search from './search/search.reducer';
 import removeReducer, * as remove from './remove/remove.reducer';
 import wineFamiliesReducer from './wineFamilies/wineFamilies.reducer';
+import favoritesReducer from './favorites/favorites.reducer';
 import { getBoxCells } from '../components/Cellar/utils';
 
 export default combineReducers({
@@ -13,7 +14,8 @@ export default combineReducers({
   adding: addingReducer,
   search: searchReducer,
   remove: removeReducer,
-  wineFamilies: wineFamiliesReducer
+  wineFamilies: wineFamiliesReducer,
+  favorites: favoritesReducer
 });
 
 export const getWineById = (state, wineId) =>

@@ -9,7 +9,6 @@ const Cell = ({ bottle }) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   return (
     <Bottle
-      key={getBottleId(bottle.box, bottle.cell)}
       cx={bottleInfos.cx}
       cy={bottleInfos.cy}
       cell={bottle.cell}
@@ -23,7 +22,7 @@ export const CellarBottles = ({ bottles }) => {
   return (
     <g>
       {bottles.map(bottle => (
-        <Cell bottle={bottle} />
+        <Cell key={getBottleId(bottle.box, bottle.cell)} bottle={bottle} />
       ))}
     </g>
   );

@@ -6,13 +6,17 @@ const addToFavorite = wineId => {
     db.serialize(() => {
       db.run(
         `
-      INSERT INTO favorites (wineId)
-      VALUES (?)
+      INSERT OR REPLACE INTO favorites (id, wineId, _deleted) 
+      VALUES (
+        (SELECT id FROM favorites WHERE wineId = $wineId),
+        $wineId, 
+        '0'
+          )
       `,
-        wineId,
+        { $wineId: wineId },
         err => {
           if (err) {
-            logger.log('error', err);
+            logger.error(err.stack);
             reject(err);
           }
           resolve({ message: 'Favoris ajouté avec succés' });
@@ -29,13 +33,12 @@ const removeFromFavorite = wineId => {
         `
       UPDATE favorites
       SET _deleted = 1
-      WHERE
-        wineId = (?)
+      WHERE wineId = (?)
       `,
         wineId,
         err => {
           if (err) {
-            logger.log('error', err);
+            logger.error(err.stack);
             reject(err);
           }
           resolve({ message: 'Vin supprimé avec succés des favoris' });

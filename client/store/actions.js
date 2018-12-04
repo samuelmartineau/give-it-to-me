@@ -10,6 +10,10 @@ export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 export { getNextHits } from './search/search.actions';
 export { setCellar } from './wines/wines.actions';
 export { getWineFamilies } from './wineFamilies/wineFamilies.actions';
+export {
+  addToFavorite,
+  removeFromFavorite
+} from './favorites/favorites.actions';
 
 export {
   selectBottleToDelete,

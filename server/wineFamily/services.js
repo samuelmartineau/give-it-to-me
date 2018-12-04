@@ -6,12 +6,11 @@ const getWineFamilies = () => {
     db.serialize(() => {
       db.all(
         `
-        SELECT * FROM wineFamilies
-          
+        SELECT * FROM wineFamilies;
       `,
         (err, wineFamilies) => {
           if (err) {
-            logger.log('error', err);
+            logger.error(err.stack);
             reject(err);
           } else {
             resolve(wineFamilies);

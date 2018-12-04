@@ -1,16 +1,16 @@
 import { compose, withProps } from 'recompose';
 import { getCellar, getWineFamilies } from '../../client/store';
 import WithLayout from '../../client/components/Layout/WithLayout';
-import { AddStepsConnected } from '../../client/components/Add/AddSteps';
+import { Search } from '../../client/components/Search/Search';
 
-const AddWithLayout = compose(
+const SearchWithLayout = compose(
   withProps({
-    title: 'Ajouter une nouvelle bouteille'
+    title: 'Vos favoris'
   }),
   WithLayout
-)(AddStepsConnected);
+)(Search);
 
-AddWithLayout.getInitialProps = async ({ store }) => {
+SearchWithLayout.getInitialProps = async ({ store }) => {
   const result = await Promise.all([
     store.dispatch(getCellar()),
     store.dispatch(getWineFamilies())
@@ -20,4 +20,4 @@ AddWithLayout.getInitialProps = async ({ store }) => {
   };
 };
 
-export default AddWithLayout;
+export default SearchWithLayout;

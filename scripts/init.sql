@@ -1,10 +1,12 @@
+BEGIN TRANSACTION;
 
 CREATE TABLE "wineFamilies" (
     "id" integer not null primary key autoincrement, 
     "name" varchar(255) NOT NULL, 
     "_active" boolean default '1', 
     "createdAt" datetime default CURRENT_TIMESTAMP,
-    "updatedAt" datetime default CURRENT_TIMESTAMP)
+    "updatedAt" datetime default CURRENT_TIMESTAMP
+);
 
 CREATE TRIGGER wine_families_updated_at
 AFTER UPDATE On wineFamilies
@@ -15,7 +17,7 @@ END;
 
 CREATE TABLE "wines" (
     "id" integer not null primary key autoincrement, 
-    "wineFamily" integer,
+    "wineFamily" integer NOT NULL,
     "blur" varchar(255) NOT NULL,
     "name" varchar(255) NOT NULL, 
     "source" varchar(255), 
@@ -31,7 +33,7 @@ CREATE TABLE "wines" (
     "createdAt" datetime default CURRENT_TIMESTAMP,
     "updatedAt" datetime default CURRENT_TIMESTAMP,
     foreign key("wineFamily") references "wineFamilies"("id")
-    )
+);
 
 
 CREATE TRIGGER wines_updated_at
@@ -40,41 +42,19 @@ BEGIN
    UPDATE wines SET updatedAt = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
--- INSERT INTO wines 
---         (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount)
---         VALUES(
---         'Domaine de test',
---         2017,
---         72,
---         'null',
---         'null',
---         'null',
---         'RED',
---         'REGULAR',
---         1,
---         1,
---         6
---       )
-
--- UPDATE wines SET name = 'Domaine de test Sam' WHERE id = 1;
 
 
 CREATE TABLE "bottles" (
     "id" integer not null primary key autoincrement, 
-    "wineId" integer, 
+    "wineId" integer NOT NULL, 
     "box" integer NOT NULL, 
     "cell" integer NOT NULL, 
     "_deleted" boolean default '0', 
     "createdAt" datetime default CURRENT_TIMESTAMP,
     "updatedAt" datetime default CURRENT_TIMESTAMP,
     foreign key("wineId") references "wines"("id")
-)
+);
 
--- INSERT INTO bottles (wine_id, box, cell) VALUES
--- (1, 2, 1),
--- (1, 2, 2),
--- (1, 2, 3),
--- (1, 2, 4)
 
 CREATE TRIGGER bottles_updated_at
 AFTER UPDATE On bottles
@@ -89,30 +69,75 @@ BEGIN
    UPDATE wines SET bottlesCount = bottlesCount - 1 WHERE id = new.wineId;
 END;
 
--- UPDATE bottles SET _deleted = 1 WHERE id = 1;
-
-CREATE TRIGGER sync_wine_count
-AFTER UPDATE On wines
-WHEN new.bottlesCount = 0
-BEGIN
-   UPDATE favorites SET _deleted = 1 WHERE wineId = new.id;
-END;
 
 CREATE TABLE "favorites" (
     "id" integer not null primary key autoincrement, 
-    "wineId" integer,
+    "wineId" integer NOT NULL,
     "_deleted" boolean default '0', 
     "createdAt" datetime default CURRENT_TIMESTAMP,
     "updatedAt" datetime default CURRENT_TIMESTAMP,
     foreign key("wineId") references "wines"("id")
-)
+);
 
 CREATE TRIGGER favorites_updated_at
 AFTER UPDATE On favorites
-WHEN new.bottlesCount = 0
 BEGIN
    UPDATE favorites SET updatedAt = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
--- INSERT INTO favorites (wineId)  VALUES  (1)
--- UPDATE bottles SET _deleted = 1 WHERE id = 1;
+
+CREATE TABLE "transactions" (
+    "id" integer not null primary key autoincrement, 
+    "type" TEXT CHECK( type IN ('ADDED','DELETED') ) NOT NULL,
+    "wineId" integer,
+    "bottleId" integer,
+    "favoriteId" integer,
+    "wineFamilyId" integer,
+    "createdAt" datetime default CURRENT_TIMESTAMP,
+    foreign key("wineId") references "wines"("id")
+    foreign key("bottleId") references "bottles"("id")
+    foreign key("favoriteId") references "favorites"("id")
+    foreign key("wineFamilyId") references "wineFamilies"("id")
+);
+
+CREATE TRIGGER wine_added_transaction
+AFTER INSERT On wines
+BEGIN
+   INSERT INTO transactions (wineId, type) VALUES (NEW.id, 'ADDED');
+END;
+
+CREATE TRIGGER wine_deleted_transaction
+AFTER UPDATE On wines
+WHEN new.bottlesCount = 0
+BEGIN
+   INSERT INTO transactions (bottleId, type) VALUES (NEW.id, 'DELETED');
+END;
+
+CREATE TRIGGER bottle_deleted_transaction
+AFTER UPDATE On bottles
+WHEN new._deleted <> old._deleted AND new._deleted = 1
+BEGIN
+   INSERT INTO transactions (wineId, type) VALUES (NEW.id, 'DELETED');
+END;
+
+CREATE TRIGGER favorite_added_transaction
+AFTER INSERT On favorites
+BEGIN
+   INSERT INTO transactions (favoriteId, type) VALUES (NEW.id, 'ADDED');
+END;
+
+CREATE TRIGGER favorite_deleted_transaction
+AFTER UPDATE On favorites
+WHEN new._deleted <> old._deleted AND new._deleted = 1
+BEGIN
+   INSERT INTO transactions (favoriteId, type) VALUES (NEW.id, 'DELETED');
+END;
+
+CREATE TRIGGER wine_family_added_transaction
+AFTER INSERT On wineFamilies
+BEGIN
+   INSERT INTO transactions (wineFamilyId, type) VALUES (NEW.id, 'ADDED');
+END;
+
+
+COMMIT;

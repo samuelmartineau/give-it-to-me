@@ -6,21 +6,23 @@ const getCellar = () => {
     db.serialize(() => {
       db.all(
         `
-        SELECT w.*, (SELECT 
+        SELECT w.*, 
+        (SELECT 
           json_group_array(
             json_object('id', id, 'box', box, 'cell', cell)
           ) AS json_result
-          CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END AS isFavorite
           FROM (SELECT * FROM bottles AS b WHERE 
             b.wineId = w.id
             AND b._deleted = 0  
-          )) as bottles
+         )) as bottles,
+         (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
           FROM wines AS w
+          LEFT JOIN favorites AS f ON w.id = f.wineId
           WHERE w.bottlesCount > 0
       `,
         (err, wines) => {
           if (err) {
-            logger.log('error', err);
+            logger.error(err.stack);
             reject(err);
           } else {
             wines.forEach(wine => {

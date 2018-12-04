@@ -22,6 +22,7 @@ const WineCardWrapper = styled.div`
 `;
 
 const MenuButton = styled.button`
+  cursor: pointer;
   position: absolute;
   top: 0px;
   right: 0px;

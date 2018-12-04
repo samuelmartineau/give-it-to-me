@@ -19,7 +19,6 @@ type Props = {
 class WineModalFolders extends React.PureComponent<Props> {
   render() {
     const { bottles, removedBottles, bottleIds } = this.props;
-    console.log({ bottles, removedBottles });
     return Object.keys(bottles).map(boxId => (
       <div key={boxId}>
         <h2>Caisse numéro {boxId}</h2>
@@ -27,7 +26,6 @@ class WineModalFolders extends React.PureComponent<Props> {
           <BoxCells boxId={boxId}>
             {cellId => {
               const bottle = bottles[boxId] ? bottles[boxId][cellId] : null;
-              console.log(bottle);
               return (
                 <ClickHandlerCell
                   key={cellId}

@@ -73,3 +73,28 @@ export const getWineFamilies = () => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const addToFavorite = wineId => {
+  return fetch(`${apiBase}${config.ROUTES.FAVORITE}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ wineId })
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};
+
+export const removeFromFavorite = wineId => {
+  return fetch(`${apiBase}${config.ROUTES.FAVORITE}/${wineId}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};

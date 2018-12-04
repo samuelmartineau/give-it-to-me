@@ -13,7 +13,7 @@ module.exports = {
     host: process.env.HOST,
     database: process.env.DATABASE,
     timeout: 5,
-    filename: 'db_v0.db',
+    filename: 'db_v1.db',
     // filename: 'gitm-5-11-2017.db',
     tables: {
       WINE: {

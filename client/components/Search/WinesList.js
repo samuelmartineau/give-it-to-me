@@ -12,6 +12,7 @@ import FilteredWine from './FilteredWine';
 import CellarBottles from './CellarBottles';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
+import AddToFavoriteButton from '~/client/components/Favorite/AddToFavoriteButton';
 
 type Props = {
   getNextHits: Function,
@@ -82,6 +83,7 @@ class WinesList extends React.Component<Props> {
                   </CellarContainer>
                   <WineDetails wine={wine} />
                   <WineModalButton wineId={wine.id} />
+                  <AddToFavoriteButton wineId={wine.id} />
                 </React.Fragment>
               );
             }}

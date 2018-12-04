@@ -30,8 +30,11 @@ export {
   selectBottleToDelete,
   unselectBottleToDelete,
   removeBottles,
-  getWineFamilies
+  getWineFamilies,
+  addToFavorite,
+  removeFromFavorite
 } from './actions';
+
 export {
   getWineById,
   getCellsUsedInBox,

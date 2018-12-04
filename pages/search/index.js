@@ -1,10 +1,9 @@
-import { compose, setDisplayName, withProps } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { getCellar, getWineFamilies } from '../../client/store';
 import WithLayout from '../../client/components/Layout/WithLayout';
 import { Search } from '../../client/components/Search/Search';
 
 const SearchWithLayout = compose(
-  setDisplayName('SearchPage'),
   withProps({
     title: 'Chercher une nouvelle bouteille'
   }),
