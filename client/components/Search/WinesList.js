@@ -3,16 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import styled from 'styled-components';
-import CellarContainer from '../Cellar/CellarContainer';
-import CellarBoxes from '../Cellar/CellarBoxes';
-import WineDetails from './WineDetails';
-import WineModalButton from './WineModal/WineModalButton';
-import { CellarBoxConnected } from './CellarBox';
 import FilteredWine from './FilteredWine';
-import CellarBottles from './CellarBottles';
 import { PICTURE_UPLOAD } from '~/config';
 import { getNextHits } from '~/client/store';
-import AddToFavoriteButton from '~/client/components/Favorite/AddToFavoriteButton';
+import { WineContentCard } from '~/client/components/Wine/WineContentCard';
 
 type Props = {
   getNextHits: Function,
@@ -67,25 +61,7 @@ class WinesList extends React.Component<Props> {
         {wines.map(wineId => (
           <FilteredWine key={wineId} wineId={wineId}>
             {wine => {
-              return (
-                <React.Fragment>
-                  <CellarContainer>
-                    <CellarBoxes>
-                      {boxId => (
-                        <CellarBoxConnected
-                          boxId={boxId}
-                          wineId={wine.id}
-                          key={boxId}
-                        />
-                      )}
-                    </CellarBoxes>
-                    <CellarBottles wineId={wine.id} />
-                  </CellarContainer>
-                  <WineDetails wine={wine} />
-                  <WineModalButton wineId={wine.id} />
-                  <AddToFavoriteButton wineId={wine.id} />
-                </React.Fragment>
-              );
+              return <WineContentCard wine={wine} />;
             }}
           </FilteredWine>
         ))}
