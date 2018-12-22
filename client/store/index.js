@@ -32,7 +32,8 @@ export {
   removeBottles,
   getWineFamilies,
   addToFavorite,
-  removeFromFavorite
+  removeFromFavorite,
+  toggleFavoritesFilter
 } from './actions';
 
 export {
@@ -55,4 +56,4 @@ export {
   getRemovedBottles,
   isBottleSelectedToBeRemoved,
   getWineBottles
-} from './reducer';
+} from './selectors';

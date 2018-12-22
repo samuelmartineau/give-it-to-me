@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
   toggleCheckboxFilter,
   updateInputFilter,
-  getWinesFiltered
+  getWinesFiltered,
+  toggleFavoritesFilter
 } from '~/client/store/';
 import config from '~/config';
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
@@ -13,12 +14,14 @@ type Props = {
   count: number,
   updateCheckbox: Function,
   onInputChange: Function,
+  toggleFavoritesFilter: Function,
   filters: {
     wineTypes: Array<string>,
     wineCategories: Array<string>,
     maxYear: string,
     minYear: string,
-    name: string
+    name: string,
+    favorites: boolean
   }
 };
 
@@ -78,6 +81,15 @@ export const SearchFilters = (props: Props) => (
       value={props.filters.name}
       placeholder="Nom"
     />
+    <label>
+      <input
+        type="checkbox"
+        onChange={props.toggleFavoritesFilter}
+        name="favorites"
+        value={props.filters.favorites}
+      />
+      Favoris
+    </label>
   </div>
 );
 
@@ -90,6 +102,9 @@ export default connect(
     updateCheckbox(evt) {
       const { value, name } = evt.target;
       dispatch(toggleCheckboxFilter(name, value));
+    },
+    toggleFavoritesFilter() {
+      dispatch(toggleFavoritesFilter());
     },
     onInputChange(evt) {
       const { value, name } = evt.target;
