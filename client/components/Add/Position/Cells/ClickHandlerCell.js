@@ -5,8 +5,8 @@ import {
   selectCell,
   unselectCell
 } from '~/client/store';
-import BoxCell from '../../../Cellar/Box/BoxCell';
-import BoxCellSelectable from '../../../Cellar/Box/BoxCellSelectable';
+import BoxCell from '~/client/components/Cellar/Box/BoxCell';
+import BoxCellSelectable from '~/client/components/Cellar/Box/BoxCellSelectable';
 
 const SelectableCell = connect(
   null,

@@ -3,7 +3,12 @@ import { TextField } from '~/client/components/Toolkit';
 import { connect } from 'react-redux';
 import { updateModel } from '~/client/store/';
 
-export const PositionDescription = ({ onChange, model }) => (
+type Props = {
+  onChange: Function,
+  model: {}
+};
+
+export const PositionDescription = ({ onChange, model }: Props) => (
   <div>
     <label>
       Position dans la cave

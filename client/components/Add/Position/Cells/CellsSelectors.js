@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BoxFilter from './BoxFilter';
-import { boxes } from '../../../Cellar/utils';
+import { boxes } from '~/client/components/Cellar/utils';
 
 const Wrapper = styled.div`
   display: grid;
@@ -13,7 +13,9 @@ const Wrapper = styled.div`
 const CellsSelectors = () => {
   return (
     <Wrapper>
-      {boxes.map(boxId => <BoxFilter key={boxId} boxId={boxId} />)}
+      {boxes.map(boxId => (
+        <BoxFilter key={boxId} boxId={boxId} />
+      ))}
     </Wrapper>
   );
 };

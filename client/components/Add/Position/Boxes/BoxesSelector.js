@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import CellarContainer from '../../../Cellar/CellarContainer';
-import CellarBoxes from '../../../Cellar/CellarBoxes';
-import CellarBottles from '../../../Cellar/CellarBottles';
+import CellarContainer from '~/client/components/Cellar/CellarContainer';
+import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
+import CellarBottles from '~/client/components/Cellar/CellarBottles';
+import { getCellId } from '~/client/components/Cellar/utils';
+import CellarCells from '~/client/components/Cellar/Cells/CellarCells';
 import ClickHandlerBox from './ClickHandlerBox';
-import { getCellId } from '../../../Cellar/utils';
 import SelectedCell from './SelectedCell';
-import CellarCells from '../../../Cellar/Cells/CellarCells';
 
 type BoxesSelectorProps = {};
 

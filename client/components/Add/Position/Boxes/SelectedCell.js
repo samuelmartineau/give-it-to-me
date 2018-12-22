@@ -2,9 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { isCellSelected } from '../../../../store';
-import Bottle from '../../../Cellar/Bottle';
-import { getBottleInfos } from '../../../Cellar/utils';
+import { isCellSelected } from '~/client/store';
+import Bottle from '~/client/components/Cellar/Bottle';
+import { getBottleInfos } from '~/client/components/Cellar/utils';
 
 type Props = {
   selected: boolean,
