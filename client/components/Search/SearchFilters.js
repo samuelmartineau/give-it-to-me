@@ -8,6 +8,7 @@ import {
   toggleFavoritesFilter
 } from '~/client/store/';
 import config from '~/config';
+import { Checkbox, TextField } from '~/client/components/Toolkit';
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
 
 type Props = {
@@ -24,49 +25,46 @@ type Props = {
     favorites: boolean
   }
 };
-
 export const SearchFilters = (props: Props) => (
   <div>
     <h2>Filtres: {props.count} résultats</h2>
     <p>Couleur</p>
-    {WINE_TYPES_ALL.map(type => {
-      return (
-        <label key={type.id}>
-          <input
-            type="checkbox"
-            onChange={props.updateCheckbox}
-            name="wineTypes"
-            value={type.id}
-            checked={props.filters.wineTypes.includes(type.id)}
-          />
-          {type.label}
-        </label>
-      );
-    })}
+    {WINE_TYPES_ALL.map(type => (
+      <Checkbox
+        key={type.id}
+        onChange={props.updateCheckbox}
+        name="wineTypes"
+        id={`search-filters${type.id}`}
+        value={type.id}
+        checked={props.filters.wineTypes.includes(type.id)}
+      >
+        {type.label}
+      </Checkbox>
+    ))}
     <p>Texture</p>
     {WINE_CATEGORIES_ALL.map(category => {
       return (
-        <label key={category.id}>
-          <input
-            type="checkbox"
-            onChange={props.updateCheckbox}
-            name="wineCategories"
-            value={category.id}
-            checked={props.filters.wineCategories.includes(category.id)}
-          />
+        <Checkbox
+          key={category.id}
+          onChange={props.updateCheckbox}
+          name="wineCategories"
+          id={`search-filters${category.id}`}
+          value={category.id}
+          checked={props.filters.wineCategories.includes(category.id)}
+        >
           {category.label}
-        </label>
+        </Checkbox>
       );
     })}
     <p>Periode</p>
-    <input
+    <TextField
       onChange={props.onInputChange}
       type="number"
       name="minYear"
       value={props.filters.minYear}
       placeholder="Borne Inférieur"
     />
-    <input
+    <TextField
       onChange={props.onInputChange}
       type="number"
       name="maxYear"
@@ -74,22 +72,22 @@ export const SearchFilters = (props: Props) => (
       placeholder="Borne Supérieur"
     />
     <p>Nom</p>
-    <input
+    <TextField
       onChange={props.onInputChange}
       type="text"
       name="name"
       value={props.filters.name}
       placeholder="Nom"
     />
-    <label>
-      <input
-        type="checkbox"
-        onChange={props.toggleFavoritesFilter}
-        name="favorites"
-        value={props.filters.favorites}
-      />
+    <Checkbox
+      onChange={props.toggleFavoritesFilter}
+      name="favorites"
+      value="favorites"
+      id="search-filters"
+      checked={props.filters.favorites}
+    >
       Favoris
-    </label>
+    </Checkbox>
   </div>
 );
 
@@ -101,6 +99,7 @@ export default connect(
   dispatch => ({
     updateCheckbox(evt) {
       const { value, name } = evt.target;
+      console.log(value, name);
       dispatch(toggleCheckboxFilter(name, value));
     },
     toggleFavoritesFilter() {
