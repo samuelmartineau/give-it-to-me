@@ -1,52 +1,59 @@
+// @flow
+
 import React from 'react';
 import { connect } from 'react-redux';
 import config from '~/config';
 const { WINE_TYPES_ALL, WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 const { BOTTLE_TYPES_ALL } = config.bottleTypes;
 import { updateModel } from '~/client/store/';
+import { Radio } from '~/client/components/Toolkit';
 
-export class TypesStep extends React.Component {
+type Props = {
+  onTypeChange: Function
+};
+
+export class TypesStep extends React.Component<Props> {
   render() {
     return (
       <div>
         <legend>Famile</legend>
         {WINE_TYPES_ALL.map(wineType => (
-          <label key={wineType.id}>
-            <input
-              type="radio"
-              name="wineType"
-              checked={wineType.id === this.props.model.wineType}
-              onChange={this.props.onTypeChange}
-              value={wineType.id}
-            />{' '}
+          <Radio
+            key={wineType.id}
+            name="wineType"
+            id={`add-type-${wineType.id}`}
+            checked={wineType.id === this.props.model.wineType}
+            onChange={this.props.onTypeChange}
+            value={wineType.id}
+          >
             {wineType.label}
-          </label>
+          </Radio>
         ))}
         <legend>Type</legend>
         {WINE_TYPES[this.props.model.wineType].categories.map(wineCategory => (
-          <label key={wineCategory}>
-            <input
-              type="radio"
-              name="wineCategory"
-              checked={wineCategory === this.props.model.wineCategory}
-              onChange={this.props.onTypeChange}
-              value={wineCategory}
-            />{' '}
+          <Radio
+            key={wineCategory}
+            name="wineCategory"
+            id={`add-type-${wineCategory}`}
+            checked={wineCategory === this.props.model.wineCategory}
+            onChange={this.props.onTypeChange}
+            value={wineCategory}
+          >
             {WINE_CATEGORIES[wineCategory].label}
-          </label>
+          </Radio>
         ))}
         <legend>Taille de la bouteille</legend>
         {BOTTLE_TYPES_ALL.map(bottleType => (
-          <label key={bottleType.id}>
-            <input
-              type="radio"
-              name="bottleType"
-              onChange={this.props.onTypeChange}
-              checked={bottleType.id === this.props.model.bottleType}
-              value={bottleType.id}
-            />{' '}
+          <Radio
+            key={bottleType.id}
+            name="bottleType"
+            id={`add-type-${bottleType.id}`}
+            checked={bottleType.id === this.props.model.bottleType}
+            onChange={this.props.onTypeChange}
+            value={bottleType.id}
+          >
             {bottleType.label}
-          </label>
+          </Radio>
         ))}
       </div>
     );

@@ -28,7 +28,7 @@ const Label = styled.label`
   display: inline-flex;
 `;
 
-export const Checkbox = ({
+export const Radio = ({
   children,
   value,
   onChange,
@@ -39,7 +39,7 @@ export const Checkbox = ({
   <>
     <Input
       id={id}
-      type="checkbox"
+      type="radio"
       value={value}
       checked={checked}
       name={name}
@@ -47,7 +47,7 @@ export const Checkbox = ({
     />
     <Label htmlFor={id}>
       <i className="material-icons">
-        {checked ? 'check_box' : 'check_box_outline_blank'}
+        {checked ? 'radio_button_checked' : 'radio_button_unchecked'}
       </i>
 
       {children}

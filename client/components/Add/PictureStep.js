@@ -24,6 +24,11 @@ type State = {
 const Wrapper = styled.div`
   text-align: center;
 `;
+const BlurWrapper = styled.div`
+  display: flew;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export class PictureStep extends React.Component<Props, State> {
   state = { isUploading: false };
@@ -54,13 +59,7 @@ export class PictureStep extends React.Component<Props, State> {
 
     if (blur) {
       render = (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
+        <BlurWrapper>
           <Image
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
@@ -72,7 +71,7 @@ export class PictureStep extends React.Component<Props, State> {
             Changer de photo
             <i className="material-icons">delete</i>
           </Button>
-        </div>
+        </BlurWrapper>
       );
     } else if (isUploading) {
       render = <Spinner />;

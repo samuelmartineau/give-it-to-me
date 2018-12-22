@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
 import { updateModel } from '~/client/store/';
+import { Checkbox } from '~/client/components/Toolkit';
 
 type Props = {
   toggle: Function,
@@ -16,17 +17,19 @@ type State = {
 
 export class PositionStep extends React.Component<Props, State> {
   render() {
-    const { isInBoxes } = this.props;
+    const { isInBoxes, toggle } = this.props;
     return (
       <React.Fragment>
-        <label>
-          <input
-            onChange={this.props.toggle}
-            type="checkbox"
-            checked={isInBoxes}
-          />
+        <Checkbox
+          onChange={toggle}
+          id="inBoxes"
+          type="checkbox"
+          name="inBoxes"
+          value="inBoxes"
+          checked={isInBoxes}
+        >
           Les bouteilles sont-elles dans les caisses?
-        </label>
+        </Checkbox>
         {!isInBoxes && <PositionDescriptionConnected />}
         {isInBoxes && <PositionSelector />}
       </React.Fragment>

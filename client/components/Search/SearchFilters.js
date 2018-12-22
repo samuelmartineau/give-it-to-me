@@ -99,7 +99,6 @@ export default connect(
   dispatch => ({
     updateCheckbox(evt) {
       const { value, name } = evt.target;
-      console.log(value, name);
       dispatch(toggleCheckboxFilter(name, value));
     },
     toggleFavoritesFilter() {
