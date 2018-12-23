@@ -10,7 +10,7 @@ export const browseReducer = (state = [], action) => {
     case UNSELECT_BOX_TO_BROWSE: {
       const { boxId } = action.payload;
 
-      return [...state, boxId];
+      return state.filter(id => id !== boxId);
     }
     default:
       return state;

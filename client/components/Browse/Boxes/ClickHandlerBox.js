@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import {
-  isBoxSelected,
+  isBoxBrowsed,
   isBoxBrowseable,
-  selectBox,
-  unselectBox
+  selectBoxToBrowse,
+  unselectBoxToBrowse
 } from '~/client/store';
 import CellarBox from '~/client/components/Cellar/CellarBox';
 import CellarBoxSelectable from '~/client/components/Cellar/CellarBoxSelectable';
@@ -12,7 +12,7 @@ const SelectableBox = connect(
   null,
   dispatch => ({
     onSelect: boxId => {
-      dispatch(selectBox(boxId));
+      dispatch(selectBoxToBrowse(boxId));
     }
   })
 )(CellarBoxSelectable);
@@ -21,7 +21,7 @@ const UnSelectableBox = connect(
   null,
   dispatch => ({
     onSelect: boxId => {
-      dispatch(unselectBox(boxId));
+      dispatch(unselectBoxToBrowse(boxId));
     }
   })
 )(CellarBoxSelectable);
@@ -45,7 +45,7 @@ const ClickHandlerBox = ({
 
 export default connect((state, { boxId }) => {
   return {
-    isBoxSelected: isBoxSelected(state, boxId),
+    isBoxSelected: isBoxBrowsed(state, boxId),
     isBoxSelectable: isBoxBrowseable(state, boxId)
   };
 })(ClickHandlerBox);

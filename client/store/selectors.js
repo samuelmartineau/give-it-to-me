@@ -71,8 +71,10 @@ export const getRemovedBottles = state =>
 export const isBottleSelectedToBeRemoved = (state, bottleId) =>
   remove.isBottleSelectedToBeRemoved(state.remove, bottleId);
 
+export const isBoxBrowsed = (state, boxId) =>
+  browse.isBoxBrowsed(state.browse, boxId);
 export const isBoxBrowseable = (state, boxId) => {
-  const alreadyBrowsed = browse.isBoxBrowsed(state.browse, boxId);
+  const alreadyBrowsed = isBoxBrowsed(state, boxId);
   const bottles = getCellsUsedInBox(state, boxId);
   return !alreadyBrowsed && bottles.length > 0;
 };

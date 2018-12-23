@@ -19,7 +19,6 @@ export const mapReducer = (state = {}, action) => {
       return state;
   }
 };
-export const getWineById = (state, id) => state[id];
 
 export const allReducer = (state = [], action) => {
   switch (action.type) {
