@@ -57,5 +57,6 @@ export {
   getWineBottlesAsMap,
   getRemovedBottles,
   isBottleSelectedToBeRemoved,
-  getWineBottles
+  getWineBottles,
+  isBoxBrowseable
 } from './selectors';

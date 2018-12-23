@@ -1,8 +1,9 @@
-import * as wines from './wines/wines.reducer';
-import * as bottles from './bottles/bottles.reducer';
+import * as wines from './wines/wines.selectors';
+import * as bottles from './bottles/bottles.selectors';
 import * as adding from './adding/adding.selectors';
 import * as search from './search/search.selectors';
-import * as remove from './remove/remove.reducer';
+import * as remove from './remove/remove.selectors';
+import * as browse from './browse/browse.selectors';
 import { getBoxCells } from '../components/Cellar/utils';
 
 export const getWineById = (state, wineId) =>
@@ -69,3 +70,9 @@ export const getRemovedBottles = state =>
   remove.getRemovedBottles(state.remove);
 export const isBottleSelectedToBeRemoved = (state, bottleId) =>
   remove.isBottleSelectedToBeRemoved(state.remove, bottleId);
+
+export const isBoxBrowseable = (state, boxId) => {
+  const alreadyBrowsed = browse.isBoxBrowsed(state.browse, boxId);
+  const bottles = getCellsUsedInBox(state, boxId);
+  return !alreadyBrowsed && bottles.length > 0;
+};

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
   isBoxSelected,
-  isBoxSelectable,
+  isBoxBrowseable,
   selectBox,
   unselectBox
 } from '~/client/store';
@@ -46,6 +46,6 @@ const ClickHandlerBox = ({
 export default connect((state, { boxId }) => {
   return {
     isBoxSelected: isBoxSelected(state, boxId),
-    isBoxSelectable: isBoxSelectable(state, boxId)
+    isBoxSelectable: isBoxBrowseable(state, boxId)
   };
 })(ClickHandlerBox);
