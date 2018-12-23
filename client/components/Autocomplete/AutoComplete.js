@@ -136,7 +136,6 @@ class AutoComplete extends React.Component {
           renderSuggestion={renderSuggestion}
           inputProps={{
             type: 'text',
-            autoFocus: true,
             placeholder,
             value,
             onChange: this.onChange

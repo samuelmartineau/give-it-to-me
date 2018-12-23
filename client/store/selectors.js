@@ -1,6 +1,6 @@
 import * as wines from './wines/wines.reducer';
 import * as bottles from './bottles/bottles.reducer';
-import * as adding from './adding/adding.reducer';
+import * as adding from './adding/adding.selectors';
 import * as search from './search/search.selectors';
 import * as remove from './remove/remove.reducer';
 import { getBoxCells } from '../components/Cellar/utils';

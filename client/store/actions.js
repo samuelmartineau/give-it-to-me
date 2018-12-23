@@ -11,6 +11,10 @@ export { getNextHits, toggleFavoritesFilter } from './search/search.actions';
 export { setCellar } from './wines/wines.actions';
 export { getWineFamilies } from './wineFamilies/wineFamilies.actions';
 export {
+  selectBoxToBrowse,
+  unselectBoxToBrowse
+} from './browse/browse.actions';
+export {
   addToFavorite,
   removeFromFavorite
 } from './favorites/favorites.actions';

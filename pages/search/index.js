@@ -1,23 +1,15 @@
 import { compose, withProps } from 'recompose';
-import { getCellar, getWineFamilies } from '../../client/store';
-import WithLayout from '../../client/components/Layout/WithLayout';
-import { Search } from '../../client/components/Search/Search';
+import WithLayout from '~/client/components/Layout/WithLayout';
+import { Search } from '~/client/components/Search/Search';
+import { getInitialProps } from '~/pages/getInitialProps';
 
 const SearchWithLayout = compose(
   withProps({
-    title: 'Chercher une nouvelle bouteille'
+    title: 'Chercher une bouteille'
   }),
   WithLayout
 )(Search);
 
-SearchWithLayout.getInitialProps = async ({ store }) => {
-  const result = await Promise.all([
-    store.dispatch(getCellar()),
-    store.dispatch(getWineFamilies())
-  ]);
-  return {
-    result
-  };
-};
+SearchWithLayout.getInitialProps = getInitialProps;
 
 export default SearchWithLayout;

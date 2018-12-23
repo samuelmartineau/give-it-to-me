@@ -7,4 +7,5 @@ export const TextField = styled.input`
   margin: 0;
   padding: 0;
   width: 100%;
+  display: block;
 `;

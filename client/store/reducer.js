@@ -6,6 +6,7 @@ import searchReducer from './search/search.reducer';
 import removeReducer from './remove/remove.reducer';
 import wineFamiliesReducer from './wineFamilies/wineFamilies.reducer';
 import favoritesReducer from './favorites/favorites.reducer';
+import browseReducer from './browse/browse.reducer';
 
 export default combineReducers({
   wines: winesReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   search: searchReducer,
   remove: removeReducer,
   wineFamilies: wineFamiliesReducer,
-  favorites: favoritesReducer
+  favorites: favoritesReducer,
+  browse: browseReducer
 });

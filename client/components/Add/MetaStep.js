@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import WineFamilySuggestion from '../Autocomplete/WineFamilySuggestion';
+import WineFamilySuggestion from '~/client/components/Autocomplete/WineFamilySuggestion';
 import { TextField } from '~/client/components/Toolkit';
 import { updateModel } from '~/client/store/';
 

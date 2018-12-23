@@ -33,7 +33,9 @@ export {
   getWineFamilies,
   addToFavorite,
   removeFromFavorite,
-  toggleFavoritesFilter
+  toggleFavoritesFilter,
+  selectBoxToBrowse,
+  unselectBoxToBrowse
 } from './actions';
 
 export {

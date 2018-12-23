@@ -1,10 +1,16 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import config from '~/config';
 
 import { setCellar } from './';
 
-class ServerSentEventDispatcher extends React.Component {
+type Props = {
+  children: React.Node,
+  onEvent: Function
+};
+
+class ServerSentEventDispatcher extends React.Component<Props> {
   componentDidMount() {
     const { onEvent } = this.props;
     const source = new window.EventSource(`${config.API_URL}/sse`, {
@@ -19,7 +25,19 @@ class ServerSentEventDispatcher extends React.Component {
       },
       false
     );
+
+    source.addEventListener(
+      'error',
+      function(e) {
+        if (e.readyState == EventSource.CLOSED) {
+          // Connection was closed.
+          console.log('Connection was closed');
+        }
+      },
+      false
+    );
   }
+
   render() {
     return this.props.children;
   }

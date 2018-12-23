@@ -1,7 +1,7 @@
 import { compose, withProps } from 'recompose';
-import { getCellar, getWineFamilies } from '../../client/store';
 import WithLayout from '../../client/components/Layout/WithLayout';
 import { AddStepsConnected } from '../../client/components/Add/AddSteps';
+import { getInitialProps } from '~/pages/getInitialProps';
 
 const AddWithLayout = compose(
   withProps({
@@ -10,14 +10,6 @@ const AddWithLayout = compose(
   WithLayout
 )(AddStepsConnected);
 
-AddWithLayout.getInitialProps = async ({ store }) => {
-  const result = await Promise.all([
-    store.dispatch(getCellar()),
-    store.dispatch(getWineFamilies())
-  ]);
-  return {
-    result
-  };
-};
+AddWithLayout.getInitialProps = getInitialProps;
 
 export default AddWithLayout;
