@@ -12,7 +12,9 @@ export { setCellar } from './wines/wines.actions';
 export { getWineFamilies } from './wineFamilies/wineFamilies.actions';
 export {
   selectBoxToBrowse,
-  unselectBoxToBrowse
+  unselectBoxToBrowse,
+  selectCellToBrowse,
+  unselectCellToBrowse
 } from './browse/browse.actions';
 export {
   addToFavorite,

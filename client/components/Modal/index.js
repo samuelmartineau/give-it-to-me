@@ -6,7 +6,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 type Props = {
   isOpen: boolean,
   onRequestClose: Function,
-  children: React$Node
+  children: React.Node
 };
 
 function ReactModalAdapter({ className, modalClassName, ...props }) {

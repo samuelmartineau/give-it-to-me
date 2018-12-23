@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { isBoxSelected, unselectBox } from '../../../../store';
+import { isBoxSelected, unselectBox } from '~/client/store';
 import CellsSelector from './CellsSelector';
 
 export default connect(

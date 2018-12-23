@@ -35,7 +35,9 @@ export {
   removeFromFavorite,
   toggleFavoritesFilter,
   selectBoxToBrowse,
-  unselectBoxToBrowse
+  unselectBoxToBrowse,
+  selectCellToBrowse,
+  unselectCellToBrowse
 } from './actions';
 
 export {

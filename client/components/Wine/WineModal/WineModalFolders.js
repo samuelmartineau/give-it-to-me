@@ -47,11 +47,8 @@ class WineModalFolders extends React.PureComponent<Props> {
   }
 }
 
-export default connect(
-  (state, { wineId }) => ({
-    bottleIds: getWineById(state, wineId).bottleIds,
-    bottles: getWineBottlesAsMap(state, wineId),
-    removedBottles: getRemovedBottles(state, wineId)
-  }),
-  dispatch => ({})
-)(WineModalFolders);
+export default connect((state, { wineId }) => ({
+  bottleIds: getWineById(state, wineId).bottleIds,
+  bottles: getWineBottlesAsMap(state, wineId),
+  removedBottles: getRemovedBottles(state, wineId)
+}))(WineModalFolders);

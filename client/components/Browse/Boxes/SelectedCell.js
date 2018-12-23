@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { isCellSelected } from '~/client/store';
 import Bottle from '~/client/components/Cellar/Bottle';
 import { getBottleInfos } from '~/client/components/Cellar/utils';
 
@@ -28,5 +27,7 @@ const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {
 };
 
 export default connect((state, { boxId, cellId }) => {
-  return { selected: isCellSelected(state, boxId, cellId) };
+  return {
+    selected: state.browse.boxId === boxId && state.browse.cellId === cellId
+  };
 })(SelectedCell);

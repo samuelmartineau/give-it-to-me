@@ -2,9 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
-import styled from 'styled-components';
 import FilteredWine from './FilteredWine';
-import { PICTURE_UPLOAD } from '~/config';
+import { WineList } from '~/client/components/Toolkit';
 import { getNextHits } from '~/client/store';
 import { WineContentCard } from '~/client/components/Wine/WineContentCard';
 
@@ -12,15 +11,6 @@ type Props = {
   getNextHits: Function,
   wines: Array<string>
 };
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(calc(${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px + 2em), 1fr)
-  );
-  grid-gap: 30px;
-`;
 
 const THROTTLE_WAIT = 100;
 
@@ -57,7 +47,7 @@ class WinesList extends React.Component<Props> {
   render() {
     const { wines } = this.props;
     return (
-      <Wrapper>
+      <WineList>
         {wines.map(wineId => (
           <FilteredWine key={wineId} wineId={wineId}>
             {wine => {
@@ -65,7 +55,7 @@ class WinesList extends React.Component<Props> {
             }}
           </FilteredWine>
         ))}
-      </Wrapper>
+      </WineList>
     );
   }
 }

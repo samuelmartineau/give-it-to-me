@@ -3,3 +3,4 @@ export * from './TextField';
 export * from './Spinner';
 export * from './Checkbox';
 export * from './Radio';
+export * from './WineList';
