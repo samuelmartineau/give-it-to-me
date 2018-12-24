@@ -14,5 +14,6 @@ module.exports = app => {
   router.use(wineRoutes);
   router.use(bottleRoutes);
   router.use(wineFamilyRoutes);
+  router.get('/', (req, res) => res.send('API running'));
   app.use(config.API_BASE_URL, router);
 };
