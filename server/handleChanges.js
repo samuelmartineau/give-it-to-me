@@ -1,7 +1,6 @@
 const SSE = require('sse');
 
 const logger = require('./utils/logger');
-const { SET_CELLAR } = require('../client/store/wines/wines.types');
 const { getCellar } = require('./wine/services');
 
 const clients = [];
