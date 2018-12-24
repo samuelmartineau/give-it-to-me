@@ -3,7 +3,11 @@ const wineTypes = require('./wineTypes');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 3000;
-const apiUrl = process.env.URL || `http://localhost:${defaultPort}`;
+const publicURL = typeof window !== 'undefined' ? window.location.origin : '';
+const SERVER_URL =
+  typeof window !== 'undefined'
+    ? window.location.origin
+    : `http://localhost:${defaultPort}`;
 const assetsBaseUrl = '/assets';
 
 module.exports = {
@@ -53,7 +57,7 @@ module.exports = {
   },
   ASSETS_BASE_URL: assetsBaseUrl,
   API_BASE_URL: '/api',
-  API_URL: apiUrl,
+  API_URL: SERVER_URL,
   CORS_CONFIG: { origin: true, credentials: true, allowedHeaders: '*' },
   cellar,
   wineTypes,
@@ -62,6 +66,6 @@ module.exports = {
   isProduction: process.env.NODE_ENV === 'production',
   buildAssetsUrl(url) {
     const separator = url[0] === '/' ? '' : '/';
-    return `${apiUrl}${assetsBaseUrl}${separator}${url}`;
+    return `${publicURL}${assetsBaseUrl}${separator}${url}`;
   }
 };
