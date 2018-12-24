@@ -14,6 +14,12 @@ import type { WineType } from './Wine.type';
 const WineActions = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin: 1em auto;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
 }
 `;
 

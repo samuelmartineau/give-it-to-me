@@ -12,10 +12,11 @@ const { CELL_SIZE, CELLAR_SCHEMA, FULL_BOX_WIDTH_CELLS } = cellar;
 
 type Props = {
   children: any,
-  boxId: number
+  boxId: number,
+  className: string
 };
 
-const BoxContainer = ({ boxId, children }: Props) => {
+const BoxContainer = ({ boxId, children, className }: Props) => {
   const box = CELLAR_SCHEMA[boxId];
   const canvasWidth = box.schema[0] * CELL_SIZE;
   const canvasHeigh = box.schema[1] * CELL_SIZE;
@@ -24,6 +25,7 @@ const BoxContainer = ({ boxId, children }: Props) => {
       width={FULL_BOX_WIDTH_CELLS * CELL_SIZE}
       height={canvasHeigh}
       viewBox={`0 0 ${canvasWidth} ${canvasHeigh}`}
+      className={className}
     >
       {children}
     </Svg>

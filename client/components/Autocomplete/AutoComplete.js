@@ -25,14 +25,15 @@ const classNames = {
 
 const AutosuggestWrapper = styled.div.attrs(classNames)`
   .${classNames.container} {
-    flex-grow: 1;
     position: relative;
   }
   .${classNames.suggestionsContainerOpen} {
+    display: block;
     background: #dedede;
     position: absolute;
     left: 0;
     right: 0;
+    z-index: 2;
   }
   .${classNames.suggestion} {
     padding: 1em;
@@ -46,8 +47,8 @@ const AutosuggestWrapper = styled.div.attrs(classNames)`
     background: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.onSecondary};
   }
-  .${classNames.textField} {
-    background: red;
+  .${classNames.suggestion} {
+    cusor: pointer;
   }
 }
 `;

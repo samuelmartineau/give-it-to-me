@@ -28,39 +28,44 @@ type Props = {
   onClear: Function
 };
 
-const WineFamilySuggestion = ({
-  wineFamilies,
-  onSuggestionSelected,
-  selectedFamily,
-  onClear
-}: Props) => {
-  const AreasFormated = wineFamilies.map(wineFamily => ({
-    id: wineFamily.id,
-    label: wineFamily.name,
-    searchKey: utils.cleanString(wineFamily.name)
-  }));
+class WineFamilySuggestion extends React.Component<Props> {
+  onSelect = (evt, ...args) => {
+    const { onSuggestionSelected } = this.props;
+    evt.preventDefault();
+    onSuggestionSelected(evt, ...args);
+  };
 
-  return (
-    <Label>
-      <Text>AOC</Text>
-      {selectedFamily && (
-        <div>
-          <SelectedFamily>{selectedFamily.name}</SelectedFamily>
-          <ButtonStyled type="button" primary onClick={onClear}>
-            changer
-          </ButtonStyled>
-        </div>
-      )}
-      {!selectedFamily && (
-        <AutoComplete
-          datas={AreasFormated}
-          onSuggestionSelected={onSuggestionSelected}
-          placeholder="Commncer à taper le nom de l'AOC"
-        />
-      )}
-    </Label>
-  );
-};
+  render() {
+    const { wineFamilies, selectedFamily, onClear } = this.props;
+
+    const AreasFormated = wineFamilies.map(wineFamily => ({
+      id: wineFamily.id,
+      label: wineFamily.name,
+      searchKey: utils.cleanString(wineFamily.name)
+    }));
+
+    return (
+      <Label>
+        <Text>AOC</Text>
+        {selectedFamily && (
+          <div>
+            <SelectedFamily>{selectedFamily.name}</SelectedFamily>
+            <ButtonStyled type="button" primary onClick={onClear}>
+              changer
+            </ButtonStyled>
+          </div>
+        )}
+        {!selectedFamily && (
+          <AutoComplete
+            datas={AreasFormated}
+            onSuggestionSelected={this.onSelect}
+            placeholder="Commncer à taper le nom de l'AOC"
+          />
+        )}
+      </Label>
+    );
+  }
+}
 
 export default connect((state, { selected }) => ({
   wineFamilies: state.wineFamilies.all,

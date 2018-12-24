@@ -1,8 +1,8 @@
 import React from 'react';
 import tinycolor from 'tinycolor2';
+import styled from 'styled-components';
 import fontColorContrast from 'font-color-contrast';
 import { PICTURE_UPLOAD, wineTypes } from '~/config';
-import styled from 'styled-components';
 import { buildAssetsUrl } from '~/config';
 
 import { Image } from '../Image/Image';

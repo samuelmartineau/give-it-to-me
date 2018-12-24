@@ -1,16 +1,16 @@
 const WINE_TYPES = {
   RED: {
-    label: 'Rouge',
+    label: 'rouge',
     categories: ['REGULAR', 'SPARKLING', 'DRY'],
     color: '#9C27B0'
   },
   WHITE: {
-    label: 'Blanc',
+    label: 'blanc',
     categories: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
     color: '#CDDC39'
   },
   CHAMPAGNE: {
-    label: 'Champagne',
+    label: 'champagne',
     categories: ['BRUT', 'BLANC_DE_BLANCS', 'BLANC_DE_NOIRS', 'PINK'],
     color: '#9E9E9E'
   }

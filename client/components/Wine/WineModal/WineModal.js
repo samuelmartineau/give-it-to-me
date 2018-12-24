@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import styled from 'styled-components';
 import { Button } from '~/client/components/Toolkit';
 import WineModalFolders from './WineModalFolders';
 import WineModalDeleteButton from './WineModalDeleteButton';
@@ -10,6 +11,11 @@ import {
   ModalActions
 } from '~/client/components/Modal';
 
+const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
+`;
 type Props = {
   modalIsOpen: boolean,
   closeModal: Function,
@@ -26,10 +32,12 @@ class WineModal extends React.PureComponent<Props> {
           <WineModalFolders wineId={wineId} />
         </ModalContent>
         <ModalActions>
-          <Button onClick={closeModal} type="button">
-            Annuler
-          </Button>
-          <WineModalDeleteButton />
+          <Actions>
+            <Button onClick={closeModal} type="button">
+              Annuler
+            </Button>
+            <WineModalDeleteButton />
+          </Actions>
         </ModalActions>
       </Modal>
     );

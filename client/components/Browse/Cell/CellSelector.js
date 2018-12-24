@@ -17,13 +17,19 @@ type CellsSelectorProps = {
     box: any,
     onSelect: Function
   },
-  isBoxSelected: boolean
+  isBoxSelected: boolean,
+  className: string
 };
 const Wrapper = styled.div``;
 
-const CellSelector = ({ boxId, cellId, bottles }: CellsSelectorProps) =>
+const CellSelector = ({
+  boxId,
+  cellId,
+  bottles,
+  className
+}: CellsSelectorProps) =>
   !!boxId && (
-    <Wrapper>
+    <Wrapper className={className}>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
           {boxCellId => {

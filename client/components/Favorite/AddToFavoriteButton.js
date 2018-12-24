@@ -16,7 +16,7 @@ const StyledButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ isFavorite }) => isFavorite && 'transparent'};
+  background: ${({ isFavorite }) => !isFavorite && 'transparent'};
 `;
 
 class AddToFavoriteButton extends React.PureComponent<Props> {
@@ -26,7 +26,7 @@ class AddToFavoriteButton extends React.PureComponent<Props> {
     return (
       <StyledButton onClick={action} isFavorite={isFavorite}>
         <i className="material-icons">
-          {isFavorite ? 'favorite_border' : 'favorite'}
+          {isFavorite ? 'favorite' : 'favorite_border'}
         </i>
         Favoris
       </StyledButton>

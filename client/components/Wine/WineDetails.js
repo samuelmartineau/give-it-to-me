@@ -12,6 +12,16 @@ type Props = {
 };
 
 const Wrapper = styled.div``;
+const Text = styled.div`
+  font-size: 20px;
+  color: ${({ wine }) => (wine.wineType !== 'RED' ? '#373737' : '#eee')};
+`;
+const Highlight = styled.span`
+  font-weight: bold;
+  font-size: 25px;
+  font-style: italic;
+  color: ${({ wine }) => (wine.wineType !== 'RED' ? 'black' : 'white')};
+`;
 
 class WinesDetails extends React.PureComponent<Props> {
   render() {
@@ -20,34 +30,15 @@ class WinesDetails extends React.PureComponent<Props> {
     const category = WINE_CATEGORIES[wine.wineCategory];
     return (
       <Wrapper>
-        <div>
-          <span>Millésime: </span>
-          <span>{wine.year}</span>
-        </div>
-        <div>
-          <span>AOC: </span>
-          <span>{wineFamily.name}</span>
-        </div>
-        <div>
-          <span>Taille: </span>
-          <span>{wine.year}</span>
-        </div>
-        <div>
-          <span>Type: </span>
-          <span>{type.label}</span>
-        </div>
-        <div>
-          <span>Categorie: </span>
-          <span>{category.label}</span>
-        </div>
-        <div>
-          <span>Quantité: </span>
-          <span>{wine.bottlesCount}</span>
-        </div>
-        <div>
-          <span>Source: </span>
-          <span>{wine.source}</span>
-        </div>
+        <Text wine={wine}>
+          Il reste{' '}
+          <Highlight wine={wine}>{wine.bottlesCount} bouteilles</Highlight> de{' '}
+          <Highlight wine={wine}>
+            {type.label} {category.label}
+          </Highlight>{' '}
+          de <Highlight wine={wine}>{wine.year}</Highlight> avec une appélation{' '}
+          <Highlight wine={wine}>{wineFamily.name.toLowerCase()}</Highlight>
+        </Text>
       </Wrapper>
     );
   }

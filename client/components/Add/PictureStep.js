@@ -25,9 +25,12 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 const BlurWrapper = styled.div`
-  display: flew;
+  display: flex;
   flex-direction: column;
   align-items: center;
+`;
+const ButtonStyled = styled(Button)`
+  margin: 1rem;
 `;
 
 export class PictureStep extends React.Component<Props, State> {
@@ -67,10 +70,10 @@ export class PictureStep extends React.Component<Props, State> {
             lazyLoader={blur}
             delay={1000}
           />
-          <Button onClick={this.resetUpload}>
+          <ButtonStyled type="button" onClick={this.resetUpload}>
             Changer de photo
             <i className="material-icons">delete</i>
-          </Button>
+          </ButtonStyled>
         </BlurWrapper>
       );
     } else if (isUploading) {
