@@ -12,10 +12,15 @@ const Container = styled.div`
 
 const Actions = styled.div`
   display: flex;
+  ${props => props.theme.media.handheld`
+  flex-direction: column;
+`};
 `;
 
 const CellSelectorStyled = styled(CellSelector)`
+  ${props => props.theme.media.screen`
   width: 50%;
+`};
 `;
 
 export const Browse = () => {
