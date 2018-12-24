@@ -2,11 +2,19 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import WineFamilySuggestion from '~/client/components/Autocomplete/WineFamilySuggestion';
 import { TextField } from '~/client/components/Toolkit';
 import { updateModel } from '~/client/store/';
-
 import type { WineType } from '~/client/components/Wine/Wine.type';
+
+const Label = styled.label`
+  display: block;
+  margin: 1em auto;
+`;
+const Text = styled.span`
+  font-style: italic;
+`;
 
 type Props = {
   onMetaChange: Function,
@@ -19,8 +27,8 @@ class MetaStep extends React.Component<Props> {
   render() {
     return (
       <React.Fragment>
-        <label>
-          Domaine
+        <Label>
+          <Text>Domaine</Text>
           <TextField
             name="name"
             value={this.props.model.name}
@@ -28,9 +36,9 @@ class MetaStep extends React.Component<Props> {
             placeholder="Domaine de ..."
             onChange={this.props.onMetaChange}
           />
-        </label>
-        <label>
-          Année
+        </Label>
+        <Label>
+          <Text>Année</Text>
           <TextField
             name="year"
             value={this.props.model.year}
@@ -39,9 +47,9 @@ class MetaStep extends React.Component<Props> {
             placeholder="2014"
             onChange={this.props.onMetaChange}
           />
-        </label>
-        <label>
-          Provenance
+        </Label>
+        <Label>
+          <Text>Provenance</Text>
           <TextField
             name="source"
             value={this.props.model.source}
@@ -49,7 +57,7 @@ class MetaStep extends React.Component<Props> {
             placeholder="France"
             onChange={this.props.onMetaChange}
           />
-        </label>
+        </Label>
 
         <WineFamilySuggestion
           selected={this.props.model.wineFamily}

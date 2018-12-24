@@ -2,15 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type Props = {|
-  children: React.Node,
-  onChange: Function,
-  name: string,
-  value: string,
-  checked: boolean,
-  id: string
-|};
-
 const Input = styled.input`
   position: absolute;
   opacity: 0;
@@ -28,13 +19,24 @@ const Label = styled.label`
   display: inline-flex;
 `;
 
+type Props = {|
+  children: React.Node,
+  onChange: Function,
+  name: string,
+  value: string,
+  checked: boolean,
+  id: string,
+  className: string
+|};
+
 export const Radio = ({
   children,
   value,
   onChange,
   name,
   id,
-  checked
+  checked,
+  className
 }: Props) => (
   <>
     <Input
@@ -45,7 +47,7 @@ export const Radio = ({
       name={name}
       onChange={onChange}
     />
-    <Label htmlFor={id}>
+    <Label htmlFor={id} className={className}>
       <i className="material-icons">
         {checked ? 'radio_button_checked' : 'radio_button_unchecked'}
       </i>

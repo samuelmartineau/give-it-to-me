@@ -7,13 +7,15 @@ import {
   getWineById
 } from '~/client/store';
 import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
-import BoxBottles from './BoxBottles';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
+import BoxBottles from './BoxBottles';
 import ClickHandlerCell from './ClickHandlerCell';
 
 type Props = {
   wineId: boolean,
-  closeModal: Function
+  bottles: Array<{}>,
+  removedBottles: Array<{}>,
+  bottleIds: Array<{}>
 };
 
 class WineModalFolders extends React.PureComponent<Props> {

@@ -2,10 +2,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '~/client/components/Toolkit';
-import WineModal from './WineModal';
+import { connect } from 'react-redux';
+import { getWinesFiltered } from '~/client/store/';
+import SearchFiltersModal from './SearchFiltersModal';
 
 type Props = {
-  wineId: number
+  count: number
 };
 type State = {
   modalIsOpen: boolean
@@ -17,7 +19,7 @@ const ButtonStyled = styled(Button)`
   justify-content: center;
 `;
 
-class WineModalButton extends React.PureComponent<Props, State> {
+class SearchFiltersButton extends React.PureComponent<Props, State> {
   state = {
     modalIsOpen: false
   };
@@ -31,13 +33,14 @@ class WineModalButton extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { wineId } = this.props;
+    const { count } = this.props;
     const { modalIsOpen } = this.state;
     return (
       <>
-        <ButtonStyled onClick={this.openModal}>Bouteilles</ButtonStyled>
-        <WineModal
-          wineId={wineId}
+        <ButtonStyled onClick={this.openModal}>
+          Filtres: {count} résultats
+        </ButtonStyled>
+        <SearchFiltersModal
           modalIsOpen={modalIsOpen}
           closeModal={this.closeModal}
         />
@@ -46,4 +49,7 @@ class WineModalButton extends React.PureComponent<Props, State> {
   }
 }
 
-export default WineModalButton;
+export default connect(state => ({
+  filters: state.search,
+  count: getWinesFiltered(state).length
+}))(SearchFiltersButton);

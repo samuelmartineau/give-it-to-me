@@ -28,7 +28,7 @@ class AddToFavoriteButton extends React.PureComponent<Props> {
         <i className="material-icons">
           {isFavorite ? 'favorite_border' : 'favorite'}
         </i>
-        {isFavorite ? 'Retirer' : 'Ajouter'}
+        Favoris
       </StyledButton>
     );
   }

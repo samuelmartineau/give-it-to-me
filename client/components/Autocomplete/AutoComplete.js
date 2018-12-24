@@ -7,21 +7,47 @@ import debounce from 'lodash/debounce';
 import { TextField } from '~/client/components/Toolkit';
 
 const classNames = {
-  // container: 'react-autosuggest__container',
-  // containerOpen: 'react-autosuggest__input'
+  container: 'react-autosuggest__container',
+  containerOpen: 'react-autosuggest__container--open',
+  input: 'react-autosuggest__input',
+  inputOpen: 'react-autosuggest__input--open',
+  inputFocused: 'react-autosuggest__input--focused',
+  suggestionsContainer: 'react-autosuggest__suggestions-container',
+  suggestionsContainerOpen: 'react-autosuggest__suggestions-container--open',
+  suggestionsList: 'react-autosuggest__suggestions-list',
+  suggestion: 'react-autosuggest__suggestion',
+  suggestionFirst: 'react-autosuggest__suggestion--first',
+  suggestionHighlighted: 'react-autosuggest__suggestion--highlighted',
+  sectionContainer: 'react-autosuggest__section-container',
+  sectionContainerFirst: 'react-autosuggest__section-container--first',
+  sectionTitle: 'react-autosuggest__section-title'
 };
-
-// container: classes.container,
-//   suggestionsContainerOpen: classes.suggestionsContainerOpen,
-//     suggestionsList: classes.suggestionsList,
-//       suggestion: classes.suggestion
 
 const AutosuggestWrapper = styled.div.attrs(classNames)`
   .${classNames.container} {
-    // Some styles here
+    flex-grow: 1;
+    position: relative;
   }
-  .${classNames.input} {
-    // Some styles here
+  .${classNames.suggestionsContainerOpen} {
+    background: #dedede;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .${classNames.suggestion} {
+    padding: 1em;
+  }
+  .${classNames.suggestionsList} {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .${classNames.suggestionHighlighted} {
+    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.onSecondary};
+  }
+  .${classNames.textField} {
+    background: red;
   }
 }
 `;
@@ -47,37 +73,10 @@ function renderSuggestionsContainer(options) {
 function getSuggestionValue(suggestion) {
   return suggestion.original.label;
 }
-const styles = theme => ({
-  container: {
-    flexGrow: 1,
-    position: 'relative',
-    height: 200
-  },
-  suggestionsContainerOpen: {
-    position: 'absolute',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 3,
-    left: 0,
-    right: 0
-  },
-  suggestion: {
-    display: 'block'
-  },
-  suggestionsList: {
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none'
-  },
-  textField: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit
-  }
-});
 
-class AutoComplete extends React.Component {
-  constructor() {
-    super();
+export class AutoComplete extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       value: '',
@@ -145,5 +144,3 @@ class AutoComplete extends React.Component {
     );
   }
 }
-
-export default AutoComplete;

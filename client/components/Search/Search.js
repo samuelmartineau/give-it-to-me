@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 import WinesList from './WinesList';
-import SearchFilters from './SearchFilters';
+import SearchFiltersButton from './Filters/SearchFiltersButton';
 import EmptyResults from './EmptyResults';
 
 export const Search = () => {
   return (
     <div>
-      <SearchFilters />
+      <SearchFiltersButton />
       <WinesList />
       <EmptyResults />
     </div>

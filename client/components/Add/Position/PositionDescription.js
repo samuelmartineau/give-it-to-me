@@ -1,7 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 import { TextField } from '~/client/components/Toolkit';
 import { connect } from 'react-redux';
 import { updateModel } from '~/client/store/';
+
+const Label = styled.label`
+  display: block;
+  margin: 1em auto;
+`;
 
 type Props = {
   onChange: Function,
@@ -9,8 +15,8 @@ type Props = {
 };
 
 export const PositionDescription = ({ onChange, model }: Props) => (
-  <div>
-    <label>
+  <>
+    <Label>
       Position dans la cave
       <TextField
         name="positionComment"
@@ -19,8 +25,8 @@ export const PositionDescription = ({ onChange, model }: Props) => (
         placeholder="Dans les caisses à droite..."
         onChange={onChange}
       />
-    </label>
-    <label>
+    </Label>
+    <Label>
       Nombre de bouteille
       <TextField
         name="count"
@@ -29,8 +35,8 @@ export const PositionDescription = ({ onChange, model }: Props) => (
         placeholder="6"
         onChange={onChange}
       />
-    </label>
-  </div>
+    </Label>
+  </>
 );
 
 export const PositionDescriptionConnected = connect(

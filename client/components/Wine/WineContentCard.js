@@ -1,13 +1,27 @@
+// @flow
+
 import React from 'react';
-import CellarContainer from '../Cellar/CellarContainer';
-import CellarBoxes from '../Cellar/CellarBoxes';
-import WineDetails from './WineDetails';
+import styled from 'styled-components';
+import CellarContainer from '~/client/components/Cellar/CellarContainer';
+import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
 import WineModalButton from '~/client/components/Wine/WineModal/WineModalButton';
+import AddToFavoriteButton from '~/client/components/Favorite/AddToFavoriteButton';
 import { CellarBoxConnected } from './CellarBox';
 import CellarBottles from './CellarBottles';
-import AddToFavoriteButton from '~/client/components/Favorite/AddToFavoriteButton';
+import WineDetails from './WineDetails';
+import type { WineType } from './Wine.type';
 
-export class WineContentCard extends React.Component<> {
+const WineActions = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+}
+`;
+
+type Props = {
+  wine: WineType
+};
+
+export class WineContentCard extends React.Component<Props> {
   render() {
     const { wine } = this.props;
     return (
@@ -21,8 +35,10 @@ export class WineContentCard extends React.Component<> {
           <CellarBottles wineId={wine.id} />
         </CellarContainer>
         <WineDetails wine={wine} />
-        <WineModalButton wineId={wine.id} />
-        <AddToFavoriteButton wineId={wine.id} />
+        <WineActions>
+          <WineModalButton wineId={wine.id} />
+          <AddToFavoriteButton wineId={wine.id} />
+        </WineActions>
       </React.Fragment>
     );
   }

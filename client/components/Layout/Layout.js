@@ -14,13 +14,6 @@ const GlobalStyle = createGlobalStyle`
   } 
 `;
 
-type AppFrameProps = {
-  width: Number,
-  classes: {},
-  title: string,
-  children: React.Node
-};
-
 const App = styled.div``;
 const PageTitle = styled.h1`
   text-align: center;
@@ -34,9 +27,19 @@ const Main = styled.div`
   ${props => props.theme.media.handheld`
     margin: 1em;
   `};
+  ${props => props.theme.media.screen`
+    margin: 2em;
+  `};
 `;
 
-const Layout = ({ title, children }: AppFrameProps) => {
+type AppFrameProps = {
+  width: Number,
+  classes: {},
+  title: string,
+  children: React.Node
+};
+
+export const Layout = ({ title, children }: AppFrameProps) => {
   return (
     <App>
       <Header />
@@ -46,5 +49,3 @@ const Layout = ({ title, children }: AppFrameProps) => {
     </App>
   );
 };
-
-export default Layout;

@@ -1,16 +1,22 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
-import { WineCard } from '../Wine/WineCard';
-import { getWineById, isWineFiltered } from '~/client/store';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { WineCard } from '~/client/components/Wine/WineCard';
+import { getWineById, isWineFiltered } from '~/client/store';
 
 const WineCardStyled = styled(WineCard)`
   align-self: center;
   justify-self: center;
 `;
 
-class FilteredWine extends React.Component {
+type Props = {
+  wine: {},
+  children: React.Node,
+  isFiltered: boolean
+};
+
+class FilteredWine extends React.Component<Props> {
   state = {
     cachedComp: null
   };

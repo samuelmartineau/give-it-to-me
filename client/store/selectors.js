@@ -79,3 +79,9 @@ export const isBoxBrowseable = (state, boxId) => {
   const bottles = getCellsUsedInBox(state, boxId);
   return !alreadyBrowsed && bottles.length > 0;
 };
+
+export const getBrowsedWine = state => {
+  const { boxId, cellId } = state.browse;
+  const bottle = getBottleByPosition(state, boxId, cellId);
+  return bottle && getWineById(state, bottle.wine_id);
+};

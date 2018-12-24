@@ -61,6 +61,7 @@ export const ModalHeader = styled.div`
   text-align: center;
 `;
 export const ModalContent = styled.div`
+  margin: 1rem;
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;

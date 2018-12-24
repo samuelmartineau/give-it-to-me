@@ -8,7 +8,8 @@ type Props = {|
   name: string,
   value: string,
   checked: boolean,
-  id: string
+  id: string,
+  className: string
 |};
 
 const Input = styled.input`
@@ -34,7 +35,8 @@ export const Checkbox = ({
   onChange,
   name,
   id,
-  checked
+  checked,
+  className
 }: Props) => (
   <>
     <Input
@@ -45,7 +47,7 @@ export const Checkbox = ({
       name={name}
       onChange={onChange}
     />
-    <Label htmlFor={id}>
+    <Label htmlFor={id} className={className}>
       <i className="material-icons">
         {checked ? 'check_box' : 'check_box_outline_blank'}
       </i>

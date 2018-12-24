@@ -61,5 +61,6 @@ export {
   isBottleSelectedToBeRemoved,
   getWineBottles,
   isBoxBrowsed,
-  isBoxBrowseable
+  isBoxBrowseable,
+  getBrowsedWine
 } from './selectors';

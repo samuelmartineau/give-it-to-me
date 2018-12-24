@@ -5,22 +5,22 @@ import { withRouter } from 'next/router';
 
 const routes = [
   {
-    label: 'home',
+    label: 'Accueil',
     href: '/',
     icon: 'home'
   },
   {
-    label: 'Add',
+    label: 'Ajouter',
     href: '/add',
     icon: 'add'
   },
   {
-    label: 'Search',
+    label: 'Rechercher',
     href: '/search',
     icon: 'search'
   },
   {
-    label: 'Browse',
+    label: 'Parcourir',
     href: '/browse',
     icon: 'folder_open'
   }
@@ -70,7 +70,11 @@ display: none;
 `};
 `;
 
-const Menu = ({ router }) => (
+type Props = {
+  router: any
+};
+
+const Menu = ({ router }: Props) => (
   <Header>
     <List>
       {routes.map(route => {

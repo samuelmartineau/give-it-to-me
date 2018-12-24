@@ -5,7 +5,6 @@ export const Button = styled.button`
     props.primary ? props.theme.colors.primary : props.theme.colors.secondary};
   color: ${props => props.theme.colors.onSecondary};
   font-size: 1em;
-  margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid
     ${props =>

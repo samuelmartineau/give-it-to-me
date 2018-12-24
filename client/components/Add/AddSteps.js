@@ -1,12 +1,28 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { PictureStepConnected } from './PictureStep';
 import { MetaStepConnected } from './MetaStep';
 import { PositionStepConnected } from './PositionStep';
 import { TypesStepConnected } from './TypesStep';
 import { Button, Spinner } from '~/client/components/Toolkit';
 import { isModelValid, addWine } from '~/client/store/';
-class AddSteps extends React.Component {
+
+const Form = styled.form`
+  max-width: 800px;
+  margin: auto;
+`;
+const ButtonStyled = styled(Button)`
+  margin: 1em auto;
+`;
+
+type Props = {
+  isModelValid: boolean,
+  addWine: Function
+};
+
+class AddSteps extends React.Component<Props> {
   state = { isSending: false };
 
   updateModel = name => value => {
@@ -44,13 +60,13 @@ class AddSteps extends React.Component {
     const { isSending } = this.state;
     if (!isSending) {
       return (
-        <form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit}>
           <PictureStepConnected />
           <MetaStepConnected />
           <TypesStepConnected />
           <PositionStepConnected />
-          <Button type="submit">Envoyer</Button>
-        </form>
+          <ButtonStyled type="submit">Envoyer</ButtonStyled>
+        </Form>
       );
     }
     return <Spinner />;
