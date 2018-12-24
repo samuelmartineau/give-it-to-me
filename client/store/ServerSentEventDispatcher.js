@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import config from '~/config';
 
 import { setCellar } from './';
 
@@ -13,7 +12,7 @@ type Props = {
 class ServerSentEventDispatcher extends React.Component<Props> {
   componentDidMount() {
     const { onEvent } = this.props;
-    const source = new window.EventSource(`${config.API_URL}/sse`, {
+    const source = new window.EventSource(`${window.location.origin}/sse`, {
       withCredentials: true
     });
 
