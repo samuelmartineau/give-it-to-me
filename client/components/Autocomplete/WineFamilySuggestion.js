@@ -45,8 +45,7 @@ class WineFamilySuggestion extends React.Component<Props> {
     }));
 
     return (
-      <Label>
-        <Text>AOC</Text>
+      <>
         {selectedFamily && (
           <div>
             <SelectedFamily>{selectedFamily.name}</SelectedFamily>
@@ -62,7 +61,7 @@ class WineFamilySuggestion extends React.Component<Props> {
             placeholder="Commncer à taper le nom de l'AOC"
           />
         )}
-      </Label>
+      </>
     );
   }
 }

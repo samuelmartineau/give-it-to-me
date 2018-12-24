@@ -5,12 +5,14 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import WineFamilySuggestion from '~/client/components/Autocomplete/WineFamilySuggestion';
 import { TextField } from '~/client/components/Toolkit';
+import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
 import { updateModel } from '~/client/store/';
 import type { WineType } from '~/client/components/Wine/Wine.type';
 
 const Label = styled.label`
   display: block;
   margin: 1em auto;
+  position: relative;
 `;
 const Text = styled.span`
   font-style: italic;
@@ -59,11 +61,16 @@ class MetaStep extends React.Component<Props> {
           />
         </Label>
 
-        <WineFamilySuggestion
-          selected={this.props.model.wineFamily}
-          onSuggestionSelected={this.props.onFamilyChange}
-          onClear={this.props.onFamilyClear}
-        />
+        <Label>
+          <Text>
+            Appellation <AddWineFamilyButton />
+          </Text>
+          <WineFamilySuggestion
+            selected={this.props.model.wineFamily}
+            onSuggestionSelected={this.props.onFamilyChange}
+            onClear={this.props.onFamilyClear}
+          />
+        </Label>
       </React.Fragment>
     );
   }

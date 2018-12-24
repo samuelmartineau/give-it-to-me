@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '~/client/components/Toolkit';
-import WineModal from './WineModal';
+import { AddWineFamilyModal } from './AddWineFamilyModal';
 
 type Props = {
   wineId: number
@@ -12,12 +12,18 @@ type State = {
 };
 
 const ButtonStyled = styled(Button)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  & > i {
+    font-size: 15px;
+  }
 `;
 
-class WineModalButton extends React.PureComponent<Props, State> {
+export class AddWineFamilyButton extends React.PureComponent<Props, State> {
   state = {
     modalIsOpen: false
   };
@@ -31,15 +37,13 @@ class WineModalButton extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { wineId } = this.props;
     const { modalIsOpen } = this.state;
     return (
       <>
         <ButtonStyled type="button" onClick={this.openModal}>
-          Bouteilles
+          <i className="material-icons">add</i>
         </ButtonStyled>
-        <WineModal
-          wineId={wineId}
+        <AddWineFamilyModal
           modalIsOpen={modalIsOpen}
           closeModal={this.closeModal}
         />
@@ -47,5 +51,3 @@ class WineModalButton extends React.PureComponent<Props, State> {
     );
   }
 }
-
-export default WineModalButton;
