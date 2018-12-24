@@ -14,11 +14,14 @@ const closeInfosHeight = 90;
 const paddingInfos = 10;
 
 const WineCardWrapper = styled.div`
-  width: ${PICTURE_UPLOAD.THUMBNAIL.WIDTH + 16}px;
+  width: ${PICTURE_UPLOAD.THUMBNAIL.WIDTH}px;
   display: inline-block;
   position: relative;
   height: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px;
   margin: 1em;
+  ${props => props.theme.media.handheld`
+  margin: 0.5em 0;
+`};
 `;
 
 const MenuButton = styled.button`
