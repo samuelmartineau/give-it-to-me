@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import WineFamilySuggestion from '~/client/components/Autocomplete/WineFamilySuggestion';
+import WineFamilySingleSelector from '~/client/components/Autocomplete/WineFamilySingleSelector';
 import { TextField } from '~/client/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
 import { updateModel } from '~/client/store/';
@@ -65,7 +65,7 @@ class MetaStep extends React.Component<Props> {
           <Text>
             Appellation <AddWineFamilyButton />
           </Text>
-          <WineFamilySuggestion
+          <WineFamilySingleSelector
             selected={this.props.model.wineFamily}
             onSuggestionSelected={this.props.onFamilyChange}
             onClear={this.props.onFamilyClear}

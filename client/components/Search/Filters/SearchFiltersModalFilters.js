@@ -11,6 +11,7 @@ import {
 } from '~/client/store/';
 import config from '~/config';
 import { Checkbox, TextField } from '~/client/components/Toolkit';
+import WineFamilyMultipleSelector from '~/client/components/Autocomplete/WineFamilyMultipleSelector';
 
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
 
@@ -32,6 +33,7 @@ const CheckboxStyled = styled(Checkbox)`
 
 type Props = {
   count: number,
+  updateWineFamilies: Function,
   updateCheckbox: Function,
   onInputChange: Function,
   toggleFavoritesFilter: Function,
@@ -113,6 +115,38 @@ class SearchFiltersModalFilters extends React.Component<Props> {
     toggleFavoritesFilter(evt);
   };
 
+  selectWineFamily = (evt, item) => {
+    const {
+      suggestion: {
+        original: { id }
+      }
+    } = item;
+    const { updateWineFamilies } = this.props;
+    const name = 'wineFamilies';
+    const value = id;
+
+    const parsed = queryString.parse(location.search);
+    if (parsed[name]) {
+      parsed[name] = [].concat(parsed[name]);
+      if (parsed[name].includes(value)) {
+        parsed[name] = parsed[name].filter(key => key !== value);
+        if (parsed[name].length === 0) {
+          delete parsed[name];
+        }
+      } else {
+        parsed[name].push(value);
+      }
+    } else {
+      parsed[name] = [value];
+    }
+    Router.push({
+      pathname: '/search',
+      query: { ...parsed }
+    });
+
+    updateWineFamilies(evt);
+  };
+
   render() {
     const { filters, onInputChange } = this.props;
     return (
@@ -168,7 +202,13 @@ class SearchFiltersModalFilters extends React.Component<Props> {
             />
           </Periode>
         </Label>
-
+        <Label>
+          <Text>Appelation</Text>
+          <WineFamilyMultipleSelector
+            selectedFamilyIds={[]}
+            onSuggestionSelected={this.selectWineFamily}
+          />
+        </Label>
         <Label>
           <Text>Nom du vin</Text>
           <TextField
@@ -204,6 +244,9 @@ export default connect(
     updateCheckbox(evt) {
       const { value, name } = evt.target;
       dispatch(toggleCheckboxFilter(name, value));
+    },
+    updateWineFamilies(value) {
+      dispatch(toggleCheckboxFilter('wineFamilies', value));
     },
     toggleFavoritesFilter() {
       dispatch(toggleFavoritesFilter());
