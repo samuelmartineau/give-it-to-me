@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import {
   toggleCheckboxFilter,
   updateInputFilter,
@@ -43,14 +45,76 @@ type Props = {
   }
 };
 
-class SearchFiltersModalFilters extends React.PureComponent<Props> {
+class SearchFiltersModalFilters extends React.Component<Props> {
+  onRangeChange = evt => {
+    const { onInputChange } = this.props;
+    const { value, name } = evt.target;
+    if (value.length > 4) {
+      return;
+    }
+    if (value.length === 4) {
+      const parsed = queryString.parse(location.search);
+      Router.push({
+        pathname: '/search',
+        query: { ...parsed, [name]: value }
+      });
+    } else {
+      const parsed = queryString.parse(location.search);
+      delete parsed[name];
+      Router.push({
+        pathname: '/search',
+        query: { ...parsed }
+      });
+    }
+
+    onInputChange(evt);
+  };
+  updateCheckbox = evt => {
+    const { updateCheckbox } = this.props;
+    const { name, value } = evt.target;
+
+    const parsed = queryString.parse(location.search);
+    if (parsed[name]) {
+      parsed[name] = [].concat(parsed[name]);
+      if (parsed[name].includes(value)) {
+        parsed[name] = parsed[name].filter(key => key !== value);
+        if (parsed[name].length === 0) {
+          delete parsed[name];
+        }
+      } else {
+        parsed[name].push(value);
+      }
+    } else {
+      parsed[name] = [value];
+    }
+    Router.push({
+      pathname: '/search',
+      query: { ...parsed }
+    });
+
+    updateCheckbox(evt);
+  };
+
+  toggleFavoritesFilter = evt => {
+    const { toggleFavoritesFilter } = this.props;
+    const { checked } = evt.target;
+
+    const parsed = queryString.parse(location.search);
+    if (checked) {
+      parsed.favorite = true;
+    } else {
+      delete parsed.favorite;
+    }
+    Router.push({
+      pathname: '/search',
+      query: { ...parsed }
+    });
+
+    toggleFavoritesFilter(evt);
+  };
+
   render() {
-    const {
-      updateCheckbox,
-      filters,
-      onInputChange,
-      toggleFavoritesFilter
-    } = this.props;
+    const { filters, onInputChange } = this.props;
     return (
       <>
         <Label>
@@ -58,7 +122,7 @@ class SearchFiltersModalFilters extends React.PureComponent<Props> {
           {WINE_TYPES_ALL.map(type => (
             <CheckboxStyled
               key={type.id}
-              onChange={updateCheckbox}
+              onChange={this.updateCheckbox}
               name="wineTypes"
               id={`search-filters${type.id}`}
               value={type.id}
@@ -74,7 +138,7 @@ class SearchFiltersModalFilters extends React.PureComponent<Props> {
             return (
               <CheckboxStyled
                 key={category.id}
-                onChange={updateCheckbox}
+                onChange={this.updateCheckbox}
                 name="wineCategories"
                 id={`search-filters${category.id}`}
                 value={category.id}
@@ -89,14 +153,14 @@ class SearchFiltersModalFilters extends React.PureComponent<Props> {
           <Text>Periode</Text>
           <Periode>
             <TextField
-              onChange={onInputChange}
+              onChange={this.onRangeChange}
               type="number"
               name="minYear"
               value={filters.minYear}
               placeholder="Borne inf (ex: 1970)"
             />
             <TextField
-              onChange={onInputChange}
+              onChange={this.onRangeChange}
               type="number"
               name="maxYear"
               value={filters.maxYear}
@@ -118,7 +182,7 @@ class SearchFiltersModalFilters extends React.PureComponent<Props> {
         <Label>
           <Text>Restreindre aux favoris</Text>
           <CheckboxStyled
-            onChange={toggleFavoritesFilter}
+            onChange={this.toggleFavoritesFilter}
             name="favorites"
             value="favorites"
             id="search-filters"

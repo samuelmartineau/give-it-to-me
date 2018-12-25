@@ -38,7 +38,8 @@ export {
   unselectBoxToBrowse,
   selectCellToBrowse,
   unselectCellToBrowse,
-  createWineFamily
+  createWineFamily,
+  syncUrlParams
 } from './actions';
 
 export {

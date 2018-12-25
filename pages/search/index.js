@@ -1,6 +1,7 @@
 import { compose, withProps } from 'recompose';
 import WithLayout from '~/client/components/Layout/WithLayout';
-import { Search } from '~/client/components/Search/Search';
+import Search from '~/client/components/Search/Search';
+import { syncUrlParams } from '~/client/store';
 import { getInitialProps } from '~/pages/getInitialProps';
 
 const SearchWithLayout = compose(
@@ -10,6 +11,10 @@ const SearchWithLayout = compose(
   WithLayout
 )(Search);
 
-SearchWithLayout.getInitialProps = getInitialProps;
+SearchWithLayout.getInitialProps = props => {
+  const { query, store } = props;
+  store.dispatch(syncUrlParams(query));
+  return getInitialProps(props);
+};
 
 export default SearchWithLayout;

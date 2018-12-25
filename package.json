@@ -18,6 +18,7 @@
     "next": "^7.0.2",
     "next-redux-wrapper": "^2.0.0",
     "postcss": "^7.0.5",
+    "query-string": "^6.2.0",
     "ramda": "^0.25.0",
     "react": "^16.6.3",
     "react-autosuggest": "^9.4.2",
