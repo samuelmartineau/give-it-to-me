@@ -32,6 +32,7 @@ const generateThumbnail = (sourcePath, extension) => {
         config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
         config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT
       )
+      .strip()
       .quality(config.PICTURE_UPLOAD.THUMBNAIL.QUALITY)
       .on('error', error => {
         logger.error(error);
