@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { TextField, Button } from '~/client/components/Toolkit';
 import {
@@ -8,6 +9,7 @@ import {
   ModalContent,
   ModalActions
 } from '~/client/components/Modal';
+import { createWineFamily } from '~/client/store';
 
 const Actions = styled.div`
   display: flex;
@@ -31,22 +33,42 @@ type Props = {
   wineId: number
 };
 
-export class AddWineFamilyModal extends React.PureComponent<Props> {
+class AddWineFamilyModal extends React.PureComponent<Props> {
+  state = {
+    value: ''
+  };
+  onChange = evt => {
+    const { value } = evt.target;
+    this.setState({ value });
+  };
+  submit = async evt => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const { onSubmit } = this.props;
+    const { value } = this.state;
+    await onSubmit(value);
+    this.setState({ value: '' });
+    this.input.value = '';
+  };
+
   render() {
     const { modalIsOpen, closeModal } = this.props;
+    const { value } = this.state;
     return (
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <ModalHeader>Ajouter une appellation</ModalHeader>
         <ModalContent>
-          <form>
+          <form onSubmit={this.submit}>
             <Label>
-              <Text>Provenance</Text>
+              <Text>Appellation</Text>
               <TextField
+                ref={el => {
+                  this.input = el;
+                }}
                 name="source"
-                // value={this.props.model.source}
                 type="text"
-                placeholder="France"
-                //onChange={this.props.onMetaChange}
+                placeholder="ex: Gaillac"
+                onChange={this.onChange}
               />
             </Label>
           </form>
@@ -56,10 +78,26 @@ export class AddWineFamilyModal extends React.PureComponent<Props> {
             <Button onClick={closeModal} type="button">
               Annuler
             </Button>
-            {/* <WineModalDeleteButton /> */}
+            <Button
+              disabled={value.length === 0}
+              primary
+              onClick={this.submit}
+              type="button"
+            >
+              Ajouter
+            </Button>
           </Actions>
         </ModalActions>
       </Modal>
     );
   }
 }
+
+export default connect(
+  null,
+  dispatch => ({
+    onSubmit(name) {
+      return dispatch(createWineFamily(name));
+    }
+  })
+)(AddWineFamilyModal);

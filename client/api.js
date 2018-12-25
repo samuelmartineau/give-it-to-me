@@ -98,3 +98,16 @@ export const removeFromFavorite = wineId => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const createWineFamily = name => {
+  return fetch(`${apiBase}${config.ROUTES.WINE_FAMILY}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name })
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};

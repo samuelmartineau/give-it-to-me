@@ -9,7 +9,10 @@ import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 export { getNextHits, toggleFavoritesFilter } from './search/search.actions';
 export { setCellar } from './wines/wines.actions';
-export { getWineFamilies } from './wineFamilies/wineFamilies.actions';
+export {
+  getWineFamilies,
+  createWineFamily
+} from './wineFamilies/wineFamilies.actions';
 export {
   selectBoxToBrowse,
   unselectBoxToBrowse,

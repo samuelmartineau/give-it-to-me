@@ -8,4 +8,5 @@ export const TextField = styled.input`
   padding: 0;
   width: 100%;
   display: block;
+  padding: 0 1em;
 `;

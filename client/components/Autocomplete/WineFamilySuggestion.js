@@ -58,7 +58,7 @@ class WineFamilySuggestion extends React.Component<Props> {
           <AutoComplete
             datas={AreasFormated}
             onSuggestionSelected={this.onSelect}
-            placeholder="Commncer à taper le nom de l'AOC"
+            placeholder="Commencer à taper le nom de l'appellation"
           />
         )}
       </>

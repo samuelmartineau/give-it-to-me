@@ -1,1 +1,2 @@
 export const SET_WINE_FAMILIES = 'SET_WINE_FAMILIES';
+export const SET_WINE_FAMILY = 'SET_WINE_FAMILY';

@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '~/client/components/Toolkit';
-import { AddWineFamilyModal } from './AddWineFamilyModal';
+import AddWineFamilyModal from './AddWineFamilyModal';
 
 type Props = {
   wineId: number

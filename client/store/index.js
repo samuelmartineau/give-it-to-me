@@ -37,7 +37,8 @@ export {
   selectBoxToBrowse,
   unselectBoxToBrowse,
   selectCellToBrowse,
-  unselectCellToBrowse
+  unselectCellToBrowse,
+  createWineFamily
 } from './actions';
 
 export {
