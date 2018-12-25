@@ -7,7 +7,12 @@ const config = require('../../config');
 const { generateThumbnail, generateBlur } = require('./services');
 
 const storage = multer.diskStorage({
-  destination: path.join(config.UPLOADS_TMP_DIRECTORY),
+  destination: path.join(
+    __dirname,
+    '../../',
+    config.ASSETS_BASE_URL,
+    config.UPLOADS_TMP_DIRECTORY
+  ),
   filename: function(req, file, cb) {
     cb(null, file.originalname);
   }

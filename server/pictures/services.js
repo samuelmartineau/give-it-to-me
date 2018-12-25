@@ -12,15 +12,21 @@ bluebird.promisifyAll(fs);
 const gm = subClass({ imageMagick: true });
 
 const rootFolder = path.resolve(__dirname, '../..');
+const TEMP_DIR = path.join(
+  rootFolder,
+  config.ASSETS_BASE_URL,
+  config.UPLOADS_TMP_DIRECTORY
+);
+const PERM_DIR = path.join(
+  rootFolder,
+  config.ASSETS_BASE_URL,
+  config.UPLOADS_PERM
+);
 
 const generateThumbnail = (sourcePath, extension) => {
   return new Promise((resolve, reject) => {
     const filename = [uuidv4(), extension].join('');
-    const tmpFileName = path.resolve(
-      rootFolder,
-      config.UPLOADS_TMP_DIRECTORY,
-      filename
-    );
+    const tmpFileName = path.join(TEMP_DIR, filename);
     gm(sourcePath)
       .resize(
         config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
@@ -69,28 +75,13 @@ const generateBlur = path => {
 };
 
 const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
-  const tempThumbnailFileNamePath = path.resolve(
-    rootFolder,
-    config.UPLOADS_TMP_DIRECTORY,
-    thumbnailFileName
-  );
-  const permThumbnailFileNamePath = path.resolve(
-    rootFolder,
-    config.UPLOADS_PERM,
-    thumbnailFileName
-  );
-  const tempPictureFileNamePath = path.resolve(
-    rootFolder,
-    config.UPLOADS_TMP_DIRECTORY,
-    pictureFileName
-  );
+  const tempThumbnailFileNamePath = path.join(TEMP_DIR, thumbnailFileName);
+  const permThumbnailFileNamePath = path.join(PERM_DIR, thumbnailFileName);
+  const tempPictureFileNamePath = path.join(TEMP_DIR, pictureFileName);
+
   const fileExtension = path.extname(pictureFileName);
   const newFileName = [uuidv4(), fileExtension].join('');
-  const permPictureFileNamePath = path.resolve(
-    rootFolder,
-    config.UPLOADS_PERM,
-    newFileName
-  );
+  const permPictureFileNamePath = path.resolve(PERM_DIR, newFileName);
   let promises = [];
   promises.push(
     fs.renameAsync(tempThumbnailFileNamePath, permThumbnailFileNamePath)

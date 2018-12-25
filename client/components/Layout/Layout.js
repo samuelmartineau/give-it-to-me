@@ -19,17 +19,17 @@ const PageTitle = styled.h1`
   text-align: center;
 `;
 const Main = styled.div`
-  ${props => props.theme.media.screen`
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1260px;
-  `};
   ${props => props.theme.media.handheld`
     margin: 1em;
   `};
   ${props => props.theme.media.screen`
     margin: 2em;
   `};
+  ${props => props.theme.media.large`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: ${props => props.theme.size.maxWidth};
+`};
 `;
 
 type AppFrameProps = {

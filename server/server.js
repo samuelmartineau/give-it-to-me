@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const config = require('../config');
@@ -17,18 +16,7 @@ server.use(cors(config.CORS_CONFIG));
 server.use(compression());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
-server.use(
-  config.ASSETS_BASE_URL,
-  express.static(path.join(__dirname, '..', 'assets'))
-);
-server.use(
-  config.ASSETS_BASE_URL,
-  express.static(path.join(__dirname, '..', config.UPLOADS_PERM))
-);
-server.use(
-  config.ASSETS_BASE_URL,
-  express.static(path.join(__dirname, '..', config.UPLOADS_TMP_DIRECTORY))
-);
+
 const serverHttp = createServer(server);
 
 handleRoutes(server);

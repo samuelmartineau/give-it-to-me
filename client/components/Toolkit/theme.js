@@ -10,10 +10,18 @@ export const media = {
     @media (min-width: 601px) {
       ${css(...args)};
     }
+  `,
+  large: (...args) => css`
+    @media (min-width: 1261px) {
+      ${css(...args)};
+    }
   `
 };
 
 const theme = {
+  size: {
+    maxWidth: '1260px'
+  },
   colors: {
     primary: '#5e0231',
     primaryVarient: '#dbc3d0',

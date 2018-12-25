@@ -3,7 +3,18 @@ const wineTypes = require('./wineTypes');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 3000;
-const publicURL = typeof window !== 'undefined' ? window.location.origin : '';
+const devProxyPort = process.env.PROXY_PORT || 3005;
+const isDev = process.env.NODE_ENV !== 'production';
+const publicURL = (function() {
+  const isBrowser = typeof window !== 'undefined';
+  if (isDev) {
+    return `http://localhost:${devProxyPort}`;
+  }
+  if (isBrowser) {
+    return window.location.origin;
+  }
+  return '';
+})();
 const SERVER_URL =
   typeof window !== 'undefined'
     ? window.location.origin
@@ -36,7 +47,6 @@ module.exports = {
   PORT: defaultPort,
   LOGGER_INFO_FILE_PATH: 'info-logs.log',
   LOGGER_ERROR_FILE_PATH: 'error-logs.log',
-  DIST: 'dist',
   UPLOADS_PERM: 'uploads',
   UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
   BUNDLE_FILENAME: 'bundle.js',
@@ -64,6 +74,7 @@ module.exports = {
   utils,
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
+  devProxyPort,
   buildAssetsUrl(url) {
     const separator = url[0] === '/' ? '' : '/';
     return `${publicURL}${assetsBaseUrl}${separator}${url}`;
