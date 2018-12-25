@@ -10,16 +10,15 @@ type UploadProps = {
 export const Upload = ({ onDrop }: UploadProps) => (
   <div>
     <p>Cliquez sur le bouton pour prendre la photo</p>
-    <Dropzone
-      inputProps={{ tabIndex: '-1' }}
-      style={{}}
-      onDrop={onDrop}
-      multiple={false}
-      accept="image/*"
-    >
-      <Button type="button">
-        <i className="material-icons">add_a_photo</i>
-      </Button>
+    <Dropzone onDrop={onDrop} accept="image/*" multiple={false}>
+      {({ getRootProps, getInputProps }) => (
+        <div {...getRootProps()}>
+          <input tabIndex="-1" {...getInputProps()} accept="image/*" />
+          <Button type="button">
+            <i className="material-icons">add_a_photo</i>
+          </Button>
+        </div>
+      )}
     </Dropzone>
   </div>
 );
