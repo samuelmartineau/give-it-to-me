@@ -56,17 +56,13 @@ class SearchFiltersModalFilters extends React.Component<Props> {
     }
     if (value.length === 4) {
       const parsed = queryString.parse(location.search);
-      Router.push({
-        pathname: '/search',
-        query: { ...parsed, [name]: value }
-      });
+      const url = `/search?${queryString.stringify(parsed)}`;
+      Router.push(url, url, { shallow: true });
     } else {
       const parsed = queryString.parse(location.search);
       delete parsed[name];
-      Router.push({
-        pathname: '/search',
-        query: { ...parsed }
-      });
+      const url = `/search?${queryString.stringify(parsed)}`;
+      Router.push(url, url, { shallow: true });
     }
 
     onInputChange(evt);
@@ -89,10 +85,8 @@ class SearchFiltersModalFilters extends React.Component<Props> {
     } else {
       parsed[name] = [value];
     }
-    Router.push({
-      pathname: '/search',
-      query: { ...parsed }
-    });
+    const url = `/search?${queryString.stringify(parsed)}`;
+    Router.push(url, url, { shallow: true });
 
     updateCheckbox(evt);
   };
@@ -107,10 +101,8 @@ class SearchFiltersModalFilters extends React.Component<Props> {
     } else {
       delete parsed.favorite;
     }
-    Router.push({
-      pathname: '/search',
-      query: { ...parsed }
-    });
+    const url = `/search?${queryString.stringify(parsed)}`;
+    Router.push(url, url, { shallow: true });
 
     toggleFavoritesFilter(evt);
   };
@@ -139,10 +131,8 @@ class SearchFiltersModalFilters extends React.Component<Props> {
     } else {
       parsed[name] = [value];
     }
-    Router.push({
-      pathname: '/search',
-      query: { ...parsed }
-    });
+    const url = `/search?${queryString.stringify(parsed)}`;
+    Router.push(url, url, { shallow: true });
 
     updateWineFamilies(evt);
   };
