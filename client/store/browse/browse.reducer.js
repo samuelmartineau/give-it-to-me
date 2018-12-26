@@ -24,7 +24,7 @@ export const browseReducer = (
       return { boxId: null, cellId: null };
     }
     case UNSELECT_CELL_TO_BROWSE: {
-      return { boxId: null, cellId: null };
+      return { ...state, cellId: null };
     }
     default:
       return state;
