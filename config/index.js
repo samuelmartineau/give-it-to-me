@@ -23,10 +23,6 @@ const assetsBaseUrl = '/assets';
 
 module.exports = {
   DB: {
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    host: process.env.HOST,
-    database: process.env.DATABASE,
     timeout: 5,
     filename: 'db_v1.db',
     // filename: 'gitm-5-11-2017.db',
