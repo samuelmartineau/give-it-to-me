@@ -1,11 +1,8 @@
 // @flow
 import React from 'react';
 import range from 'lodash/range';
-import config from '~/config';
-import styled from 'styled-components';
-
-const { WINE_TYPES } = config.wineTypes;
 import {
+  ResponsiveContainer,
   BarChart,
   Bar,
   XAxis,
@@ -14,6 +11,10 @@ import {
   Tooltip,
   Legend
 } from 'recharts';
+import config from '~/config';
+import styled from 'styled-components';
+
+const { WINE_TYPES } = config.wineTypes;
 
 const Title = styled.div`
   font-size: 20px;
@@ -51,36 +52,38 @@ export const YearsChart = ({ wines }) => {
   return (
     <>
       <Title>Distribution des bouteilles par année</Title>
-      <BarChart
-        width={600}
-        height={300}
-        data={data}
-        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="year" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar
-          name={WINE_TYPES.RED.label}
-          dataKey="RED"
-          stackId="a"
-          fill={WINE_TYPES.RED.color}
-        />
-        <Bar
-          name={WINE_TYPES.WHITE.label}
-          dataKey="WHITE"
-          stackId="a"
-          fill={WINE_TYPES.WHITE.color}
-        />
-        <Bar
-          name={WINE_TYPES.CHAMPAGNE.label}
-          dataKey="CHAMPAGNE"
-          stackId="a"
-          fill={WINE_TYPES.CHAMPAGNE.color}
-        />
-      </BarChart>
+      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+        <BarChart
+          width={600}
+          height={300}
+          data={data}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar
+            name={WINE_TYPES.RED.label}
+            dataKey="RED"
+            stackId="a"
+            fill={WINE_TYPES.RED.color}
+          />
+          <Bar
+            name={WINE_TYPES.WHITE.label}
+            dataKey="WHITE"
+            stackId="a"
+            fill={WINE_TYPES.WHITE.color}
+          />
+          <Bar
+            name={WINE_TYPES.CHAMPAGNE.label}
+            dataKey="CHAMPAGNE"
+            stackId="a"
+            fill={WINE_TYPES.CHAMPAGNE.color}
+          />
+        </BarChart>
+      </ResponsiveContainer>
     </>
   );
 };
