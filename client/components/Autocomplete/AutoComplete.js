@@ -128,6 +128,7 @@ export class AutoComplete extends React.Component {
         <Autosuggest
           theme={classNames}
           alwaysRenderSuggestions={false}
+          onSuggestionsClearRequested={() => {}}
           focusInputOnSuggestionClick={false}
           renderInputComponent={renderInput}
           suggestions={suggestions}

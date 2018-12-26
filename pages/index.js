@@ -12,8 +12,9 @@ import config from '~/config';
 const Home = ({ wines, bottles }) => (
   <div>
     <h1>
-      Bonjour {config.owner}, il te reste {wines.length} vins pour un total de{' '}
-      {bottles.length} bouteilles 😃
+      Bonjour {config.owner}, il te reste {wines.length} vin
+      {wines.length && 's'} pour un total de {bottles.length} bouteille
+      {bottles.length && 's'} 😃
     </h1>
     <CellarContainer>
       <CellarBoxes>

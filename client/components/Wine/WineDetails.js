@@ -37,10 +37,15 @@ class WinesDetails extends React.PureComponent<Props> {
           </Highlight>{' '}
           de{' '}
           <Highlight wine={wine}>
-            {type.label} {category.label}
+            {type.label} {wine.wineCategory !== 'REGULAR' && category.label}
           </Highlight>{' '}
           de <Highlight wine={wine}>{wine.year}</Highlight> avec une appelation{' '}
-          <Highlight wine={wine}>{wineFamily.name.toLowerCase()}</Highlight>
+          <Highlight wine={wine}>{wineFamily.name.toLowerCase()}</Highlight>{' '}
+          {wine.source && (
+            <>
+              provenant de <Highlight wine={wine}>{wine.source}</Highlight>
+            </>
+          )}
         </Text>
       </Wrapper>
     );

@@ -56,7 +56,7 @@ const addWine = wine => {
     db.serialize(() => {
       db.run(
         `INSERT INTO wines 
-        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount)
+        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount, source)
         VALUES(
         $name,
         $year,
@@ -68,7 +68,8 @@ const addWine = wine => {
         $wineCategory,
         $bottleType,
         $isInBoxes,
-        $bottlesCount
+        $bottlesCount,
+        $source
       )`,
         {
           $name: wine.name,
@@ -81,7 +82,8 @@ const addWine = wine => {
           $wineCategory: wine.wineCategory,
           $bottleType: wine.bottleType,
           $isInBoxes: wine.isInBoxes,
-          $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count
+          $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count,
+          $source: wine.source
         },
         function(err) {
           if (err) {
