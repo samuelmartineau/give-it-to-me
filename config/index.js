@@ -75,6 +75,7 @@ module.exports = {
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
   devProxyPort,
+  owner: process.env.OWNER || 'Samuel',
   buildAssetsUrl(url) {
     const separator = url[0] === '/' ? '' : '/';
     return `${publicURL}${separator}${url}`;

@@ -7,10 +7,14 @@ import CellarContainer from '~/client/components/Cellar/CellarContainer';
 import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
 import CellarBottles from '~/client/components/Cellar/CellarBottles';
 import CellarBox from '~/client/components/Cellar/CellarBox';
+import config from '~/config';
 
-const Home = ({ wines }) => (
+const Home = ({ wines, bottles }) => (
   <div>
-    <h1>Bonjour, il te reste {wines.length} vins 😃</h1>
+    <h1>
+      Bonjour {config.owner}, il te reste {wines.length} vins pour un total de{' '}
+      {bottles.length} bouteilles 😃
+    </h1>
     <CellarContainer>
       <CellarBoxes>
         {boxId => <CellarBox key={boxId} boxId={boxId} />}
@@ -21,7 +25,7 @@ const Home = ({ wines }) => (
 );
 
 const HomeConnected = connect(state => {
-  return { wines: state.wines.all };
+  return { wines: state.wines.all, bottles: state.bottles.all };
 })(Home);
 
 const HomeWithLayout = compose(
