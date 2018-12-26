@@ -1,5 +1,1 @@
-#build app
-npm run build
-
-#export app
-NODE_ENV=production node index.js
+pm2 start index.js -i max --name cave
