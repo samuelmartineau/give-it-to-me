@@ -50,13 +50,17 @@ export default (state = defaultState, action) => {
     case SYNC_URL_PARAMS: {
       const { params } = action.payload;
       const newState = { ...defaultState };
-      Object.keys(params).forEach(key => {
-        if (ArrayKeys.includes(key)) {
-          newState[key] = newState[key].concat(params[key]);
-        } else {
-          newState[key] = params[key];
-        }
-      });
+      if (params.wineFamilies)
+        Object.keys(params).forEach(key => {
+          if (ArrayKeys.includes(key)) {
+            newState[key] = newState[key].concat(params[key]);
+            if (key === 'wineFamilies') {
+              newState[key] = newState[key].map(id => parseInt(id, 10));
+            }
+          } else {
+            newState[key] = params[key];
+          }
+        });
       return { ...newState };
     }
 

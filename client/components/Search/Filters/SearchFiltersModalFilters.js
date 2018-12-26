@@ -11,7 +11,8 @@ import {
 } from '~/client/store/';
 import config from '~/config';
 import { Checkbox, TextField } from '~/client/components/Toolkit';
-import WineFamilyMultipleSelector from '~/client/components/Autocomplete/WineFamilyMultipleSelector';
+import WineFamiliesFilter from './WineFamiliesFilter';
+import WineFamiliesFilterChips from './WineFamiliesFilterChips';
 
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
 
@@ -192,13 +193,8 @@ class SearchFiltersModalFilters extends React.Component<Props> {
             />
           </Periode>
         </Label>
-        <Label>
-          <Text>Appelation</Text>
-          <WineFamilyMultipleSelector
-            selectedFamilyIds={[]}
-            onSuggestionSelected={this.selectWineFamily}
-          />
-        </Label>
+        <WineFamiliesFilter />
+        <WineFamiliesFilterChips />
         <Label>
           <Text>Nom du vin</Text>
           <TextField

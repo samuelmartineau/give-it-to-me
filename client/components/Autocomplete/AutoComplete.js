@@ -71,8 +71,8 @@ function renderSuggestionsContainer(options) {
   return <div {...containerProps}>{children}</div>;
 }
 
-function getSuggestionValue(suggestion) {
-  return suggestion.original.label;
+function getSuggestionValue() {
+  return '';
 }
 
 export class AutoComplete extends React.Component {

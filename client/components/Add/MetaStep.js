@@ -12,10 +12,12 @@ import type { WineType } from '~/client/components/Wine/Wine.type';
 const Label = styled.label`
   display: block;
   margin: 1em auto;
-  position: relative;
 `;
 const Text = styled.span`
   font-style: italic;
+`;
+const FamilyContainer = styled.div`
+  position: relative;
 `;
 
 type Props = {
@@ -61,16 +63,17 @@ class MetaStep extends React.Component<Props> {
           />
         </Label>
 
-        <Label>
-          <Text>
-            Appellation <AddWineFamilyButton />
-          </Text>
-          <WineFamilySingleSelector
-            selected={this.props.model.wineFamily}
-            onSuggestionSelected={this.props.onFamilyChange}
-            onClear={this.props.onFamilyClear}
-          />
-        </Label>
+        <FamilyContainer>
+          <Label>
+            <Text>Appellation</Text>
+            <WineFamilySingleSelector
+              selected={this.props.model.wineFamily}
+              onSuggestionSelected={this.props.onFamilyChange}
+              onClear={this.props.onFamilyClear}
+            />
+          </Label>
+          <AddWineFamilyButton />
+        </FamilyContainer>
       </React.Fragment>
     );
   }
