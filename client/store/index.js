@@ -64,5 +64,6 @@ export {
   getWineBottles,
   isBoxBrowsed,
   isBoxBrowseable,
-  getBrowsedWine
+  getBrowsedWine,
+  getFiltersCount
 } from './selectors';

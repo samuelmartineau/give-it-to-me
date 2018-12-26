@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Modal,
   ModalHeader,
@@ -8,19 +9,25 @@ import {
 } from '~/client/components/Modal';
 import SearchFiltersModalFilters from './SearchFiltersModalFilters';
 import { Button } from '~/client/components/Toolkit';
+import { getWinesFiltered, getFiltersCount } from '~/client/store/';
 
 type Props = {
   modalIsOpen: boolean,
   closeModal: Function,
-  wineId: number
+  wineId: number,
+  count: number,
+  filtersCount: number
 };
 
 class SearchFiltersModal extends React.PureComponent<Props> {
   render() {
-    const { modalIsOpen, closeModal } = this.props;
+    const { modalIsOpen, closeModal, count, filtersCount } = this.props;
     return (
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <ModalHeader>Filtres</ModalHeader>
+        <ModalHeader>
+          {filtersCount} filtre{filtersCount > 1 && 's'} affiche
+          {filtersCount > 1 && 'nt'} {count} résultat{count > 1 && 's'}
+        </ModalHeader>
         <ModalContent>
           <SearchFiltersModalFilters />
         </ModalContent>
@@ -34,4 +41,7 @@ class SearchFiltersModal extends React.PureComponent<Props> {
   }
 }
 
-export default SearchFiltersModal;
+export default connect(state => ({
+  count: getWinesFiltered(state).length,
+  filtersCount: getFiltersCount(state)
+}))(SearchFiltersModal);

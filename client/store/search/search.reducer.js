@@ -5,6 +5,7 @@ import {
   TOGGLE_FAVORITES_FILTER,
   SYNC_URL_PARAMS
 } from './search.types';
+import { ArrayKeys } from './utils';
 
 const hitsByPage = 10;
 
@@ -18,8 +19,6 @@ const defaultState = {
   hitsDisplayed: hitsByPage,
   favorites: false
 };
-
-const ArrayKeys = ['wineFamilies', 'wineTypes', 'wineCategories'];
 
 export default (state = defaultState, action) => {
   switch (action.type) {

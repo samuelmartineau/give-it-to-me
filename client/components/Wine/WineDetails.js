@@ -32,11 +32,14 @@ class WinesDetails extends React.PureComponent<Props> {
       <Wrapper>
         <Text wine={wine}>
           Il reste{' '}
-          <Highlight wine={wine}>{wine.bottlesCount} bouteilles</Highlight> de{' '}
+          <Highlight wine={wine}>
+            {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
+          </Highlight>{' '}
+          de{' '}
           <Highlight wine={wine}>
             {type.label} {category.label}
           </Highlight>{' '}
-          de <Highlight wine={wine}>{wine.year}</Highlight> avec une appélation{' '}
+          de <Highlight wine={wine}>{wine.year}</Highlight> avec une appelation{' '}
           <Highlight wine={wine}>{wineFamily.name.toLowerCase()}</Highlight>
         </Text>
       </Wrapper>

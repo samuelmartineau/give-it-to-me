@@ -1,3 +1,5 @@
+import { ArrayKeys } from './utils';
+
 function nameMatch(filter, name) {
   return name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
 }
@@ -52,4 +54,23 @@ export const getWinesFiltered = (state, filters) => {
 export const isWineFiltered = (state, selectedWines, wineId) => {
   const index = selectedWines.indexOf(wineId);
   return index > -1 && index < state.hitsDisplayed;
+};
+
+export const getFiltersCount = state => {
+  let count = ArrayKeys.reduce((acc, key) => {
+    return acc + state[key].length;
+  }, 0);
+  if (state.minYear !== undefined && state.minYear !== null) {
+    count += 1;
+  }
+  if (state.maxYear !== undefined && state.maxYear !== null) {
+    count += 1;
+  }
+  if (state.favorite) {
+    count += 1;
+  }
+  if (state.name && state.name.length) {
+    count += 1;
+  }
+  return count;
 };

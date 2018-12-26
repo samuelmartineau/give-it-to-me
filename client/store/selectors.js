@@ -45,6 +45,7 @@ export const isWineFiltered = (state, wineId) => {
 
 export const getWinesFiltered = state =>
   search.getWinesFiltered(state.wines, state.search);
+export const getFiltersCount = state => search.getFiltersCount(state.search);
 
 export const isWineInBox = (state, boxId, wineId) => {
   const wineIds = getBottlesInBox(state, boxId).map(bottle => bottle.wine_id);

@@ -4,12 +4,13 @@ import queryString from 'query-string';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 import WinesList from './WinesList';
-import { syncUrlParams } from '~/client/store';
+import { syncUrlParams, getWinesFiltered } from '~/client/store';
 import SearchFiltersButton from './Filters/SearchFiltersButton';
 import EmptyResults from './EmptyResults';
 
 type Props = {
-  onBeforeState: Function
+  onBeforeState: Function,
+  count: number
 };
 
 export class Search extends React.Component<Props> {
@@ -29,9 +30,13 @@ export class Search extends React.Component<Props> {
     });
   }
   render() {
+    const { count } = this.props;
     return (
       <div>
         <SearchFiltersButton />
+        <h2>
+          {count} résultat{count > 1 && 's'}
+        </h2>
         <WinesList />
         <EmptyResults />
       </div>
@@ -40,7 +45,9 @@ export class Search extends React.Component<Props> {
 }
 
 export default connect(
-  null,
+  state => ({
+    count: getWinesFiltered(state).length
+  }),
   dispatch => ({
     onBeforeState(params) {
       dispatch(syncUrlParams(params));

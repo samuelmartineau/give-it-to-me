@@ -15,6 +15,10 @@ type Props = {|
 const Input = styled.input`
   position: absolute;
   opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
 
   &:focus + label {
     outline: -webkit-focus-ring-color auto 5px;
