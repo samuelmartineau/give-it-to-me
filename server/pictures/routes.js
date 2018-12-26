@@ -6,13 +6,15 @@ const logger = require('../utils/logger');
 const config = require('../../config');
 const { generateThumbnail, generateBlur } = require('./services');
 
+const pathToTmpAssets = path.join(
+  __dirname,
+  '../../',
+  config.ASSETS_BASE_URL,
+  config.UPLOADS_TMP_DIRECTORY
+);
+
 const storage = multer.diskStorage({
-  destination: path.join(
-    __dirname,
-    '../../',
-    config.ASSETS_BASE_URL,
-    config.UPLOADS_TMP_DIRECTORY
-  ),
+  destination: pathToTmpAssets,
   filename: function(req, file, cb) {
     cb(null, file.originalname);
   }
@@ -34,8 +36,16 @@ router
       })
       .then(blur => {
         res.json({
-          thumbnailFileName: thumbnailFile,
-          pictureFileName: req.file.originalname,
+          thumbnailFileName: path.join(
+            config.ASSETS_BASE_URL,
+            config.UPLOADS_TMP_DIRECTORY,
+            thumbnailFile
+          ),
+          pictureFileName: path.join(
+            config.ASSETS_BASE_URL,
+            config.UPLOADS_TMP_DIRECTORY,
+            req.file.originalname
+          ),
           blur: blur
         });
       })

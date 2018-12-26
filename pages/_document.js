@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width" />
           <link
             rel="icon"
-            href={buildAssetsUrl('favicon.png')}
+            href={buildAssetsUrl('assets/favicon.png')}
             type="image/png"
           />
           {this.props.styleTags}

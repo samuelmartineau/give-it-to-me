@@ -1,5 +1,7 @@
+const path = require('path');
 const { db } = require('../utils/db');
 const logger = require('../utils/logger');
+const config = require('../../config');
 
 const getCellar = () => {
   return new Promise((resolve, reject) => {
@@ -27,6 +29,16 @@ const getCellar = () => {
           } else {
             wines.forEach(wine => {
               wine.bottles = JSON.parse(wine.bottles);
+              wine.thumbnailFileName = path.join(
+                config.ASSETS_BASE_URL,
+                config.UPLOADS_PERM,
+                wine.thumbnailFileName
+              );
+              wine.pictureFileName = path.join(
+                config.ASSETS_BASE_URL,
+                config.UPLOADS_PERM,
+                wine.pictureFileName
+              );
             });
             resolve(wines);
           }

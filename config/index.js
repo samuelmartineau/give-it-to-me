@@ -77,6 +77,6 @@ module.exports = {
   devProxyPort,
   buildAssetsUrl(url) {
     const separator = url[0] === '/' ? '' : '/';
-    return `${publicURL}${assetsBaseUrl}${separator}${url}`;
+    return `${publicURL}${separator}${url}`;
   }
 };
