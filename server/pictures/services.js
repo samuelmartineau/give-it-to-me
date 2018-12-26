@@ -74,7 +74,9 @@ const generateBlur = path => {
   });
 };
 
-const moveWineToPermanetFolder = (thumbnailFileName, pictureFileName) => {
+const moveWineToPermanetFolder = (thumbnailFilePath, pictureFilePath) => {
+  const thumbnailFileName = path.basename(thumbnailFilePath);
+  const pictureFileName = path.basename(pictureFilePath);
   const tempThumbnailFileNamePath = path.join(TEMP_DIR, thumbnailFileName);
   const permThumbnailFileNamePath = path.join(PERM_DIR, thumbnailFileName);
   const tempPictureFileNamePath = path.join(TEMP_DIR, pictureFileName);
