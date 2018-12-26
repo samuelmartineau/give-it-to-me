@@ -1,33 +1,7 @@
 import { compose, setDisplayName, withProps } from 'recompose';
-import { connect } from 'react-redux';
 import { getInitialProps } from '~/pages/getInitialProps';
 import WithLayout from '../client/components/Layout/WithLayout';
-
-import CellarContainer from '~/client/components/Cellar/CellarContainer';
-import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
-import CellarBottles from '~/client/components/Cellar/CellarBottles';
-import CellarBox from '~/client/components/Cellar/CellarBox';
-import config from '~/config';
-
-const Home = ({ wines, bottles }) => (
-  <div>
-    <h1>
-      Bonjour {config.owner}, il te reste {wines.length} vin
-      {wines.length && 's'} pour un total de {bottles.length} bouteille
-      {bottles.length && 's'} 😃
-    </h1>
-    <CellarContainer>
-      <CellarBoxes>
-        {boxId => <CellarBox key={boxId} boxId={boxId} />}
-      </CellarBoxes>
-      <CellarBottles />
-    </CellarContainer>
-  </div>
-);
-
-const HomeConnected = connect(state => {
-  return { wines: state.wines.all, bottles: state.bottles.all };
-})(Home);
+import Home from '~/client/components/Home/Home';
 
 const HomeWithLayout = compose(
   setDisplayName('HomePage'),
@@ -35,7 +9,7 @@ const HomeWithLayout = compose(
     title: 'Mon activé'
   }),
   WithLayout
-)(HomeConnected);
+)(Home);
 
 HomeWithLayout.getInitialProps = getInitialProps;
 
