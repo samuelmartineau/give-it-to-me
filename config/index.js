@@ -1,6 +1,6 @@
 const cellar = require('./cellar');
 const wineTypes = require('./wineTypes');
-const bottleTypes = require('./bottleTypes');
+const { BOTTLE_TYPES } = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 3000;
 const devProxyPort = process.env.PROXY_PORT || 3005;
@@ -68,7 +68,7 @@ module.exports = {
   cellar,
   wineTypes,
   utils,
-  bottleTypes,
+  bottleTypes: BOTTLE_TYPES,
   isProduction: process.env.NODE_ENV === 'production',
   devProxyPort,
   owner: process.env.OWNER || 'Samuel',

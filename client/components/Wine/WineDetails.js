@@ -28,12 +28,14 @@ class WinesDetails extends React.PureComponent<Props> {
     const { wine, wineFamily } = this.props;
     const type = WINE_TYPES[wine.wineType];
     const category = WINE_CATEGORIES[wine.wineCategory];
+    console.log(config);
     return (
       <Wrapper>
         <Text wine={wine}>
           Il reste{' '}
           <Highlight wine={wine}>
-            {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
+            {wine.bottlesCount} {config.bottleTypes[wine.bottleType].label}
+            {wine.bottlesCount > 1 && 's'}
           </Highlight>{' '}
           de{' '}
           <Highlight wine={wine}>
@@ -47,6 +49,12 @@ class WinesDetails extends React.PureComponent<Props> {
             </>
           )}
         </Text>
+        {!wine.isInBoxes && (
+          <Text wine={wine}>
+            Ce vin est hors des casiers, voici sa position:{' '}
+            <Highlight wine={wine}>{wine.positionComment}</Highlight>
+          </Text>
+        )}
       </Wrapper>
     );
   }

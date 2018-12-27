@@ -39,7 +39,8 @@ export {
   selectCellToBrowse,
   unselectCellToBrowse,
   createWineFamily,
-  syncUrlParams
+  syncUrlParams,
+  setRemoveCount
 } from './actions';
 
 export {

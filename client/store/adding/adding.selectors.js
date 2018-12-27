@@ -29,7 +29,7 @@ export const isModelValid = (model, selectedBoxes) => {
   if (model.isInBoxes) {
     valid = valid && selectedBoxes.length > 0;
   } else {
-    valid = valid && !!selectedBoxes.positionComment;
+    valid = valid && !!model.positionComment && model.count > 0;
   }
   return valid;
 };

@@ -32,7 +32,7 @@ export const PositionDescription = ({ onChange, model }: Props) => (
         name="count"
         value={model.count}
         type="number"
-        placeholder="6"
+        placeholder={6}
         onChange={onChange}
       />
     </Label>

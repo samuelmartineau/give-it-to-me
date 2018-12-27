@@ -27,6 +27,7 @@ export {
   addToFavorite,
   removeFromFavorite
 } from './favorites/favorites.actions';
+export { setRemoveCount } from './remove/remove.actions';
 
 export {
   selectBottleToDelete,

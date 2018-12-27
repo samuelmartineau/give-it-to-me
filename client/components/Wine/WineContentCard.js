@@ -30,16 +30,23 @@ type Props = {
 export class WineContentCard extends React.Component<Props> {
   render() {
     const { wine } = this.props;
+    console.log(wine);
     return (
       <React.Fragment>
-        <CellarContainer>
-          <CellarBoxes>
-            {boxId => (
-              <CellarBoxConnected boxId={boxId} wineId={wine.id} key={boxId} />
-            )}
-          </CellarBoxes>
-          <CellarBottles wineId={wine.id} />
-        </CellarContainer>
+        {!!wine.isInBoxes && (
+          <CellarContainer>
+            <CellarBoxes>
+              {boxId => (
+                <CellarBoxConnected
+                  boxId={boxId}
+                  wineId={wine.id}
+                  key={boxId}
+                />
+              )}
+            </CellarBoxes>
+            <CellarBottles wineId={wine.id} />
+          </CellarContainer>
+        )}
         <WineDetails wine={wine} />
         <WineActions>
           <WineModalButton wineId={wine.id} />

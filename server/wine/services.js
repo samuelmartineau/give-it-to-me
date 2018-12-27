@@ -56,7 +56,7 @@ const addWine = wine => {
     db.serialize(() => {
       db.run(
         `INSERT INTO wines 
-        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount, source)
+        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount, source, positionComment)
         VALUES(
         $name,
         $year,
@@ -69,7 +69,8 @@ const addWine = wine => {
         $bottleType,
         $isInBoxes,
         $bottlesCount,
-        $source
+        $source,
+        $positionComment
       )`,
         {
           $name: wine.name,
@@ -83,7 +84,8 @@ const addWine = wine => {
           $bottleType: wine.bottleType,
           $isInBoxes: wine.isInBoxes,
           $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count,
-          $source: wine.source
+          $source: wine.source,
+          $positionComment: wine.positionComment
         },
         function(err) {
           if (err) {
@@ -110,6 +112,9 @@ const addWine = wine => {
                 db.run('COMMIT');
                 resolve({ message: 'Vin ajouté avec succés' });
               });
+            } else {
+              db.run('COMMIT');
+              resolve({ message: 'Vin ajouté avec succés' });
             }
           }
         }

@@ -20,11 +20,9 @@ const WineModalDeleteButton = ({
 };
 
 export default connect(
-  state => {
-    return {
-      isDisabled: state.remove.bottleIds.length === 0
-    };
-  },
+  ({ remove }) => ({
+    isDisabled: remove.bottleIds.length === 0 || remove.count > 0
+  }),
   dispatch => ({
     onRemove() {
       dispatch(removeBottles());
