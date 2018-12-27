@@ -35,7 +35,7 @@ export class Search extends React.Component<Props> {
       <div>
         <SearchFiltersButton />
         <h2>
-          {count} résultat{count > 1 && 's'}
+          {count} vin{count > 1 && 's'}
         </h2>
         <WinesList />
         <EmptyResults />
