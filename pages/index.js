@@ -6,7 +6,7 @@ import Home from '~/client/components/Home/Home';
 const HomeWithLayout = compose(
   setDisplayName('HomePage'),
   withProps({
-    title: 'Mon activé'
+    title: 'Mon activité'
   }),
   WithLayout
 )(Home);

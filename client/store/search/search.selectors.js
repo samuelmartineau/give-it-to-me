@@ -45,6 +45,12 @@ const isWineMatch = (state, filters, wineId) => {
   if (filters.name && !nameMatch(filters.name, wine.name)) {
     return false;
   }
+  if (
+    filters.wineFamilies.length &&
+    !filters.wineFamilies.includes(wine.wineFamily)
+  ) {
+    return false;
+  }
   return true;
 };
 
@@ -66,7 +72,7 @@ export const getFiltersCount = state => {
   if (state.maxYear !== undefined && state.maxYear !== null) {
     count += 1;
   }
-  if (state.favorite) {
+  if (state.favorites) {
     count += 1;
   }
   if (state.name && state.name.length) {
