@@ -1,1 +1,6 @@
-{ "env": { "node": true, "browser": true } }
+{
+  "env": { "node": true, "browser": true },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  }
+}

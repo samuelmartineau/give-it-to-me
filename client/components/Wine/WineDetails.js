@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import config from '~/config';
+const { BOTTLE_TYPES } = config.bottleTypes;
 
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
@@ -33,7 +34,7 @@ class WinesDetails extends React.PureComponent<Props> {
         <Text wine={wine}>
           Il reste{' '}
           <Highlight wine={wine}>
-            {wine.bottlesCount} {config.bottleTypes[wine.bottleType].label}
+            {wine.bottlesCount} {BOTTLE_TYPES[wine.bottleType].label}
             {wine.bottlesCount > 1 && 's'}
           </Highlight>{' '}
           de{' '}
