@@ -7,7 +7,8 @@ import queryString from 'query-string';
 import {
   toggleCheckboxFilter,
   updateInputFilter,
-  toggleFavoritesFilter
+  toggleFavoritesFilter,
+  toggleOutsideBoxesFilter
 } from '~/client/store/';
 import config from '~/config';
 import { Checkbox, TextField } from '~/client/components/Toolkit';
@@ -38,13 +39,15 @@ type Props = {
   updateCheckbox: Function,
   onInputChange: Function,
   toggleFavoritesFilter: Function,
+  toggleOutsideBoxesFilter: Function,
   filters: {
     wineTypes: Array<string>,
     wineCategories: Array<string>,
     maxYear: string,
     minYear: string,
     name: string,
-    favorites: boolean
+    favorites: boolean,
+    outsideBoxes: boolean
   }
 };
 
@@ -98,14 +101,30 @@ class SearchFiltersModalFilters extends React.Component<Props> {
 
     const parsed = queryString.parse(location.search);
     if (checked) {
-      parsed.favorite = true;
+      parsed.favorites = true;
     } else {
-      delete parsed.favorite;
+      delete parsed.favorites;
     }
     const url = `/search?${queryString.stringify(parsed)}`;
     Router.push(url, url, { shallow: true });
 
     toggleFavoritesFilter(evt);
+  };
+
+  toggleOutsideBoxesFilter = evt => {
+    const { toggleOutsideBoxesFilter } = this.props;
+    const { checked } = evt.target;
+
+    const parsed = queryString.parse(location.search);
+    if (checked) {
+      parsed.outsideBoxes = true;
+    } else {
+      delete parsed.outsideBoxes;
+    }
+    const url = `/search?${queryString.stringify(parsed)}`;
+    Router.push(url, url, { shallow: true });
+
+    toggleOutsideBoxesFilter(evt);
   };
 
   selectWineFamily = (evt, item) => {
@@ -217,6 +236,18 @@ class SearchFiltersModalFilters extends React.Component<Props> {
             Favoris
           </CheckboxStyled>
         </Label>
+        <Label>
+          <Text>Restreindre aux bouteilles hors casier</Text>
+          <CheckboxStyled
+            onChange={this.toggleOutsideBoxesFilter}
+            name="inBoxes"
+            value="inBoxes"
+            id="search-filters-in-boxes"
+            checked={filters.outsideBoxes}
+          >
+            Seulement hors casier
+          </CheckboxStyled>
+        </Label>
       </>
     );
   }
@@ -236,6 +267,9 @@ export default connect(
     },
     toggleFavoritesFilter() {
       dispatch(toggleFavoritesFilter());
+    },
+    toggleOutsideBoxesFilter() {
+      dispatch(toggleOutsideBoxesFilter());
     },
     onInputChange(evt) {
       const { value, name } = evt.target;

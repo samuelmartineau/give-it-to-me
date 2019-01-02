@@ -42,8 +42,6 @@ BEGIN
    UPDATE wines SET updatedAt = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 
-
-
 CREATE TABLE "bottles" (
     "id" integer not null primary key autoincrement, 
     "wineId" integer NOT NULL, 
@@ -68,6 +66,7 @@ WHEN new._deleted <> old._deleted AND new._deleted = 1
 BEGIN
    UPDATE wines SET bottlesCount = bottlesCount - 1 WHERE id = new.wineId;
 END;
+
 
 
 CREATE TABLE "favorites" (
@@ -106,6 +105,7 @@ BEGIN
    INSERT INTO transactions (wineId, type) VALUES (NEW.id, 'ADDED');
 END;
 
+
 CREATE TRIGGER wine_deleted_transaction
 AFTER UPDATE On wines
 WHEN new.bottlesCount = 0
@@ -138,6 +138,5 @@ AFTER INSERT On wineFamilies
 BEGIN
    INSERT INTO transactions (wineFamilyId, type) VALUES (NEW.id, 'ADDED');
 END;
-
 
 COMMIT;

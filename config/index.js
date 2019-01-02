@@ -25,7 +25,6 @@ module.exports = {
   DB: {
     timeout: 5,
     filename: 'db_v1.db',
-    // filename: 'gitm-5-11-2017.db',
     tables: {
       WINE: {
         name: 'wine'

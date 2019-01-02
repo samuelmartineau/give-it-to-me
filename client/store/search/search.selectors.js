@@ -14,7 +14,8 @@ function hasFiltersSet(filters) {
     !!filters.minYear ||
     !!filters.maxYear ||
     !!filters.name ||
-    filters.favorites
+    filters.favorites ||
+    filters.outsideBoxes
   );
 }
 
@@ -25,6 +26,9 @@ const isWineMatch = (state, filters, wineId) => {
   }
   const wine = state.map[wineId];
   if (filters.favorites && !wine.isFavorite) {
+    return false;
+  }
+  if (filters.outsideBoxes && !!wine.isInBoxes) {
     return false;
   }
   if (
@@ -73,6 +77,9 @@ export const getFiltersCount = state => {
     count += 1;
   }
   if (state.favorites) {
+    count += 1;
+  }
+  if (state.outsideBoxes) {
     count += 1;
   }
   if (state.name && state.name.length) {

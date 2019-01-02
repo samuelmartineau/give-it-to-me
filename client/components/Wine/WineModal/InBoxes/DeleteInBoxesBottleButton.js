@@ -5,27 +5,26 @@ import { Button } from '~/client/components/Toolkit';
 
 import { removeBottles } from '~/client/store';
 
-const WineModalDeleteButton = ({
-  isDisabled,
-  onRemove
-}: {
-  isDisabled: boolean,
+type Props = {
+  count: number,
   onRemove: Function
-}) => {
+};
+
+const DeleteInBoxesBottleButton = ({ count, onRemove }: Props) => {
   return (
-    <Button onClick={onRemove} disabled={isDisabled} primary type="button">
-      Supprimer
+    <Button onClick={onRemove} disabled={count > 0} primary type="button">
+      Supprimer {count} bouteille{count > 1 && 's'}
     </Button>
   );
 };
 
 export default connect(
   ({ remove }) => ({
-    isDisabled: remove.bottleIds.length === 0 || remove.count > 0
+    count: remove.bottleIds.length
   }),
   dispatch => ({
     onRemove() {
       dispatch(removeBottles());
     }
   })
-)(WineModalDeleteButton);
+)(DeleteInBoxesBottleButton);

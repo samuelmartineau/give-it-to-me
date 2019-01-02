@@ -1,7 +1,7 @@
 const express = require('express');
 
 const config = require('../../config');
-const { getCellar, addWine } = require('./services');
+const { getCellar, addWine, removeOutsideBottles } = require('./services');
 const { moveWineToPermanetFolder } = require('../pictures/services');
 const { updateClients } = require('../handleChanges');
 
@@ -39,5 +39,17 @@ router
         res.status(500).json(error);
       });
   });
+
+router.route(`${config.ROUTES.WINE}/:wineId`).delete((req, res) => {
+  const { wineId } = req.params;
+  return removeOutsideBottles(wineId, req.body.count)
+    .then(message => {
+      updateClients();
+      res.status(200).json(message);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
 
 module.exports = router;

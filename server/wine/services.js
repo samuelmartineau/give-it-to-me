@@ -123,7 +123,33 @@ const addWine = wine => {
   });
 };
 
+const removeOutsideBottles = (wineId, count) => {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.run(
+        `
+      UPDATE wines
+      SET bottlesCount = bottlesCount - $count
+      WHERE id = $wineId
+      `,
+        {
+          $wineId: wineId,
+          $count: count
+        },
+        err => {
+          if (err) {
+            logger.error('error', err);
+            reject(err);
+          }
+          resolve({ message: 'Bouteille supprimée avec succés' });
+        }
+      );
+    });
+  });
+};
+
 module.exports = {
   getCellar,
-  addWine
+  addWine,
+  removeOutsideBottles
 };

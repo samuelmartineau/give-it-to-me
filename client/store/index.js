@@ -40,7 +40,11 @@ export {
   unselectCellToBrowse,
   createWineFamily,
   syncUrlParams,
-  setRemoveCount
+  setRemoveCount,
+  resetRemoveState,
+  toggleOutsideBoxesFilter,
+  removeOutsideBottles,
+  selectWineToRemove
 } from './actions';
 
 export {

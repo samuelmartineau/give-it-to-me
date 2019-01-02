@@ -3,7 +3,8 @@ import {
   UPDATE_INPUT_FILTER,
   GET_NEXT_HITS,
   TOGGLE_FAVORITES_FILTER,
-  SYNC_URL_PARAMS
+  SYNC_URL_PARAMS,
+  TOGGLE_OUTSIDE_BOXES_FILTER
 } from './search.types';
 
 export const toggleCheckboxFilter = (key, value) => ({
@@ -17,6 +18,9 @@ export const updateInputFilter = (key, value) => ({
 });
 export const toggleFavoritesFilter = () => ({
   type: TOGGLE_FAVORITES_FILTER
+});
+export const toggleOutsideBoxesFilter = () => ({
+  type: TOGGLE_OUTSIDE_BOXES_FILTER
 });
 export const syncUrlParams = params => ({
   type: SYNC_URL_PARAMS,

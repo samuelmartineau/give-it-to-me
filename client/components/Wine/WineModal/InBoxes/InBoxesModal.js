@@ -1,12 +1,9 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { getWineById } from '~/client/store';
 import { Button } from '~/client/components/Toolkit';
-import WineModalFolders from './WineModalFolders';
-import WineModalForm from './WineModalForm';
-import WineModalDeleteButton from './WineModalDeleteButton';
+import WineFolders from './WineFolders';
+import DeleteInBoxesBottleButton from './DeleteInBoxesBottleButton';
 import {
   Modal,
   ModalHeader,
@@ -26,22 +23,21 @@ type Props = {
   wine: {}
 };
 
-class WineModal extends React.PureComponent<Props> {
+class InBoxesModal extends React.PureComponent<Props> {
   render() {
     const { modalIsOpen, closeModal, wine } = this.props;
     return (
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <ModalHeader>Suppression de bouteille</ModalHeader>
         <ModalContent>
-          {!!wine.isInBoxes && <WineModalFolders wine={wine} />}
-          {!wine.isInBoxes && <WineModalForm wine={wine} />}
+          <WineFolders wine={wine} />
         </ModalContent>
         <ModalActions>
           <Actions>
             <Button onClick={closeModal} type="button">
-              Annuler
+              Fermer
             </Button>
-            <WineModalDeleteButton />
+            <DeleteInBoxesBottleButton />
           </Actions>
         </ModalActions>
       </Modal>
@@ -49,6 +45,4 @@ class WineModal extends React.PureComponent<Props> {
   }
 }
 
-export default connect((state, { wineId }) => ({
-  wine: getWineById(state, wineId)
-}))(WineModal);
+export default InBoxesModal;

@@ -30,7 +30,6 @@ type Props = {
 export class WineContentCard extends React.Component<Props> {
   render() {
     const { wine } = this.props;
-    console.log(wine);
     return (
       <React.Fragment>
         {!!wine.isInBoxes && (

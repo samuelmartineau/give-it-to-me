@@ -14,7 +14,7 @@ const removeBottles = bottleIds => {
         bottleIds,
         err => {
           if (err) {
-            logger.log('error', err);
+            logger.error('error', err);
             reject(err);
           }
           resolve({ message: 'Bouteille supprimée avec succés' });

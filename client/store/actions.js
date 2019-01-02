@@ -10,6 +10,7 @@ export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
 export {
   getNextHits,
   toggleFavoritesFilter,
+  toggleOutsideBoxesFilter,
   syncUrlParams
 } from './search/search.actions';
 export { setCellar } from './wines/wines.actions';
@@ -27,7 +28,11 @@ export {
   addToFavorite,
   removeFromFavorite
 } from './favorites/favorites.actions';
-export { setRemoveCount } from './remove/remove.actions';
+export {
+  setRemoveCount,
+  resetRemoveState,
+  selectWineToRemove
+} from './remove/remove.actions';
 
 export {
   selectBottleToDelete,
@@ -83,5 +88,13 @@ export const removeBottles = () => {
   return (dispatch, getState) => {
     const state = getState();
     return dispatch(remove.removeBottles(state.remove.bottleIds));
+  };
+};
+
+export const removeOutsideBottles = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { wineId, count } = state.remove;
+    return dispatch(remove.removeOutsideBottles(wineId, count));
   };
 };

@@ -21,13 +21,13 @@ type Props = {
   count: number
 };
 
-class WineModalForm extends React.PureComponent<Props> {
+class RemoveOutsideBottleForm extends React.PureComponent<Props> {
   render() {
     const { wine, count, updateCount } = this.props;
     return (
       <Wrapper>
         <h2>
-          {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
+          Ce vin à {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
         </h2>
         <Label>
           <Text>Combien voulez-vous supprimer de bouteille?</Text>
@@ -50,4 +50,4 @@ export default connect(
       }
     }
   })
-)(WineModalForm);
+)(RemoveOutsideBottleForm);

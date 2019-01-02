@@ -3,7 +3,8 @@ import {
   UPDATE_INPUT_FILTER,
   GET_NEXT_HITS,
   TOGGLE_FAVORITES_FILTER,
-  SYNC_URL_PARAMS
+  SYNC_URL_PARAMS,
+  TOGGLE_OUTSIDE_BOXES_FILTER
 } from './search.types';
 import { ArrayKeys } from './utils';
 
@@ -17,7 +18,8 @@ const defaultState = {
   maxYear: undefined,
   name: undefined,
   hitsDisplayed: hitsByPage,
-  favorites: false
+  favorites: false,
+  outsideBoxes: false
 };
 
 export default (state = defaultState, action) => {
@@ -35,6 +37,9 @@ export default (state = defaultState, action) => {
     case TOGGLE_FAVORITES_FILTER: {
       return { ...state, favorites: !state.favorites };
     }
+    case TOGGLE_OUTSIDE_BOXES_FILTER: {
+      return { ...state, outsideBoxes: !state.outsideBoxes };
+    }
     case UPDATE_INPUT_FILTER: {
       const { key, value } = action.payload;
       let valueFormated = value;
@@ -49,6 +54,12 @@ export default (state = defaultState, action) => {
     case SYNC_URL_PARAMS: {
       const { params } = action.payload;
       const newState = { ...defaultState };
+      const booleansFilters = ['favorites', 'outsideBoxes'];
+      booleansFilters.forEach(key => {
+        if (key in params) {
+          newState[key] = params[key];
+        }
+      });
       if (params.wineFamilies)
         Object.keys(params).forEach(key => {
           if (ArrayKeys.includes(key)) {

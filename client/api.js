@@ -111,3 +111,16 @@ export const createWineFamily = name => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const removeOutsideBottles = (wineId, count) => {
+  return fetch(`${apiBase}${config.ROUTES.WINE}/${wineId}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ count })
+  })
+    .then(checkStatus)
+    .catch(errorHandler);
+};

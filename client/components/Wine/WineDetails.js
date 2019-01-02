@@ -28,7 +28,6 @@ class WinesDetails extends React.PureComponent<Props> {
     const { wine, wineFamily } = this.props;
     const type = WINE_TYPES[wine.wineType];
     const category = WINE_CATEGORIES[wine.wineCategory];
-    console.log(config);
     return (
       <Wrapper>
         <Text wine={wine}>
