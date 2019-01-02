@@ -12,7 +12,7 @@ type Props = {
 
 const DeleteInBoxesBottleButton = ({ count, onRemove }: Props) => {
   return (
-    <Button onClick={onRemove} disabled={count > 0} primary type="button">
+    <Button onClick={onRemove} disabled={count === 0} primary type="button">
       Supprimer {count} bouteille{count > 1 && 's'}
     </Button>
   );
