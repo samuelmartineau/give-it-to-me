@@ -3,13 +3,8 @@ const wineTypes = require('./wineTypes');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 3000;
-const devProxyPort = process.env.PROXY_PORT || 3005;
-const isDev = process.env.NODE_ENV !== 'production';
 const publicURL = (function() {
   const isBrowser = typeof window !== 'undefined';
-  if (isDev) {
-    return `http://localhost:${devProxyPort}`;
-  }
   if (isBrowser) {
     return window.location.origin;
   }
@@ -69,10 +64,5 @@ module.exports = {
   utils,
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
-  devProxyPort,
-  owner: process.env.OWNER || 'Samuel',
-  buildAssetsUrl(url) {
-    const separator = url[0] === '/' ? '' : '/';
-    return `${publicURL}${separator}${url}`;
-  }
+  owner: process.env.OWNER || 'Samuel'
 };

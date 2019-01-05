@@ -1,5 +1,10 @@
 PROXY_PORT=3005
 
-node scripts/nginx.js &
+HERE=`pwd`
+
+sed -e "s;\$HERE;$HERE;g" -e "s;\$PROXY_PORT;$PROXY_PORT;g" ./scripts/nginx.config.template > ./scripts/nginx.config 
+
+nginx -s stop
+nginx -c $HERE/scripts/nginx.config 
 
 nodemon server/index.js --watch server

@@ -1,6 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { buildAssetsUrl } from '~/config';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -17,11 +16,8 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <meta name="viewport" content="width=device-width" />
-          <link
-            rel="icon"
-            href={buildAssetsUrl('assets/favicon.png')}
-            type="image/png"
-          />
+          <link rel="icon" href={'assets/favicon.png'} type="image/png" />
+          <link rel="manifest" href={'assets/manifest.json'} />
           {this.props.styleTags}
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"

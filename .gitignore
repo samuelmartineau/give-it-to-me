@@ -108,3 +108,4 @@ error-logs
 *.db
 assets/temp_uploads
 assets/uploads
+nginx.config

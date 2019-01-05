@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Upload } from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
-import { PICTURE_UPLOAD, buildAssetsUrl } from '~/config';
+import { PICTURE_UPLOAD } from '~/config';
 import { Image } from '../Image/Image';
 import { Button, Spinner } from '~/client/components/Toolkit';
 import styled from 'styled-components';
@@ -66,7 +66,7 @@ export class PictureStep extends React.Component<Props, State> {
           <Image
             width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-            src={buildAssetsUrl(thumbnailFileName)}
+            src={thumbnailFileName}
             lazyLoader={blur}
             delay={1000}
           />
