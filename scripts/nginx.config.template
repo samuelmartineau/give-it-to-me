@@ -5,6 +5,7 @@ events {
 }
 
 http {
+    include mime.types;
     default_type  application/octet-stream;
     sendfile        on;
 
@@ -23,6 +24,11 @@ http {
             proxy_set_header Connection "upgrade";
             proxy_set_header Host $host;
             proxy_cache_bypass $http_upgrade;
+        }
+
+        location /service-worker.js {
+            root $HERE/assets/;
+            try_files $uri $uri/ =404;
         }
 
         location /assets/ {

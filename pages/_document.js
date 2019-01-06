@@ -16,6 +16,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <meta name="viewport" content="width=device-width" />
+          <meta name="theme-color" content="#5e0231" />
           <link rel="icon" href={'assets/favicon.png'} type="image/png" />
           <link
             rel="manifest"
