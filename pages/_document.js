@@ -24,22 +24,7 @@ export default class MyDocument extends Document {
             crossOrigin="use-credentials"
           />
           {this.props.styleTags}
-          <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Ranga"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans"
-            rel="stylesheet"
-          />
+          <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js" />
         </Head>
         <body>
           <Main />

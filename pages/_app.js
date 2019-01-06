@@ -9,6 +9,11 @@ import ServerSentEventDispatcher from '../client/store/ServerSentEventDispatcher
 
 class MyApp extends App {
   async componentDidMount() {
+    window.WebFont.load({
+      google: {
+        families: ['Material Icons', 'Open Sans', 'Ranga']
+      }
+    });
     if ('serviceWorker' in navigator) {
       try {
         const registration = await navigator.serviceWorker.getRegistration('/');
