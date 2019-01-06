@@ -17,7 +17,11 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="viewport" content="width=device-width" />
           <link rel="icon" href={'assets/favicon.png'} type="image/png" />
-          <link rel="manifest" href={'assets/manifest.json'} />
+          <link
+            rel="manifest"
+            href={'assets/manifest.json'}
+            crossOrigin="use-credentials"
+          />
           {this.props.styleTags}
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
