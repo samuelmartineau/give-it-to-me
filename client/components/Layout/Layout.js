@@ -6,6 +6,9 @@ import Header from './Header';
 
 const GlobalStyle = createGlobalStyle`
   body {
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    @import url('https://fonts.googleapis.com/css?family=Ranga');
     margin: 0;
     font-family: 'Open Sans', sans-serif;
   }

@@ -8,23 +8,6 @@ import theme from '../client/components/Toolkit/theme';
 import ServerSentEventDispatcher from '../client/store/ServerSentEventDispatcher';
 
 class MyApp extends App {
-  async componentDidMount() {
-    if ('serviceWorker' in navigator) {
-      try {
-        const registration = await navigator.serviceWorker.getRegistration('/');
-        if (!registration) {
-          await navigator.serviceWorker.register('/service-worker.js', {
-            scope: '/'
-          });
-
-          console.log(`Registration successful`);
-        }
-      } catch (e) {
-        console.warn(`Registration failed: ${e}`);
-      }
-    }
-  }
-
   render() {
     const { Component, pageProps, store } = this.props;
     return (

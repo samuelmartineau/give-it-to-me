@@ -7,4 +7,6 @@ sed -e "s;\$HERE;$HERE;g" -e "s;\$PROXY_PORT;$PROXY_PORT;g" ./scripts/nginx.conf
 nginx -s stop
 nginx -c $HERE/scripts/nginx.config 
 
+echo "Everything running on http://localhost:$PROXY_PORT"
+
 nodemon server/index.js --watch server
