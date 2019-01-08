@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -22,7 +24,13 @@ const Content = styled.p`
   display: inline-block;
 `;
 
-export const MessageManager = ({ icon, classes, title, message }) => {
+type Props = {
+  icon: string,
+  title: React.Node,
+  message: string
+};
+
+export const MessageManager = ({ icon, title, message }: Props) => {
   return (
     <Wrapper>
       <Icon className="material-icons">{icon}</Icon>
