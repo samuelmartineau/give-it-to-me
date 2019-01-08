@@ -17,9 +17,10 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <Provider store={store}>
-            <ServerSentEventDispatcher>
+            <>
+              <ServerSentEventDispatcher />
               <Component {...pageProps} />
-            </ServerSentEventDispatcher>
+            </>
           </Provider>
         </ThemeProvider>
       </Container>

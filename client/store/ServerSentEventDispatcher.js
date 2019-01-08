@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { setCellar } from './';
 
 type Props = {
-  children: React.Node,
   onEvent: Function
 };
 
@@ -38,7 +37,7 @@ class ServerSentEventDispatcher extends React.Component<Props> {
   }
 
   render() {
-    return this.props.children;
+    return null;
   }
 }
 
