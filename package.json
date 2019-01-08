@@ -51,6 +51,7 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-eslint": "^10.0.1",
     "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.10.0",

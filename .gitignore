@@ -109,3 +109,4 @@ error-logs
 assets/temp_uploads
 assets/uploads
 nginx.config
+bundles
