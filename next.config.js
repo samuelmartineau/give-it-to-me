@@ -1,10 +1,8 @@
 const withOffline = moduleExists('next-offline') ? require('next-offline') : {};
 
-const isDev = process.env.NODE_ENV !== 'production';
-
 const nextConfig = {
   workboxOpts: {
-    swDest: 'static/service-worker.js',
+    swDest: 'assets/service-worker.js',
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
