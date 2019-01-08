@@ -81,7 +81,6 @@ export class PictureStep extends React.Component<Props, State> {
     } else {
       render = <Upload onDrop={this.onDrop} />;
     }
-
     return <Wrapper>{render}</Wrapper>;
   }
 }
