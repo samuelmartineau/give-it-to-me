@@ -1,6 +1,7 @@
 import React from 'react';
 import tinycolor from 'tinycolor2';
 import styled from 'styled-components';
+import MenuIcon from '@material-ui/icons/Menu';
 import fontColorContrast from 'font-color-contrast';
 import { PICTURE_UPLOAD, wineTypes } from '~/config';
 
@@ -54,7 +55,7 @@ const WineCardImageContainer = styled.a`
     width: 100%;
     height: '100%';
     border-radius: 50%;
-    transform: scale(0.21,0.14) translate(-550px,-1440px);
+    transform: scale(0.21,0.14) translate(-520px,-1440px);
     z-index: 4;
   `};
 `;
@@ -155,7 +156,7 @@ export class WineCard extends React.Component<WineCardProps> {
           onClick={this.onToggle}
           style={{ background: softColor, color: textColor }}
         >
-          <i className="material-icons">menu</i>
+          <MenuIcon />
         </MenuButton>
         <WineCardImageContainer
           open={open}

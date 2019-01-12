@@ -3,6 +3,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Button } from '~/client/components/Toolkit';
 import { addToFavorite, removeFromFavorite } from '~/client/store';
 
@@ -25,9 +27,7 @@ class AddToFavoriteButton extends React.PureComponent<Props> {
     const action = isFavorite ? removeFromFavorite : addToFavorite;
     return (
       <StyledButton onClick={action} isFavorite={isFavorite}>
-        <i className="material-icons">
-          {isFavorite ? 'favorite' : 'favorite_border'}
-        </i>
+        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         Favoris
       </StyledButton>
     );

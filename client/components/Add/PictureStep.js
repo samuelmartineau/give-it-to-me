@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Upload } from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
 import { PICTURE_UPLOAD } from '~/config';
@@ -72,7 +73,7 @@ export class PictureStep extends React.Component<Props, State> {
           />
           <ButtonStyled type="button" onClick={this.resetUpload}>
             Changer de photo
-            <i className="material-icons">delete</i>
+            <DeleteIcon />
           </ButtonStyled>
         </BlurWrapper>
       );

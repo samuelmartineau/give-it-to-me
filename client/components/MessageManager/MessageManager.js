@@ -12,7 +12,10 @@ const Icon = styled.i`
   text-align: center;
   flex: 1;
   color: palevioletred;
-  font-size: 100px;
+ 
+  & svg {
+    font-size: 100px;
+  }
 }
 `;
 const Title = styled.h1`
@@ -25,7 +28,7 @@ const Content = styled.p`
 `;
 
 type Props = {
-  icon: string,
+  icon: React.Node,
   title: React.Node,
   message: string
 };
@@ -33,7 +36,7 @@ type Props = {
 export const MessageManager = ({ icon, title, message }: Props) => {
   return (
     <Wrapper>
-      <Icon className="material-icons">{icon}</Icon>
+      <Icon>{icon}</Icon>
       <Title>{title}</Title>
       <Content>{message}</Content>
     </Wrapper>

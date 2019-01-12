@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { Button } from '~/client/components/Toolkit';
 
 type UploadProps = {
@@ -15,7 +16,7 @@ export const Upload = ({ onDrop }: UploadProps) => (
         <div {...getRootProps()}>
           <input tabIndex="-1" {...getInputProps()} accept="image/*" />
           <Button type="button">
-            <i className="material-icons">add_a_photo</i>
+            <AddAPhotoIcon />
           </Button>
         </div>
       )}

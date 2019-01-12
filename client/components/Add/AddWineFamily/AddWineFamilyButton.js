@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import AddIcon from '@material-ui/icons/Add';
 import { Button } from '~/client/components/Toolkit';
 import AddWineFamilyModal from './AddWineFamilyModal';
 
@@ -18,7 +19,7 @@ const ButtonStyled = styled(Button)`
   right: 0;
   top: 0;
 
-  & > i {
+  & > svg {
     font-size: 15px;
   }
 `;
@@ -41,7 +42,7 @@ export class AddWineFamilyButton extends React.PureComponent<Props, State> {
     return (
       <>
         <ButtonStyled type="button" onClick={this.openModal}>
-          <i className="material-icons">add</i>
+          <AddIcon />
         </ButtonStyled>
         <AddWineFamilyModal
           modalIsOpen={modalIsOpen}

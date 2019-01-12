@@ -1,5 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import HomeIcon from '@material-ui/icons/Home';
+import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import styled from 'styled-components';
 import { withRouter } from 'next/router';
 
@@ -7,22 +11,22 @@ const routes = [
   {
     label: 'Accueil',
     href: '/',
-    icon: 'home'
+    icon: <HomeIcon />
   },
   {
     label: 'Ajouter',
     href: '/add',
-    icon: 'add'
+    icon: <AddIcon />
   },
   {
     label: 'Rechercher',
     href: '/search',
-    icon: 'search'
+    icon: <SearchIcon />
   },
   {
     label: 'Parcourir',
     href: '/browse',
-    icon: 'folder_open'
+    icon: <FolderOpenIcon />
   }
 ];
 

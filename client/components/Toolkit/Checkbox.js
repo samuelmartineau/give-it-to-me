@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 type Props = {|
   children: React.Node,
@@ -24,7 +26,7 @@ const Input = styled.input`
     outline: -webkit-focus-ring-color auto 5px;
   }
 
-  &:checked + label > i {
+  &:checked + label > svg {
     color: ${props => props.theme.colors.primary};
   }
 `;
@@ -52,9 +54,7 @@ export const Checkbox = ({
       onChange={onChange}
     />
     <Label htmlFor={id} className={className}>
-      <i className="material-icons">
-        {checked ? 'check_box' : 'check_box_outline_blank'}
-      </i>
+      {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
 
       {children}
     </Label>

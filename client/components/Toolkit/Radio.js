@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 const Input = styled.input`
   position: absolute;
@@ -14,7 +16,7 @@ const Input = styled.input`
     outline: -webkit-focus-ring-color auto 5px;
   }
 
-  &:checked + label > i {
+  &:checked + label > svg {
     color: ${props => props.theme.colors.primary};
   }
 `;
@@ -52,9 +54,7 @@ export const Radio = ({
       onChange={onChange}
     />
     <Label htmlFor={id} className={className}>
-      <i className="material-icons">
-        {checked ? 'radio_button_checked' : 'radio_button_unchecked'}
-      </i>
+      {checked ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
 
       {children}
     </Label>
