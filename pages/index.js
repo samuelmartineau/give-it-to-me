@@ -1,5 +1,5 @@
 import { compose, setDisplayName, withProps } from 'recompose';
-import { getInitialProps } from '~/pages/getInitialProps';
+import { getInitialProps } from '~/client/_getInitialProps';
 import WithLayout from '../client/components/Layout/WithLayout';
 import Home from '~/client/components/Home/Home';
 
