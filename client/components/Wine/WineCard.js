@@ -99,6 +99,7 @@ const WineCorner = styled.div`
 `;
 const WinePane = styled.div`
   font-family: 'Ranga', cursive;
+  font-display: swap;
   font-size: 20px;
   position: absolute;
   right: 0px;

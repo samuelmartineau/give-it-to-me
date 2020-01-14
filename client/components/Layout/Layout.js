@@ -5,12 +5,11 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Header from './Header';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-  @import url('https://fonts.googleapis.com/css?family=Ranga');
 
   body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+    font-display: swap;
   }
   * {
     box-sizing: border-box;

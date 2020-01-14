@@ -24,6 +24,14 @@ export default class MyDocument extends Document {
             href={'assets/manifest.json'}
             crossOrigin="use-credentials"
           />
+          <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css?family=Ranga&display=swap"
+            rel="stylesheet"
+          ></link>
           {this.props.styleTags}
         </Head>
         <body>
