@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html>
+      <html lang="fr">
         <Head>
           <meta name="viewport" content="width=device-width" />
           <meta name="Description" content="Personal Cellar Manager." />
