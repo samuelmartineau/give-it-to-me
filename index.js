@@ -1,11 +1,20 @@
 const fs = require('fs');
+const path = require('path');
 const next = require('next');
 const config = require('./config');
 
 const server = require('./server/server');
 
-if (!fs.existsSync(config.UPLOADS_PERM)) {
-  fs.mkdirSync(config.UPLOADS_PERM);
+const permFolderPath = path.join(
+  __dirname,
+  config.ASSETS_BASE_URL,
+  config.UPLOADS_PERM
+);
+
+console.log({ permFolderPath });
+
+if (!fs.existsSync(permFolderPath)) {
+  fs.mkdirSync(permFolderPath);
 }
 
 // API REST

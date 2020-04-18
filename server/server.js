@@ -26,7 +26,7 @@ serverHttp.listen(config.PORT, () => {
   handleChanges(serverHttp);
 });
 
-process.on('unhandledRejection', function(reason, p) {
+process.on('unhandledRejection', (reason, p) => {
   logger.error(
     `Possibly Unhandled Rejection at: Promise ${p} reason: ${reason}`
   );

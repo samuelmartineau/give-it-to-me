@@ -5,10 +5,10 @@ const { getCellar } = require('./wine/services');
 
 const clients = [];
 
-const handleChanges = serverHttp => {
+const handleChanges = (serverHttp) => {
   const sse = new SSE(serverHttp);
 
-  sse.on('connection', stream => {
+  sse.on('connection', (stream) => {
     logger.info('📲  SSE Opened connection');
     clients.push(stream);
 
@@ -20,8 +20,8 @@ const handleChanges = serverHttp => {
 };
 
 const updateClients = () => {
-  getCellar().then(cellar => {
-    clients.forEach(stream => {
+  getCellar().then((cellar) => {
+    clients.forEach((stream) => {
       stream.send(JSON.stringify({ cellar }));
     });
   });
@@ -29,5 +29,5 @@ const updateClients = () => {
 
 module.exports = {
   handleChanges,
-  updateClients
+  updateClients,
 };

@@ -3,13 +3,7 @@ const wineTypes = require('./wineTypes');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.PORT || 3000;
-const publicURL = (function() {
-  const isBrowser = typeof window !== 'undefined';
-  if (isBrowser) {
-    return window.location.origin;
-  }
-  return '';
-})();
+
 const SERVER_URL =
   typeof window !== 'undefined'
     ? window.location.origin
@@ -22,16 +16,16 @@ module.exports = {
     filename: 'db_v1.db',
     tables: {
       WINE: {
-        name: 'wine'
+        name: 'wine',
       },
       BOTTLE: {
         name: 'bottle',
-        indexes: ['wine_id']
+        indexes: ['wine_id'],
       },
       TRANSACTION: {
-        name: 'transaction'
-      }
-    }
+        name: 'transaction',
+      },
+    },
   },
   debug: !process.env.DEBUG,
   PORT: defaultPort,
@@ -45,15 +39,15 @@ module.exports = {
     WINE: '/wine',
     FAVORITE: '/favorite',
     BOTTLE: '/bottle',
-    WINE_FAMILY: '/wineFamily'
+    WINE_FAMILY: '/wineFamily',
   },
   PICTURE_UPLOAD: {
     FILE_NAME: 'winePicture',
     THUMBNAIL: {
       WIDTH: 300,
       HEIGHT: 400,
-      QUALITY: 30
-    }
+      QUALITY: 30,
+    },
   },
   ASSETS_BASE_URL: assetsBaseUrl,
   API_BASE_URL: '/api',
@@ -64,5 +58,5 @@ module.exports = {
   utils,
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
-  owner: process.env.OWNER || 'Samuel'
+  owner: process.env.OWNER || 'Samuel',
 };

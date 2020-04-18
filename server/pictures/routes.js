@@ -9,6 +9,7 @@ const { generateThumbnail, generateBlur } = require('./services');
 const pathToTmpAssets = path.join(
   __dirname,
   '../../',
+  config.ASSETS_BASE_URL,
   config.UPLOADS_TMP_DIRECTORY
 );
 

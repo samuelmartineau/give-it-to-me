@@ -1,7 +1,7 @@
 const { subClass } = require('gm');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
-const { promise: fs } = require('fs');
+const { promises: fs } = require('fs');
 
 const config = require('../../config');
 const logger = require('../utils/logger');
@@ -83,11 +83,9 @@ const moveWineToPermanentFolder = (thumbnailFilePath, pictureFilePath) => {
   const permPictureFileNamePath = path.resolve(PERM_DIR, newFileName);
   let promises = [];
   promises.push(
-    fs.renameAsync(tempThumbnailFileNamePath, permThumbnailFileNamePath)
+    fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath)
   );
-  promises.push(
-    fs.renameAsync(tempPictureFileNamePath, permPictureFileNamePath)
-  );
+  promises.push(fs.rename(tempPictureFileNamePath, permPictureFileNamePath));
   return Promise.all(promises)
     .then(() => {
       return { thumbnailFileName, pictureFileName: newFileName };

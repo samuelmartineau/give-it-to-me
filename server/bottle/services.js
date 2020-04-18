@@ -1,7 +1,7 @@
 const { db } = require('../utils/db');
 const logger = require('../utils/logger');
 
-const removeBottles = bottleIds => {
+const removeBottles = (bottleIds) => {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.run(
@@ -12,7 +12,7 @@ const removeBottles = bottleIds => {
         id IN (${bottleIds.map(() => '?')})
       `,
         bottleIds,
-        err => {
+        (err) => {
           if (err) {
             logger.error('error', err);
             reject(err);
@@ -25,5 +25,5 @@ const removeBottles = bottleIds => {
 };
 
 module.exports = {
-  removeBottles
+  removeBottles,
 };
