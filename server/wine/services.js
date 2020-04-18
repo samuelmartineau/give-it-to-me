@@ -1,6 +1,5 @@
 const path = require('path');
 const { db } = require('../utils/db');
-const logger = require('../utils/logger');
 const config = require('../../config');
 
 const getCellar = async () => {
@@ -93,28 +92,17 @@ const addWine = async (wine) => {
 };
 
 const removeOutsideBottles = (wineId, count) => {
-  return new Promise((resolve, reject) => {
-    db.serialize(() => {
-      db.run(
-        `
-      UPDATE wines
-      SET bottlesCount = bottlesCount - $count
-      WHERE id = $wineId
-      `,
-        {
-          $wineId: wineId,
-          $count: count,
-        },
-        (err) => {
-          if (err) {
-            logger.error('error', err);
-            reject(err);
-          }
-          resolve({ message: 'Bouteille supprimée avec succés' });
-        }
-      );
-    });
-  });
+  return db.runAsync(
+    `
+  UPDATE wines
+  SET bottlesCount = bottlesCount - $count
+  WHERE id = $wineId
+  `,
+    {
+      $wineId: wineId,
+      $count: count,
+    }
+  );
 };
 
 module.exports = {

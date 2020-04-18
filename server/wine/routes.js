@@ -39,17 +39,16 @@ router
     }
   });
 
-router.route(`${config.ROUTES.WINE}/:wineId`).delete((req, res) => {
+router.route(`${config.ROUTES.WINE}/:wineId`).delete(async (req, res) => {
   const { wineId } = req.params;
-  return removeOutsideBottles(wineId, req.body.count)
-    .then((message) => {
-      updateClients();
-      res.status(200).json(message);
-    })
-    .catch((error) => {
-      logger.error(error.stack);
-      res.status(500).json(error);
-    });
+  try {
+    await removeOutsideBottles(wineId, req.body.count);
+    updateClients();
+    res.status(200).json({ message: 'Bouteille supprimée avec succés' });
+  } catch (error) {
+    logger.error(error.stack);
+    res.status(500).json(error);
+  }
 });
 
 module.exports = router;
