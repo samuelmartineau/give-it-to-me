@@ -11,13 +11,20 @@ const initScript = fs.readFileSync(
   path.resolve(__dirname, './database.sql'),
   'utf8'
 );
+const wineFamiliesScript = fs.readFileSync(
+  path.resolve(__dirname, './wineFamilies.sql'),
+  'utf8'
+);
+
 const samplingScript = fs.readFileSync(
   path.resolve(__dirname, './samping.sql'),
   'utf8'
 );
 
 db.exec(initScript, () => {
-  db.exec(samplingScript, () => {
-    console.log('success');
+  db.exec(wineFamiliesScript, () => {
+    db.exec(samplingScript, () => {
+      console.log('success');
+    });
   });
 });
