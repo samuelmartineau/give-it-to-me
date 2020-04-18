@@ -7,7 +7,7 @@ const bottleRoutes = require('./bottle/routes');
 const wineFamilyRoutes = require('./wineFamily/routes');
 const config = require('../config');
 
-module.exports = app => {
+module.exports = (app) => {
   const router = express.Router();
   router.use(pictureRoutes);
   router.use(favoriteRoutes);

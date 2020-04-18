@@ -4,6 +4,7 @@ const config = require('../../config');
 const { getCellar, addWine, removeOutsideBottles } = require('./services');
 const { moveWineToPermanentFolder } = require('../pictures/services');
 const { updateClients } = require('../handleChanges');
+const logger = require('../utils/logger');
 
 const router = express.Router();
 
@@ -15,6 +16,7 @@ router
       updateClients();
       res.status(200).json(cellar);
     } catch (error) {
+      logger.error(error.stack);
       res.status(500).json(error);
     }
   })
@@ -32,7 +34,8 @@ router
       updateClients();
       res.status(200).json({ message: 'Vin ajouté avec succés' });
     } catch (error) {
-      res.status(500).json(error);
+      logger.error(error.stack);
+      res.status(500).json({ message: 'Error adding bottles' });
     }
   });
 
@@ -44,6 +47,7 @@ router.route(`${config.ROUTES.WINE}/:wineId`).delete((req, res) => {
       res.status(200).json(message);
     })
     .catch((error) => {
+      logger.error(error.stack);
       res.status(500).json(error);
     });
 });

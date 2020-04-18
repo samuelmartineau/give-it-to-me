@@ -41,6 +41,16 @@ db.runAsync = function (...args) {
   });
 };
 
+db.insertAsync = function (...args) {
+  const that = this;
+  return new Promise(function (resolve, reject) {
+    that.run(...args, function (err) {
+      if (err) reject(err);
+      else resolve(this.lastID);
+    });
+  });
+};
+
 db.execAsync = function (...args) {
   const that = this;
   return new Promise(function (resolve, reject) {

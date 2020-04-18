@@ -37,79 +37,59 @@ const getCellar = async () => {
   return wines;
 };
 
-const addWine = (wine) => {
+const addWine = async (wine) => {
   const { bottles } = wine;
 
-  return new Promise((resolve, reject) => {
-    db.run('BEGIN');
-    db.serialize(() => {
-      db.run(
-        `INSERT INTO wines 
-        (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount, source, positionComment)
-        VALUES(
-        $name,
-        $year,
-        $wineFamily,
-        $blur,
-        $thumbnailFileName,
-        $pictureFileName,
-        $wineType,
-        $wineCategory,
-        $bottleType,
-        $isInBoxes,
-        $bottlesCount,
-        $source,
-        $positionComment
-      )`,
+  await db.runAsync('BEGIN');
+  const wineId = await db.insertAsync(
+    `INSERT INTO wines 
+   (name, year, wineFamily, blur, thumbnailFileName, pictureFileName, wineType, wineCategory, bottleType, isInBoxes, bottlesCount, source, positionComment)
+   VALUES(
+   $name,
+   $year,
+   $wineFamily,
+   $blur,
+   $thumbnailFileName,
+   $pictureFileName,
+   $wineType,
+   $wineCategory,
+   $bottleType,
+   $isInBoxes,
+   $bottlesCount,
+   $source,
+   $positionComment
+ )`,
+    {
+      $name: wine.name,
+      $year: wine.year,
+      $wineFamily: wine.wineFamily,
+      $blur: wine.blur,
+      $thumbnailFileName: wine.thumbnailFileName,
+      $pictureFileName: wine.pictureFileName,
+      $wineType: wine.wineType,
+      $wineCategory: wine.wineCategory,
+      $bottleType: wine.bottleType,
+      $isInBoxes: wine.isInBoxes,
+      $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count,
+      $source: wine.source,
+      $positionComment: wine.positionComment,
+    }
+  );
+  if (wine.isInBoxes) {
+    const promises = bottles.map((bottle) => {
+      return db.runAsync(
+        'INSERT INTO bottles (wineId, box, cell) VALUES ($wineId, $box, $cell)',
         {
-          $name: wine.name,
-          $year: wine.year,
-          $wineFamily: wine.wineFamily,
-          $blur: wine.blur,
-          $thumbnailFileName: wine.thumbnailFileName,
-          $pictureFileName: wine.pictureFileName,
-          $wineType: wine.wineType,
-          $wineCategory: wine.wineCategory,
-          $bottleType: wine.bottleType,
-          $isInBoxes: wine.isInBoxes,
-          $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count,
-          $source: wine.source,
-          $positionComment: wine.positionComment,
-        },
-        function (err) {
-          if (err) {
-            logger.error('Error adding Wine', err);
-            reject(err);
-          } else {
-            const wineId = this.lastID;
-            if (wine.isInBoxes) {
-              var stmt = db.prepare(
-                'INSERT INTO bottles (wineId, box, cell) VALUES ($wineId, $box, $cell)'
-              );
-              bottles.forEach((bottle) => {
-                stmt.run({
-                  $wineId: wineId,
-                  $box: bottle.box,
-                  $cell: bottle.cell,
-                });
-              });
-              stmt.finalize((err) => {
-                if (err) {
-                  logger.error('Error adding bottles', err);
-                  reject(err);
-                }
-                db.run('COMMIT');
-                resolve();
-              });
-            } else {
-              db.run('COMMIT');
-              resolve();
-            }
-          }
+          $wineId: wineId,
+          $box: bottle.box,
+          $cell: bottle.cell,
         }
       );
     });
-  });
+
+    await Promise.all(promises);
+  }
+  await db.run('COMMIT');
 };
 
 const removeOutsideBottles = (wineId, count) => {
