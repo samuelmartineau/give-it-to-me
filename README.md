@@ -2,10 +2,6 @@
 
 ## Dependencies
 
-### yarn
-
-I am using yarn's workspace to dev in monorepo
-
 ### imagemagick
 
 [imagemagick!](http://www.imagemagick.org)
@@ -13,6 +9,14 @@ I am using yarn's workspace to dev in monorepo
 ### graphicsmagick
 
 [graphicsmagick!](http://www.graphicsmagick.org/)
+
+## Developpement
+
+### Requirements
+
+#### nginx
+
+[install](https://www.nginx.com/)
 
 ## Installation
 
@@ -22,7 +26,7 @@ Init db tables
 npm run init
 ```
 
-## Developpement
+### Run
 
 ```
 npm run dev

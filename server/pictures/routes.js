@@ -9,15 +9,14 @@ const { generateThumbnail, generateBlur } = require('./services');
 const pathToTmpAssets = path.join(
   __dirname,
   '../../',
-  config.ASSETS_BASE_URL,
   config.UPLOADS_TMP_DIRECTORY
 );
 
 const storage = multer.diskStorage({
   destination: pathToTmpAssets,
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, file.originalname);
-  }
+  },
 });
 
 const upload = multer({ storage: storage });
@@ -30,11 +29,11 @@ router
     let thumbnailFile;
     const fileExtension = path.extname(req.file.originalname);
     generateThumbnail(req.file.path, fileExtension)
-      .then(thumbnail => {
+      .then((thumbnail) => {
         thumbnailFile = thumbnail.name;
         return generateBlur(thumbnail.path);
       })
-      .then(blur => {
+      .then((blur) => {
         res.json({
           thumbnailFileName: path.join(
             config.ASSETS_BASE_URL,
@@ -46,10 +45,10 @@ router
             config.UPLOADS_TMP_DIRECTORY,
             req.file.originalname
           ),
-          blur: blur
+          blur: blur,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         logger.error('error during picture processing', error);
         res.status(500).json({ error: error });
       });

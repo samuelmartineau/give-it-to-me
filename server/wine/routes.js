@@ -2,7 +2,7 @@ const express = require('express');
 
 const config = require('../../config');
 const { getCellar, addWine, removeOutsideBottles } = require('./services');
-const { moveWineToPermanetFolder } = require('../pictures/services');
+const { moveWineToPermanentFolder } = require('../pictures/services');
 const { updateClients } = require('../handleChanges');
 
 const router = express.Router();
@@ -11,31 +11,31 @@ router
   .route(config.ROUTES.WINE)
   .get((req, res) => {
     return getCellar()
-      .then(cellar => {
+      .then((cellar) => {
         updateClients();
         res.status(200).json(cellar);
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(500).json(error);
       });
   })
   .post((req, res) => {
-    return moveWineToPermanetFolder(
+    return moveWineToPermanentFolder(
       req.body.wine.thumbnailFileName,
       req.body.wine.pictureFileName
     )
-      .then(fileUploaded => {
+      .then((fileUploaded) => {
         let computeWineData = {
           ...req.body.wine,
-          ...fileUploaded
+          ...fileUploaded,
         };
         return addWine(computeWineData);
       })
-      .then(message => {
+      .then((message) => {
         updateClients();
         res.status(200).json(message);
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(500).json(error);
       });
   });
@@ -43,11 +43,11 @@ router
 router.route(`${config.ROUTES.WINE}/:wineId`).delete((req, res) => {
   const { wineId } = req.params;
   return removeOutsideBottles(wineId, req.body.count)
-    .then(message => {
+    .then((message) => {
       updateClients();
       res.status(200).json(message);
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json(error);
     });
 });

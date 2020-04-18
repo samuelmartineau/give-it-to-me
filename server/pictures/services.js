@@ -1,13 +1,10 @@
 const { subClass } = require('gm');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
-const fs = require('fs');
-const bluebird = require('bluebird');
+const { promise: fs } = require('fs');
 
 const config = require('../../config');
 const logger = require('../utils/logger');
-
-bluebird.promisifyAll(fs);
 
 const gm = subClass({ imageMagick: true });
 
@@ -40,22 +37,22 @@ const generateThumbnail = (sourcePath, extension) => {
       )
       .autoOrient()
       .quality(config.PICTURE_UPLOAD.THUMBNAIL.QUALITY)
-      .on('error', error => {
+      .on('error', (error) => {
         logger.error(error);
         return reject('Erreur de paramètre avec l’image uploadée');
       })
-      .write(tmpFileName, error => {
+      .write(tmpFileName, (error) => {
         if (error) {
           logger.error(error);
           return reject({
-            message: 'Erreur lors de la génération de la miniature'
+            message: 'Erreur lors de la génération de la miniature',
           });
         }
         return resolve({ name: filename, path: tmpFileName });
       });
   });
 };
-const generateBlur = path => {
+const generateBlur = (path) => {
   return new Promise((resolve, reject) => {
     gm(path)
       .resize(3, 3)
@@ -67,14 +64,14 @@ const generateBlur = path => {
 
         return resolve(`data:image/gif;base64,${buffer.toString('base64')}`);
       })
-      .on('error', function(error) {
+      .on('error', function (error) {
         logger.error(error);
         return reject('Erreur de paramètre avec le flou');
       });
   });
 };
 
-const moveWineToPermanetFolder = (thumbnailFilePath, pictureFilePath) => {
+const moveWineToPermanentFolder = (thumbnailFilePath, pictureFilePath) => {
   const thumbnailFileName = path.basename(thumbnailFilePath);
   const pictureFileName = path.basename(pictureFilePath);
   const tempThumbnailFileNamePath = path.join(TEMP_DIR, thumbnailFileName);
@@ -95,10 +92,10 @@ const moveWineToPermanetFolder = (thumbnailFilePath, pictureFilePath) => {
     .then(() => {
       return { thumbnailFileName, pictureFileName: newFileName };
     })
-    .catch(error => {
+    .catch((error) => {
       logger.error(error);
       return Promise.reject({
-        message: 'Erreur lors du déplacement des images temporaires'
+        message: 'Erreur lors du déplacement des images temporaires',
       });
     });
 };
@@ -106,5 +103,5 @@ const moveWineToPermanetFolder = (thumbnailFilePath, pictureFilePath) => {
 module.exports = {
   generateThumbnail,
   generateBlur,
-  moveWineToPermanetFolder
+  moveWineToPermanentFolder,
 };

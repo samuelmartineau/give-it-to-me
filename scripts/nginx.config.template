@@ -26,11 +26,6 @@ http {
             proxy_cache_bypass $http_upgrade;
         }
 
-        location /service-worker.js {
-            root $HERE/assets/;
-            try_files $uri $uri/ =404;
-        }
-
         location /assets/ {
             root $HERE;
             try_files $uri $uri/ =404;

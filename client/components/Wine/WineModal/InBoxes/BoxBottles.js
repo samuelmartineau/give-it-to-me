@@ -2,30 +2,29 @@
 import React from 'react';
 import tinycolor from 'tinycolor2';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
 import Bottle from '~/client/components/Cellar/Bottle';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
 import {
   getBottleByPosition,
-  isBottleSelectedToBeRemoved
+  isBottleSelectedToBeRemoved,
 } from '~/client/store';
 import {
   getCellId,
   getBottleInfos,
-  getBottleId
+  getBottleId,
 } from '~/client/components/Cellar/utils';
 
 const BoxBottles = ({
   boxId,
-  selectableBottleIds
+  selectableBottleIds,
 }: {
   boxId: number,
-  selectableBottleIds: Array<number>
+  selectableBottleIds: Array<number>,
 }) => {
   return (
     <g>
       <BoxCells boxId={boxId}>
-        {cellId => {
+        {(cellId) => {
           return (
             <CellConnected
               key={getCellId(boxId, cellId)}
@@ -45,13 +44,13 @@ const Cell = ({
   isSelected,
   isSelectable,
   boxId,
-  cellId
+  cellId,
 }: {
   bottle: any,
   isSelected: boolean,
   isSelectable: boolean,
   boxId: number,
-  cellId: number
+  cellId: number,
 }) => {
   if (!bottle) {
     return null;
@@ -65,9 +64,7 @@ const Cell = ({
   } else if (isSelectable) {
     color = bottle.color;
   } else {
-    color = tinycolor(bottle.color)
-      .lighten(30)
-      .toString();
+    color = tinycolor(bottle.color).lighten(30).toString();
   }
   return (
     <Bottle
@@ -81,8 +78,8 @@ const Cell = ({
   );
 };
 
-const CellConnected = compose(
-  connect((state, { boxId, cellId, selectableBottleIds }) => {
+const CellConnected = connect(
+  (state, { boxId, cellId, selectableBottleIds }) => {
     const bottle = getBottleByPosition(state, boxId, cellId);
     let isSelected = false;
     if (bottle) {
@@ -91,9 +88,9 @@ const CellConnected = compose(
     return {
       bottle,
       isSelected,
-      isSelectable: !!bottle && selectableBottleIds.includes(bottle.id)
+      isSelectable: !!bottle && selectableBottleIds.includes(bottle.id),
     };
-  })
+  }
 )(Cell);
 
 export default BoxBottles;

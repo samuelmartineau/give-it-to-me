@@ -2,7 +2,6 @@ const fs = require('fs');
 const next = require('next');
 const config = require('./config');
 
-const logger = require('./server/utils/logger');
 const server = require('./server/server');
 
 if (!fs.existsSync(config.UPLOADS_PERM)) {
@@ -16,7 +15,7 @@ const app = next({ dev: !config.isProduction });
 const handle = app.getRequestHandler();
 
 const URL_MAP = {
-  '/': '/'
+  '/': '/',
 };
 
 app
@@ -31,7 +30,7 @@ app
       }
     });
   })
-  .catch(ex => {
+  .catch((ex) => {
     console.error(ex.stack);
     process.exit(1);
   });
