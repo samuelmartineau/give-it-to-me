@@ -81,21 +81,14 @@ const moveWineToPermanentFolder = (thumbnailFilePath, pictureFilePath) => {
   const fileExtension = path.extname(pictureFileName);
   const newFileName = [uuidv4(), fileExtension].join('');
   const permPictureFileNamePath = path.resolve(PERM_DIR, newFileName);
-  let promises = [];
-  promises.push(
-    fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath)
-  );
-  promises.push(fs.rename(tempPictureFileNamePath, permPictureFileNamePath));
-  return Promise.all(promises)
-    .then(() => {
-      return { thumbnailFileName, pictureFileName: newFileName };
-    })
-    .catch((error) => {
-      logger.error(error);
-      return Promise.reject({
-        message: 'Erreur lors du déplacement des images temporaires',
-      });
-    });
+  let promises = [
+    fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath),
+    fs.rename(tempPictureFileNamePath, permPictureFileNamePath),
+  ];
+
+  return Promise.all(promises).then(() => {
+    return { thumbnailFileName, pictureFileName: newFileName };
+  });
 };
 
 module.exports = {

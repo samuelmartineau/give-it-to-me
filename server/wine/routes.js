@@ -9,35 +9,31 @@ const router = express.Router();
 
 router
   .route(config.ROUTES.WINE)
-  .get((req, res) => {
-    return getCellar()
-      .then((cellar) => {
-        updateClients();
-        res.status(200).json(cellar);
-      })
-      .catch((error) => {
-        res.status(500).json(error);
-      });
+  .get(async (req, res) => {
+    try {
+      const cellar = await getCellar();
+      updateClients();
+      res.status(200).json(cellar);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   })
-  .post((req, res) => {
-    return moveWineToPermanentFolder(
+  .post(async (req, res) => {
+    const fileUploaded = await moveWineToPermanentFolder(
       req.body.wine.thumbnailFileName,
       req.body.wine.pictureFileName
-    )
-      .then((fileUploaded) => {
-        let computeWineData = {
-          ...req.body.wine,
-          ...fileUploaded,
-        };
-        return addWine(computeWineData);
-      })
-      .then((message) => {
-        updateClients();
-        res.status(200).json(message);
-      })
-      .catch((error) => {
-        res.status(500).json(error);
-      });
+    );
+    let computeWineData = {
+      ...req.body.wine,
+      ...fileUploaded,
+    };
+    try {
+      await addWine(computeWineData);
+      updateClients();
+      res.status(200).json({ message: 'Vin ajouté avec succés' });
+    } catch (error) {
+      res.status(500).json(error);
+    }
   });
 
 router.route(`${config.ROUTES.WINE}/:wineId`).delete((req, res) => {

@@ -3,52 +3,41 @@ const { db } = require('../utils/db');
 const logger = require('../utils/logger');
 const config = require('../../config');
 
-const getCellar = () => {
-  return new Promise((resolve, reject) => {
-    db.serialize(() => {
-      db.all(
-        `
-        SELECT w.*, 
-        (SELECT 
-          json_group_array(
-            json_object('id', id, 'box', box, 'cell', cell)
-          ) AS json_result
-          FROM (SELECT * FROM bottles AS b WHERE 
-            b.wineId = w.id
-            AND b._deleted = 0  
-         )) as bottles,
-         (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
-          FROM wines AS w
-          LEFT JOIN favorites AS f ON w.id = f.wineId
-          WHERE w.bottlesCount > 0
-      `,
-        (err, wines) => {
-          if (err) {
-            logger.error(err.stack);
-            reject(err);
-          } else {
-            wines.forEach(wine => {
-              wine.bottles = JSON.parse(wine.bottles);
-              wine.thumbnailFileName = path.join(
-                config.ASSETS_BASE_URL,
-                config.UPLOADS_PERM,
-                wine.thumbnailFileName
-              );
-              wine.pictureFileName = path.join(
-                config.ASSETS_BASE_URL,
-                config.UPLOADS_PERM,
-                wine.pictureFileName
-              );
-            });
-            resolve(wines);
-          }
-        }
-      );
-    });
+const getCellar = async () => {
+  const wines = await db.allAsync(`
+  SELECT w.*, 
+  (SELECT 
+    json_group_array(
+      json_object('id', id, 'box', box, 'cell', cell)
+    ) AS json_result
+    FROM (SELECT * FROM bottles AS b WHERE 
+      b.wineId = w.id
+      AND b._deleted = 0  
+   )) as bottles,
+   (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
+    FROM wines AS w
+    LEFT JOIN favorites AS f ON w.id = f.wineId
+    WHERE w.bottlesCount > 0
+`);
+
+  wines.forEach((wine) => {
+    wine.bottles = JSON.parse(wine.bottles);
+    wine.thumbnailFileName = path.join(
+      config.ASSETS_BASE_URL,
+      config.UPLOADS_PERM,
+      wine.thumbnailFileName
+    );
+    wine.pictureFileName = path.join(
+      config.ASSETS_BASE_URL,
+      config.UPLOADS_PERM,
+      wine.pictureFileName
+    );
   });
+
+  return wines;
 };
 
-const addWine = wine => {
+const addWine = (wine) => {
   const { bottles } = wine;
 
   return new Promise((resolve, reject) => {
@@ -85,9 +74,9 @@ const addWine = wine => {
           $isInBoxes: wine.isInBoxes,
           $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count,
           $source: wine.source,
-          $positionComment: wine.positionComment
+          $positionComment: wine.positionComment,
         },
-        function(err) {
+        function (err) {
           if (err) {
             logger.error('Error adding Wine', err);
             reject(err);
@@ -97,24 +86,24 @@ const addWine = wine => {
               var stmt = db.prepare(
                 'INSERT INTO bottles (wineId, box, cell) VALUES ($wineId, $box, $cell)'
               );
-              bottles.forEach(bottle => {
+              bottles.forEach((bottle) => {
                 stmt.run({
                   $wineId: wineId,
                   $box: bottle.box,
-                  $cell: bottle.cell
+                  $cell: bottle.cell,
                 });
               });
-              stmt.finalize(err => {
+              stmt.finalize((err) => {
                 if (err) {
                   logger.error('Error adding bottles', err);
                   reject(err);
                 }
                 db.run('COMMIT');
-                resolve({ message: 'Vin ajouté avec succés' });
+                resolve();
               });
             } else {
               db.run('COMMIT');
-              resolve({ message: 'Vin ajouté avec succés' });
+              resolve();
             }
           }
         }
@@ -134,9 +123,9 @@ const removeOutsideBottles = (wineId, count) => {
       `,
         {
           $wineId: wineId,
-          $count: count
+          $count: count,
         },
-        err => {
+        (err) => {
           if (err) {
             logger.error('error', err);
             reject(err);
@@ -151,5 +140,5 @@ const removeOutsideBottles = (wineId, count) => {
 module.exports = {
   getCellar,
   addWine,
-  removeOutsideBottles
+  removeOutsideBottles,
 };

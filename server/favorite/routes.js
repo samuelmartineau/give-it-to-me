@@ -24,7 +24,7 @@ router.route(config.ROUTES.FAVORITE).post(async (req, res) => {
 router
   .route(urlJoin(config.ROUTES.FAVORITE, ':wineId'))
   .delete(async (req, res) => {
-    const { wineId } = req.body;
+    const { wineId } = req.params;
     try {
       await removeFromFavorite(wineId);
       updateClients();

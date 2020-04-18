@@ -19,11 +19,10 @@ const handleChanges = (serverHttp) => {
   });
 };
 
-const updateClients = () => {
-  getCellar().then((cellar) => {
-    clients.forEach((stream) => {
-      stream.send(JSON.stringify({ cellar }));
-    });
+const updateClients = async () => {
+  const cellar = await getCellar();
+  clients.forEach((stream) => {
+    stream.send(JSON.stringify({ cellar }));
   });
 };
 

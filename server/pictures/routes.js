@@ -26,33 +26,31 @@ const router = express.Router();
 
 router
   .route(config.ROUTES.PICTURE)
-  .post(upload.single(config.PICTURE_UPLOAD.FILE_NAME), (req, res) => {
-    let thumbnailFile;
-    const fileExtension = path.extname(req.file.originalname);
-    generateThumbnail(req.file.path, fileExtension)
-      .then((thumbnail) => {
-        thumbnailFile = thumbnail.name;
-        return generateBlur(thumbnail.path);
-      })
-      .then((blur) => {
-        res.json({
-          thumbnailFileName: path.join(
-            config.ASSETS_BASE_URL,
-            config.UPLOADS_TMP_DIRECTORY,
-            thumbnailFile
-          ),
-          pictureFileName: path.join(
-            config.ASSETS_BASE_URL,
-            config.UPLOADS_TMP_DIRECTORY,
-            req.file.originalname
-          ),
-          blur: blur,
-        });
-      })
-      .catch((error) => {
-        logger.error('error during picture processing', error);
-        res.status(500).json({ error: error });
+  .post(upload.single(config.PICTURE_UPLOAD.FILE_NAME), async (req, res) => {
+    try {
+      let thumbnailFile;
+      const fileExtension = path.extname(req.file.originalname);
+      const thumbnail = await generateThumbnail(req.file.path, fileExtension);
+      thumbnailFile = thumbnail.name;
+      const blur = await generateBlur(thumbnail.path);
+
+      res.json({
+        thumbnailFileName: path.join(
+          config.ASSETS_BASE_URL,
+          config.UPLOADS_TMP_DIRECTORY,
+          thumbnailFile
+        ),
+        pictureFileName: path.join(
+          config.ASSETS_BASE_URL,
+          config.UPLOADS_TMP_DIRECTORY,
+          req.file.originalname
+        ),
+        blur: blur,
       });
+    } catch (error) {
+      logger.error('error during picture processing', error);
+      res.status(500).json({ error: error });
+    }
   });
 
 module.exports = router;
