@@ -34,10 +34,10 @@ const Main = styled.div`
 `;
 
 type AppFrameProps = {
-  width: Number,
-  classes: {},
-  title: string,
-  children: React.Node,
+  width: Number;
+  classes: {};
+  title: string;
+  children: React.Node;
 };
 
 export const Layout = ({ title, children }: AppFrameProps) => {

@@ -50,23 +50,22 @@
     "lint": "eslint ./**/*.js"
   },
   "devDependencies": {
+    "@types/node": "^13.13.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-eslint": "^10.1.0",
     "babel-plugin-root-import": "^6.5.0",
     "babel-plugin-styled-components": "^1.10.7",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
-    "flow-bin": "^0.123.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.1.3",
     "nodemon": "^2.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "typescript": "^3.8.3"
   },
   "lint-staged": {
     "*.{js,json,css}": [
