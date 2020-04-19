@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import tinycolor from 'tinycolor2';
 import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,7 +19,7 @@ const WineCardWrapper = styled.div`
   position: relative;
   height: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px;
   margin: 1em;
-  ${props => props.theme.media.handheld`
+  ${(props) => props.theme.media.handheld`
   margin: 0.5em 0;
 `};
 `;
@@ -125,78 +125,66 @@ const WinePane = styled.div`
 `;
 
 type WineCardProps = {
-  wine: WineType,
-  children: Function,
-  className: string
+  wine: WineType;
+  className: string;
 };
 
-export class WineCard extends React.Component<WineCardProps> {
-  state = { open: false };
+export const WineCard: FC<WineCardProps> = ({
+  wine = {},
+  className,
+  children,
+}) => {
+  const [open, setOpen] = useState(false);
 
-  onToggle = () => {
-    this.setState(state => ({ open: !state.open }));
-  };
+  const onToggle = () => setOpen((previous) => !previous);
 
-  render() {
-    const { wine = {}, children } = this.props;
-    const { open } = this.state;
-    const wineColor = WINE_TYPES[wine.wineType].color;
-    const textColor = fontColorContrast(wineColor);
-    const softColor = tinycolor(wineColor)
-      .lighten(20)
-      .toString();
-    const cornerColor = tinycolor(wineColor)
-      .darken(20)
-      .toString();
+  const wineColor = WINE_TYPES[wine.wineType].color;
+  const textColor = fontColorContrast(wineColor);
+  const softColor = tinycolor(wineColor).lighten(20).toString();
+  const cornerColor = tinycolor(wineColor).darken(20).toString();
 
-    return (
-      <WineCardWrapper className={this.props.className}>
-        <MenuButton
+  return (
+    <WineCardWrapper className={className}>
+      <MenuButton
+        open={open}
+        type="button"
+        onClick={onToggle}
+        style={{ background: softColor, color: textColor }}
+      >
+        <MenuIcon />
+      </MenuButton>
+      <WineCardImageContainer
+        open={open}
+        href={wine.pictureFileName}
+        target="_blank"
+      >
+        <WineImage
           open={open}
-          type="button"
-          onClick={this.onToggle}
-          style={{ background: softColor, color: textColor }}
-        >
-          <MenuIcon />
-        </MenuButton>
-        <WineCardImageContainer
-          open={open}
-          href={wine.pictureFileName}
-          target="_blank"
-        >
-          <WineImage
-            open={open}
-            width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
-            height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-            src={wine.thumbnailFileName}
-            lazyLoader={wine.blur}
-          />
-        </WineCardImageContainer>
-        {open && (
-          <WineCardContainer
-            style={{ background: softColor, color: textColor }}
-          >
-            {children(wine)}
-          </WineCardContainer>
-        )}
-        <WineCorner
-          open={open}
-          style={
-            open
-              ? { borderRightColor: cornerColor, borderTopColor: cornerColor }
-              : {
-                  borderRightColor: cornerColor,
-                  borderBottomColor: cornerColor
-                }
-          }
+          width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+          height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+          src={wine.thumbnailFileName}
+          lazyLoader={wine.blur}
         />
-        <WinePane
-          open={open}
-          style={{ background: wineColor, color: textColor }}
-        >
-          {wine.name}
-        </WinePane>
-      </WineCardWrapper>
-    );
-  }
-}
+      </WineCardImageContainer>
+      {open && (
+        <WineCardContainer style={{ background: softColor, color: textColor }}>
+          {children(wine)}
+        </WineCardContainer>
+      )}
+      <WineCorner
+        open={open}
+        style={
+          open
+            ? { borderRightColor: cornerColor, borderTopColor: cornerColor }
+            : {
+                borderRightColor: cornerColor,
+                borderBottomColor: cornerColor,
+              }
+        }
+      />
+      <WinePane open={open} style={{ background: wineColor, color: textColor }}>
+        {wine.name}
+      </WinePane>
+    </WineCardWrapper>
+  );
+};

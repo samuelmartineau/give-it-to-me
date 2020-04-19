@@ -9,12 +9,9 @@ type Props = {
 };
 
 const CellWizard = ({ wine }: Props) => {
+  if (!wine) return null;
   return (
-    !!wine && (
-      <WineCard wine={wine}>
-        {(wine) => <WineContentCard wine={wine} />}
-      </WineCard>
-    )
+    <WineCard wine={wine}>{(wine) => <WineContentCard wine={wine} />}</WineCard>
   );
 };
 
