@@ -26,8 +26,8 @@ const Content = styled.p`
 `;
 
 type Props = {
-  icon: React.Node;
-  title: React.Node;
+  icon: React.ReactNode;
+  title: React.ReactNode;
   message: string;
 };
 

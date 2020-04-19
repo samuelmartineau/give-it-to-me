@@ -37,7 +37,7 @@ type AppFrameProps = {
   width: Number;
   classes: {};
   title: string;
-  children: React.Node;
+  children: React.ReactNode;
 };
 
 export const Layout = ({ title, children }: AppFrameProps) => {
