@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ReactModal from 'react-modal';
 import styled, { createGlobalStyle } from 'styled-components';
 
-type Props = {
+type ReactModalAdapterProps = {
   isOpen: boolean;
   onRequestClose: Function;
-  children: React.Node;
+  className: string;
+  modalClassName: string;
 };
 
-function ReactModalAdapter({ className, modalClassName, ...props }) {
+const ReactModalAdapter: FC<ReactModalAdapterProps> = ({
+  className,
+  modalClassName,
+  ...props
+}) => {
   return (
     <ReactModal
       ariaHideApp={false}
@@ -17,7 +22,7 @@ function ReactModalAdapter({ className, modalClassName, ...props }) {
       {...props}
     />
   );
-}
+};
 
 const GlobalStyle = createGlobalStyle`
   .ReactModal__Body--open {
@@ -69,16 +74,18 @@ export const ModalActions = styled.div`
   margin: 1rem;
 `;
 
-export class Modal extends React.PureComponent<Props> {
-  render() {
-    const { isOpen, onRequestClose, children } = this.props;
-    return (
-      <React.Fragment>
-        <GlobalStyle />
-        <StyledModal isOpen={isOpen} onRequestClose={onRequestClose}>
-          {children}
-        </StyledModal>
-      </React.Fragment>
-    );
-  }
-}
+type ModalProps = {
+  isOpen: boolean;
+  onRequestClose: Function;
+};
+
+export const Modal: FC<ModalProps> = ({ isOpen, onRequestClose, children }) => {
+  return (
+    <>
+      <GlobalStyle />
+      <StyledModal isOpen={isOpen} onRequestClose={onRequestClose}>
+        {children}
+      </StyledModal>
+    </>
+  );
+};

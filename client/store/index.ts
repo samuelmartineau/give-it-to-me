@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import * as api from '../api';
 
-export const makeStore = initialState => {
+export const makeStore = (initialState) => {
   return createStore(
     reducer,
     initialState,
@@ -44,7 +44,7 @@ export {
   resetRemoveState,
   toggleOutsideBoxesFilter,
   removeOutsideBottles,
-  selectWineToRemove
+  selectWineToRemove,
 } from './actions';
 
 export {
@@ -70,5 +70,7 @@ export {
   isBoxBrowsed,
   isBoxBrowseable,
   getBrowsedWine,
-  getFiltersCount
+  getFiltersCount,
 } from './selectors';
+
+export type RootState = ReturnType<typeof reducer>;

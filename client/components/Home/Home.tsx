@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 
 import CellarContainer from '~/client/components/Cellar/CellarContainer';
@@ -7,8 +7,8 @@ import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
 import CellarBottles from '~/client/components/Cellar/CellarBottles';
 import CellarBox from '~/client/components/Cellar/CellarBox';
 import config from '~/config';
-import { WineType, BottleType } from '~/client/components/Wine/Wine.type';
 import { YearsChart } from './YearsChart';
+import { RootState } from '~/client/store';
 
 const Title = styled.div`
   font-size: 30px;
@@ -16,10 +16,7 @@ const Title = styled.div`
   margin: 1rem;
 `;
 
-type Props = {
-  wines: WineType[];
-  bottles: BottleType[];
-};
+type Props = PropsFromRedux;
 
 const Home: FC<Props> = ({ wines, bottles }) => (
   <div>
@@ -37,6 +34,11 @@ const Home: FC<Props> = ({ wines, bottles }) => (
     <YearsChart wines={wines} />
   </div>
 );
-export default connect(({ wines, bottles }) => {
+
+const connector = connect(({ wines, bottles }: RootState) => {
   return { wines: wines.all.map((id) => wines.map[id]), bottles: bottles.all };
-})(Home);
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Home);

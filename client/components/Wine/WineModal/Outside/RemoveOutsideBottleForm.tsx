@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { TextField } from '~/client/components/Toolkit';
@@ -20,22 +20,19 @@ type Props = {
   count: number;
 };
 
-class RemoveOutsideBottleForm extends React.PureComponent<Props> {
-  render() {
-    const { wine, count, updateCount } = this.props;
-    return (
-      <Wrapper>
-        <h2>
-          Ce vin à {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
-        </h2>
-        <Label>
-          <Text>Combien voulez-vous supprimer de bouteille?</Text>
-          <TextField onChange={updateCount} type="number" value={count} />
-        </Label>
-      </Wrapper>
-    );
-  }
-}
+const RemoveOutsideBottleForm: FC<Props> = ({ wine, count, updateCount }) => {
+  return (
+    <Wrapper>
+      <h2>
+        Ce vin à {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
+      </h2>
+      <Label>
+        <Text>Combien voulez-vous supprimer de bouteille?</Text>
+        <TextField onChange={updateCount} type="number" value={count} />
+      </Label>
+    </Wrapper>
+  );
+};
 
 export default connect(
   (state) => ({

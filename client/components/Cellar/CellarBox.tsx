@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { cellar } from '~/config';
 
 const { CELLAR_SCHEMA, BOX_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = cellar;
 
 type Props = {
   boxId: number;
-  onSelect?: Function;
-  className: string;
+  onSelect?: (event: React.MouseEvent<SVGRectElement, MouseEvent>) => void;
+  className?: string;
 };
 
-const CellarBox = ({ boxId, onSelect, className }: Props) => {
+const CellarBox: FC<Props> = ({ boxId, onSelect, className }) => {
   const box = CELLAR_SCHEMA[boxId];
   return (
     <rect

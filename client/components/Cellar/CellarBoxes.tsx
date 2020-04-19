@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { boxes } from './utils';
 
 type Props = {
-  children: Function;
+  children: (boxId: number) => React.ReactNode;
 };
 
-const CellarBoxes = ({ children }: Props) => {
+const CellarBoxes: FC<Props> = ({ children }) => {
   return <g>{boxes.map((boxId) => children(boxId))}</g>;
 };
 
