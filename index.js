@@ -11,8 +11,6 @@ const permFolderPath = path.join(
   config.UPLOADS_PERM
 );
 
-console.log({ permFolderPath });
-
 if (!fs.existsSync(permFolderPath)) {
   fs.mkdirSync(permFolderPath);
 }
