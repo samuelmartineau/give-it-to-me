@@ -82,6 +82,7 @@ export const getWineBottlesAsMap = (state: RootState, wineId: number) => {
 
 export const getRemovedBottles = (state: RootState) =>
   remove.getRemovedBottles(state.remove);
+
 export const isBottleSelectedToBeRemoved = (
   state: RootState,
   bottleId: number

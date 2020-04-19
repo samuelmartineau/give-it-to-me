@@ -38,8 +38,8 @@ class WineModalFolders extends React.PureComponent<Props> {
         {Object.keys(bottles).map((boxId) => (
           <BoxWrapper key={boxId}>
             <h2>Caisse numéro {boxId}</h2>
-            <BoxContainer boxId={boxId}>
-              <BoxCells boxId={boxId}>
+            <BoxContainer boxId={parseInt(boxId, 10)}>
+              <BoxCells boxId={parseInt(boxId, 10)}>
                 {(cellId) => {
                   const bottle = bottles[boxId] ? bottles[boxId][cellId] : null;
                   return (
@@ -50,13 +50,16 @@ class WineModalFolders extends React.PureComponent<Props> {
                       }
                       isCellSelectable={!!bottle}
                       bottleId={bottle ? bottle.id : null}
-                      boxId={boxId}
+                      boxId={parseInt(boxId, 10)}
                       cellId={cellId}
                     />
                   );
                 }}
               </BoxCells>
-              <BoxBottles boxId={boxId} selectableBottleIds={bottleIds} />
+              <BoxBottles
+                boxId={parseInt(boxId, 10)}
+                selectableBottleIds={bottleIds}
+              />
             </BoxContainer>
           </BoxWrapper>
         ))}

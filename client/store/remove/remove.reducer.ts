@@ -26,11 +26,14 @@ const removeReducer = (
   switch (action.type) {
     case SELECT_BOTTLE_TO_DELETE: {
       const { bottleId } = action.payload;
-      return { bottleIds: state.bottleIds.concat(bottleId) };
+      return { ...state, bottleIds: state.bottleIds.concat(bottleId) };
     }
     case UNSELECT_BOTTLE_TO_DELETE: {
       const { bottleId } = action.payload;
-      return { bottleIds: state.bottleIds.filter((id) => id !== bottleId) };
+      return {
+        ...state,
+        bottleIds: state.bottleIds.filter((id) => id !== bottleId),
+      };
     }
     case SET_COUNT: {
       const { value } = action.payload;

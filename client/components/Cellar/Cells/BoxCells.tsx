@@ -1,13 +1,14 @@
+import React, { FC } from 'react';
 import { getBoxCells } from '../utils';
 
 type Props = {
   boxId: number;
-  children: Function;
+  children: (cellId: number) => React.ReactNode;
 };
 
-const BoxCells = ({ boxId, children = () => {} }: Props) => {
+const BoxCells: FC<Props> = ({ boxId, children }) => {
   const cells = getBoxCells(boxId);
-  return cells.map((cellId) => children(cellId));
+  return <>{cells.map((cellId) => children(cellId))}</>;
 };
 
 export default BoxCells;

@@ -1,4 +1,4 @@
-import { compose, withProps } from 'recompose';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import BoxCell from './BoxCell';
@@ -11,8 +11,16 @@ const BoxCellStyled = styled(BoxCell)`
   }
 `;
 
-export default compose(
-  withProps(({ onSelect, boxId, cellId }) => ({
-    onSelect: () => onSelect(boxId, cellId),
-  }))
-)(BoxCellStyled);
+type Props = {
+  onSelect: (boxId: number, cellId: number) => void;
+  boxId: number;
+  cellId: number;
+};
+
+const BoxCellSelectable: FC<Props> = ({ onSelect, boxId, cellId }) => {
+  return (
+    <BoxCellStyled onSelect={() => onSelect(boxId, cellId)} cellId={cellId} />
+  );
+};
+
+export default BoxCellSelectable;

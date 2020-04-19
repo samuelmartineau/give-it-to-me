@@ -5,8 +5,8 @@ const { CELL_SIZE, CELL_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = cellar;
 
 type Props = {
   cellId: number;
-  onSelect: (event: React.MouseEvent<SVGRectElement, MouseEvent>) => void;
-  className: string;
+  onSelect?: (event: React.MouseEvent<SVGRectElement, MouseEvent>) => void;
+  className?: string;
 };
 
 const BoxCell: FC<Props> = ({ cellId, onSelect = () => {}, className }) => {

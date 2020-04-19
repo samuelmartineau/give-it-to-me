@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { cellar } from '~/config';
 
@@ -10,12 +10,11 @@ const Svg = styled.svg`
 const { CELL_SIZE, CELLAR_SCHEMA, FULL_BOX_WIDTH_CELLS } = cellar;
 
 type Props = {
-  children: any;
   boxId: number;
-  className: string;
+  className?: string;
 };
 
-const BoxContainer = ({ boxId, children, className }: Props) => {
+const BoxContainer: FC<Props> = ({ boxId, children, className }) => {
   const box = CELLAR_SCHEMA[boxId];
   const canvasWidth = box.schema[0] * CELL_SIZE;
   const canvasHeigh = box.schema[1] * CELL_SIZE;
