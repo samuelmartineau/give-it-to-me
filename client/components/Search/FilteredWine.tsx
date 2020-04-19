@@ -1,19 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { WineCard } from '~/client/components/Wine/WineCard';
-import { getWineById, isWineFiltered } from '~/client/store';
+import { getWineById, isWineFiltered, RootState } from '~/client/store';
 
 const WineCardStyled = styled(WineCard)`
   align-self: center;
   justify-self: center;
 `;
 
-type Props = {
-  wine: {};
-  children: React.Node;
-  isFiltered: boolean;
-};
+type Props = PropsFromRedux;
 
 class FilteredWine extends React.Component<Props> {
   state = {
@@ -37,7 +33,13 @@ class FilteredWine extends React.Component<Props> {
   }
 }
 
-export default connect((state, { wineId }) => ({
-  wine: getWineById(state, wineId),
-  isFiltered: isWineFiltered(state, wineId),
-}))(FilteredWine);
+const connector = connect(
+  (state: RootState, { wineId }: { wineId: number }) => ({
+    wine: getWineById(state, wineId),
+    isFiltered: isWineFiltered(state, wineId),
+  })
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(FilteredWine);

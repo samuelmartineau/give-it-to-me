@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import tinycolor from 'tinycolor2';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '~/client/components/Cellar/Bottle';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
 import {
   getBottleByPosition,
   isBottleSelectedToBeRemoved,
+  RootState,
 } from '~/client/store';
 import {
   getCellId,
@@ -13,13 +14,10 @@ import {
   getBottleId,
 } from '~/client/components/Cellar/utils';
 
-const BoxBottles = ({
-  boxId,
-  selectableBottleIds,
-}: {
+const BoxBottles: FC<{
   boxId: number;
   selectableBottleIds: Array<number>;
-}) => {
+}> = ({ boxId, selectableBottleIds }) => {
   return (
     <g>
       <BoxCells boxId={boxId}>
@@ -38,18 +36,20 @@ const BoxBottles = ({
   );
 };
 
-const Cell = ({
+type RawProps = {
+  selectableBottleIds: Array<number>;
+  boxId: number;
+  cellId: number;
+};
+
+type Props = PropsFromRedux & RawProps;
+
+const Cell: FC<Props> = ({
   bottle,
   isSelected,
   isSelectable,
   boxId,
   cellId,
-}: {
-  bottle: any;
-  isSelected: boolean;
-  isSelectable: boolean;
-  boxId: number;
-  cellId: number;
 }) => {
   if (!bottle) {
     return null;
@@ -77,8 +77,8 @@ const Cell = ({
   );
 };
 
-const CellConnected = connect(
-  (state, { boxId, cellId, selectableBottleIds }) => {
+const connector = connect(
+  (state: RootState, { boxId, cellId, selectableBottleIds }: RawProps) => {
     const bottle = getBottleByPosition(state, boxId, cellId);
     let isSelected = false;
     if (bottle) {
@@ -90,6 +90,10 @@ const CellConnected = connect(
       isSelectable: !!bottle && selectableBottleIds.includes(bottle.id),
     };
   }
-)(Cell);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const CellConnected = connector(Cell);
 
 export default BoxBottles;

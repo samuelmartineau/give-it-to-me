@@ -1,21 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import throttle from 'lodash/throttle';
 import FilteredWine from './FilteredWine';
 import { WineList } from '~/client/components/Toolkit';
-import { getNextHits } from '~/client/store';
+import { getNextHits, RootState } from '~/client/store';
 import { WineContentCard } from '~/client/components/Wine/WineContentCard';
 
-type Props = {
-  getNextHits: Function;
-  wines: Array<string>;
-};
+type Props = PropsFromRedux;
 
 const THROTTLE_WAIT = 100;
 
 class WinesList extends React.Component<Props> {
-  static scrollFunction;
-  scrollFunction: Function;
+  scrollFunction: (this: Window, ev: UIEvent) => any;
 
   constructor(props: Props) {
     super(props);
@@ -59,11 +55,15 @@ class WinesList extends React.Component<Props> {
   }
 }
 
-export default connect(
-  (state) => ({ wines: state.wines.all }),
+const connector = connect(
+  (state: RootState) => ({ wines: state.wines.all }),
   (dispatch) => ({
     getNextHits() {
       dispatch(getNextHits());
     },
   })
-)(WinesList);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(WinesList);

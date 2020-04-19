@@ -1,16 +1,13 @@
 import React from 'react';
 import queryString from 'query-string';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Router from 'next/router';
 import WinesList from './WinesList';
-import { syncUrlParams, getWinesFiltered } from '~/client/store';
+import { syncUrlParams, getWinesFiltered, RootState } from '~/client/store';
 import SearchFiltersButton from './Filters/SearchFiltersButton';
 import EmptyResults from './EmptyResults';
 
-type Props = {
-  onBeforeState: Function;
-  count: number;
-};
+type Props = PropsFromRedux;
 
 export class Search extends React.Component<Props> {
   componentDidMount() {
@@ -43,8 +40,8 @@ export class Search extends React.Component<Props> {
   }
 }
 
-export default connect(
-  (state) => ({
+const connector = connect(
+  (state: RootState) => ({
     count: getWinesFiltered(state).length,
   }),
   (dispatch) => ({
@@ -52,4 +49,8 @@ export default connect(
       dispatch(syncUrlParams(params));
     },
   })
-)(Search);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Search);

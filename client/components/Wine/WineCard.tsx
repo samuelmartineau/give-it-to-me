@@ -6,7 +6,7 @@ import fontColorContrast from 'font-color-contrast';
 import { PICTURE_UPLOAD, wineTypes } from '~/config';
 
 import { Image } from '../Image/Image';
-import { WineType } from './Wine.type';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const { WINE_TYPES } = wineTypes;
 const openInfosHeight = 90;
@@ -125,15 +125,12 @@ const WinePane = styled.div`
 `;
 
 type WineCardProps = {
-  wine: WineType;
-  className: string;
+  wine: WineEnhanced;
+  className?: string;
+  children: (wine: WineEnhanced) => React.ReactNode;
 };
 
-export const WineCard: FC<WineCardProps> = ({
-  wine = {},
-  className,
-  children,
-}) => {
+export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
   const [open, setOpen] = useState(false);
 
   const onToggle = () => setOpen((previous) => !previous);

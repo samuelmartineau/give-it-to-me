@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { WineType } from '~/client/components/Wine/Wine.type';
 import { CELLAR_RECEIVED } from './wines.types';
 import { WinesActions } from './wines.actions';
+import { WineEnhanced } from '~/client/Cellar.type';
 
-type MapType = {
-  [id: number]: WineType & { bottleIds: number[] };
+export type MapType = {
+  [id: number]: WineEnhanced;
 };
 
 export const mapReducer = (state: MapType = {}, action: WinesActions) => {

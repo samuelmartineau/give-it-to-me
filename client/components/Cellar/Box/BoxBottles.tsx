@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '../Bottle';
 import BoxCells from '../Cells/BoxCells';
-import { getBottleByPosition } from '../../../store';
+import { getBottleByPosition, RootState } from '../../../store';
 import { getCellId, getBottleInfos, getBottleId } from '../utils';
 
-const BoxBottles = ({ boxId }: { boxId: number }) => {
+const BoxBottles: FC<{ boxId: number }> = ({ boxId }) => {
   return (
     <g>
       <BoxCells boxId={boxId}>
@@ -23,17 +23,14 @@ const BoxBottles = ({ boxId }: { boxId: number }) => {
   );
 };
 
-const Cell = ({
-  hasBottle,
-  bottleColor,
-  boxId,
-  cellId,
-}: {
-  hasBottle: boolean;
-  bottleColor: string;
+type RawProps = {
   boxId: number;
   cellId: number;
-}) => {
+};
+
+type Props = PropsFromRedux & RawProps;
+
+const Cell: FC<Props> = ({ hasBottle, bottleColor, boxId, cellId }) => {
   if (!hasBottle) {
     return null;
   }
@@ -50,12 +47,16 @@ const Cell = ({
   );
 };
 
-const CellConnected = connect((state, { boxId, cellId }) => {
+const connector = connect((state: RootState, { boxId, cellId }: RawProps) => {
   const bottle = getBottleByPosition(state, boxId, cellId);
   return {
     hasBottle: !!bottle,
     bottleColor: bottle && bottle.color,
   };
-})(Cell);
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const CellConnected = connector(Cell);
 
 export default BoxBottles;

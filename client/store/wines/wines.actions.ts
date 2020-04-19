@@ -1,5 +1,5 @@
 import { CELLAR_REQUEST, CELLAR_RECEIVED, CELLAR_FAILED } from './wines.types';
-import { CellarType } from '~/client/components/Wine/Wine.type';
+import { CellarType } from '~/client/Cellar.type';
 
 export const setCellar = (cellar: CellarType) => ({
   type: CELLAR_RECEIVED,

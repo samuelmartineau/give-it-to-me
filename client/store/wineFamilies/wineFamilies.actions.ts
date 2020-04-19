@@ -1,5 +1,5 @@
 import { SET_WINE_FAMILIES, SET_WINE_FAMILY } from './wineFamilies.types';
-import { WineFamilyType } from '~/client/components/Wine/Wine.type';
+import { WineFamilyType } from '~/client/Cellar.type';
 
 export const setWineFamilies = (wineFamilies: WineFamilyType[]) =>
   <const>{

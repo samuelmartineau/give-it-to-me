@@ -1,20 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { WineCard } from '~/client/components/Wine/WineCard';
 import { WineContentCard } from '~/client/components/Wine/WineContentCard';
-import { getBrowsedWine } from '~/client/store';
+import { getBrowsedWine, RootState } from '~/client/store';
 
-type Props = {
-  wine: number;
-};
+type Props = PropsFromRedux;
 
-const CellWizard = ({ wine }: Props) => {
+const CellWizard: FC<Props> = ({ wine }) => {
   if (!wine) return null;
   return (
     <WineCard wine={wine}>{(wine) => <WineContentCard wine={wine} />}</WineCard>
   );
 };
 
-export default connect((state) => ({
+const connector = connect((state: RootState) => ({
   wine: getBrowsedWine(state),
-}))(CellWizard);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(CellWizard);

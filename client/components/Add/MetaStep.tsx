@@ -5,7 +5,7 @@ import WineFamilySingleSelector from '~/client/components/Autocomplete/WineFamil
 import { TextField } from '~/client/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
 import { updateModel } from '~/client/store/';
-import type { WineType } from '~/client/components/Wine/Wine.type';
+import type { WineType } from '~/client/Cellar.type';
 
 const Label = styled.label`
   display: block;

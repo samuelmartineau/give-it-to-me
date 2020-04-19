@@ -1,15 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '~/client/components/Toolkit';
 
-import { removeBottles } from '~/client/store';
+import { removeBottles, RootState } from '~/client/store';
 
-type Props = {
-  count: number;
-  onRemove: Function;
-};
+type Props = PropsFromRedux;
 
-const DeleteInBoxesBottleButton = ({ count, onRemove }: Props) => {
+const DeleteInBoxesBottleButton: FC<Props> = ({ count, onRemove }) => {
   return (
     <Button onClick={onRemove} disabled={count === 0} primary type="button">
       Supprimer {count} bouteille{count > 1 && 's'}
@@ -17,8 +14,8 @@ const DeleteInBoxesBottleButton = ({ count, onRemove }: Props) => {
   );
 };
 
-export default connect(
-  ({ remove }) => ({
+const connector = connect(
+  ({ remove }: RootState) => ({
     count: remove.bottleIds.length,
   }),
   (dispatch) => ({
@@ -26,4 +23,8 @@ export default connect(
       dispatch(removeBottles());
     },
   })
-)(DeleteInBoxesBottleButton);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(DeleteInBoxesBottleButton);

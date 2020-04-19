@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Button } from '~/client/components/Toolkit';
-import { addToFavorite, removeFromFavorite } from '~/client/store';
+import { addToFavorite, removeFromFavorite, RootState } from '~/client/store';
 
-type Props = {
-  isFavorite: boolean;
-  addToFavorite: Function;
-  removeFromFavorite: Function;
-};
+type RawProps = { wineId: number };
+
+type Props = PropsFromRedux & RawProps;
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -20,21 +18,24 @@ const StyledButton = styled(Button)`
   background: ${({ isFavorite }) => !isFavorite && 'transparent'};
 `;
 
-class AddToFavoriteButton extends React.PureComponent<Props> {
-  render() {
-    const { addToFavorite, removeFromFavorite, isFavorite } = this.props;
-    const action = isFavorite ? removeFromFavorite : addToFavorite;
-    return (
-      <StyledButton onClick={action} isFavorite={isFavorite}>
-        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        Favoris
-      </StyledButton>
-    );
-  }
-}
+const AddToFavoriteButton: FC<Props> = ({
+  addToFavorite,
+  removeFromFavorite,
+  isFavorite,
+}) => {
+  const action = isFavorite ? removeFromFavorite : addToFavorite;
+  return (
+    <StyledButton onClick={action} isFavorite={isFavorite}>
+      {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      Favoris
+    </StyledButton>
+  );
+};
 
-export default connect(
-  (state, { wineId }) => ({ isFavorite: state.favorites.all.includes(wineId) }),
+const connector = connect(
+  (state: RootState, { wineId }: RawProps) => ({
+    isFavorite: state.favorites.all.includes(wineId),
+  }),
   (dispatch, { wineId }) => ({
     addToFavorite() {
       dispatch(addToFavorite(wineId));
@@ -43,4 +44,8 @@ export default connect(
       dispatch(removeFromFavorite(wineId));
     },
   })
-)(AddToFavoriteButton);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(AddToFavoriteButton);

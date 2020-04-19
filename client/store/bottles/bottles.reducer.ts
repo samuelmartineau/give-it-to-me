@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 import { CELLAR_RECEIVED } from '../wines/wines.types';
 import { wineTypes } from '~/config';
 import { WinesActions } from '~/client/store/wines/wines.actions';
-import { BottleType, CellarType } from '~/client/components/Wine/Wine.type';
+import { EnhancedBottleType, CellarType } from '~/client/Cellar.type';
 
 function getBottles(wines: CellarType) {
-  return wines.reduce<({ wine_id: number; color: string } & BottleType)[]>(
+  return wines.reduce<EnhancedBottleType[]>(
     (acc, wine) =>
       acc.concat(
         wine.bottles.map((bottle) => ({
@@ -18,8 +18,8 @@ function getBottles(wines: CellarType) {
   );
 }
 
-type MapType = {
-  [id: number]: BottleType;
+export type MapType = {
+  [id: number]: EnhancedBottleType;
 };
 
 export const mapReducer = (state: MapType = {}, action: WinesActions) => {
@@ -38,7 +38,10 @@ export const mapReducer = (state: MapType = {}, action: WinesActions) => {
       return state;
   }
 };
-export const allReducer = (state: BottleType[] = [], action: WinesActions) => {
+
+export type AllType = EnhancedBottleType[];
+
+export const allReducer = (state: AllType = [], action: WinesActions) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
       const { cellar } = action.payload;
@@ -50,9 +53,9 @@ export const allReducer = (state: BottleType[] = [], action: WinesActions) => {
   }
 };
 
-type CellsType = {
+export type CellsType = {
   [boxId: number]: {
-    [cellId: number]: BottleType;
+    [cellId: number]: EnhancedBottleType;
   };
 };
 

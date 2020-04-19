@@ -7,19 +7,19 @@ import {
 import { BrowseActions } from './browse.actions';
 
 type BrowseType = {
-  boxId: number | null;
-  cellId: number | null;
+  boxId?: number;
+  cellId?: number;
 };
 
 export const browseReducer = (
-  state: BrowseType = { boxId: null, cellId: null },
+  state: BrowseType = {},
   action: BrowseActions
 ) => {
   switch (action.type) {
     case SELECT_BOX_TO_BROWSE: {
       const { boxId } = action.payload;
 
-      return { boxId, cellId: null };
+      return { boxId, cellId: undefined };
     }
     case SELECT_CELL_TO_BROWSE: {
       const { cellId } = action.payload;
@@ -27,10 +27,10 @@ export const browseReducer = (
       return { ...state, cellId };
     }
     case UNSELECT_BOX_TO_BROWSE: {
-      return { boxId: null, cellId: null };
+      return { boxId: undefined, cellId: undefined };
     }
     case UNSELECT_CELL_TO_BROWSE: {
-      return { ...state, cellId: null };
+      return { ...state, cellId: undefined };
     }
     default:
       return state;

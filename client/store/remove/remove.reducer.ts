@@ -13,7 +13,7 @@ const defaultModel = {
   wineId: null,
 };
 
-type RemoveType = {
+export type RemoveType = {
   bottleIds: number[];
   count: number;
   wineId: number | null;

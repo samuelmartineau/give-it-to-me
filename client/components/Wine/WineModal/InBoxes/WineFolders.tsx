@@ -1,11 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
-import { getWineBottlesAsMap, getRemovedBottles } from '~/client/store';
+import {
+  getWineBottlesAsMap,
+  getRemovedBottles,
+  RootState,
+} from '~/client/store';
 import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
 import BoxBottles from './BoxBottles';
 import ClickHandlerCell from './ClickHandlerCell';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,12 +23,11 @@ const BoxWrapper = styled.div`
   width: 100%;
 `;
 
-type Props = {
-  wine: {};
-  bottles: Array<{}>;
-  removedBottles: Array<{}>;
-  bottleIds: Array<{}>;
+type RawProps = {
+  wine: WineEnhanced;
 };
+
+type Props = RawProps & PropsFromRedux;
 
 class WineModalFolders extends React.PureComponent<Props> {
   render() {
@@ -61,7 +65,11 @@ class WineModalFolders extends React.PureComponent<Props> {
   }
 }
 
-export default connect((state, { wine: { id } }) => ({
+const connector = connect((state: RootState, { wine: { id } }: RawProps) => ({
   bottles: getWineBottlesAsMap(state, id),
-  removedBottles: getRemovedBottles(state, id),
-}))(WineModalFolders);
+  removedBottles: getRemovedBottles(state),
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(WineModalFolders);

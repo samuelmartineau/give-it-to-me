@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import Bottle from './Bottle';
 import CellarCells from './Cells/CellarCells';
-import { getBottleByPosition } from '../../store';
+import { getBottleByPosition, RootState } from '../../store';
 import { getCellId, getBottleInfos, getBottleId } from './utils';
 
-const Cell = ({ bottle, boxId, cellId }) => {
+const Cell: FC<PropsFromRedux> = ({ bottle }) => {
   if (!bottle) {
     return null;
   }
@@ -22,9 +22,15 @@ const Cell = ({ bottle, boxId, cellId }) => {
   );
 };
 
-const CellConnected = connect((state, { boxId, cellId }) => ({
-  bottle: getBottleByPosition(state, boxId, cellId),
-}))(Cell);
+const connector = connect(
+  (state: RootState, { boxId, cellId }: { boxId: number; cellId: number }) => ({
+    bottle: getBottleByPosition(state, boxId, cellId),
+  })
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const CellConnected = connector(Cell);
 
 const CellarBottles = () => {
   return (

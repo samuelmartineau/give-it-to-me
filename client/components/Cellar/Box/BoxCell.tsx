@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { cellar } from '~/config';
 
 const { CELL_SIZE, CELL_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = cellar;
 
 type Props = {
   cellId: number;
-  onSelect: Function;
+  onSelect: (event: React.MouseEvent<SVGRectElement, MouseEvent>) => void;
   className: string;
 };
 
-const BoxCell = ({ cellId, onSelect = () => {}, className }: Props) => {
+const BoxCell: FC<Props> = ({ cellId, onSelect = () => {}, className }) => {
   const column = Math.floor(cellId / 3);
   const row = cellId % 3;
   return (

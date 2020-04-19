@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { FC } from 'react';
 import tinycolor from 'tinycolor2';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '~/client/components/Cellar/Bottle';
-import { getBottleByPosition } from '~/client/store';
+import { getBottleByPosition, RootState } from '~/client/store';
 import { getBottleInfos, getBottleId } from '~/client/components/Cellar/utils';
 
-type Props = {
-  bottle: any;
-  isSelected: boolean;
-  isSelectable: boolean;
+type RawProps = {
   boxId: number;
   cellId: number;
+  selectedCell: { boxId: number; cellId: number };
 };
 
-const CellWizard = ({
+type Props = PropsFromRedux & RawProps;
+
+const CellWizard: FC<Props> = ({
   bottle,
   isSelected,
   isSelectable,
   boxId,
   cellId,
-}: Props) => {
+}) => {
   if (!bottle) {
     return null;
   }
@@ -46,16 +46,22 @@ const CellWizard = ({
   );
 };
 
-export default connect((state, { boxId, cellId, selectedCell }) => {
-  const bottle = getBottleByPosition(state, boxId, cellId);
-  let isSelected =
-    bottle &&
-    bottle.box === selectedCell.boxId &&
-    bottle.cell === selectedCell.cellId;
+const connector = connect(
+  (state: RootState, { boxId, cellId, selectedCell }: RawProps) => {
+    const bottle = getBottleByPosition(state, boxId, cellId);
+    let isSelected =
+      bottle &&
+      bottle.box === selectedCell.boxId &&
+      bottle.cell === selectedCell.cellId;
 
-  return {
-    bottle,
-    isSelected,
-    isSelectable: !!bottle && !isSelected,
-  };
-})(CellWizard);
+    return {
+      bottle,
+      isSelected,
+      isSelectable: !!bottle && !isSelected,
+    };
+  }
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(CellWizard);

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { SET_WINE_FAMILIES, SET_WINE_FAMILY } from './wineFamilies.types';
 import { WineFamiliesActions } from './wineFamilies.actions';
-import { WineFamilyType } from '~/client/components/Wine/Wine.type';
+import { WineFamilyType } from '~/client/Cellar.type';
 
 type AllType = WineFamilyType[];
 

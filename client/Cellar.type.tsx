@@ -21,6 +21,8 @@ export type WineType = {
   created_at: Date;
 };
 
+export type WineEnhanced = WineType & { bottleIds: number[] };
+
 export type BottleType = {
   id: number;
   wineId: number;
@@ -32,3 +34,8 @@ export type WineFamilyType = {
   id: number;
   name: string;
 };
+
+export type EnhancedBottleType = {
+  wine_id: number;
+  color: string;
+} & BottleType;
