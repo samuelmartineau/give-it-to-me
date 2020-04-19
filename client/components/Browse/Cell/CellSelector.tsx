@@ -1,33 +1,24 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getBottlesInBox, unselectBox } from '~/client/store';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { getBottlesInBox, unselectBox, RootState } from '~/client/store';
 import styled from 'styled-components';
 import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
 import { BoxCellsWizard } from './BoxCellsWizard';
 import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
 import ClickHandlerCell from './ClickHandlerCell';
 
-type CellsSelectorProps = {
-  boxId: number;
-  onUnselect: Function;
-  bottles: Array<any>;
-  selectedCells: Array<any>;
-  classes: {
-    box: any;
-    onSelect: Function;
-  };
-  isBoxSelected: boolean;
-  className: string;
-};
 const Wrapper = styled.div``;
 
-const CellSelector = ({
-  boxId,
-  cellId,
-  bottles,
-  className,
-}: CellsSelectorProps) =>
-  !!boxId && (
+type RawProps = {
+  boxId: number;
+  className: string;
+};
+
+type Props = RawProps & PropsFromRedux;
+
+const CellSelector: FC<Props> = ({ boxId, cellId, bottles, className }) => {
+  if (!boxId) return null;
+  return (
     <Wrapper className={className}>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
@@ -48,7 +39,6 @@ const CellSelector = ({
         </BoxCells>
         <BoxCellsWizard
           boxId={boxId}
-          selectableBottleIds={bottles.map((bottle) => bottle.id)}
           selectedCell={{
             boxId,
             cellId,
@@ -57,16 +47,21 @@ const CellSelector = ({
       </BoxContainer>
     </Wrapper>
   );
+};
 
-export default connect(
-  (state) => ({
+const connector = connect(
+  (state: RootState) => ({
     boxId: state.browse.boxId,
     cellId: state.browse.cellId,
     bottles: state.browse.boxId
       ? getBottlesInBox(state, state.browse.boxId)
       : [],
   }),
-  (dispatch, { boxId }) => ({
+  (dispatch, { boxId }: RawProps) => ({
     onUnselect: () => dispatch(unselectBox(boxId)),
   })
-)(CellSelector);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(CellSelector);

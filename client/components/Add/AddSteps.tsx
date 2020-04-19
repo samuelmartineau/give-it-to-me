@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { PictureStepConnected } from './PictureStep';
 import { MetaStepConnected } from './MetaStep';
 import { PositionStepConnected } from './PositionStep';
 import { TypesStepConnected } from './TypesStep';
 import { Button, Spinner } from '~/client/components/Toolkit';
-import { isModelValid, addWine } from '~/client/store/';
+import { isModelValid, addWine, RootState } from '~/client/store/';
 
 const Form = styled.form`
   max-width: 800px;
@@ -16,10 +16,7 @@ const ButtonStyled = styled(Button)`
   margin: 1em auto;
 `;
 
-type Props = {
-  isModelValid: boolean;
-  addWine: Function;
-};
+type Props = PropsFromRedux;
 
 class AddSteps extends React.Component<Props> {
   state = { isSending: false };
@@ -72,13 +69,15 @@ class AddSteps extends React.Component<Props> {
   }
 }
 
-export const AddStepsConnected = connect(
-  (state) => ({
-    isModelValid: isModelValid(state),
-  }),
+const connector = connect(
+  (state: RootState) => ({ isModelValid: isModelValid(state) }),
   (dispatch) => ({
     addWine() {
       dispatch(addWine());
     },
   })
-)(AddSteps);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export const AddStepsConnected = connector(AddSteps);

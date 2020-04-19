@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import WineFamilySingleSelector from '~/client/components/Autocomplete/WineFamilySingleSelector';
 import { TextField } from '~/client/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
-import { updateModel } from '~/client/store/';
-import type { WineType } from '~/client/Cellar.type';
+import { updateModel, RootState } from '~/client/store/';
 
 const Label = styled.label`
   display: block;
@@ -18,67 +17,65 @@ const FamilyContainer = styled.div`
   position: relative;
 `;
 
-type Props = {
-  onMetaChange: Function;
-  onFamilyChange: Function;
-  onFamilyClear: Function;
-  model: WineType;
+type Props = PropsFromRedux;
+
+const MetaStep: FC<Props> = ({
+  model,
+  onFamilyChange,
+  onMetaChange,
+  onFamilyClear,
+}) => {
+  return (
+    <>
+      <Label>
+        <Text>Domaine</Text>
+        <TextField
+          name="name"
+          value={model.name}
+          required
+          placeholder="Domaine de ..."
+          onChange={onMetaChange}
+        />
+      </Label>
+      <Label>
+        <Text>Année</Text>
+        <TextField
+          name="year"
+          value={model.year}
+          type="number"
+          required
+          placeholder="2014"
+          onChange={onMetaChange}
+        />
+      </Label>
+      <Label>
+        <Text>Provenance</Text>
+        <TextField
+          name="source"
+          value={model.source}
+          type="text"
+          placeholder="France"
+          onChange={onMetaChange}
+        />
+      </Label>
+
+      <FamilyContainer>
+        <Label>
+          <Text>Appellation</Text>
+          <WineFamilySingleSelector
+            selected={model.wineFamily}
+            onSuggestionSelected={onFamilyChange}
+            onClear={onFamilyClear}
+          />
+        </Label>
+        <AddWineFamilyButton />
+      </FamilyContainer>
+    </>
+  );
 };
 
-class MetaStep extends React.Component<Props> {
-  render() {
-    return (
-      <React.Fragment>
-        <Label>
-          <Text>Domaine</Text>
-          <TextField
-            name="name"
-            value={this.props.model.name}
-            required
-            placeholder="Domaine de ..."
-            onChange={this.props.onMetaChange}
-          />
-        </Label>
-        <Label>
-          <Text>Année</Text>
-          <TextField
-            name="year"
-            value={this.props.model.year}
-            type="number"
-            required
-            placeholder="2014"
-            onChange={this.props.onMetaChange}
-          />
-        </Label>
-        <Label>
-          <Text>Provenance</Text>
-          <TextField
-            name="source"
-            value={this.props.model.source}
-            type="text"
-            placeholder="France"
-            onChange={this.props.onMetaChange}
-          />
-        </Label>
-
-        <FamilyContainer>
-          <Label>
-            <Text>Appellation</Text>
-            <WineFamilySingleSelector
-              selected={this.props.model.wineFamily}
-              onSuggestionSelected={this.props.onFamilyChange}
-              onClear={this.props.onFamilyClear}
-            />
-          </Label>
-          <AddWineFamilyButton />
-        </FamilyContainer>
-      </React.Fragment>
-    );
-  }
-}
-
-export const MetaStepConnected = connect(
-  (state) => ({ model: state.adding.model }),
+const connector = connect(
+  (state: RootState) => ({ model: state.adding.model }),
   (dispatch) => ({
     onMetaChange(evt) {
       const { value, name } = evt.target;
@@ -91,4 +88,8 @@ export const MetaStepConnected = connect(
       dispatch(updateModel('wineFamily', ''));
     },
   })
-)(MetaStep);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export const PositionStepConnected = connector(MetaStep);

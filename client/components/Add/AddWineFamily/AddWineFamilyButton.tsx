@@ -1,15 +1,8 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import AddIcon from '@material-ui/icons/Add';
 import { Button } from '~/client/components/Toolkit';
 import AddWineFamilyModal from './AddWineFamilyModal';
-
-type Props = {
-  wineId: number;
-};
-type State = {
-  modalIsOpen: boolean;
-};
 
 const ButtonStyled = styled(Button)`
   padding: 0;
@@ -23,31 +16,23 @@ const ButtonStyled = styled(Button)`
   }
 `;
 
-export class AddWineFamilyButton extends React.PureComponent<Props, State> {
-  state = {
-    modalIsOpen: false,
+export const AddWineFamilyButton: FC = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
-  closeModal = () => {
-    this.setState({ modalIsOpen: false });
+  const openModal = () => {
+    setModalOpen(true);
   };
 
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
-  };
-
-  render() {
-    const { modalIsOpen } = this.state;
-    return (
-      <>
-        <ButtonStyled type="button" onClick={this.openModal}>
-          <AddIcon />
-        </ButtonStyled>
-        <AddWineFamilyModal
-          modalIsOpen={modalIsOpen}
-          closeModal={this.closeModal}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <ButtonStyled type="button" onClick={openModal}>
+        <AddIcon />
+      </ButtonStyled>
+      <AddWineFamilyModal modalIsOpen={modalOpen} closeModal={closeModal} />
+    </>
+  );
+};

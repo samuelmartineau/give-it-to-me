@@ -1,45 +1,44 @@
+import { FC } from 'react';
 import { connect } from 'react-redux';
 import { selectCellToBrowse, unselectCellToBrowse } from '~/client/store';
 import BoxCell from '~/client/components/Cellar/Box/BoxCell';
 import BoxCellSelectable from '~/client/components/Cellar/Box/BoxCellSelectable';
 
-const SelectableCell = connect(
-  null,
-  (dispatch, { cellId }) => ({
-    onSelect: () => {
-      dispatch(selectCellToBrowse(cellId));
-    }
-  })
-)(BoxCellSelectable);
-
-const UnSelectableCell = connect(
-  null,
-  (dispatch, { cellId }) => ({
-    onSelect: () => {
-      dispatch(unselectCellToBrowse(cellId));
-    }
-  })
-)(BoxCellSelectable);
-
-type CellProps = {
-  boxId: number,
-  cellId: number,
-  isCellSelected: boolean,
-  isCellSelectable: boolean
+type RawProps = {
+  cellId: number;
 };
 
-const ClickHandlerCell = ({
+const SelectableCell = connect(null, (dispatch, { cellId }: RawProps) => ({
+  onSelect: () => {
+    dispatch(selectCellToBrowse(cellId));
+  },
+}))(BoxCellSelectable);
+
+const UnSelectableCell = connect(null, (dispatch, { cellId }: RawProps) => ({
+  onSelect: () => {
+    dispatch(unselectCellToBrowse(cellId));
+  },
+}))(BoxCellSelectable);
+
+type Props = {
+  boxId: number;
+  cellId: number;
+  isCellSelected: boolean;
+  isCellSelectable: boolean;
+};
+
+const ClickHandlerCell: FC<Props> = ({
   isCellSelected,
   isCellSelectable,
   boxId,
-  cellId
-}: CellProps) => {
+  cellId,
+}) => {
   if (isCellSelected) {
     return <UnSelectableCell boxId={boxId} cellId={cellId} />;
   } else if (isCellSelectable) {
     return <SelectableCell boxId={boxId} cellId={cellId} />;
   }
-  return <BoxCell boxId={boxId} cellId={cellId} />;
+  return <BoxCell cellId={cellId} />;
 };
 
 export default ClickHandlerCell;
