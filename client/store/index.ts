@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import * as api from '../api';
 
-export const makeStore = (initialState) => {
+export const makeStore = (initialState: RootState) => {
   return createStore(
     reducer,
     initialState,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import range from 'lodash/range';
 import {
   ResponsiveContainer,
@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import config from '~/config';
 import styled from 'styled-components';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const { WINE_TYPES } = config.wineTypes;
 
@@ -21,10 +22,12 @@ const Title = styled.div`
   margin: 1rem;
 `;
 
-export const YearsChart = ({ wines }) => {
-  const years = new Set();
-  wines.forEach((wine) => years.add(wine.year));
-  const yearsSorted = [...years].sort();
+type Props = { wines: WineEnhanced[] };
+
+export const YearsChart: FC<Props> = ({ wines }) => {
+  const years = new Set<number>();
+  wines.forEach((wine: WineEnhanced) => years.add(wine.year));
+  const yearsSorted = [...Array.from(years)].sort();
   const extendedYears = range(
     yearsSorted[0],
     yearsSorted[yearsSorted.length - 1] + 1,

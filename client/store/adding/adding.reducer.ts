@@ -61,7 +61,7 @@ export const selectedCellsReducer = (
     case UNSELECT_BOX: {
       const { boxId } = action.payload;
 
-      return omit([boxId], state);
+      return omit([String(boxId)], state);
     }
     case SELECT_CELL: {
       const { boxId, cellId } = action.payload;

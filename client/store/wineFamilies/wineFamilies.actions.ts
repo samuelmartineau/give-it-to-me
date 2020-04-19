@@ -17,13 +17,13 @@ export const setWineFamily = (wineFamily: WineFamilyType) =>
     },
   };
 
-export const getWineFamilies = (wineModel) => async (
+export const getWineFamilies = () => async (
   dispatch,
   _,
   { getWineFamilies }
 ) => {
   try {
-    const wineFamilies = await getWineFamilies(wineModel);
+    const wineFamilies = await getWineFamilies();
     dispatch(setWineFamilies(wineFamilies));
   } catch (error) {
     console.error(error);

@@ -19,6 +19,7 @@ export type WineType = {
   stock: number;
   count: number;
   created_at: Date;
+  bottlesCount: number;
 };
 
 export type WineEnhanced = WineType & { bottleIds: number[] };

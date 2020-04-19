@@ -25,8 +25,8 @@ class ServerSentEventDispatcher extends React.Component<Props> {
 
     source.addEventListener(
       'error',
-      function (e) {
-        if (e.readyState == EventSource.CLOSED) {
+      function () {
+        if (this.readyState == EventSource.CLOSED) {
           // Connection was closed.
           console.log('Connection was closed');
         }
@@ -34,7 +34,6 @@ class ServerSentEventDispatcher extends React.Component<Props> {
       false
     );
   }
-
   render() {
     return null;
   }
