@@ -5,7 +5,7 @@ import { getInitialProps } from '~/client/_getInitialProps';
 
 const AddWithLayout = compose(
   withProps({
-    title: 'Ajouter une nouvelle bouteille'
+    title: 'Ajouter une nouvelle bouteille',
   }),
   WithLayout
 )(AddStepsConnected);

@@ -21,16 +21,16 @@ const PageTitle = styled.h1`
   text-align: center;
 `;
 const Main = styled.div`
-  ${props => props.theme.media.handheld`
+  ${(props) => props.theme.media.handheld`
     margin: 1em;
   `};
-  ${props => props.theme.media.screen`
+  ${(props) => props.theme.media.screen`
     margin: 2em;
   `};
-  ${props => props.theme.media.large`
+  ${(props) => props.theme.media.large`
   margin-left: auto;
   margin-right: auto;
-  max-width: ${props => props.theme.size.maxWidth};
+  max-width: ${(props) => props.theme.size.maxWidth};
 `};
 `;
 
@@ -38,7 +38,7 @@ type AppFrameProps = {
   width: Number,
   classes: {},
   title: string,
-  children: React.Node
+  children: React.Node,
 };
 
 export const Layout = ({ title, children }: AppFrameProps) => {

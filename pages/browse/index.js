@@ -5,7 +5,7 @@ import { getInitialProps } from '~/client/_getInitialProps';
 
 const BrowseWithLayout = compose(
   withProps({
-    title: 'Parcourir la cave'
+    title: 'Parcourir la cave',
   }),
   WithLayout
 )(Browse);

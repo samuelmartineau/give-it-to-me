@@ -6,12 +6,12 @@ import { getInitialProps } from '~/client/_getInitialProps';
 
 const SearchWithLayout = compose(
   withProps({
-    title: 'Chercher une bouteille'
+    title: 'Chercher une bouteille',
   }),
   WithLayout
 )(Search);
 
-SearchWithLayout.getInitialProps = props => {
+SearchWithLayout.getInitialProps = (props) => {
   const { query, store } = props;
   store.dispatch(syncUrlParams(query));
   return getInitialProps(props);
