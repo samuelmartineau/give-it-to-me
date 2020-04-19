@@ -4,9 +4,10 @@ import {
   GET_NEXT_HITS,
   TOGGLE_FAVORITES_FILTER,
   SYNC_URL_PARAMS,
-  TOGGLE_OUTSIDE_BOXES_FILTER
+  TOGGLE_OUTSIDE_BOXES_FILTER,
 } from './search.types';
 import { ArrayKeys } from './utils';
+import { SearchActions } from './search.actions';
 
 const hitsByPage = 10;
 
@@ -19,16 +20,28 @@ const defaultState = {
   name: undefined,
   hitsDisplayed: hitsByPage,
   favorites: false,
-  outsideBoxes: false
+  outsideBoxes: false,
 };
 
-export default (state = defaultState, action) => {
+type State = {
+  wineFamilies: number[];
+  wineTypes: number[];
+  wineCategories: number[];
+  minYear?: number;
+  maxYear?: number;
+  name?: string;
+  hitsDisplayed: number;
+  favorites: boolean;
+  outsideBoxes: boolean;
+};
+
+export default (state: State = defaultState, action: SearchActions) => {
   switch (action.type) {
     case TOGGLE_CHECKBOX_FILTER: {
       const { key, value } = action.payload;
       let newFilters;
       if (state[key].includes(value)) {
-        newFilters = state[key].filter(item => item !== value);
+        newFilters = state[key].filter((item) => item !== value);
       } else {
         newFilters = [...state[key], value];
       }
@@ -55,17 +68,17 @@ export default (state = defaultState, action) => {
       const { params } = action.payload;
       const newState = { ...defaultState };
       const booleansFilters = ['favorites', 'outsideBoxes'];
-      booleansFilters.forEach(key => {
+      booleansFilters.forEach((key) => {
         if (key in params) {
           newState[key] = params[key];
         }
       });
       if (params.wineFamilies)
-        Object.keys(params).forEach(key => {
+        Object.keys(params).forEach((key) => {
           if (ArrayKeys.includes(key)) {
             newState[key] = newState[key].concat(params[key]);
             if (key === 'wineFamilies') {
-              newState[key] = newState[key].map(id => parseInt(id, 10));
+              newState[key] = newState[key].map((id) => parseInt(id, 10));
             }
           } else {
             newState[key] = params[key];

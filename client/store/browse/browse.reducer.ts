@@ -2,12 +2,18 @@ import {
   SELECT_BOX_TO_BROWSE,
   SELECT_CELL_TO_BROWSE,
   UNSELECT_BOX_TO_BROWSE,
-  UNSELECT_CELL_TO_BROWSE
+  UNSELECT_CELL_TO_BROWSE,
 } from './browse.types';
+import { BrowseActions } from './browse.actions';
+
+type BrowseType = {
+  boxId: number | null;
+  cellId: number | null;
+};
 
 export const browseReducer = (
-  state = { boxId: null, cellId: null },
-  action
+  state: BrowseType = { boxId: null, cellId: null },
+  action: BrowseActions
 ) => {
   switch (action.type) {
     case SELECT_BOX_TO_BROWSE: {

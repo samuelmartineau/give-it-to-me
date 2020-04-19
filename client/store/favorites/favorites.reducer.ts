@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import { CELLAR_RECEIVED } from '../wines/wines.types';
+import { WinesActions } from '~/client/store/wines/wines.actions';
 
-export const allReducer = (state = [], action) => {
+export const allReducer = (state: number[] = [], action: WinesActions) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
       const { cellar } = action.payload;
 
-      return cellar.filter(wine => wine.isFavorite).map(wine => wine.id);
+      return cellar.filter((wine) => wine.isFavorite).map((wine) => wine.id);
     }
     default:
       return state;
@@ -14,7 +15,7 @@ export const allReducer = (state = [], action) => {
 };
 
 const reducer = combineReducers({
-  all: allReducer
+  all: allReducer,
 });
 
 export default reducer;

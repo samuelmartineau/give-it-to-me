@@ -1,4 +1,4 @@
-export const addToFavorite = wineId => async (
+export const addToFavorite = (wineId) => async (
   dispatch,
   _,
   { addToFavorite }
@@ -10,7 +10,7 @@ export const addToFavorite = wineId => async (
   }
 };
 
-export const removeFromFavorite = wineId => async (
+export const removeFromFavorite = (wineId) => async (
   dispatch,
   _,
   { removeFromFavorite }
