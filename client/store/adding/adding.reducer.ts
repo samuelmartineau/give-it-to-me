@@ -8,28 +8,23 @@ import {
   SELECT_CELL,
   UNSELECT_CELL,
   UPDATE_MODEL,
-  RESET_ADD_WINE
+  RESET_ADD_WINE,
 } from './adding.types';
+import { AddingActions } from './adding.actions';
+
 const { DEFAULT_TYPE } = config.bottleTypes;
 const { WINE_TYPES_ALL } = config.wineTypes;
 
 const defaultSelectedTypes = {
   wineType: WINE_TYPES_ALL[0].id,
   wineCategory: WINE_TYPES_ALL[0].categories[0],
-  bottleType: DEFAULT_TYPE
+  bottleType: DEFAULT_TYPE,
 };
 
-const defaultModel = {
-  isInBoxes: true,
-  ...defaultSelectedTypes,
-  name: '',
-  year: '',
-  source: '',
-  positionComment: '',
-  count: ''
-};
-
-export const selectedBoxesReducer = (state = [], action) => {
+export const selectedBoxesReducer = (
+  state: number[] = [],
+  action: AddingActions
+) => {
   switch (action.type) {
     case SELECT_BOX: {
       const { boxId } = action.payload;
@@ -39,7 +34,7 @@ export const selectedBoxesReducer = (state = [], action) => {
     case UNSELECT_BOX: {
       const { boxId } = action.payload;
 
-      return state.filter(id => id !== boxId);
+      return state.filter((id) => id !== boxId);
     }
     case RESET_ADD_WINE: {
       return [];
@@ -48,7 +43,15 @@ export const selectedBoxesReducer = (state = [], action) => {
       return state;
   }
 };
-export const selectedCellsReducer = (state = {}, action) => {
+
+type SelectedCellsType = {
+  [boxId: number]: number[];
+};
+
+export const selectedCellsReducer = (
+  state: SelectedCellsType = {},
+  action: AddingActions
+) => {
   switch (action.type) {
     case SELECT_BOX: {
       const { boxId, cellId } = action.payload;
@@ -65,7 +68,7 @@ export const selectedCellsReducer = (state = {}, action) => {
 
       return {
         ...state,
-        [boxId]: state[boxId].concat(cellId)
+        [boxId]: state[boxId].concat(cellId),
       };
     }
     case UNSELECT_CELL: {
@@ -73,7 +76,7 @@ export const selectedCellsReducer = (state = {}, action) => {
 
       return {
         ...state,
-        [boxId]: state[boxId].filter(id => id !== cellId)
+        [boxId]: state[boxId].filter((id) => id !== cellId),
       };
     }
     case RESET_ADD_WINE: {
@@ -83,7 +86,30 @@ export const selectedCellsReducer = (state = {}, action) => {
       return state;
   }
 };
-export const modelReducer = (state = { ...defaultModel }, action) => {
+
+const defaultModel = {
+  isInBoxes: true,
+  ...defaultSelectedTypes,
+  name: '',
+  year: 0,
+  source: '',
+  positionComment: '',
+  count: 0,
+};
+
+type ModelType = {
+  isInBoxes: boolean;
+  name: string;
+  year: number;
+  source?: string;
+  positionComment: string;
+  count: number;
+};
+
+export const modelReducer = (
+  state: ModelType = { ...defaultModel },
+  action: AddingActions
+) => {
   switch (action.type) {
     case UPDATE_MODEL: {
       const { value, name } = action.payload;
@@ -91,7 +117,7 @@ export const modelReducer = (state = { ...defaultModel }, action) => {
         return {
           ...state,
           wineType: value,
-          wineCategory: WINE_TYPES[value].categories[0]
+          wineCategory: WINE_TYPES[value].categories[0],
         };
       }
       return { ...state, [name]: value };
@@ -107,7 +133,7 @@ export const modelReducer = (state = { ...defaultModel }, action) => {
 const reducer = combineReducers({
   selectedBoxes: selectedBoxesReducer,
   selectedCells: selectedCellsReducer,
-  model: modelReducer
+  model: modelReducer,
 });
 
 export default reducer;

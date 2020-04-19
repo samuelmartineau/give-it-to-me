@@ -27,3 +27,8 @@ export type BottleType = {
   box: number;
   cell: number;
 };
+
+export type WineFamilyType = {
+  id: number;
+  name: string;
+};

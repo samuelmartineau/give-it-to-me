@@ -2,61 +2,61 @@ const WINE_TYPES = {
   RED: {
     label: 'rouge',
     categories: ['REGULAR', 'SPARKLING', 'DRY'],
-    color: '#9C27B0'
+    color: '#9C27B0',
   },
   WHITE: {
     label: 'blanc',
     categories: ['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY'],
-    color: '#CDDC39'
+    color: '#CDDC39',
   },
   CHAMPAGNE: {
     label: 'champagne',
     categories: ['BRUT', 'BLANC_DE_BLANCS', 'BLANC_DE_NOIRS', 'PINK'],
-    color: '#9E9E9E'
-  }
+    color: '#9E9E9E',
+  },
 };
 
 const WINE_CATEGORIES = {
   REGULAR: {
-    label: 'normal'
+    label: 'normal',
   },
   SPARKLING: {
-    label: 'effervescent'
+    label: 'effervescent',
   },
   LIQUOROUS: {
-    label: 'liquoreux'
+    label: 'liquoreux',
   },
   SOFT: {
-    label: 'moelleux'
+    label: 'moelleux',
   },
   DRY: {
-    label: 'sec'
+    label: 'sec',
   },
   PINK: {
-    label: 'rosé'
+    label: 'rosé',
   },
   BRUT: {
-    label: 'brut'
+    label: 'brut',
   },
   BLANC_DE_BLANCS: {
-    label: 'blanc de blancs'
+    label: 'blanc de blancs',
   },
   BLANC_DE_NOIRS: {
-    label: 'blanc de noirs'
-  }
+    label: 'blanc de noirs',
+  },
 };
 
 const DEFAULT_TYPE = 0;
 const DEFAULT_CATEGORY = 0;
 
-const WINE_TYPES_ALL = Object.keys(WINE_TYPES).map(key => ({
+const WINE_TYPES_ALL = Object.keys(WINE_TYPES).map((key) => ({
   id: key,
-  ...WINE_TYPES[key]
+  ...WINE_TYPES[key],
 }));
 
-const WINE_CATEGORIES_ALL = Object.keys(WINE_CATEGORIES).map(key => ({
+const WINE_CATEGORIES_ALL = Object.keys(WINE_CATEGORIES).map((key) => ({
   id: key,
-  ...WINE_CATEGORIES[key]
+  ...WINE_CATEGORIES[key],
 }));
 
 module.exports = {
@@ -65,5 +65,5 @@ module.exports = {
   DEFAULT_TYPE,
   DEFAULT_CATEGORY,
   WINE_TYPES_ALL,
-  WINE_CATEGORIES_ALL
+  WINE_CATEGORIES_ALL,
 };

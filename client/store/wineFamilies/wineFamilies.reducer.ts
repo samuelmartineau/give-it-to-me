@@ -1,8 +1,15 @@
 import { combineReducers } from 'redux';
 
 import { SET_WINE_FAMILIES, SET_WINE_FAMILY } from './wineFamilies.types';
+import { WineFamiliesActions } from './wineFamilies.actions';
+import { WineFamilyType } from '~/client/components/Wine/Wine.type';
 
-export const allReducer = (state = [], action) => {
+type AllType = WineFamilyType[];
+
+export const allReducer = (
+  state: AllType = [],
+  action: WineFamiliesActions
+) => {
   switch (action.type) {
     case SET_WINE_FAMILIES: {
       const { wineFamilies } = action.payload;
@@ -20,7 +27,14 @@ export const allReducer = (state = [], action) => {
   }
 };
 
-export const mapReducer = (state = [], action) => {
+type MapType = {
+  [id: number]: WineFamilyType;
+};
+
+export const mapReducer = (
+  state: MapType = {},
+  action: WineFamiliesActions
+) => {
   switch (action.type) {
     case SET_WINE_FAMILIES: {
       const { wineFamilies } = action.payload;
@@ -35,7 +49,7 @@ export const mapReducer = (state = [], action) => {
 
       return {
         ...state,
-        [wineFamily.id]: wineFamily
+        [wineFamily.id]: wineFamily,
       };
     }
 
@@ -46,7 +60,7 @@ export const mapReducer = (state = [], action) => {
 
 const reducer = combineReducers({
   map: mapReducer,
-  all: allReducer
+  all: allReducer,
 });
 
 export default reducer;

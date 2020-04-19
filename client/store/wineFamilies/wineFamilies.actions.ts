@@ -1,20 +1,23 @@
 import { SET_WINE_FAMILIES, SET_WINE_FAMILY } from './wineFamilies.types';
+import { WineFamilyType } from '~/client/components/Wine/Wine.type';
 
-export const setWineFamilies = wineFamilies => ({
-  type: SET_WINE_FAMILIES,
-  payload: {
-    wineFamilies
-  }
-});
+export const setWineFamilies = (wineFamilies: WineFamilyType[]) =>
+  <const>{
+    type: SET_WINE_FAMILIES,
+    payload: {
+      wineFamilies,
+    },
+  };
 
-export const setWineFamily = wineFamily => ({
-  type: SET_WINE_FAMILY,
-  payload: {
-    wineFamily
-  }
-});
+export const setWineFamily = (wineFamily: WineFamilyType) =>
+  <const>{
+    type: SET_WINE_FAMILY,
+    payload: {
+      wineFamily,
+    },
+  };
 
-export const getWineFamilies = wineModel => async (
+export const getWineFamilies = (wineModel) => async (
   dispatch,
   _,
   { getWineFamilies }
@@ -27,7 +30,7 @@ export const getWineFamilies = wineModel => async (
   }
 };
 
-export const createWineFamily = name => async (
+export const createWineFamily = (name) => async (
   dispatch,
   _,
   { createWineFamily }
@@ -39,3 +42,7 @@ export const createWineFamily = name => async (
     console.error(error);
   }
 };
+
+export type WineFamiliesActions = ReturnType<
+  typeof setWineFamilies | typeof setWineFamily
+>;
