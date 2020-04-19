@@ -1,18 +1,17 @@
-
 import React from 'react';
 import styled from 'styled-components';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
-type Props = {|
-  children: React.Node,
-  onChange: Function,
-  name: string,
-  value: string,
-  checked: boolean,
-  id: string,
-  className: string
-|};
+type Props = {
+  children: React.ReactNode;
+  onChange: Function;
+  name: string;
+  value: string;
+  checked: boolean;
+  id: string;
+  className: string;
+};
 
 const Input = styled.input`
   position: absolute;
@@ -27,7 +26,7 @@ const Input = styled.input`
   }
 
   &:checked + label > svg {
-    color: ${props => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
   }
 `;
 const Label = styled.label`
@@ -42,7 +41,7 @@ export const Checkbox = ({
   name,
   id,
   checked,
-  className
+  className,
 }: Props) => (
   <>
     <Input

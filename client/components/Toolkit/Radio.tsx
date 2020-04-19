@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styled from 'styled-components';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
@@ -17,7 +16,7 @@ const Input = styled.input`
   }
 
   &:checked + label > svg {
-    color: ${props => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
   }
 `;
 const Label = styled.label`
@@ -25,15 +24,15 @@ const Label = styled.label`
   display: inline-flex;
 `;
 
-type Props = {|
-  children: React.Node,
-  onChange: Function,
-  name: string,
-  value: string,
-  checked: boolean,
-  id: string,
-  className: string
-|};
+type Props = {
+  children: React.ReactNode;
+  onChange: Function;
+  name: string;
+  value: string;
+  checked: boolean;
+  id: string;
+  className: string;
+};
 
 export const Radio = ({
   children,
@@ -42,7 +41,7 @@ export const Radio = ({
   name,
   id,
   checked,
-  className
+  className,
 }: Props) => (
   <>
     <Input

@@ -1,13 +1,11 @@
-
-
 import React from 'react';
 import { WineFamilySuggestion } from './WineFamilySuggestion';
 import WineFamilyFormater from './WineFamilyFormater';
 
-type Props = {|
-  selectedFamilyIds: Array<any>,
-  onSuggestionSelected: Function
-|};
+type Props = {
+  selectedFamilyIds: Array<any>;
+  onSuggestionSelected: Function;
+};
 
 class WineFamilyMultipleSelector extends React.Component<Props> {
   render() {
@@ -15,9 +13,9 @@ class WineFamilyMultipleSelector extends React.Component<Props> {
     return (
       <>
         <WineFamilyFormater>
-          {wineFamilies => {
+          {(wineFamilies) => {
             const excluded = wineFamilies.filter(
-              item => !selectedFamilyIds.includes(item.id)
+              (item) => !selectedFamilyIds.includes(item.id)
             );
             return (
               <WineFamilySuggestion

@@ -10,9 +10,8 @@ module.exports = {
       {
         ssr: true,
         displayName: true,
-        preprocess: false
-      }
+        preprocess: false,
+      },
     ],
-    'transform-flow-strip-types'
-  ]
+  ],
 };
