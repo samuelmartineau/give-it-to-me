@@ -104,6 +104,8 @@ type ModelType = {
   source?: string;
   positionComment: string;
   count: number;
+  thumbnailFileName?: string;
+  blur?: string;
 };
 
 export const modelReducer = (

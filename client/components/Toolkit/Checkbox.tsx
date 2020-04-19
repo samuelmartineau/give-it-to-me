@@ -1,17 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-
-type Props = {
-  children: React.ReactNode;
-  onChange: Function;
-  name: string;
-  value: string;
-  checked: boolean;
-  id: string;
-  className: string;
-};
 
 const Input = styled.input`
   position: absolute;
@@ -34,7 +24,17 @@ const Label = styled.label`
   display: inline-flex;
 `;
 
-export const Checkbox = ({
+type Props = {
+  children: React.ReactNode;
+  onChange: Function;
+  name: string;
+  value: string;
+  checked: boolean;
+  id: string;
+  className?: string;
+};
+
+export const Checkbox: FC<Props> = ({
   children,
   value,
   onChange,
@@ -42,7 +42,7 @@ export const Checkbox = ({
   id,
   checked,
   className,
-}: Props) => (
+}) => (
   <>
     <Input
       id={id}
