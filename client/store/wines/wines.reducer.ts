@@ -1,7 +1,13 @@
 import { combineReducers } from 'redux';
+import { WineType } from '~/client/components/Wine/Wine.type';
 import { CELLAR_RECEIVED } from './wines.types';
+import { WinesActions } from './wines.actions';
 
-export const mapReducer = (state = {}, action) => {
+type MapType = {
+  [id: number]: WineType & { bottleIds: number[] };
+};
+
+export const mapReducer = (state: MapType = {}, action: WinesActions) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
       return action.payload.cellar.reduce((acc, wine) => {
@@ -9,8 +15,8 @@ export const mapReducer = (state = {}, action) => {
         return Object.assign(acc, {
           [wine.id]: {
             ...rest,
-            bottleIds: wine.bottles.map(bottle => bottle.id)
-          }
+            bottleIds: wine.bottles.map((bottle) => bottle.id),
+          },
         });
       }, {});
     }
@@ -20,10 +26,10 @@ export const mapReducer = (state = {}, action) => {
   }
 };
 
-export const allReducer = (state = [], action) => {
+export const allReducer = (state: number[] = [], action: WinesActions) => {
   switch (action.type) {
     case CELLAR_RECEIVED: {
-      return action.payload.cellar.map(wine => wine.id);
+      return action.payload.cellar.map((wine) => wine.id);
     }
     default:
       return state;
@@ -32,7 +38,7 @@ export const allReducer = (state = [], action) => {
 
 const reducer = combineReducers({
   map: mapReducer,
-  all: allReducer
+  all: allReducer,
 });
 
 export default reducer;

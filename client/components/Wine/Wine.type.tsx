@@ -1,20 +1,29 @@
+export type CellarType = (WineType & { bottles: BottleType[] })[];
+
 export type WineType = {
-  id: Number;
-  blur: String;
-  name: String;
-  source: String;
-  wineCategory: String;
-  wineType: String;
-  thumbnailFileName: String;
-  pictureFileName: String;
-  positionComment: String;
-  isInBoxes: Boolean;
-  _deleted: Boolean;
-  isFavorite: Boolean;
-  bottleType: Number;
-  year: Number;
-  wineFamily: Number;
-  stock: Number;
-  count: Number;
+  id: number;
+  blur: string;
+  name: string;
+  source: string;
+  wineCategory: string;
+  wineType: string;
+  thumbnailFileName: string;
+  pictureFileName: string;
+  positionComment: string;
+  isInBoxes: boolean;
+  _deleted: boolean;
+  isFavorite: boolean;
+  bottleType: number;
+  year: number;
+  wineFamily: number;
+  stock: number;
+  count: number;
   created_at: Date;
+};
+
+export type BottleType = {
+  id: number;
+  wineId: number;
+  box: number;
+  cell: number;
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,6 +7,7 @@ import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
 import CellarBottles from '~/client/components/Cellar/CellarBottles';
 import CellarBox from '~/client/components/Cellar/CellarBox';
 import config from '~/config';
+import { WineType, BottleType } from '~/client/components/Wine/Wine.type';
 import { YearsChart } from './YearsChart';
 
 const Title = styled.div`
@@ -15,9 +16,12 @@ const Title = styled.div`
   margin: 1rem;
 `;
 
-type Props = {};
+type Props = {
+  wines: WineType[];
+  bottles: BottleType[];
+};
 
-const Home = ({ wines, bottles }: Props) => (
+const Home: FC<Props> = ({ wines, bottles }) => (
   <div>
     <Title>
       Bonjour {config.owner}, il te reste {wines.length} vin
