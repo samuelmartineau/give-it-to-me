@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
@@ -6,33 +6,36 @@ import SearchIcon from '@material-ui/icons/Search';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import styled from 'styled-components';
 import { withRouter } from 'next/router';
+import { WithRouterProps } from 'next/dist/client/with-router';
 
-const routes = [
+type RouteType = { label: string; href: string; icon: JSX.Element };
+
+const routes: RouteType[] = [
   {
     label: 'Accueil',
     href: '/',
-    icon: <HomeIcon />
+    icon: <HomeIcon />,
   },
   {
     label: 'Ajouter',
     href: '/add',
-    icon: <AddIcon />
+    icon: <AddIcon />,
   },
   {
     label: 'Rechercher',
     href: '/search',
-    icon: <SearchIcon />
+    icon: <SearchIcon />,
   },
   {
     label: 'Parcourir',
     href: '/browse',
-    icon: <FolderOpenIcon />
-  }
+    icon: <FolderOpenIcon />,
+  },
 ];
 
 const Header = styled.header`
-  background-color: ${props => props.theme.colors.primary};
-  color: ${props => props.theme.colors.onPrimary};
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.onPrimary};
   user-select: none;
 `;
 const List = styled.ul`
@@ -41,7 +44,10 @@ const List = styled.ul`
   display: flex;
   list-style-type: none;
 `;
-const ListItem = styled.li`
+const ListItem = styled.li<{
+  router: WithRouterProps['router'];
+  route: RouteType;
+}>`
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
@@ -54,8 +60,8 @@ const ListItem = styled.li`
   justify-content: center;
 
   &:hover {
-    background-color: ${props => props.theme.colors.primaryVarient};
-    color: ${props => props.theme.colors.onPrimary};
+    background-color: ${(props) => props.theme.colors.primaryVarient};
+    color: ${(props) => props.theme.colors.onPrimary};
   }
   ${({ router, route, theme }) =>
     router.pathname === route.href &&
@@ -69,19 +75,17 @@ const ListItemIcon = styled.i`
   padding: 0 2px;
 `;
 const ListItemName = styled.span`
-  ${props => props.theme.media.handheld`
+  ${(props) => props.theme.media.handheld`
 display: none;
 `};
 `;
 
-type Props = {
-  router: any
-};
+type Props = WithRouterProps;
 
-const Menu = ({ router }: Props) => (
+const Menu: FC<Props> = ({ router }) => (
   <Header>
     <List>
-      {routes.map(route => {
+      {routes.map((route) => {
         return (
           <Link key={route.href} href={route.href}>
             <ListItem route={route} router={router}>

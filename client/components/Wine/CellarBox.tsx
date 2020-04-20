@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import CellarBox from '../Cellar/CellarBox';
-import { isWineInBox } from '~/client/store';
+import { isWineInBox, RootState } from '~/client/store';
 import styled from 'styled-components';
 
-const CellarBoxStyled = styled(CellarBox)`
+const CellarBoxStyled = styled(CellarBox)<{ isWineInBox: boolean }>`
   opacity: 0.5;
   ${({ isWineInBox }) =>
     isWineInBox &&
@@ -13,17 +13,18 @@ const CellarBoxStyled = styled(CellarBox)`
   `};
 `;
 
-type Props = {
-  boxId: number;
-  isWineInBox: boolean;
-  onSelect?: Function;
-  className: string;
-};
+type RawProps = { boxId: number; wineId: number };
 
-const CellarBoxSwitch = ({ boxId, isWineInBox }: Props) => {
+type Props = RawProps & PropsFromRedux;
+
+const CellarBoxSwitch: FC<Props> = ({ boxId, isWineInBox }) => {
   return <CellarBoxStyled boxId={boxId} isWineInBox={isWineInBox} />;
 };
 
-export const CellarBoxConnected = connect((state, { boxId, wineId }) => ({
+const connector = connect((state: RootState, { boxId, wineId }: RawProps) => ({
   isWineInBox: isWineInBox(state, boxId, wineId),
-}))(CellarBoxSwitch);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export const CellarBoxConnected = connector(CellarBoxSwitch);

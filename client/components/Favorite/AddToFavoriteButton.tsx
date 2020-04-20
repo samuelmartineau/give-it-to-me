@@ -6,12 +6,14 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Button } from '~/client/components/Toolkit';
 import { addToFavorite, removeFromFavorite, RootState } from '~/client/store';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 type RawProps = { wineId: number };
 
 type Props = PropsFromRedux & RawProps;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button)<{ isFavorite: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +38,7 @@ const connector = connect(
   (state: RootState, { wineId }: RawProps) => ({
     isFavorite: state.favorites.all.includes(wineId),
   }),
-  (dispatch, { wineId }) => ({
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>, { wineId }: RawProps) => ({
     addToFavorite() {
       dispatch(addToFavorite(wineId));
     },

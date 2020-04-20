@@ -9,6 +9,7 @@ import {
   ModalContent,
   ModalActions,
 } from '~/client/components/Modal';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const Actions = styled.div`
   display: flex;
@@ -17,9 +18,8 @@ const Actions = styled.div`
 `;
 type Props = {
   modalIsOpen: boolean;
-  closeModal: Function;
-  wineId: number;
-  wine: {};
+  closeModal: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  wine: WineEnhanced;
 };
 
 class InBoxesModal extends React.PureComponent<Props> {

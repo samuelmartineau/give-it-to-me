@@ -11,42 +11,42 @@ export {
   getNextHits,
   toggleFavoritesFilter,
   toggleOutsideBoxesFilter,
-  syncUrlParams
+  syncUrlParams,
 } from './search/search.actions';
 export { setCellar } from './wines/wines.actions';
 export {
   getWineFamilies,
-  createWineFamily
+  createWineFamily,
 } from './wineFamilies/wineFamilies.actions';
 export {
   selectBoxToBrowse,
   unselectBoxToBrowse,
   selectCellToBrowse,
-  unselectCellToBrowse
+  unselectCellToBrowse,
 } from './browse/browse.actions';
 export {
   addToFavorite,
-  removeFromFavorite
+  removeFromFavorite,
 } from './favorites/favorites.actions';
 export {
   setRemoveCount,
   resetRemoveState,
-  selectWineToRemove
+  selectWineToRemove,
 } from './remove/remove.actions';
 
 export {
   selectBottleToDelete,
-  unselectBottleToDelete
+  unselectBottleToDelete,
 } from './remove/remove.actions';
 
 export const getCellar = () => {
-  return dispatch => {
+  return (dispatch) => {
     return dispatch(wines.getCellar());
   };
 };
-export const selectBox = boxId => {
+export const selectBox = (boxId) => {
   return (dispatch, getState) => {
-    const cells = getBoxCells(boxId).map(id => id);
+    const cells = getBoxCells(boxId).map((id) => id);
     const state = getState();
     const cellsUsed = getCellsUsedInBox(state, boxId);
     const availablesCells = difference(cells, cellsUsed);
@@ -73,13 +73,16 @@ export const addWine = () => {
   };
 };
 
-export const toggleCheckboxFilter = (key, value) => {
-  return dispatch => {
+export const toggleCheckboxFilter = (
+  key: 'wineFamilies' | 'wineTypes' | 'wineCategories',
+  value: number
+) => {
+  return (dispatch) => {
     dispatch(search.toggleCheckboxFilter(key, value));
   };
 };
 export const updateInputFilter = (key, value) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(search.updateInputFilter(key, value));
   };
 };

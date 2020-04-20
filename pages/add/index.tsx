@@ -1,14 +1,12 @@
-import { compose, withProps } from 'recompose';
-import WithLayout from '../../client/components/Layout/WithLayout';
 import { AddStepsConnected } from '../../client/components/Add/AddSteps';
 import { getInitialProps } from '~/client/_getInitialProps';
+import { Layout } from '~/client/components/Layout/Layout';
 
-const AddWithLayout = compose(
-  withProps({
-    title: 'Ajouter une nouvelle bouteille',
-  }),
-  WithLayout
-)(AddStepsConnected);
+const AddWithLayout = () => (
+  <Layout title="Ajouter une nouvelle bouteille">
+    <AddStepsConnected />
+  </Layout>
+);
 
 AddWithLayout.getInitialProps = getInitialProps;
 

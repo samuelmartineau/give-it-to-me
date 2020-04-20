@@ -7,6 +7,8 @@ import { PositionStepConnected } from './PositionStep';
 import { TypesStepConnected } from './TypesStep';
 import { Button, Spinner } from '~/client/components/Toolkit';
 import { isModelValid, addWine, RootState } from '~/client/store/';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const Form = styled.form`
   max-width: 800px;
@@ -71,7 +73,7 @@ class AddSteps extends React.Component<Props> {
 
 const connector = connect(
   (state: RootState) => ({ isModelValid: isModelValid(state) }),
-  (dispatch) => ({
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     addWine() {
       dispatch(addWine());
     },

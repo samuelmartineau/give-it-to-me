@@ -1,5 +1,5 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { compose, withProps } from 'recompose';
 import CellarBox from './CellarBox';
 
 const CellarBoxStyled = styled(CellarBox)`
@@ -10,8 +10,18 @@ const CellarBoxStyled = styled(CellarBox)`
   }
 `;
 
-export default compose(
-  withProps(({ onSelect, boxId }) => ({
-    onSelect: () => onSelect(boxId),
-  }))
-)(CellarBoxStyled);
+type Props = {
+  onSelect: Function;
+  boxId: number;
+  className?: string;
+};
+
+const CellarBoxSelectable: FC<Props> = ({ onSelect, boxId, className }) => (
+  <CellarBoxStyled
+    onSelect={() => onSelect(boxId)}
+    boxId={boxId}
+    className={className}
+  />
+);
+
+export default CellarBoxSelectable;

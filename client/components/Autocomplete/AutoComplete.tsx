@@ -6,6 +6,14 @@ import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 import { TextField } from '~/client/components/Toolkit';
 
+declare module 'fuzzy' {
+  function filter<T>(
+    pattern: string,
+    arr: T[],
+    opts?: FilterOptions<T>
+  ): ReturnType<FilterOptions<T>['extract']>[];
+}
+
 const classNames = {
   container: 'react-autosuggest__container',
   containerOpen: 'react-autosuggest__container--open',
@@ -20,7 +28,7 @@ const classNames = {
   suggestionHighlighted: 'react-autosuggest__suggestion--highlighted',
   sectionContainer: 'react-autosuggest__section-container',
   sectionContainerFirst: 'react-autosuggest__section-container--first',
-  sectionTitle: 'react-autosuggest__section-title'
+  sectionTitle: 'react-autosuggest__section-title',
 };
 
 const AutosuggestWrapper = styled.div.attrs(classNames)`
@@ -75,42 +83,54 @@ function getSuggestionValue() {
   return '';
 }
 
-export class AutoComplete extends React.Component {
+type Props<T> = {
+  datas: T[];
+  extract: (item: T) => string;
+  onSuggestionSelected: Function;
+  placeholder: string;
+};
+
+type State = {
+  suggestions: string[];
+  value: string;
+};
+
+export class AutoComplete<T> extends React.Component<Props<T>, State> {
+  debouncedLoadSuggestions: Function;
+
   constructor(props) {
     super(props);
 
     this.state = {
       value: '',
       suggestions: [],
-      isLoading: false
     };
 
     this.debouncedLoadSuggestions = debounce(this.loadSuggestions, 300); // 1000ms is chosen for demo purposes only.
   }
 
-  loadSuggestions = value => {
-    const { datas } = this.props;
+  loadSuggestions = (value) => {
+    const { datas, extract } = this.props;
     const inputValue = utils.cleanString(value);
     const inputLength = inputValue.length;
     const suggestions =
       inputLength === 0
         ? []
         : fuzzy
-            .filter(inputValue, datas, {
+            .filter<T>(inputValue, datas, {
               pre: '<b>',
               post: '</b>',
-              extract: el => el.searchKey
+              extract,
             })
             .slice(0, 5);
     this.setState({
-      isLoading: false,
-      suggestions
+      suggestions,
     });
   };
 
   onChange = (event, { newValue }) => {
     this.setState({
-      value: newValue
+      value: newValue,
     });
   };
 
@@ -140,7 +160,7 @@ export class AutoComplete extends React.Component {
             type: 'text',
             placeholder,
             value,
-            onChange: this.onChange
+            onChange: this.onChange,
           }}
         />
       </AutosuggestWrapper>

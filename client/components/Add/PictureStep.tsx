@@ -58,7 +58,6 @@ export const PictureStep: FC<Props> = ({
           height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
           src={thumbnailFileName}
           lazyLoader={blur}
-          delay={1000}
         />
         <ButtonStyled type="button" onClick={resetUpload}>
           Changer de photo

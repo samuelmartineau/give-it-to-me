@@ -1,15 +1,14 @@
 import React from 'react';
 import Router from 'next/router';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import queryString from 'query-string';
-import { toggleCheckboxFilter } from '~/client/store/';
+import { toggleCheckboxFilter, RootState } from '~/client/store/';
 import { Label, Text } from './FiltersUtils';
 import WineFamilyMultipleSelector from '~/client/components/Autocomplete/WineFamilyMultipleSelector';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-type Props = {
-  updateWineFamilies: Function;
-  wineFamilies: Array<any>;
-};
+type Props = PropsFromRedux;
 
 class WineFamiliesFilter extends React.Component<Props> {
   selectWineFamily = (evt, item) => {
@@ -52,13 +51,17 @@ class WineFamiliesFilter extends React.Component<Props> {
   }
 }
 
-export default connect(
-  (state) => ({
+const connector = connect(
+  (state: RootState) => ({
     wineFamilies: state.search.wineFamilies,
   }),
-  (dispatch) => ({
-    updateWineFamilies(id) {
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
+    updateWineFamilies(id: number) {
       dispatch(toggleCheckboxFilter('wineFamilies', id));
     },
   })
-)(WineFamiliesFilter);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(WineFamiliesFilter);

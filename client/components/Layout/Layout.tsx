@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import Header from './Header';
@@ -33,14 +33,11 @@ const Main = styled.div`
 `};
 `;
 
-type AppFrameProps = {
-  width: Number;
-  classes: {};
+type Props = {
   title: string;
-  children: React.ReactNode;
 };
 
-export const Layout = ({ title, children }: AppFrameProps) => {
+export const Layout: FC<Props> = ({ title, children }) => {
   return (
     <App>
       <Header />

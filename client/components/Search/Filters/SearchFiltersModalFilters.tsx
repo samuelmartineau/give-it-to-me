@@ -1,18 +1,25 @@
 import React from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import queryString from 'query-string';
 import {
   toggleCheckboxFilter,
   updateInputFilter,
   toggleFavoritesFilter,
   toggleOutsideBoxesFilter,
+  RootState,
 } from '~/client/store/';
 import config from '~/config';
-import { Checkbox, TextField } from '~/client/components/Toolkit';
+import {
+  Checkbox,
+  TextField,
+  CheckboxProps,
+} from '~/client/components/Toolkit';
 import WineFamiliesFilter from './WineFamiliesFilter';
 import WineFamiliesFilterChips from './WineFamiliesFilterChips';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
 
@@ -28,27 +35,11 @@ const Text = styled.div`
 const Periode = styled.div`
   display: flex;
 `;
-const CheckboxStyled = styled(Checkbox)`
+const CheckboxStyled = styled(Checkbox)<CheckboxProps>`
   margin: auto 0.5em;
 `;
 
-type Props = {
-  count: number;
-  updateWineFamilies: Function;
-  updateCheckbox: Function;
-  onInputChange: Function;
-  toggleFavoritesFilter: Function;
-  toggleOutsideBoxesFilter: Function;
-  filters: {
-    wineTypes: Array<string>;
-    wineCategories: Array<string>;
-    maxYear: string;
-    minYear: string;
-    name: string;
-    favorites: boolean;
-    outsideBoxes: boolean;
-  };
-};
+type Props = PropsFromRedux;
 
 class SearchFiltersModalFilters extends React.Component<Props> {
   onRangeChange = (evt) => {
@@ -124,36 +115,6 @@ class SearchFiltersModalFilters extends React.Component<Props> {
     Router.push(url, url, { shallow: true });
 
     toggleOutsideBoxesFilter(evt);
-  };
-
-  selectWineFamily = (evt, item) => {
-    const {
-      suggestion: {
-        original: { id },
-      },
-    } = item;
-    const { updateWineFamilies } = this.props;
-    const name = 'wineFamilies';
-    const value = id;
-
-    const parsed = queryString.parse(location.search);
-    if (parsed[name]) {
-      parsed[name] = [].concat(parsed[name]);
-      if (parsed[name].includes(value)) {
-        parsed[name] = parsed[name].filter((key) => key !== value);
-        if (parsed[name].length === 0) {
-          delete parsed[name];
-        }
-      } else {
-        parsed[name].push(value);
-      }
-    } else {
-      parsed[name] = [value];
-    }
-    const url = `/search?${queryString.stringify(parsed)}`;
-    Router.push(url, url, { shallow: true });
-
-    updateWineFamilies(evt);
   };
 
   render() {
@@ -252,11 +213,11 @@ class SearchFiltersModalFilters extends React.Component<Props> {
   }
 }
 
-export default connect(
-  (state) => ({
+const connector = connect(
+  (state: RootState) => ({
     filters: state.search,
   }),
-  (dispatch) => ({
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     updateCheckbox(evt) {
       const { value, name } = evt.target;
       dispatch(toggleCheckboxFilter(name, value));
@@ -275,4 +236,8 @@ export default connect(
       dispatch(updateInputFilter(name, value));
     },
   })
-)(SearchFiltersModalFilters);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(SearchFiltersModalFilters);

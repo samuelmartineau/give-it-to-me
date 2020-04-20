@@ -24,9 +24,9 @@ const Label = styled.label`
   display: inline-flex;
 `;
 
-type Props = {
+export type CheckboxProps = {
   children: React.ReactNode;
-  onChange: Function;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   name: string;
   value: string;
   checked: boolean;
@@ -34,7 +34,7 @@ type Props = {
   className?: string;
 };
 
-export const Checkbox: FC<Props> = ({
+export const Checkbox: FC<CheckboxProps> = ({
   children,
   value,
   onChange,

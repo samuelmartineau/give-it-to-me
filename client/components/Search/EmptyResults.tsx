@@ -1,26 +1,27 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
-import { getWinesFiltered } from '~/client/store/';
+import { getWinesFiltered, RootState } from '~/client/store/';
 import { MessageManager } from '../MessageManager/MessageManager';
 
-type Props = {
-  hasNoResult: boolean;
+type Props = PropsFromRedux;
+
+const EmptyResults: FC<Props> = ({ hasNoResult }) => {
+  if (!hasNoResult) return null;
+
+  return (
+    <MessageManager
+      icon={<SearchIcon />}
+      title="Aucun vin trouvé"
+      message="Impossible de trouver un vin. Peut être que tu as mis trop de filtres?"
+    />
+  );
 };
 
-const EmptyResults = ({ hasNoResult }: Props) => {
-  if (hasNoResult) {
-    return (
-      <MessageManager
-        icon={<SearchIcon />}
-        title="Aucun vin trouvé"
-        message="Impossible de trouver un vin. Peut être que tu as mis trop de filtres?"
-      />
-    );
-  }
-  return null;
-};
-
-export default connect((state) => ({
+const connector = connect((state: RootState) => ({
   hasNoResult: getWinesFiltered(state).length === 0,
-}))(EmptyResults);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(EmptyResults);

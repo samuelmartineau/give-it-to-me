@@ -10,8 +10,8 @@ import ClickHandlerCell from './ClickHandlerCell';
 const Wrapper = styled.div``;
 
 type RawProps = {
-  boxId: number;
-  className: string;
+  boxId?: number;
+  className?: string;
 };
 
 type Props = RawProps & PropsFromRedux;

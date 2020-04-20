@@ -10,7 +10,7 @@ const SERVER_URL =
     : `http://localhost:${defaultPort}`;
 const assetsBaseUrl = '/assets';
 
-module.exports = {
+module.exports = Object.freeze({
   DB: {
     timeout: 5,
     filename: 'db_v1.db',
@@ -59,4 +59,4 @@ module.exports = {
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
   owner: process.env.OWNER || 'Samuel',
-};
+});

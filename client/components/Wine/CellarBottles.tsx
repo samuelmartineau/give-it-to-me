@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '../Cellar/Bottle';
-import { getWineBottles } from '~/client/store';
+import { getWineBottles, RootState } from '~/client/store';
 import { getBottleInfos, getBottleId } from '../Cellar/utils';
 
 const Cell = ({ bottle }) => {
@@ -17,7 +17,11 @@ const Cell = ({ bottle }) => {
   );
 };
 
-export const CellarBottles = ({ bottles }) => {
+type RawProps = { wineId: number };
+
+type Props = RawProps & PropsFromRedux;
+
+export const CellarBottles: FC<Props> = ({ bottles }) => {
   return (
     <g>
       {bottles.map((bottle) => (
@@ -27,6 +31,10 @@ export const CellarBottles = ({ bottles }) => {
   );
 };
 
-export default connect((state, { wineId }) => ({
+const connector = connect((state: RootState, { wineId }: RawProps) => ({
   bottles: getWineBottles(state, wineId),
-}))(CellarBottles);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(CellarBottles);

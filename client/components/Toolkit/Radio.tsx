@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
@@ -25,8 +25,7 @@ const Label = styled.label`
 `;
 
 type Props = {
-  children: React.ReactNode;
-  onChange: Function;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   name: string;
   value: string;
   checked: boolean;
@@ -34,7 +33,7 @@ type Props = {
   className: string;
 };
 
-export const Radio = ({
+export const Radio: FC<Props> = ({
   children,
   value,
   onChange,
@@ -42,7 +41,7 @@ export const Radio = ({
   id,
   checked,
   className,
-}: Props) => (
+}) => (
   <>
     <Input
       id={id}

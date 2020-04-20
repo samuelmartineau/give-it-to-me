@@ -66,8 +66,8 @@ export default (state: State = defaultState, action: SearchActions) => {
     }
     case SYNC_URL_PARAMS: {
       const { params } = action.payload;
-      const newState = { ...defaultState };
-      const booleansFilters = ['favorites', 'outsideBoxes'];
+      const newState: State = { ...defaultState };
+      const booleansFilters = <const>['favorites', 'outsideBoxes'];
       booleansFilters.forEach((key) => {
         if (key in params) {
           newState[key] = params[key];
@@ -76,9 +76,12 @@ export default (state: State = defaultState, action: SearchActions) => {
       if (params.wineFamilies)
         Object.keys(params).forEach((key) => {
           if (ArrayKeys.includes(key)) {
-            newState[key] = newState[key].concat(params[key]);
             if (key === 'wineFamilies') {
-              newState[key] = newState[key].map((id) => parseInt(id, 10));
+              newState[key] = newState[key].concat(
+                params[key].map((id) => parseInt(id, 10))
+              );
+            } else {
+              newState[key] = newState[key].concat(params[key]);
             }
           } else {
             newState[key] = params[key];

@@ -1,26 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { utils } from '~/config';
+import { RootState } from '~/client/store';
 
 type Props = {
-  wineFamilies: Array<{}>;
-  children: React.Node;
+  children: (
+    data: { id: number; label: string; searchKey: string }[]
+  ) => React.ReactNode;
+} & PropsFromRedux;
+
+const WineFamilyFormater: FC<Props> = ({ wineFamilies, children }) => {
+  const areasFormated = wineFamilies.map((wineFamily) => ({
+    id: wineFamily.id,
+    label: wineFamily.name,
+    searchKey: utils.cleanString(wineFamily.name),
+  }));
+
+  return <>{children(areasFormated)}</>;
 };
 
-class WineFamilyFormater extends React.Component<Props> {
-  render() {
-    const { wineFamilies } = this.props;
-
-    const areasFormated = wineFamilies.map((wineFamily) => ({
-      id: wineFamily.id,
-      label: wineFamily.name,
-      searchKey: utils.cleanString(wineFamily.name),
-    }));
-
-    return this.props.children(areasFormated);
-  }
-}
-
-export default connect((state) => ({
+const connector = connect((state: RootState) => ({
   wineFamilies: state.wineFamilies.all,
-}))(WineFamilyFormater);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(WineFamilyFormater);

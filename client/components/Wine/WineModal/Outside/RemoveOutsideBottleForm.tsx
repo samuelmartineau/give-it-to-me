@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { TextField } from '~/client/components/Toolkit';
-import { setRemoveCount } from '~/client/store';
+import { setRemoveCount, RootState } from '~/client/store';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const Wrapper = styled.div``;
 
@@ -14,11 +15,11 @@ const Text = styled.span`
   font-style: italic;
 `;
 
-type Props = {
-  wine: {};
-  updateCount: Function;
-  count: number;
+type RawProps = {
+  wine: WineEnhanced;
 };
+
+type Props = RawProps & PropsFromRedux;
 
 const RemoveOutsideBottleForm: FC<Props> = ({ wine, count, updateCount }) => {
   return (
@@ -34,11 +35,11 @@ const RemoveOutsideBottleForm: FC<Props> = ({ wine, count, updateCount }) => {
   );
 };
 
-export default connect(
-  (state) => ({
+const connector = connect(
+  (state: RootState) => ({
     count: state.remove.count,
   }),
-  (dispatch, { wine }) => ({
+  (dispatch, { wine }: RawProps) => ({
     updateCount(evt) {
       const { value } = evt.target;
       if (!value || (value > 0 && value <= wine.bottlesCount)) {
@@ -46,4 +47,8 @@ export default connect(
       }
     },
   })
-)(RemoveOutsideBottleForm);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(RemoveOutsideBottleForm);

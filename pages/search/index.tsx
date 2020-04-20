@@ -1,15 +1,13 @@
-import { compose, withProps } from 'recompose';
-import WithLayout from '~/client/components/Layout/WithLayout';
 import Search from '~/client/components/Search/Search';
 import { syncUrlParams } from '~/client/store';
 import { getInitialProps } from '~/client/_getInitialProps';
+import { Layout } from '~/client/components/Layout/Layout';
 
-const SearchWithLayout = compose(
-  withProps({
-    title: 'Chercher une bouteille',
-  }),
-  WithLayout
-)(Search);
+const SearchWithLayout = () => (
+  <Layout title="Chercher une bouteille">
+    <Search />
+  </Layout>
+);
 
 SearchWithLayout.getInitialProps = (props) => {
   const { query, store } = props;

@@ -1,26 +1,40 @@
-import { css } from 'styled-components';
+import {
+  css,
+  DefaultTheme,
+  CSSObject,
+  SimpleInterpolation,
+} from 'styled-components';
 
 export const media = {
-  handheld: (...args) => css`
+  handheld: (
+    first: TemplateStringsArray | CSSObject,
+    ...interpolations: SimpleInterpolation[]
+  ) => css`
     @media (max-width: 600px) {
-      ${css(...args)};
+      ${css(first, ...interpolations)};
     }
   `,
-  screen: (...args) => css`
+  screen: (
+    first: TemplateStringsArray | CSSObject,
+    ...interpolations: SimpleInterpolation[]
+  ) => css`
     @media (min-width: 601px) {
-      ${css(...args)};
+      ${css(first, ...interpolations)};
     }
   `,
-  large: (...args) => css`
+  large: (
+    first: TemplateStringsArray | CSSObject,
+    ...interpolations: SimpleInterpolation[]
+  ) => css`
     @media (min-width: 1261px) {
-      ${css(...args)};
+      ${css(first, ...interpolations)};
     }
-  `
+  `,
 };
 
-const theme = {
+const theme: DefaultTheme = {
   size: {
-    maxWidth: '1260px'
+    maxWidth: '1260px',
   },
   colors: {
     primary: '#5e0231',
@@ -28,9 +42,9 @@ const theme = {
     secondary: '#856046',
     secondaryVarient: '#c7a693',
     onPrimary: '#000000',
-    onSecondary: '#ffffff'
+    onSecondary: '#ffffff',
   },
-  media
+  media,
 };
 
 export default theme;

@@ -24,7 +24,7 @@ const WineCardWrapper = styled.div`
 `};
 `;
 
-const MenuButton = styled.button`
+const MenuButton = styled.button<{ open: boolean }>`
   cursor: pointer;
   position: absolute;
   top: 0px;
@@ -39,7 +39,7 @@ const MenuButton = styled.button`
     transform: translate(20px,-20px);
   `};
 `;
-const WineCardImageContainer = styled.a`
+const WineCardImageContainer = styled.a<{ open: boolean }>`
   position: absolute;
   top: 0px;
   left: 0px;
@@ -60,7 +60,7 @@ const WineCardImageContainer = styled.a`
   `};
 `;
 
-const WineImage = styled(Image)`
+const WineImage = styled(Image)<{ open: boolean }>`
   margin-left: 16px;
   ${({ open }) =>
     open &&
@@ -82,7 +82,7 @@ const WineCardContainer = styled.div`
   right: 0px;
 `;
 
-const WineCorner = styled.div`
+const WineCorner = styled.div<{ open: boolean }>`
   position: absolute;
   border: 8px solid;
   transition: transform 0.2s;
@@ -97,7 +97,7 @@ const WineCorner = styled.div`
     transform: translate(0px, -294px);
   `};
 `;
-const WinePane = styled.div`
+const WinePane = styled.div<{ open: boolean }>`
   font-family: 'Ranga', cursive;
   font-display: swap;
   font-size: 20px;

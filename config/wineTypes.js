@@ -1,4 +1,4 @@
-const WINE_TYPES = {
+const WINE_TYPES = Object.freeze({
   RED: {
     label: 'rouge',
     categories: ['REGULAR', 'SPARKLING', 'DRY'],
@@ -14,9 +14,9 @@ const WINE_TYPES = {
     categories: ['BRUT', 'BLANC_DE_BLANCS', 'BLANC_DE_NOIRS', 'PINK'],
     color: '#9E9E9E',
   },
-};
+});
 
-const WINE_CATEGORIES = {
+const WINE_CATEGORIES = Object.freeze({
   REGULAR: {
     label: 'normal',
   },
@@ -44,7 +44,7 @@ const WINE_CATEGORIES = {
   BLANC_DE_NOIRS: {
     label: 'blanc de noirs',
   },
-};
+});
 
 const DEFAULT_TYPE = 0;
 const DEFAULT_CATEGORY = 0;
@@ -59,11 +59,11 @@ const WINE_CATEGORIES_ALL = Object.keys(WINE_CATEGORIES).map((key) => ({
   ...WINE_CATEGORIES[key],
 }));
 
-module.exports = {
+module.exports = Object.freeze({
   WINE_TYPES,
   WINE_CATEGORIES,
   DEFAULT_TYPE,
   DEFAULT_CATEGORY,
   WINE_TYPES_ALL,
   WINE_CATEGORIES_ALL,
-};
+});

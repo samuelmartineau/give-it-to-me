@@ -6,8 +6,12 @@ import {
   SYNC_URL_PARAMS,
   TOGGLE_OUTSIDE_BOXES_FILTER,
 } from './search.types';
+import config from '~/config';
 
-export const toggleCheckboxFilter = (key, value) =>
+export const toggleCheckboxFilter = (
+  key: 'wineFamilies' | 'wineTypes' | 'wineCategories',
+  value: number
+) =>
   <const>{
     type: TOGGLE_CHECKBOX_FILTER,
     payload: { key, value },
@@ -26,7 +30,16 @@ export const toggleOutsideBoxesFilter = () =>
   <const>{
     type: TOGGLE_OUTSIDE_BOXES_FILTER,
   };
-export const syncUrlParams = (params) =>
+
+type Params = {
+  favorites?: boolean;
+  outsideBoxes?: boolean;
+  wineCategories?: (keyof typeof config['wineTypes']['WINE_CATEGORIES'])[];
+  wineFamilies?: string[];
+  wineTypes: (keyof typeof config['wineTypes']['WINE_TYPES'])[];
+};
+
+export const syncUrlParams = (params: Params) =>
   <const>{
     type: SYNC_URL_PARAMS,
     payload: {

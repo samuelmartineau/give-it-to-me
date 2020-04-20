@@ -1,15 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '~/client/components/Toolkit';
 
-import { removeOutsideBottles } from '~/client/store';
+import { removeOutsideBottles, RootState } from '~/client/store';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-type Props = {
-  count: number;
-  onRemove: Function;
-};
+type Props = PropsFromRedux;
 
-const DeleteOutsideBottleButton = ({ count, onRemove }: Props) => {
+const DeleteOutsideBottleButton: FC<Props> = ({ count, onRemove }) => {
   return (
     <Button onClick={onRemove} primary type="button">
       Supprimer {count} bouteille{count > 1 && 's'}
@@ -17,13 +16,17 @@ const DeleteOutsideBottleButton = ({ count, onRemove }: Props) => {
   );
 };
 
-export default connect(
-  ({ remove }) => ({
+const connector = connect(
+  ({ remove }: RootState) => ({
     count: remove.count,
   }),
-  (dispatch) => ({
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     onRemove() {
       dispatch(removeOutsideBottles());
     },
   })
-)(DeleteOutsideBottleButton);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(DeleteOutsideBottleButton);

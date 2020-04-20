@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { TextField, Button } from '~/client/components/Toolkit';
 import {
@@ -9,6 +9,8 @@ import {
   ModalActions,
 } from '~/client/components/Modal';
 import { createWineFamily } from '~/client/store';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const Actions = styled.div`
   display: flex;
@@ -26,7 +28,7 @@ const Label = styled.label`
   margin: 1em auto;
 `;
 
-type Props = {
+type Props = PropsFromRedux & {
   modalIsOpen: boolean;
   closeModal: Function;
   wineId: number;
@@ -92,8 +94,15 @@ class AddWineFamilyModal extends React.PureComponent<Props> {
   }
 }
 
-export default connect(null, (dispatch) => ({
-  onSubmit(name) {
-    return dispatch(createWineFamily(name));
-  },
-}))(AddWineFamilyModal);
+const connector = connect(
+  null,
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
+    onSubmit(name) {
+      return dispatch(createWineFamily(name));
+    },
+  })
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(AddWineFamilyModal);

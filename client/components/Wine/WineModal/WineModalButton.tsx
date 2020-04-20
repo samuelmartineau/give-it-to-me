@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '~/client/components/Toolkit';
 import {
   resetRemoveState,
   getWineById,
   selectWineToRemove,
+  RootState,
 } from '~/client/store';
 import InBoxesModal from './InBoxes/InBoxesModal';
 import OutsideModal from './Outside/OutsideModal';
@@ -17,11 +18,12 @@ const ButtonStyled = styled(Button)`
   justify-content: center;
 `;
 
-type Props = {
-  wine: WineType;
-  onClose: Function;
-  openOutsideModal: Function;
+type RawProps = {
+  wineId: number;
 };
+
+type Props = RawProps & PropsFromRedux;
+
 type State = {
   modalIsOpen: boolean;
 };
@@ -72,11 +74,11 @@ class WineModalButton extends React.PureComponent<Props, State> {
   }
 }
 
-export default connect(
-  (state, { wineId }) => ({
+const connector = connect(
+  (state: RootState, { wineId }: RawProps) => ({
     wine: getWineById(state, wineId),
   }),
-  (dispatch, { wineId }) => ({
+  (dispatch, { wineId }: RawProps) => ({
     onClose() {
       dispatch(resetRemoveState());
     },
@@ -84,4 +86,8 @@ export default connect(
       dispatch(selectWineToRemove(wineId));
     },
   })
-)(WineModalButton);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(WineModalButton);

@@ -7,6 +7,7 @@ import AddToFavoriteButton from '~/client/components/Favorite/AddToFavoriteButto
 import { CellarBoxConnected } from './CellarBox';
 import CellarBottles from './CellarBottles';
 import WineDetails from './WineDetails';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const WineActions = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const WineActions = styled.div`
 `;
 
 type Props = {
-  wine: WineType;
+  wine: WineEnhanced;
 };
 
 export const WineContentCard: FC<Props> = ({ wine }) => {

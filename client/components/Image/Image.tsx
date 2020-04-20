@@ -5,18 +5,23 @@ type Props = {
   width: number;
   height: number;
   lazyLoader: string;
-  delay: number;
   className?: string;
 };
 
-export const Image: FC<Props> = ({ width, height, className, lazyLoader }) => {
+export const Image: FC<Props> = ({
+  src,
+  width,
+  height,
+  className,
+  lazyLoader,
+}) => {
   return (
     <img
       style={{ background: `url(${lazyLoader})` }}
       className={className}
       width={width}
       height={height}
-      src={this.props.src}
+      src={src}
     />
   );
 };

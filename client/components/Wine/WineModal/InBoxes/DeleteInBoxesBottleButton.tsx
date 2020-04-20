@@ -3,6 +3,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '~/client/components/Toolkit';
 
 import { removeBottles, RootState } from '~/client/store';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 type Props = PropsFromRedux;
 
@@ -18,7 +20,7 @@ const connector = connect(
   ({ remove }: RootState) => ({
     count: remove.bottleIds.length,
   }),
-  (dispatch) => ({
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     onRemove() {
       dispatch(removeBottles());
     },

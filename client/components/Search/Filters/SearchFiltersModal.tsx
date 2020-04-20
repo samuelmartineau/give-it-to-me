@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   Modal,
   ModalHeader,
@@ -8,14 +8,12 @@ import {
 } from '~/client/components/Modal';
 import SearchFiltersModalFilters from './SearchFiltersModalFilters';
 import { Button } from '~/client/components/Toolkit';
-import { getWinesFiltered, getFiltersCount } from '~/client/store/';
+import { getWinesFiltered, getFiltersCount, RootState } from '~/client/store/';
 
-type Props = {
+type Props = PropsFromRedux & {
   modalIsOpen: boolean;
   closeModal: Function;
   wineId: number;
-  count: number;
-  filtersCount: number;
 };
 
 class SearchFiltersModal extends React.PureComponent<Props> {
@@ -40,7 +38,11 @@ class SearchFiltersModal extends React.PureComponent<Props> {
   }
 }
 
-export default connect((state) => ({
+const connector = connect((state: RootState) => ({
   count: getWinesFiltered(state).length,
   filtersCount: getFiltersCount(state),
-}))(SearchFiltersModal);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(SearchFiltersModal);

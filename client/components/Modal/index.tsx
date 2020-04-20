@@ -5,8 +5,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 type ReactModalAdapterProps = {
   isOpen: boolean;
   onRequestClose: Function;
-  className: string;
-  modalClassName: string;
+  className?: string;
+  modalClassName?: string;
 };
 
 const ReactModalAdapter: FC<ReactModalAdapterProps> = ({

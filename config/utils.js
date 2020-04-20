@@ -1,5 +1,5 @@
 module.exports = {
-  cleanString: str => {
+  cleanString: (str) => {
     let s = str.toLowerCase();
     if (s.normalize !== undefined) {
       s = s.normalize('NFKD');
@@ -11,5 +11,5 @@ module.exports = {
   },
   removeItem: (list, index) => {
     return list.slice(0, index).concat(list.slice(index + 1));
-  }
+  },
 };
