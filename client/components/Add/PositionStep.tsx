@@ -4,6 +4,7 @@ import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
 import { updateModel, RootState } from '~/client/store/';
 import { Checkbox } from '~/client/components/Toolkit';
+import { Dispatch } from 'redux';
 
 type Props = PropsFromRedux;
 
@@ -29,8 +30,13 @@ const connector = connect(
   (state: RootState) => ({ isInBoxes: state.adding.model.isInBoxes }),
   {
     toggle() {
-      return (dispatch, getState) => {
-        dispatch(updateModel('isInBoxes', !getState().adding.model.isInBoxes));
+      return (dispatch: Dispatch, getState: () => RootState) => {
+        dispatch(
+          updateModel({
+            name: 'isInBoxes',
+            value: !getState().adding.model.isInBoxes,
+          })
+        );
       };
     },
   }

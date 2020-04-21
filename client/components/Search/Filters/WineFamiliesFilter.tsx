@@ -18,15 +18,18 @@ class WineFamiliesFilter extends React.Component<Props> {
     const value = id.toString();
 
     const parsed = queryString.parse(location.search);
-    if (parsed[name]) {
-      parsed[name] = [].concat(parsed[name]);
-      if (parsed[name].includes(value)) {
-        parsed[name] = parsed[name].filter((key) => key !== value);
-        if (parsed[name].length === 0) {
+
+    let previousFilter = parsed[name];
+
+    if (previousFilter) {
+      previousFilter = [].concat(previousFilter);
+      if (previousFilter.includes(value)) {
+        previousFilter = previousFilter.filter((key) => key !== value);
+        if (previousFilter.length === 0) {
           delete parsed[name];
         }
       } else {
-        parsed[name].push(value);
+        previousFilter.push(value);
       }
     } else {
       parsed[name] = [value];
@@ -57,7 +60,7 @@ const connector = connect(
   }),
   (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     updateWineFamilies(id: number) {
-      dispatch(toggleCheckboxFilter('wineFamilies', id));
+      dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));
     },
   })
 );

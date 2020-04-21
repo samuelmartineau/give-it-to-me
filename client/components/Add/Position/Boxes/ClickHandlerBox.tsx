@@ -1,39 +1,45 @@
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   isBoxSelected,
   isBoxSelectable,
   selectBox,
-  unselectBox
+  unselectBox,
+  RootState,
 } from '~/client/store';
 import CellarBox from '~/client/components/Cellar/CellarBox';
 import CellarBoxSelectable from '~/client/components/Cellar/CellarBoxSelectable';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const SelectableBox = connect(
   null,
-  dispatch => ({
-    onSelect: boxId => {
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
+    onSelect: (boxId) => {
       dispatch(selectBox(boxId));
-    }
+    },
   })
 )(CellarBoxSelectable);
 
 const UnSelectableBox = connect(
   null,
-  dispatch => ({
-    onSelect: boxId => {
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
+    onSelect: (boxId) => {
       dispatch(unselectBox(boxId));
-    }
+    },
   })
 )(CellarBoxSelectable);
 
-const ClickHandlerBox = ({
+type RawProps = {
+  boxId: number;
+};
+
+type Props = RawProps & PropsFromRedux;
+
+const ClickHandlerBox: FC<Props> = ({
   isBoxSelected,
   isBoxSelectable,
-  boxId
-}: {
-  isBoxSelected: boolean,
-  isBoxSelectable: boolean,
-  boxId: number
+  boxId,
 }) => {
   if (isBoxSelected) {
     return <UnSelectableBox boxId={boxId} />;
@@ -43,9 +49,11 @@ const ClickHandlerBox = ({
   return <CellarBox boxId={boxId} />;
 };
 
-export default connect((state, { boxId }) => {
-  return {
-    isBoxSelected: isBoxSelected(state, boxId),
-    isBoxSelectable: isBoxSelectable(state, boxId)
-  };
-})(ClickHandlerBox);
+const connector = connect((state: RootState, { boxId }: RawProps) => ({
+  isBoxSelected: isBoxSelected(state, boxId),
+  isBoxSelectable: isBoxSelectable(state, boxId),
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(ClickHandlerBox);

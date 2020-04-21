@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import {
   Modal,
@@ -12,31 +12,32 @@ import { getWinesFiltered, getFiltersCount, RootState } from '~/client/store/';
 
 type Props = PropsFromRedux & {
   modalIsOpen: boolean;
-  closeModal: Function;
-  wineId: number;
+  closeModal: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
-class SearchFiltersModal extends React.PureComponent<Props> {
-  render() {
-    const { modalIsOpen, closeModal, count, filtersCount } = this.props;
-    return (
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <ModalHeader>
-          {filtersCount} filtre{filtersCount > 1 && 's'} affiche
-          {filtersCount > 1 && 'nt'} {count} résultat{count > 1 && 's'}
-        </ModalHeader>
-        <ModalContent>
-          <SearchFiltersModalFilters />
-        </ModalContent>
-        <ModalActions>
-          <Button onClick={closeModal} type="button">
-            Fermer
-          </Button>
-        </ModalActions>
-      </Modal>
-    );
-  }
-}
+const SearchFiltersModal: FC<Props> = ({
+  modalIsOpen,
+  closeModal,
+  count,
+  filtersCount,
+}) => {
+  return (
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+      <ModalHeader>
+        {filtersCount} filtre{filtersCount > 1 && 's'} affiche
+        {filtersCount > 1 && 'nt'} {count} résultat{count > 1 && 's'}
+      </ModalHeader>
+      <ModalContent>
+        <SearchFiltersModalFilters />
+      </ModalContent>
+      <ModalActions>
+        <Button onClick={closeModal} type="button">
+          Fermer
+        </Button>
+      </ModalActions>
+    </Modal>
+  );
+};
 
 const connector = connect((state: RootState) => ({
   count: getWinesFiltered(state).length,

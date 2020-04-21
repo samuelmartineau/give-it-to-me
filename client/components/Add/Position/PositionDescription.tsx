@@ -1,18 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TextField } from '~/client/components/Toolkit';
-import { connect } from 'react-redux';
-import { updateModel } from '~/client/store/';
+import { connect, ConnectedProps } from 'react-redux';
+import { updateModel, RootState } from '~/client/store/';
 
 const Label = styled.label`
   display: block;
   margin: 1em auto;
 `;
 
-type Props = {
-  onChange: Function,
-  model: {}
-};
+type Props = PropsFromRedux;
 
 export const PositionDescription = ({ onChange, model }: Props) => (
   <>
@@ -32,19 +29,33 @@ export const PositionDescription = ({ onChange, model }: Props) => (
         name="count"
         value={model.count}
         type="number"
-        placeholder={6}
+        placeholder="6"
         onChange={onChange}
       />
     </Label>
   </>
 );
 
-export const PositionDescriptionConnected = connect(
-  state => ({ model: state.adding.model }),
-  dispatch => ({
+const connector = connect(
+  (state: RootState) => ({
+    model: state.adding.model,
+  }),
+  (dispatch) => ({
     onChange(evt) {
-      const { value, name } = evt.target;
-      dispatch(updateModel(name, value));
-    }
+      const data = evt.currentTarget as
+        | {
+            name: 'positionComment';
+            value: string;
+          }
+        | {
+            name: 'count';
+            value: number;
+          };
+      dispatch(updateModel(data));
+    },
   })
-)(PositionDescription);
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export const PositionDescriptionConnected = connector(PositionDescription);

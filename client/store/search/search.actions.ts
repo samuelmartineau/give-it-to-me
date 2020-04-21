@@ -7,20 +7,34 @@ import {
   TOGGLE_OUTSIDE_BOXES_FILTER,
 } from './search.types';
 import config from '~/config';
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
-export const toggleCheckboxFilter = (
-  key: 'wineFamilies' | 'wineTypes' | 'wineCategories',
-  value: number
-) =>
+type FilterType =
+  | {
+      name: 'wineTypes';
+      value: keyof typeof WINE_TYPES;
+    }
+  | { name: 'wineCategories'; value: keyof typeof WINE_CATEGORIES }
+  | { name: 'wineFamilies'; value: keyof typeof WINE_TYPES };
+
+export const toggleCheckboxFilter = (data: FilterType) =>
   <const>{
     type: TOGGLE_CHECKBOX_FILTER,
-    payload: { key, value },
+    payload: data,
   };
 
-export const updateInputFilter = (key, value) =>
+type InputType =
+  | {
+      value: string;
+      name: 'minYear';
+    }
+  | { value: string; name: 'maxYear' }
+  | { name: 'name'; value: string };
+
+export const updateInputFilter = (data: InputType) =>
   <const>{
     type: UPDATE_INPUT_FILTER,
-    payload: { key, value },
+    payload: data,
   };
 export const toggleFavoritesFilter = () =>
   <const>{

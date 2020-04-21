@@ -6,6 +6,9 @@ import {
   UPDATE_MODEL,
   RESET_ADD_WINE,
 } from './adding.types';
+import config from '~/config';
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+const { BOTTLE_TYPES } = config.bottleTypes;
 
 export const selectBox = (boxId: number, cellId: number) =>
   <const>{
@@ -30,10 +33,65 @@ export const unselectCell = (boxId: number, cellId: number) =>
     type: UNSELECT_CELL,
     payload: { boxId, cellId },
   };
-export const updateModel = (name, value) =>
+
+type UpdateModelData =
+  | {
+      readonly name: 'name';
+      value: string;
+    }
+  | {
+      readonly name: 'year';
+      value: number;
+    }
+  | {
+      readonly name: 'source';
+      value: string;
+    }
+  | {
+      value: keyof typeof WINE_TYPES;
+      readonly name: 'wineType';
+    }
+  | {
+      value: keyof typeof WINE_CATEGORIES;
+      readonly name: 'wineCategory';
+    }
+  | {
+      value: keyof typeof BOTTLE_TYPES;
+      readonly name: 'bottleType';
+    }
+  | {
+      value: number;
+      readonly name: 'wineFamily';
+    }
+  | {
+      value: string;
+      readonly name: 'thumbnailFileName';
+    }
+  | {
+      value: string;
+      readonly name: 'pictureFileName';
+    }
+  | {
+      value: string;
+      readonly name: 'blur';
+    }
+  | {
+      readonly name: 'positionComment';
+      value: string;
+    }
+  | {
+      readonly name: 'count';
+      value: number;
+    }
+  | {
+      readonly name: 'isInBoxes';
+      value: boolean;
+    };
+
+export const updateModel = (data: UpdateModelData) =>
   <const>{
     type: UPDATE_MODEL,
-    payload: { name, value },
+    payload: data,
   };
 export const resetAddWine = () =>
   <const>{

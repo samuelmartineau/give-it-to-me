@@ -30,7 +30,7 @@ type Props = {
   value: string;
   checked: boolean;
   id: string;
-  className: string;
+  className?: string;
 };
 
 export const Radio: FC<Props> = ({

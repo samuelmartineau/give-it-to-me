@@ -31,8 +31,8 @@ export const PictureStep: FC<Props> = ({
 }) => {
   const [isUploading, setIsUploading] = useState(false);
 
-  const onDrop = async (files: Array<string>) => {
-    const winePicture = files[0];
+  const onDrop = async (acceptedFiles: File[]) => {
+    const winePicture = acceptedFiles[0];
     setIsUploading(true);
     try {
       const result = await uploadWinePicture(winePicture);
@@ -79,15 +79,27 @@ const connector = connect(
     blur: state.adding.model.blur,
   }),
   (dispatch) => ({
-    onUpload({ thumbnailFileName, pictureFileName, blur }) {
-      dispatch(updateModel('thumbnailFileName', thumbnailFileName));
-      dispatch(updateModel('pictureFileName', pictureFileName));
-      dispatch(updateModel('blur', blur));
+    onUpload({
+      thumbnailFileName,
+      pictureFileName,
+      blur,
+    }: {
+      thumbnailFileName: string;
+      pictureFileName: string;
+      blur: string;
+    }) {
+      dispatch(
+        updateModel({ name: 'thumbnailFileName', value: thumbnailFileName })
+      );
+      dispatch(
+        updateModel({ name: 'pictureFileName', value: pictureFileName })
+      );
+      dispatch(updateModel({ name: 'blur', value: blur }));
     },
     onReset() {
-      dispatch(updateModel('thumbnailFileName', ''));
-      dispatch(updateModel('pictureFileName', ''));
-      dispatch(updateModel('blur', ''));
+      dispatch(updateModel({ name: 'thumbnailFileName', value: '' }));
+      dispatch(updateModel({ name: 'pictureFileName', value: '' }));
+      dispatch(updateModel({ name: 'blur', value: '' }));
     },
   })
 );

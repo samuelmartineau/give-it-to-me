@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { PictureStepConnected } from './PictureStep';
@@ -20,62 +20,39 @@ const ButtonStyled = styled(Button)`
 
 type Props = PropsFromRedux;
 
-class AddSteps extends React.Component<Props> {
-  state = { isSending: false };
+const AddSteps: FC<Props> = ({ isModelValid, addWine }) => {
+  const [sending, setSending] = useState(false);
 
-  updateModel = (name) => (value) => {
-    this.setState(({ model }) => ({
-      model: {
-        ...model,
-        [name]: value,
-      },
-    }));
-  };
-  resetImage = () => {
-    this.setState(({ model }) => ({
-      model: {
-        ...model,
-        image: {},
-      },
-    }));
-  };
-  onFieldChange = (name, value) => {
-    this.updateModel(name)(value);
-  };
-  onTypeChange = (typesModel) => {
-    this.setState(({ model }) => ({ model: { ...model, ...typesModel } }));
-  };
-  onSubmit = (evt) => {
+  const onSubmit = async (evt) => {
     evt.preventDefault();
-    const { isModelValid } = this.props;
     if (!isModelValid) {
       alert('Il manque des champs');
     } else {
-      this.props.addWine();
+      setSending(true);
+      await addWine();
+      setSending(false);
     }
   };
-  render() {
-    const { isSending } = this.state;
-    if (!isSending) {
-      return (
-        <Form onSubmit={this.onSubmit}>
-          <PictureStepConnected />
-          <MetaStepConnected />
-          <TypesStepConnected />
-          <PositionStepConnected />
-          <ButtonStyled type="submit">Envoyer</ButtonStyled>
-        </Form>
-      );
-    }
-    return <Spinner />;
+
+  if (!sending) {
+    return (
+      <Form onSubmit={onSubmit}>
+        <PictureStepConnected />
+        <MetaStepConnected />
+        <TypesStepConnected />
+        <PositionStepConnected />
+        <ButtonStyled type="submit">Envoyer</ButtonStyled>
+      </Form>
+    );
   }
-}
+  return <Spinner />;
+};
 
 const connector = connect(
   (state: RootState) => ({ isModelValid: isModelValid(state) }),
   (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     addWine() {
-      dispatch(addWine());
+      return dispatch(addWine());
     },
   })
 );

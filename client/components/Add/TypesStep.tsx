@@ -2,10 +2,11 @@ import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import config from '~/config';
-const { WINE_TYPES_ALL, WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
-const { BOTTLE_TYPES_ALL } = config.bottleTypes;
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+const { BOTTLE_TYPES } = config.bottleTypes;
 import { updateModel, RootState } from '~/client/store/';
 import { Radio } from '~/client/components/Toolkit';
+import { WINE_TYPES_ALL, BOTTLE_TYPES_ALL } from '~/client/helpers';
 
 const Text = styled.span`
   font-style: italic;
@@ -77,9 +78,21 @@ const TypesStep: FC<Props> = ({ model, onTypeChange }) => {
 const connector = connect(
   (state: RootState) => ({ model: state.adding.model }),
   (dispatch) => ({
-    onTypeChange(evt) {
-      const { value, name } = evt.target;
-      dispatch(updateModel(name, value));
+    onTypeChange(evt: React.FormEvent<HTMLInputElement>) {
+      const data = evt.currentTarget as
+        | {
+            value: keyof typeof WINE_TYPES;
+            name: 'wineType';
+          }
+        | {
+            value: keyof typeof WINE_CATEGORIES;
+            name: 'wineCategory';
+          }
+        | {
+            value: keyof typeof BOTTLE_TYPES;
+            name: 'bottleType';
+          };
+      dispatch(updateModel(data));
     },
   })
 );

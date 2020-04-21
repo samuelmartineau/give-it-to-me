@@ -11,6 +11,8 @@ import {
   RootState,
 } from '~/client/store/';
 import config from '~/config';
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+
 import {
   Checkbox,
   TextField,
@@ -20,8 +22,7 @@ import WineFamiliesFilter from './WineFamiliesFilter';
 import WineFamiliesFilterChips from './WineFamiliesFilterChips';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-
-const { WINE_TYPES_ALL, WINE_CATEGORIES_ALL } = config.wineTypes;
+import { WINE_CATEGORIES_ALL, WINE_TYPES_ALL } from '~/client/helpers';
 
 const Label = styled.label`
   margin: 1rem;
@@ -42,79 +43,96 @@ const CheckboxStyled = styled(Checkbox)<CheckboxProps>`
 type Props = PropsFromRedux;
 
 class SearchFiltersModalFilters extends React.Component<Props> {
-  onRangeChange = (evt) => {
+  onRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { onInputChange } = this.props;
-    const { value, name } = evt.target;
-    if (value.length > 4) {
+    const data = event.currentTarget as
+      | { value: string; name: 'minYear' }
+      | { value: string; name: 'maxYear' };
+    if (data.value.length > 4) {
       return;
     }
-    if (value.length === 4) {
+    if (data.value.length === 4) {
       const parsed = queryString.parse(location.search);
       const url = `/search?${queryString.stringify(parsed)}`;
       Router.push(url, url, { shallow: true });
     } else {
       const parsed = queryString.parse(location.search);
-      delete parsed[name];
+      delete parsed[data.name];
       const url = `/search?${queryString.stringify(parsed)}`;
       Router.push(url, url, { shallow: true });
     }
 
-    onInputChange(evt);
+    onInputChange(data);
   };
-  updateCheckbox = (evt) => {
+
+  updateCheckbox = (evt: React.FormEvent<HTMLInputElement>) => {
     const { updateCheckbox } = this.props;
-    const { name, value } = evt.target;
+    const data = evt.currentTarget as
+      | {
+          name: 'wineTypes';
+          value: keyof typeof WINE_TYPES;
+        }
+      | { name: 'wineCategories'; value: keyof typeof WINE_CATEGORIES };
 
     const parsed = queryString.parse(location.search);
-    if (parsed[name]) {
-      parsed[name] = [].concat(parsed[name]);
-      if (parsed[name].includes(value)) {
-        parsed[name] = parsed[name].filter((key) => key !== value);
-        if (parsed[name].length === 0) {
-          delete parsed[name];
+    const keyName = data.name;
+    let previousFilter = parsed[keyName];
+
+    if (previousFilter) {
+      previousFilter = [].concat(previousFilter);
+      if (previousFilter.includes(data.value)) {
+        previousFilter = previousFilter.filter((key) => key !== data.value);
+        if (previousFilter.length === 0) {
+          delete parsed[keyName];
         }
       } else {
-        parsed[name].push(value);
+        previousFilter.push(data.value);
       }
     } else {
-      parsed[name] = [value];
+      parsed[keyName] = [data.value];
     }
     const url = `/search?${queryString.stringify(parsed)}`;
     Router.push(url, url, { shallow: true });
 
-    updateCheckbox(evt);
+    updateCheckbox(data);
   };
 
-  toggleFavoritesFilter = (evt) => {
+  toggleFavoritesFilter = (evt: React.FormEvent<HTMLInputElement>) => {
     const { toggleFavoritesFilter } = this.props;
-    const { checked } = evt.target;
+    const { checked } = evt.currentTarget;
 
     const parsed = queryString.parse(location.search);
     if (checked) {
-      parsed.favorites = true;
+      parsed.favorites = 'true';
     } else {
       delete parsed.favorites;
     }
     const url = `/search?${queryString.stringify(parsed)}`;
     Router.push(url, url, { shallow: true });
 
-    toggleFavoritesFilter(evt);
+    toggleFavoritesFilter();
   };
 
-  toggleOutsideBoxesFilter = (evt) => {
+  toggleOutsideBoxesFilter = (evt: React.FormEvent<HTMLInputElement>) => {
     const { toggleOutsideBoxesFilter } = this.props;
-    const { checked } = evt.target;
+    const { checked } = evt.currentTarget;
 
     const parsed = queryString.parse(location.search);
     if (checked) {
-      parsed.outsideBoxes = true;
+      parsed.outsideBoxes = 'true';
     } else {
       delete parsed.outsideBoxes;
     }
     const url = `/search?${queryString.stringify(parsed)}`;
     Router.push(url, url, { shallow: true });
 
-    toggleOutsideBoxesFilter(evt);
+    toggleOutsideBoxesFilter();
+  };
+
+  onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { onInputChange } = this.props;
+    const data = event.currentTarget as { name: 'name'; value: string };
+    onInputChange(data);
   };
 
   render() {
@@ -177,7 +195,7 @@ class SearchFiltersModalFilters extends React.Component<Props> {
         <Label>
           <Text>Nom du vin</Text>
           <TextField
-            onChange={onInputChange}
+            onChange={this.onNameChange}
             type="text"
             name="name"
             value={filters.name}
@@ -218,12 +236,15 @@ const connector = connect(
     filters: state.search,
   }),
   (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-    updateCheckbox(evt) {
-      const { value, name } = evt.target;
-      dispatch(toggleCheckboxFilter(name, value));
-    },
-    updateWineFamilies(value) {
-      dispatch(toggleCheckboxFilter('wineFamilies', value));
+    updateCheckbox(
+      data:
+        | {
+            name: 'wineTypes';
+            value: keyof typeof WINE_TYPES;
+          }
+        | { name: 'wineCategories'; value: keyof typeof WINE_CATEGORIES }
+    ) {
+      dispatch(toggleCheckboxFilter(data));
     },
     toggleFavoritesFilter() {
       dispatch(toggleFavoritesFilter());
@@ -231,9 +252,16 @@ const connector = connect(
     toggleOutsideBoxesFilter() {
       dispatch(toggleOutsideBoxesFilter());
     },
-    onInputChange(evt) {
-      const { value, name } = evt.target;
-      dispatch(updateInputFilter(name, value));
+    onInputChange(
+      data:
+        | {
+            value: string;
+            name: 'minYear';
+          }
+        | { value: string; name: 'maxYear' }
+        | { name: 'name'; value: string }
+    ) {
+      dispatch(updateInputFilter(data));
     },
   })
 );

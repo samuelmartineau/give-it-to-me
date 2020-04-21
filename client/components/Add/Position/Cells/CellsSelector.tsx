@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { isBoxSelected, unselectBox, RootState } from '~/client/store';
 import styled from 'styled-components';
 import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
 import BoxBottles from '~/client/components/Cellar/Box/BoxBottles';
@@ -7,17 +9,6 @@ import { getCellId } from '~/client/components/Cellar/utils';
 import ClickHandlerCell from './ClickHandlerCell';
 import SelectedCell from './SelectedCell';
 
-type CellsSelectorProps = {
-  boxId: number;
-  onUnselect: Function;
-  bottles: Array<any>;
-  selectedCells: Array<any>;
-  classes: {
-    box: any;
-    onSelect: Function;
-  };
-  isBoxSelected: boolean;
-};
 const Wrapper = styled.div``;
 const Actions = styled.div`
   display: flex;
@@ -42,11 +33,13 @@ const RemoveButton = styled.button`
   }
 `;
 
-const CellsSelector = ({
-  boxId,
-  isBoxSelected,
-  onUnselect,
-}: CellsSelectorProps) => {
+type RawProps = {
+  boxId: number;
+};
+
+type Props = RawProps & PropsFromRedux;
+
+const CellsSelector: FC<Props> = ({ boxId, isBoxSelected, onUnselect }) => {
   if (!isBoxSelected) {
     return null;
   }
@@ -79,4 +72,15 @@ const CellsSelector = ({
   );
 };
 
-export default CellsSelector;
+const connector = connect(
+  (state: RootState, { boxId }: RawProps) => ({
+    isBoxSelected: isBoxSelected(state, boxId),
+  }),
+  (dispatch, { boxId }: RawProps) => ({
+    onUnselect: () => dispatch(unselectBox(boxId)),
+  })
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(CellsSelector);

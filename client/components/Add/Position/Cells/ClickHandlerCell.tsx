@@ -1,55 +1,64 @@
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   isCellSelected,
   isCellSelectable,
   selectCell,
-  unselectCell
+  unselectCell,
+  RootState,
 } from '~/client/store';
 import BoxCell from '~/client/components/Cellar/Box/BoxCell';
 import BoxCellSelectable from '~/client/components/Cellar/Box/BoxCellSelectable';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const SelectableCell = connect(
   null,
-  (dispatch, { boxId, cellId }) => ({
+  (dispatch, { boxId, cellId }: RawProps) => ({
     onSelect: () => {
       dispatch(selectCell(boxId, cellId));
-    }
+    },
   })
 )(BoxCellSelectable);
 
 const UnSelectableCell = connect(
   null,
-  (dispatch, { boxId, cellId }) => ({
+  (
+    dispatch: ThunkDispatch<{}, {}, AnyAction>,
+    { boxId, cellId }: RawProps
+  ) => ({
     onSelect: () => {
       dispatch(unselectCell(boxId, cellId));
-    }
+    },
   })
 )(BoxCellSelectable);
 
-type CellProps = {
-  boxId: number,
-  cellId: number,
-  isCellSelected: boolean,
-  isCellSelectable: boolean
+type RawProps = {
+  boxId: number;
+  cellId: number;
 };
 
-const ClickHandlerCell = ({
+type Props = RawProps & PropsFromRedux;
+
+const ClickHandlerCell: FC<Props> = ({
   isCellSelected,
   isCellSelectable,
   boxId,
-  cellId
-}: CellProps) => {
+  cellId,
+}) => {
   if (isCellSelected) {
     return <UnSelectableCell boxId={boxId} cellId={cellId} />;
   } else if (isCellSelectable) {
     return <SelectableCell boxId={boxId} cellId={cellId} />;
   }
-  return <BoxCell boxId={boxId} cellId={cellId} />;
+  return <BoxCell cellId={cellId} />;
 };
 
-export default connect((state, { boxId, cellId }) => {
-  return {
-    isCellSelected: isCellSelected(state, boxId, cellId),
-    isCellSelectable: isCellSelectable(state, boxId, cellId)
-  };
-})(ClickHandlerCell);
+const connector = connect((state: RootState, { boxId, cellId }: RawProps) => ({
+  isCellSelected: isCellSelected(state, boxId, cellId),
+  isCellSelectable: isCellSelectable(state, boxId, cellId),
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(ClickHandlerCell);

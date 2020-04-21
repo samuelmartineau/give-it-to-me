@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { omit } from 'ramda';
 import config from '~/config';
-const { WINE_TYPES } = config.wineTypes;
+import { WINE_TYPES_ALL } from '~/client/helpers';
 import {
   SELECT_BOX,
   UNSELECT_BOX,
@@ -11,14 +11,13 @@ import {
   RESET_ADD_WINE,
 } from './adding.types';
 import { AddingActions } from './adding.actions';
-
-const { DEFAULT_TYPE } = config.bottleTypes;
-const { WINE_TYPES_ALL } = config.wineTypes;
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+const { BOTTLE_TYPES } = config.bottleTypes;
 
 const defaultSelectedTypes = {
   wineType: WINE_TYPES_ALL[0].id,
-  wineCategory: WINE_TYPES_ALL[0].categories[0],
-  bottleType: DEFAULT_TYPE,
+  wineCategory: WINE_TYPES_ALL[0].categories[0] as keyof typeof WINE_CATEGORIES,
+  bottleType: <const>'0',
 };
 
 export const selectedBoxesReducer = (
@@ -44,7 +43,7 @@ export const selectedBoxesReducer = (
   }
 };
 
-type SelectedCellsType = {
+export type SelectedCellsType = {
   [boxId: number]: number[];
 };
 
@@ -91,21 +90,24 @@ const defaultModel = {
   isInBoxes: true,
   ...defaultSelectedTypes,
   name: '',
-  year: 0,
   source: '',
   positionComment: '',
   count: 0,
 };
 
-type ModelType = {
+export type ModelType = {
   isInBoxes: boolean;
   name: string;
-  year: number;
+  year?: number;
   source?: string;
   positionComment: string;
   count: number;
   thumbnailFileName?: string;
+  wineType: keyof typeof WINE_TYPES;
+  wineCategory: keyof typeof WINE_CATEGORIES;
+  bottleType: keyof typeof BOTTLE_TYPES;
   blur?: string;
+  wineFamily?: number;
 };
 
 export const modelReducer = (
@@ -114,15 +116,38 @@ export const modelReducer = (
 ) => {
   switch (action.type) {
     case UPDATE_MODEL: {
-      const { value, name } = action.payload;
-      if (name === 'wineType') {
+      const { payload } = action;
+      if (payload.name === 'wineType') {
         return {
           ...state,
-          wineType: value,
-          wineCategory: WINE_TYPES[value].categories[0],
+          wineType: payload.value,
+          wineCategory: WINE_TYPES[payload.value]
+            .categories[0] as keyof typeof WINE_CATEGORIES,
         };
+      } else if (payload.name === 'name') {
+        return { ...state, name: payload.value };
+      } else if (payload.name === 'year') {
+        return { ...state, year: payload.value };
+      } else if (payload.name === 'source') {
+        return { ...state, souroce: payload.value };
+      } else if (payload.name === 'wineCategory') {
+        return { ...state, wineCategory: payload.value };
+      } else if (payload.name === 'bottleType') {
+        return { ...state, bottleType: payload.value };
+      } else if (payload.name === 'wineFamily') {
+        return { ...state, wineFamily: payload.value };
+      } else if (payload.name === 'blur') {
+        return { ...state, blur: payload.value };
+      } else if (payload.name === 'pictureFileName') {
+        return { ...state, pictureFileName: payload.value };
+      } else if (payload.name === 'thumbnailFileName') {
+        return { ...state, thumbnailFileName: payload.value };
+      } else if (payload.name === 'count') {
+        return { ...state, count: payload.value };
+      } else if (payload.name === 'positionComment') {
+        return { ...state, positionComment: payload.value };
       }
-      return { ...state, [name]: value };
+      return state;
     }
     case RESET_ADD_WINE: {
       return { ...defaultModel };

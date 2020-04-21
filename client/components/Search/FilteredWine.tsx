@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
 import { WineCard } from '~/client/components/Wine/WineCard';
 import { getWineById, isWineFiltered, RootState } from '~/client/store';
+import { WineEnhanced } from '~/client/Cellar.type';
 
 const WineCardStyled = styled(WineCard)`
   align-self: center;
   justify-self: center;
 `;
 
-type Props = PropsFromRedux;
+type Props = { children: (wine: WineEnhanced) => JSX.Element } & PropsFromRedux;
 
 class FilteredWine extends React.Component<Props> {
   state = {

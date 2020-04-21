@@ -78,18 +78,35 @@ const connector = connect(
   (state: RootState) => ({ model: state.adding.model }),
   (dispatch) => ({
     onMetaChange(evt) {
-      const { value, name } = evt.target;
-      dispatch(updateModel(name, value));
+      const data = evt.currentTarget as
+        | {
+            name: 'name';
+            value: string;
+          }
+        | {
+            name: 'year';
+            value: number;
+          }
+        | {
+            name: 'source';
+            value: string;
+          };
+      dispatch(updateModel(data));
     },
-    onFamilyChange(evt, { suggestion }) {
-      dispatch(updateModel('wineFamily', suggestion.original.id));
+    onFamilyChange(
+      evt,
+      { suggestion }: { suggestion: { original: { id: number } } }
+    ) {
+      dispatch(
+        updateModel({ name: 'wineFamily', value: suggestion.original.id })
+      );
     },
     onFamilyClear() {
-      dispatch(updateModel('wineFamily', ''));
+      dispatch(updateModel({ name: 'wineFamily', value: undefined }));
     },
   })
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export const PositionStepConnected = connector(MetaStep);
+export const MetaStepConnected = connector(MetaStep);

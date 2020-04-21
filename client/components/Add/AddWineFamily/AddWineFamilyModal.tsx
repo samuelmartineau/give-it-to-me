@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useState, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { TextField, Button } from '~/client/components/Toolkit';
@@ -30,69 +30,66 @@ const Label = styled.label`
 
 type Props = PropsFromRedux & {
   modalIsOpen: boolean;
-  closeModal: Function;
-  wineId: number;
+  closeModal: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
-class AddWineFamilyModal extends React.PureComponent<Props> {
-  state = {
-    value: '',
-  };
-  onChange = (evt) => {
+const AddWineFamilyModal: FC<Props> = ({
+  onSubmit,
+  modalIsOpen,
+  closeModal,
+}) => {
+  const [wineFamily, setWineFamily] = useState('');
+
+  const inputEl = useRef<HTMLInputElement>(null);
+
+  const onChange = (evt) => {
     const { value } = evt.target;
-    this.setState({ value });
-  };
-  submit = async (evt) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    const { onSubmit } = this.props;
-    const { value } = this.state;
-    await onSubmit(value);
-    this.setState({ value: '' });
-    this.input.value = '';
+    setWineFamily(value);
   };
 
-  render() {
-    const { modalIsOpen, closeModal } = this.props;
-    const { value } = this.state;
-    return (
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <ModalHeader>Ajouter une appellation</ModalHeader>
-        <ModalContent>
-          <form onSubmit={this.submit}>
-            <Label>
-              <Text>Appellation</Text>
-              <TextField
-                ref={(el) => {
-                  this.input = el;
-                }}
-                name="source"
-                type="text"
-                placeholder="ex: Gaillac"
-                onChange={this.onChange}
-              />
-            </Label>
-          </form>
-        </ModalContent>
-        <ModalActions>
-          <Actions>
-            <Button onClick={closeModal} type="button">
-              Annuler
-            </Button>
-            <Button
-              disabled={value.length === 0}
-              primary
-              onClick={this.submit}
-              type="button"
-            >
-              Ajouter
-            </Button>
-          </Actions>
-        </ModalActions>
-      </Modal>
-    );
-  }
-}
+  const submit = async (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await onSubmit(wineFamily);
+    setWineFamily('');
+    inputEl.current.value = '';
+  };
+
+  return (
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+      <ModalHeader>Ajouter une appellation</ModalHeader>
+      <ModalContent>
+        <form onSubmit={submit}>
+          <Label>
+            <Text>Appellation</Text>
+            <TextField
+              ref={inputEl}
+              name="source"
+              type="text"
+              placeholder="ex: Gaillac"
+              onChange={onChange}
+            />
+          </Label>
+        </form>
+      </ModalContent>
+      <ModalActions>
+        <Actions>
+          <Button onClick={closeModal} type="button">
+            Annuler
+          </Button>
+          <Button
+            disabled={wineFamily.length === 0}
+            primary
+            onClick={submit}
+            type="button"
+          >
+            Ajouter
+          </Button>
+        </Actions>
+      </ModalActions>
+    </Modal>
+  );
+};
 
 const connector = connect(
   null,

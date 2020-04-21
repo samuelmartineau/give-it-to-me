@@ -1,16 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { isCellSelected } from '~/client/store';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { isCellSelected, RootState } from '~/client/store';
 import Bottle from '~/client/components/Cellar/Bottle';
 import { getBottleInfos } from '~/client/components/Cellar/utils';
 
-type Props = {
-  selected: boolean;
+type RawProps = {
   boxId: number;
   cellId: number;
 };
 
-const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {
+type Props = RawProps & PropsFromRedux;
+
+const SelectedCell: FC<Props> = ({ selected = false, boxId, cellId }) => {
   if (!selected) {
     return null;
   }
@@ -26,6 +27,10 @@ const SelectedCell = ({ selected = false, boxId, cellId }: Props) => {
   );
 };
 
-export default connect((state, { boxId, cellId }) => {
-  return { selected: isCellSelected(state, boxId, cellId) };
-})(SelectedCell);
+const connector = connect((state: RootState, { boxId, cellId }: RawProps) => ({
+  selected: isCellSelected(state, boxId, cellId),
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(SelectedCell);

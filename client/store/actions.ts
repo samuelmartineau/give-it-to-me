@@ -1,7 +1,6 @@
 import * as wines from './wines/wines.actions';
 import { difference } from 'ramda';
 import * as adding from './adding/adding.actions';
-import * as search from './search/search.actions';
 import * as remove from './remove/remove.actions';
 import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
@@ -12,6 +11,8 @@ export {
   toggleFavoritesFilter,
   toggleOutsideBoxesFilter,
   syncUrlParams,
+  toggleCheckboxFilter,
+  updateInputFilter,
 } from './search/search.actions';
 export { setCellar } from './wines/wines.actions';
 export {
@@ -32,9 +33,6 @@ export {
   setRemoveCount,
   resetRemoveState,
   selectWineToRemove,
-} from './remove/remove.actions';
-
-export {
   selectBottleToDelete,
   unselectBottleToDelete,
 } from './remove/remove.actions';
@@ -70,20 +68,6 @@ export const addWine = () => {
     const formModel = getAddModel(state);
 
     return dispatch(adding.addWine(formModel));
-  };
-};
-
-export const toggleCheckboxFilter = (
-  key: 'wineFamilies' | 'wineTypes' | 'wineCategories',
-  value: number
-) => {
-  return (dispatch) => {
-    dispatch(search.toggleCheckboxFilter(key, value));
-  };
-};
-export const updateInputFilter = (key, value) => {
-  return (dispatch) => {
-    dispatch(search.updateInputFilter(key, value));
   };
 };
 

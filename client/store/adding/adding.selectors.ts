@@ -1,3 +1,5 @@
+import { ModelType, SelectedCellsType } from './adding.reducer';
+
 const requiredKeys = [
   'name',
   'year',
@@ -8,23 +10,30 @@ const requiredKeys = [
   'wineType',
   'wineCategory',
   'bottleType',
-  'isInBoxes'
+  'isInBoxes',
 ];
 
 export const isBoxSelected = (state, boxId) => {
   return state.includes(boxId);
 };
 
-export const getSelectedCellsInBox = (selectedCells, boxId) => {
+export const getSelectedCellsInBox = (
+  selectedCells: SelectedCellsType,
+  boxId: number
+) => {
   return selectedCells[boxId];
 };
-export const isCellSelected = (state, boxId, cellId) => {
+export const isCellSelected = (
+  state: SelectedCellsType,
+  boxId: number,
+  cellId: number
+) => {
   return state[boxId] && state[boxId].includes(cellId);
 };
 
 export const isModelValid = (model, selectedBoxes) => {
   let valid = requiredKeys.every(
-    key => ![null, 0, '', undefined].includes(model[key])
+    (key) => ![null, 0, '', undefined].includes(model[key])
   );
   if (model.isInBoxes) {
     valid = valid && selectedBoxes.length > 0;
@@ -34,16 +43,21 @@ export const isModelValid = (model, selectedBoxes) => {
   return valid;
 };
 
-export const getAddModel = (model, selectedCells) => {
-  const formModel = { ...model };
+export const getAddModel = (
+  model: ModelType,
+  selectedCells: { [boxId: number]: number[] }
+) => {
+  const formModel: ModelType & { bottles?: { cell: number; box: number }[] } = {
+    ...model,
+  };
   if (formModel.isInBoxes) {
     delete formModel.positionComment;
     delete formModel.count;
     formModel.bottles = Object.keys(selectedCells).reduce((acc, box) => {
       return acc.concat(
-        selectedCells[box].map(cell => ({
+        selectedCells[box].map((cell) => ({
           box,
-          cell
+          cell,
         }))
       );
     }, []);

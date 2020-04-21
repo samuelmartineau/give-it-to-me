@@ -8,6 +8,9 @@ import {
 } from './search.types';
 import { ArrayKeys } from './utils';
 import { SearchActions } from './search.actions';
+import config from '~/config';
+
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
 const hitsByPage = 10;
 
@@ -25,8 +28,8 @@ const defaultState = {
 
 type State = {
   wineFamilies: number[];
-  wineTypes: number[];
-  wineCategories: number[];
+  wineTypes: (keyof typeof WINE_TYPES)[];
+  wineCategories: (keyof typeof WINE_CATEGORIES)[];
   minYear?: number;
   maxYear?: number;
   name?: string;
