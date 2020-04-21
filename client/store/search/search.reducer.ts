@@ -41,14 +41,55 @@ type State = {
 export default (state: State = defaultState, action: SearchActions) => {
   switch (action.type) {
     case TOGGLE_CHECKBOX_FILTER: {
-      const { key, value } = action.payload;
-      let newFilters;
-      if (state[key].includes(value)) {
-        newFilters = state[key].filter((item) => item !== value);
-      } else {
-        newFilters = [...state[key], value];
+      const data = action.payload;
+
+      if (data.name === 'wineTypes') {
+        if (state.wineTypes.includes(data.value)) {
+          return {
+            ...state,
+            wineTypes: state.wineTypes.filter((item) => item !== data.value),
+          };
+        } else {
+          return {
+            ...state,
+            wineTypes: [...state.wineTypes, data.value],
+          };
+        }
       }
-      return { ...state, [key]: newFilters };
+
+      if (data.name === 'wineCategories') {
+        if (state.wineCategories.includes(data.value)) {
+          return {
+            ...state,
+            wineCategories: state.wineCategories.filter(
+              (item) => item !== data.value
+            ),
+          };
+        } else {
+          return {
+            ...state,
+            wineCategories: [...state.wineCategories, data.value],
+          };
+        }
+      }
+
+      if (data.name === 'wineFamilies') {
+        if (state.wineFamilies.includes(data.value)) {
+          return {
+            ...state,
+            wineFamilies: state.wineFamilies.filter(
+              (item) => item !== data.value
+            ),
+          };
+        } else {
+          return {
+            ...state,
+            wineFamilies: [...state.wineFamilies, data.value],
+          };
+        }
+      }
+
+      return state;
     }
     case TOGGLE_FAVORITES_FILTER: {
       return { ...state, favorites: !state.favorites };
@@ -57,12 +98,18 @@ export default (state: State = defaultState, action: SearchActions) => {
       return { ...state, outsideBoxes: !state.outsideBoxes };
     }
     case UPDATE_INPUT_FILTER: {
-      const { key, value } = action.payload;
-      let valueFormated = value;
-      if (['minYear', 'maxYear'].includes(key)) {
-        valueFormated = parseInt(value, 10);
+      const data = action.payload;
+      if (data.name === 'minYear') {
+        return { ...state, minYear: data.value };
       }
-      return { ...state, [key]: valueFormated };
+      if (data.name === 'maxYear') {
+        return { ...state, maxYear: data.value };
+      }
+      if (data.name === 'name') {
+        return { ...state, name: data.value };
+      }
+
+      return state;
     }
     case GET_NEXT_HITS: {
       return { ...state, hitsDisplayed: state.hitsDisplayed + hitsByPage };

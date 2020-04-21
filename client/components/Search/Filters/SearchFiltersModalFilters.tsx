@@ -62,7 +62,7 @@ class SearchFiltersModalFilters extends React.Component<Props> {
       Router.push(url, url, { shallow: true });
     }
 
-    onInputChange(data);
+    onInputChange({ name: data.name, value: parseInt(data.value, 10) });
   };
 
   updateCheckbox = (evt: React.FormEvent<HTMLInputElement>) => {
@@ -255,10 +255,10 @@ const connector = connect(
     onInputChange(
       data:
         | {
-            value: string;
+            value: number;
             name: 'minYear';
           }
-        | { value: string; name: 'maxYear' }
+        | { value: number; name: 'maxYear' }
         | { name: 'name'; value: string }
     ) {
       dispatch(updateInputFilter(data));

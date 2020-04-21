@@ -15,7 +15,7 @@ type FilterType =
       value: keyof typeof WINE_TYPES;
     }
   | { name: 'wineCategories'; value: keyof typeof WINE_CATEGORIES }
-  | { name: 'wineFamilies'; value: keyof typeof WINE_TYPES };
+  | { name: 'wineFamilies'; value: number };
 
 export const toggleCheckboxFilter = (data: FilterType) =>
   <const>{
@@ -25,10 +25,10 @@ export const toggleCheckboxFilter = (data: FilterType) =>
 
 type InputType =
   | {
-      value: string;
+      value: number;
       name: 'minYear';
     }
-  | { value: string; name: 'maxYear' }
+  | { value: number; name: 'maxYear' }
   | { name: 'name'; value: string };
 
 export const updateInputFilter = (data: InputType) =>
