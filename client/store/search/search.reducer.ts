@@ -14,7 +14,7 @@ const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
 const hitsByPage = 10;
 
-const defaultState = {
+const defaultState: State = {
   wineFamilies: [],
   wineTypes: [],
   wineCategories: [],
@@ -26,7 +26,7 @@ const defaultState = {
   outsideBoxes: false,
 };
 
-type State = {
+export type State = {
   wineFamilies: number[];
   wineTypes: (keyof typeof WINE_TYPES)[];
   wineCategories: (keyof typeof WINE_CATEGORIES)[];
@@ -116,28 +116,30 @@ export default (state: State = defaultState, action: SearchActions): State => {
     }
     case SYNC_URL_PARAMS: {
       const { params } = action.payload;
+
       const newState: State = { ...defaultState };
-      const booleansFilters = <const>['favorites', 'outsideBoxes'];
-      booleansFilters.forEach((key) => {
-        if (key in params) {
-          newState[key] = params[key];
-        }
-      });
-      if (params.wineFamilies)
-        Object.keys(params).forEach((key) => {
-          if (ArrayKeys.includes(key)) {
-            if (key === 'wineFamilies') {
-              newState[key] = newState[key].concat(
-                params[key].map((id) => parseInt(id, 10))
-              );
-            } else {
-              newState[key] = newState[key].concat(params[key]);
-            }
-          } else {
-            newState[key] = params[key];
-          }
-        });
-      return { ...newState };
+
+      return {
+        ...newState,
+        favorites:
+          'favorites' in params ? params.favorites : defaultState.favorites,
+        outsideBoxes:
+          'outsideBoxes' in params
+            ? params.outsideBoxes
+            : defaultState.outsideBoxes,
+        wineCategories:
+          'wineCategories' in params
+            ? [].concat(params.wineCategories)
+            : defaultState.wineCategories,
+        wineFamilies:
+          'wineFamilies' in params
+            ? [].concat(params.wineFamilies).map((id) => parseInt(id, 10))
+            : defaultState.wineFamilies,
+        wineTypes:
+          'wineTypes' in params
+            ? [].concat(params.wineTypes)
+            : defaultState.wineTypes,
+      };
     }
 
     default:

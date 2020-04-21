@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '~/client/components/Toolkit';
-import { connect } from 'react-redux';
-import { getFiltersCount } from '~/client/store/';
+import { connect, ConnectedProps } from 'react-redux';
+import { getFiltersCount, RootState } from '~/client/store/';
 import SearchFiltersModal from './SearchFiltersModal';
 
 type State = {
@@ -14,9 +14,8 @@ const ButtonStyled = styled(Button)`
   align-items: center;
   justify-content: center;
 `;
-type Props = {
-  filtersCount: number;
-};
+type Props = PropsFromRedux;
+
 class SearchFiltersButton extends React.PureComponent<Props, State> {
   state = {
     modalIsOpen: false,
@@ -47,6 +46,10 @@ class SearchFiltersButton extends React.PureComponent<Props, State> {
   }
 }
 
-export default connect((state) => ({
+const connector = connect((state: RootState) => ({
   filtersCount: getFiltersCount(state),
-}))(SearchFiltersButton);
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(SearchFiltersButton);

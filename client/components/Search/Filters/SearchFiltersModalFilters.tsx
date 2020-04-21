@@ -76,21 +76,29 @@ class SearchFiltersModalFilters extends React.Component<Props> {
 
     const parsed = queryString.parse(location.search);
     const keyName = data.name;
-    let previousFilter = parsed[keyName];
 
-    if (previousFilter) {
-      previousFilter = [].concat(previousFilter);
-      if (previousFilter.includes(data.value)) {
-        previousFilter = previousFilter.filter((key) => key !== data.value);
-        if (previousFilter.length === 0) {
-          delete parsed[keyName];
-        }
+    let newFilters = [];
+    const isCategoryAlreadySet = !!parsed[keyName];
+
+    if (isCategoryAlreadySet) {
+      let previousFilters = [].concat(parsed[keyName]);
+      const alreadySelected = previousFilters.includes(data.value);
+      if (alreadySelected) {
+        newFilters = previousFilters.filter((key) => key !== data.value);
       } else {
-        previousFilter.push(data.value);
+        // New value selected
+        newFilters = [...previousFilters, data.value];
       }
+      parsed[keyName] = newFilters;
     } else {
+      // First value selected in this category
       parsed[keyName] = [data.value];
     }
+
+    if (parsed[keyName].length === 0) {
+      delete parsed[keyName];
+    }
+
     const url = `/search?${queryString.stringify(parsed)}`;
     Router.push(url, url, { shallow: true });
 

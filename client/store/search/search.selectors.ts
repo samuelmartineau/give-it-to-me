@@ -1,4 +1,5 @@
 import { ArrayKeys } from './utils';
+import { State } from './search.reducer';
 
 function nameMatch(filter, name) {
   return name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
@@ -7,7 +8,7 @@ function nameMatch(filter, name) {
 function hasFiltersSet(filters) {
   let has = false;
   has = ['wineFamilies', 'wineTypes', 'wineCategories'].some(
-    key => filters[key].length > 0
+    (key) => filters[key].length > 0
   );
   return (
     has ||
@@ -59,14 +60,14 @@ const isWineMatch = (state, filters, wineId) => {
 };
 
 export const getWinesFiltered = (state, filters) => {
-  return state.all.filter(wineId => isWineMatch(state, filters, wineId));
+  return state.all.filter((wineId) => isWineMatch(state, filters, wineId));
 };
 export const isWineFiltered = (state, selectedWines, wineId) => {
   const index = selectedWines.indexOf(wineId);
   return index > -1 && index < state.hitsDisplayed;
 };
 
-export const getFiltersCount = state => {
+export const getFiltersCount = (state: State) => {
   let count = ArrayKeys.reduce((acc, key) => {
     return acc + state[key].length;
   }, 0);

@@ -1,5 +1,6 @@
-import { WINE_TYPES, WINE_CATEGORIES } from '~/config/wineTypes';
-import { BOTTLE_TYPES } from '~/config/bottleTypes';
+import config from '~/config';
+const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+const { BOTTLE_TYPES } = config.bottleTypes;
 
 export const WINE_TYPES_ALL = Object.keys(WINE_TYPES).map(
   (key: keyof typeof WINE_TYPES) => ({

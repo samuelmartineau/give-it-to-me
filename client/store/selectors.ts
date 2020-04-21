@@ -54,7 +54,8 @@ export const isWineFiltered = (state: RootState, wineId: number) => {
 
 export const getWinesFiltered = (state: RootState) =>
   search.getWinesFiltered(state.wines, state.search);
-export const getFiltersCount = (state) => search.getFiltersCount(state.search);
+export const getFiltersCount = (state: RootState) =>
+  search.getFiltersCount(state.search);
 
 export const isWineInBox = (
   state: RootState,

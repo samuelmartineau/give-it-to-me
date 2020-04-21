@@ -18,25 +18,32 @@ class WineFamiliesFilterChips extends React.Component<Props> {
   unselectWineFamily = (wineFamily: WineFamilyType) => () => {
     const { id } = wineFamily;
     const { removeWineFamilies } = this.props;
-    const name = 'wineFamilies';
     const value = id.toString();
 
     const parsed = queryString.parse(location.search);
-    let previousFilter = parsed[name];
 
-    if (previousFilter) {
-      previousFilter = [].concat(previousFilter);
-      if (previousFilter.includes(value)) {
-        previousFilter = previousFilter.filter((key) => key !== value);
-        if (previousFilter.length === 0) {
-          delete parsed[name];
-        }
+    let newFilters = [];
+    const isCategoryAlreadySet = !!parsed.wineFamilies;
+
+    if (isCategoryAlreadySet) {
+      let previousFilters = [].concat(parsed.wineFamilies);
+      const alreadySelected = previousFilters.includes(value);
+      if (alreadySelected) {
+        newFilters = previousFilters.filter((key) => key !== value);
       } else {
-        previousFilter.push(value);
+        // New value selected
+        newFilters = [...previousFilters, value];
       }
+      parsed.wineFamilies = newFilters;
     } else {
-      parsed[name] = [value];
+      // First value selected in this category
+      parsed.wineFamilies = [value];
     }
+
+    if (parsed.wineFamilies.length === 0) {
+      delete parsed.wineFamilies;
+    }
+
     const url = `/search?${queryString.stringify(parsed)}`;
     Router.push(url, url, { shallow: true });
 
