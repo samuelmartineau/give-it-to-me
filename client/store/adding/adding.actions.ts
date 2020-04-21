@@ -48,32 +48,32 @@ type UpdateModelData =
       value: string;
     }
   | {
-      value: keyof typeof WINE_TYPES;
       readonly name: 'wineType';
+      value: keyof typeof WINE_TYPES;
     }
   | {
-      value: keyof typeof WINE_CATEGORIES;
       readonly name: 'wineCategory';
+      value: keyof typeof WINE_CATEGORIES;
     }
   | {
-      value: keyof typeof BOTTLE_TYPES;
       readonly name: 'bottleType';
+      value: keyof typeof BOTTLE_TYPES;
     }
   | {
-      value: number;
       readonly name: 'wineFamily';
+      value: number;
     }
   | {
-      value: string;
       readonly name: 'thumbnailFileName';
+      value: string;
     }
   | {
-      value: string;
       readonly name: 'pictureFileName';
+      value: string;
     }
   | {
-      value: string;
       readonly name: 'blur';
+      value: string;
     }
   | {
       readonly name: 'positionComment';

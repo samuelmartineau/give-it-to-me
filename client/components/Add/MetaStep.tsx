@@ -25,6 +25,23 @@ const MetaStep: FC<Props> = ({
   onMetaChange,
   onFamilyClear,
 }) => {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const data = evt.currentTarget as
+      | {
+          name: 'name';
+          value: string;
+        }
+      | {
+          name: 'year';
+          value: number;
+        }
+      | {
+          name: 'source';
+          value: string;
+        };
+    onMetaChange(data);
+  };
+
   return (
     <>
       <Label>
@@ -34,7 +51,7 @@ const MetaStep: FC<Props> = ({
           value={model.name}
           required
           placeholder="Domaine de ..."
-          onChange={onMetaChange}
+          onChange={onChange}
         />
       </Label>
       <Label>
@@ -45,7 +62,7 @@ const MetaStep: FC<Props> = ({
           type="number"
           required
           placeholder="2014"
-          onChange={onMetaChange}
+          onChange={onChange}
         />
       </Label>
       <Label>
@@ -55,7 +72,7 @@ const MetaStep: FC<Props> = ({
           value={model.source}
           type="text"
           placeholder="France"
-          onChange={onMetaChange}
+          onChange={onChange}
         />
       </Label>
 
@@ -77,8 +94,8 @@ const MetaStep: FC<Props> = ({
 const connector = connect(
   (state: RootState) => ({ model: state.adding.model }),
   (dispatch) => ({
-    onMetaChange(evt) {
-      const data = evt.currentTarget as
+    onMetaChange(
+      data:
         | {
             name: 'name';
             value: string;
@@ -90,7 +107,8 @@ const connector = connect(
         | {
             name: 'source';
             value: string;
-          };
+          }
+    ) {
       dispatch(updateModel(data));
     },
     onFamilyChange(

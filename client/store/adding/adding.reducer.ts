@@ -17,7 +17,7 @@ const { BOTTLE_TYPES } = config.bottleTypes;
 const defaultSelectedTypes = {
   wineType: WINE_TYPES_ALL[0].id,
   wineCategory: WINE_TYPES_ALL[0].categories[0] as keyof typeof WINE_CATEGORIES,
-  bottleType: <const>'0',
+  bottleType: <const>'1',
 };
 
 export const selectedBoxesReducer = (
@@ -102,6 +102,7 @@ export type ModelType = {
   source?: string;
   positionComment: string;
   count: number;
+  pictureFileName?: string;
   thumbnailFileName?: string;
   wineType: keyof typeof WINE_TYPES;
   wineCategory: keyof typeof WINE_CATEGORIES;
@@ -113,7 +114,7 @@ export type ModelType = {
 export const modelReducer = (
   state: ModelType = { ...defaultModel },
   action: AddingActions
-) => {
+): ModelType => {
   switch (action.type) {
     case UPDATE_MODEL: {
       const { payload } = action;
@@ -129,7 +130,7 @@ export const modelReducer = (
       } else if (payload.name === 'year') {
         return { ...state, year: payload.value };
       } else if (payload.name === 'source') {
-        return { ...state, souroce: payload.value };
+        return { ...state, source: payload.value };
       } else if (payload.name === 'wineCategory') {
         return { ...state, wineCategory: payload.value };
       } else if (payload.name === 'bottleType') {

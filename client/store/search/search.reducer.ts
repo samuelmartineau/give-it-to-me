@@ -38,7 +38,7 @@ type State = {
   outsideBoxes: boolean;
 };
 
-export default (state: State = defaultState, action: SearchActions) => {
+export default (state: State = defaultState, action: SearchActions): State => {
   switch (action.type) {
     case TOGGLE_CHECKBOX_FILTER: {
       const data = action.payload;
