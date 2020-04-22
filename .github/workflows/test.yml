@@ -22,7 +22,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Get dependencies
-      run: npm ci
+      run: npm install
 
     # Runs a set of commands using the runners shell
     - name: Build app
