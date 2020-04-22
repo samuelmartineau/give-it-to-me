@@ -5,7 +5,12 @@ import * as remove from './remove/remove.actions';
 import { getBoxCells } from '../components/Cellar/utils';
 import { getCellsUsedInBox, getSelectedCellsInBox, getAddModel } from './';
 
-export { unselectBox, selectCell, updateModel } from './adding/adding.actions';
+export {
+  unselectBox,
+  selectCell,
+  updateModel,
+  toggleInBox,
+} from './adding/adding.actions';
 export {
   getNextHits,
   toggleFavoritesFilter,

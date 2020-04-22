@@ -45,6 +45,7 @@ export {
   toggleOutsideBoxesFilter,
   removeOutsideBottles,
   selectWineToRemove,
+  toggleInBox,
 } from './actions';
 
 export {

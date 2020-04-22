@@ -147,6 +147,8 @@ export const modelReducer = (
         return { ...state, count: payload.value };
       } else if (payload.name === 'positionComment') {
         return { ...state, positionComment: payload.value };
+      } else if (payload.name === 'isInBoxes') {
+        return { ...state, isInBoxes: payload.value };
       }
       return state;
     }

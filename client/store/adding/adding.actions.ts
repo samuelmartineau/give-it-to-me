@@ -7,6 +7,7 @@ import {
   RESET_ADD_WINE,
 } from './adding.types';
 import config from '~/config';
+import { ModelType } from './adding.reducer';
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 const { BOTTLE_TYPES } = config.bottleTypes;
 
@@ -97,6 +98,17 @@ export const resetAddWine = () =>
   <const>{
     type: RESET_ADD_WINE,
   };
+
+export const toggleInBox = () => {
+  return (dispatch, getState: () => { adding: { model: ModelType } }) => {
+    dispatch(
+      updateModel({
+        name: 'isInBoxes',
+        value: !getState().adding.model.isInBoxes,
+      })
+    );
+  };
+};
 
 export const addWine = (wineModel) => async (dispatch, _, { addWine }) => {
   try {

@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
-import { updateModel, RootState } from '~/client/store/';
+import { RootState, toggleInBox } from '~/client/store/';
 import { Checkbox } from '~/client/components/Toolkit';
-import { Dispatch } from 'redux';
+import { Dispatch, AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 type Props = PropsFromRedux;
 
@@ -28,18 +29,11 @@ export const PositionStep: FC<Props> = ({ isInBoxes, toggle }) => {
 
 const connector = connect(
   (state: RootState) => ({ isInBoxes: state.adding.model.isInBoxes }),
-  {
+  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
     toggle() {
-      return (dispatch: Dispatch, getState: () => RootState) => {
-        dispatch(
-          updateModel({
-            name: 'isInBoxes',
-            value: !getState().adding.model.isInBoxes,
-          })
-        );
-      };
+      dispatch(toggleInBox());
     },
-  }
+  })
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
