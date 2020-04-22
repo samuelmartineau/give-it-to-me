@@ -1,1 +1,1 @@
-pm2 start npm --name "cave" -- start
+pm2 start index.js --name "cave" 
