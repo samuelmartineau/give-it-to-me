@@ -11,7 +11,6 @@ const SearchWithLayout = () => (
 
 SearchWithLayout.getInitialProps = (props) => {
   const { query, store } = props;
-  console.log('samsam', query);
   store.dispatch(syncUrlParams(query));
   return getInitialProps(props);
 };
