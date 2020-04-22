@@ -1,1 +1,1 @@
-pm2 start index.js -i max --name cave
+pm2 start npm --name "cave" -- start
