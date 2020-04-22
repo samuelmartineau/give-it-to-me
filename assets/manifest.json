@@ -1,0 +1,16 @@
+{
+  "name": "Give it to Me",
+  "short_name": "GITM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#856046",
+  "theme_color": "#5e0231",
+  "description": "A simple cellar manager.",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
