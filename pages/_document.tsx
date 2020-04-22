@@ -1,7 +1,11 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-export default class MyDocument extends Document {
+type Props = {
+  styleTags: React.ReactElement;
+};
+
+export default class MyDocument extends Document<Props> {
   static getInitialProps({ renderPage }) {
     const sheet = new ServerStyleSheet();
     const page = renderPage((App) => (props) =>
@@ -12,6 +16,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
+    const { styleTags } = this.props;
     return (
       <html lang="fr">
         <Head>
@@ -32,7 +37,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Ranga&display=swap"
             rel="stylesheet"
           ></link>
-          {this.props.styleTags}
+          {styleTags}
         </Head>
         <body>
           <Main />
