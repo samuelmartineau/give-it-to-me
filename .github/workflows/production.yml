@@ -30,4 +30,4 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run the app
-        run: npm start
+        run: pm2 reload cave
