@@ -12,7 +12,7 @@ const SERVER_URL =
 module.exports = Object.freeze({
   DB: {
     timeout: 5,
-    filename: 'db_v1.db',
+    filename: process.env.GITM_DB_FILE,
     tables: {
       WINE: {
         name: 'wine',

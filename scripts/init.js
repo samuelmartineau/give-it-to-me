@@ -1,11 +1,8 @@
 const sqlite3 = require('sqlite3');
 const fs = require('fs');
 const path = require('path');
-const config = require('../config');
 
-const db = new sqlite3.Database(
-  path.resolve(__dirname, '../server/utils/', config.DB.filename)
-);
+const db = new sqlite3.Database(path.resolve(__dirname, '../db_v1.db'));
 
 const initScript = fs.readFileSync(
   path.resolve(__dirname, './database.sql'),
@@ -17,7 +14,7 @@ const wineFamiliesScript = fs.readFileSync(
 );
 
 const samplingScript = fs.readFileSync(
-  path.resolve(__dirname, './samping.sql'),
+  path.resolve(__dirname, './sampling.sql'),
   'utf8'
 );
 
