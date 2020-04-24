@@ -7,10 +7,8 @@ const config = require('../../config');
 const { generateThumbnail, generateBlur } = require('./services');
 
 const pathToTmpAssets = path.join(
-  __dirname,
-  '../../',
-  config.ASSETS_BASE_URL,
-  config.UPLOADS_TMP_DIRECTORY
+  config.FILE_DIRECTORY,
+  config.UPLOADS_TMP_FOLDER
 );
 
 const storage = multer.diskStorage({
@@ -36,13 +34,13 @@ router
 
       res.json({
         thumbnailFileName: path.join(
-          config.ASSETS_BASE_URL,
-          config.UPLOADS_TMP_DIRECTORY,
+          config.FILE_URL_PATH,
+          config.UPLOADS_TMP_FOLDER,
           thumbnailFile
         ),
         pictureFileName: path.join(
-          config.ASSETS_BASE_URL,
-          config.UPLOADS_TMP_DIRECTORY,
+          config.FILE_URL_PATH,
+          config.UPLOADS_TMP_FOLDER,
           req.file.originalname
         ),
         blur: blur,

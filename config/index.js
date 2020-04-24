@@ -2,13 +2,12 @@ const cellar = require('./cellar');
 const wineTypes = require('./wineTypes');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
-const defaultPort = process.env.PORT || 3000;
+const defaultPort = process.env.GITM_PORT || 3000;
 
 const SERVER_URL =
   typeof window !== 'undefined'
     ? window.location.origin
     : `http://localhost:${defaultPort}`;
-const assetsBaseUrl = '/assets';
 
 module.exports = Object.freeze({
   DB: {
@@ -31,8 +30,10 @@ module.exports = Object.freeze({
   PORT: defaultPort,
   LOGGER_INFO_FILE_PATH: 'info-logs.log',
   LOGGER_ERROR_FILE_PATH: 'error-logs.log',
-  UPLOADS_PERM: 'uploads',
-  UPLOADS_TMP_DIRECTORY: 'temp_uploads/',
+  FILE_DIRECTORY: process.env.GITM_FILE_DIRECTORY,
+  FILE_URL_PATH: 'files',
+  UPLOADS_PERM_FOLDER: 'uploads',
+  UPLOADS_TMP_FOLDER: 'temp_uploads',
   BUNDLE_FILENAME: 'bundle.js',
   ROUTES: {
     PICTURE: '/picture',
@@ -49,7 +50,7 @@ module.exports = Object.freeze({
       QUALITY: 30,
     },
   },
-  ASSETS_BASE_URL: assetsBaseUrl,
+  PICTURES_BASE_URL: 'pictures',
   API_BASE_URL: '/api',
   API_URL: SERVER_URL,
   CORS_CONFIG: { origin: true, credentials: true, allowedHeaders: '*' },
@@ -58,5 +59,5 @@ module.exports = Object.freeze({
   utils,
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
-  owner: process.env.OWNER || 'Samuel',
+  owner: process.env.GITM_OWNER || 'Samuel',
 });

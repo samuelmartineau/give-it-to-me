@@ -8,17 +8,8 @@ const logger = require('../utils/logger');
 
 const gm = subClass({ imageMagick: true });
 
-const rootFolder = path.resolve(__dirname, '../..');
-const TEMP_DIR = path.join(
-  rootFolder,
-  config.ASSETS_BASE_URL,
-  config.UPLOADS_TMP_DIRECTORY
-);
-const PERM_DIR = path.join(
-  rootFolder,
-  config.ASSETS_BASE_URL,
-  config.UPLOADS_PERM
-);
+const TEMP_DIR = path.join(config.FILE_DIRECTORY, config.UPLOADS_TMP_FOLDER);
+const PERM_DIR = path.join(config.FILE_DIRECTORY, config.UPLOADS_PERM_FOLDER);
 
 const generateThumbnail = (sourcePath, extension) => {
   return new Promise((resolve, reject) => {

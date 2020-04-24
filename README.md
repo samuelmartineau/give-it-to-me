@@ -36,6 +36,15 @@ will start API server + client dev server
 
 ## Production
 
+Env variables
+
+```
+GITM_PORT=3000 # server port
+GITM_FILE_DIRECTORY=/gitm/files # location where pictures are stored
+GITM_OWNER=Samuel # Cellar user
+
+```
+
 ```
 npm start
 ```

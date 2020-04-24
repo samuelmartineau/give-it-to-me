@@ -22,6 +22,11 @@ http {
             try_files $uri =404;
         }
 
+        location ~ /files/(.*) {
+            root $GITM_FILE_DIRECTORY;
+            try_files /$1 =404;
+        }
+
         location /sse {
             proxy_pass http://localhost:3000;
             proxy_set_header Connection '';

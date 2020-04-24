@@ -6,9 +6,8 @@ const config = require('./config');
 const server = require('./server/server');
 
 const permFolderPath = path.join(
-  __dirname,
-  config.ASSETS_BASE_URL,
-  config.UPLOADS_PERM
+  config.FILE_DIRECTORY,
+  config.UPLOADS_PERM_FOLDER
 );
 
 if (!fs.existsSync(permFolderPath)) {

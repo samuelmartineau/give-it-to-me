@@ -22,13 +22,13 @@ const getCellar = async () => {
   wines.forEach((wine) => {
     wine.bottles = JSON.parse(wine.bottles);
     wine.thumbnailFileName = path.join(
-      config.ASSETS_BASE_URL,
-      config.UPLOADS_PERM,
+      config.FILE_URL_PATH,
+      config.UPLOADS_PERM_FOLDER,
       wine.thumbnailFileName
     );
     wine.pictureFileName = path.join(
-      config.ASSETS_BASE_URL,
-      config.UPLOADS_PERM,
+      config.FILE_URL_PATH,
+      config.UPLOADS_PERM_FOLDER,
       wine.pictureFileName
     );
   });
