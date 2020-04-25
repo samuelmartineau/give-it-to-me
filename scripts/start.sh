@@ -1,1 +1,1 @@
-npx pm2 start index.js --name "cave" 
+pm2 start index.js --name "cave" 
