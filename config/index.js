@@ -59,5 +59,4 @@ module.exports = Object.freeze({
   utils,
   bottleTypes,
   isProduction: process.env.NODE_ENV === 'production',
-  owner: process.env.GITM_OWNER || 'Samuel',
 });

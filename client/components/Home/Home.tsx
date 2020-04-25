@@ -21,7 +21,7 @@ type Props = PropsFromRedux;
 const Home: FC<Props> = ({ wines, bottles }) => (
   <div>
     <Title>
-      Bonjour {config.owner}, il te reste {wines.length} vin
+      Bonjour {process.env.GITM_OWNER}, il te reste {wines.length} vin
       {wines.length && 's'} pour un total de {bottles.length} bouteille
       {bottles.length && 's'} 😃
     </Title>
