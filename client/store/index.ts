@@ -1,15 +1,25 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import withRedux from 'next-redux-wrapper';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import * as api from '../api';
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers =
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 export const makeStore = (initialState: RootState) => {
   return createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware.withExtraArgument(api)))
+    composeEnhancers(applyMiddleware(thunkMiddleware.withExtraArgument(api)))
   );
 };
 
