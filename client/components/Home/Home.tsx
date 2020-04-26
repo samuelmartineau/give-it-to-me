@@ -18,22 +18,30 @@ const Title = styled.div`
 
 type Props = PropsFromRedux;
 
-const Home: FC<Props> = ({ wines, bottles }) => (
-  <div>
-    <Title>
-      Bonjour {process.env.GITM_OWNER}, il te reste {wines.length} vin
-      {wines.length && 's'} pour un total de {bottles.length} bouteille
-      {bottles.length && 's'} 😃
-    </Title>
-    <CellarContainer>
-      <CellarBoxes>
-        {(boxId) => <CellarBox key={boxId} boxId={boxId} />}
-      </CellarBoxes>
-      <CellarBottles />
-    </CellarContainer>
-    <YearsChart wines={wines} />
-  </div>
-);
+const Home: FC<Props> = ({ wines, bottles }) => {
+  const hasWines = wines.length > 0;
+  return (
+    <div>
+      <Title>
+        Bonjour {process.env.GITM_OWNER},
+        {hasWines && (
+          <>
+            il te reste {wines.length} vin
+            {wines.length && 's'} pour un total de {bottles.length} bouteille
+            {bottles.length && 's'} 😃
+          </>
+        )}
+      </Title>
+      <CellarContainer>
+        <CellarBoxes>
+          {(boxId) => <CellarBox key={boxId} boxId={boxId} />}
+        </CellarBoxes>
+        <CellarBottles />
+      </CellarContainer>
+      <YearsChart wines={wines} />
+    </div>
+  );
+};
 
 const connector = connect(({ wines, bottles }: RootState) => {
   return { wines: wines.all.map((id) => wines.map[id]), bottles: bottles.all };
