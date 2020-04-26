@@ -1,5 +1,5 @@
 import { cellar } from '~/config';
-import { range } from 'ramda';
+import range from 'lodash/range';
 
 const { CELL_SIZE, CELLAR_SCHEMA, BOX_BORDER_SIZE } = cellar;
 const boxBaseId = 'box-';
@@ -68,7 +68,7 @@ export const getBoxCells = (boxId: number) => {
   const boxSchema = CELLAR_SCHEMA[boxId].schema;
   const row = boxSchema[0];
   const column = boxSchema[1];
-  return range(0, row * column);
+  return range(0, row * column, 1);
 };
 
 export const boxes = range(0, CELLAR_SCHEMA.length);

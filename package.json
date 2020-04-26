@@ -20,7 +20,6 @@
     "next": "^9.3.5",
     "next-redux-wrapper": "^5.0.0",
     "query-string": "^6.12.1",
-    "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-autosuggest": "^10.0.0",
     "react-dom": "^16.13.1",
@@ -46,8 +45,8 @@
     "lint": "eslint ./**/*.js"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.150",
     "@types/node": "^13.13.1",
-    "@types/ramda": "^0.27.3",
     "@types/react": "^16.9.34",
     "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.1.0",

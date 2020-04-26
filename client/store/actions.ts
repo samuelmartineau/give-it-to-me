@@ -1,5 +1,5 @@
 import * as wines from './wines/wines.actions';
-import { difference } from 'ramda';
+import difference from 'lodash/difference';
 import * as adding from './adding/adding.actions';
 import * as remove from './remove/remove.actions';
 import { getBoxCells } from '../components/Cellar/utils';
@@ -47,7 +47,7 @@ export const getCellar = () => {
     return dispatch(wines.getCellar());
   };
 };
-export const selectBox = (boxId) => {
+export const selectBox = (boxId: number) => {
   return (dispatch, getState) => {
     const cells = getBoxCells(boxId).map((id) => id);
     const state = getState();

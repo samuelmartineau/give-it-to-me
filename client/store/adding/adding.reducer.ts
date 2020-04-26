@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { omit } from 'ramda';
+import omit from 'lodash/omit';
 import config from '~/config';
 import { WINE_TYPES_ALL } from '~/client/helpers';
 import {
@@ -60,7 +60,7 @@ export const selectedCellsReducer = (
     case UNSELECT_BOX: {
       const { boxId } = action.payload;
 
-      return omit([String(boxId)], state);
+      return omit(state, [String(boxId)]);
     }
     case SELECT_CELL: {
       const { boxId, cellId } = action.payload;
