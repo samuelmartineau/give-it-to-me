@@ -8,7 +8,11 @@ type Props = {
 };
 
 const CellarContainer = ({ children }: Props) => {
-  return <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`}>{children}</svg>;
+  return (
+    <svg data-e2e="cellar" viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`}>
+      {children}
+    </svg>
+  );
 };
 
 export default CellarContainer;

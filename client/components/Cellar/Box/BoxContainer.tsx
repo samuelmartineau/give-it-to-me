@@ -24,6 +24,7 @@ const BoxContainer: FC<Props> = ({ boxId, children, className }) => {
       height={canvasHeigh}
       viewBox={`0 0 ${canvasWidth} ${canvasHeigh}`}
       className={className}
+      data-e2e="box"
     >
       {children}
     </Svg>

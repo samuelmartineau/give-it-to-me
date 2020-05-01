@@ -84,6 +84,7 @@ function getSuggestionValue() {
 }
 
 type Props<T> = {
+  name: string;
   datas: T[];
   extract: (item: T) => string;
   onSuggestionSelected: Function;
@@ -142,7 +143,7 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
 
   render() {
     const { suggestions, value } = this.state;
-    const { onSuggestionSelected, placeholder } = this.props;
+    const { onSuggestionSelected, placeholder, name } = this.props;
     return (
       <AutosuggestWrapper>
         <Autosuggest
@@ -157,6 +158,7 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
           onSuggestionSelected={onSuggestionSelected}
           renderSuggestion={renderSuggestion}
           inputProps={{
+            name,
             type: 'text',
             placeholder,
             value,
