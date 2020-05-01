@@ -12,17 +12,12 @@
 
 ## Developpement
 
-### Requirements
-
-#### nginx
-
-[install](https://www.nginx.com/)
-
 ## Installation
 
 Init db tables with sampling data
 
 ```
+npm --prefix scripts/reverse-proxy/ install
 npm run init
 ```
 
