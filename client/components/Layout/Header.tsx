@@ -44,7 +44,7 @@ const List = styled.ul`
   display: flex;
   list-style-type: none;
 `;
-const ListItem = styled.li<{
+const ListItem = styled.a<{
   router: WithRouterProps['router'];
   route: RouteType;
 }>`
@@ -88,7 +88,7 @@ const Menu: FC<Props> = ({ router }) => (
       {routes.map((route) => {
         return (
           <Link key={route.href} href={route.href}>
-            <ListItem route={route} router={router}>
+            <ListItem route={route} router={router} href={route.href}>
               <ListItemIcon className="material-icons">
                 {route.icon}
               </ListItemIcon>
