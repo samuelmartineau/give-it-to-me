@@ -12,26 +12,19 @@ INSERT INTO wines
         1,
         1,
         6
-      )
+      );
 
-UPDATE wines SET name = 'Domaine de test Sam' WHERE id = 1;
-
-
-INSERT INTO bottles (wine_id, box, cell) VALUES
+INSERT INTO bottles (wineId, box, cell) VALUES
 (1, 2, 1),
 (1, 2, 2),
 (1, 2, 3),
-(1, 2, 4)
+(1, 2, 4);
 
 
-UPDATE bottles SET _deleted = 1 WHERE id = 1;
-
-
-INSERT INTO favorites (wineId)  VALUES  (1)
-UPDATE bottles SET _deleted = 1 WHERE id = 1;
+INSERT INTO favorites (wineId)  VALUES  (1);
 
 INSERT OR REPLACE INTO favorites (wineId, _deleted, id) 
 VALUES (1, 
     '0',
     (SELECT id FROM favorites WHERE wineId = 1)
-)
+);

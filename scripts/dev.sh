@@ -5,4 +5,4 @@ export GITM_DB_FILE=$HERE/'db_v1.db'
 
 node scripts/reverse-proxy/index.js &
 
-nodemon server/index.js --watch server
+nodemon index.js --watch server
