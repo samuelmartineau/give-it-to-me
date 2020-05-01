@@ -10,7 +10,7 @@ describe('Add page spec', () => {
     cy.getElement('picture').find('img').should('have.attr', 'src');
   });
 
-  it.only('Should Add wine', () => {
+  it('Should Add wine', () => {
     cy.visit('/add');
     cy.get('input[name=picture]').dropFile('chateau-margaux.jpg');
     cy.get('input[name=name]').type('Chateau Margaux');
@@ -25,5 +25,18 @@ describe('Add page spec', () => {
     cy.on('window:alert', (str) => {
       expect(str).to.equal(`Ajout avec succès`);
     });
+  });
+
+  it.only('Should Add wine family', () => {
+    cy.visit('/add');
+    cy.get('button[name=addWineFamily]').click();
+    cy.get('input[name=newWineFamily]').type('New AOC Name');
+    cy.get('[role=dialog] button[type=submit]').click();
+    cy.get('[role=dialog] button[type=button]').click();
+    cy.get('input[name=wineFamily]').type('New AOC');
+    cy.get('ul[role=listbox]')
+      .find('li')
+      .contains(/New AOC Name/i)
+      .click();
   });
 });
