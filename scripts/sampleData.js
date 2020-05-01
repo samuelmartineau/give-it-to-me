@@ -12,21 +12,11 @@ async function main() {
   const db = new sqlite3.Database(dbFilePath);
   const enhancedDB = enhanceDB(db);
 
-  try {
-    const initScript = await fs.readFile(
-      path.resolve(__dirname, './database.sql'),
-      'utf8'
-    );
-    await enhancedDB.exec(initScript);
-    const wineFamiliesScript = await fs.readFile(
-      path.resolve(__dirname, './wineFamilies.sql'),
-      'utf8'
-    );
-    await enhancedDB.exec(wineFamiliesScript);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
+  const samplingScript = await fs.readFile(
+    path.resolve(__dirname, './sampling.sql'),
+    'utf8'
+  );
+  await enhancedDB.exec(samplingScript);
 }
 
 main();

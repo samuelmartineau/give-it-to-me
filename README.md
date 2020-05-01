@@ -17,7 +17,7 @@
 Init db tables with sampling data
 
 ```
-npm --prefix scripts/reverse-proxy/ install
+npm run proxy
 npm run init
 ```
 

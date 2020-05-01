@@ -10,7 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-plugin-cypress": "^2.10.3"
+  },
   "dependencies": {
     "cypress": "^4.0.0"
   }
