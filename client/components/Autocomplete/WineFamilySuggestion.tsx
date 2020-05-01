@@ -24,6 +24,7 @@ export class WineFamilySuggestion extends React.Component<Props> {
 
     return (
       <AutoComplete<SearchableWineFamily>
+        name="wineFamily"
         extract={this.extract}
         datas={wineFamilies}
         onSuggestionSelected={this.onSelect}

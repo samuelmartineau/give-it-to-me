@@ -57,36 +57,31 @@ const AddWineFamilyModal: FC<Props> = ({
 
   return (
     <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-      <ModalHeader>Ajouter une appellation</ModalHeader>
-      <ModalContent>
-        <form onSubmit={submit}>
+      <form onSubmit={submit}>
+        <ModalHeader>Ajouter une appellation</ModalHeader>
+        <ModalContent>
           <Label>
             <Text>Appellation</Text>
             <TextField
               ref={inputEl}
-              name="source"
+              name="newWineFamily"
               type="text"
               placeholder="ex: Gaillac"
               onChange={onChange}
             />
           </Label>
-        </form>
-      </ModalContent>
-      <ModalActions>
-        <Actions>
-          <Button onClick={closeModal} type="button">
-            Annuler
-          </Button>
-          <Button
-            disabled={wineFamily.length === 0}
-            primary
-            onClick={submit}
-            type="button"
-          >
-            Ajouter
-          </Button>
-        </Actions>
-      </ModalActions>
+        </ModalContent>
+        <ModalActions>
+          <Actions>
+            <Button onClick={closeModal} type="button">
+              Annuler
+            </Button>
+            <Button disabled={wineFamily.length === 0} primary type="submit">
+              Ajouter
+            </Button>
+          </Actions>
+        </ModalActions>
+      </form>
     </Modal>
   );
 };

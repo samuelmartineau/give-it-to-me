@@ -29,7 +29,7 @@ export const AddWineFamilyButton: FC = () => {
 
   return (
     <>
-      <ButtonStyled type="button" onClick={openModal}>
+      <ButtonStyled type="button" onClick={openModal} name="addWineFamily">
         <AddIcon />
       </ButtonStyled>
       <AddWineFamilyModal modalIsOpen={modalOpen} closeModal={closeModal} />
