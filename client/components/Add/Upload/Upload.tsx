@@ -17,7 +17,12 @@ export const Upload: FC<Props> = ({ onDrop }) => (
     <Dropzone onDrop={onDrop} accept="image/*" multiple={false}>
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()}>
-          <input tabIndex={-1} {...getInputProps()} accept="image/*" />
+          <input
+            tabIndex={-1}
+            {...getInputProps()}
+            accept="image/*"
+            name="picture"
+          />
           <Button type="button">
             <AddAPhotoIcon />
           </Button>

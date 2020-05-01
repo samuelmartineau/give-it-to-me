@@ -3,10 +3,10 @@ import BoxesSelector from './Boxes/BoxesSelector';
 import CellsSelectors from './Cells/CellsSelectors';
 
 const PositionSelector = () => (
-  <React.Fragment>
+  <>
     <BoxesSelector />
     <CellsSelectors />
-  </React.Fragment>
+  </>
 );
 
 export default PositionSelector;

@@ -52,7 +52,7 @@ export const PictureStep: FC<Props> = ({
 
   if (blur) {
     render = (
-      <BlurWrapper>
+      <BlurWrapper data-e2e="picture">
         <Image
           width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
           height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
