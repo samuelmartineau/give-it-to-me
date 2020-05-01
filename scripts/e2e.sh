@@ -18,4 +18,4 @@ echo "Run the server"
 NODE_ENV=production node index.js &
 
 echo "Expose on entry URL"
-node scripts/reverse-proxy/index.js
+node scripts/reverse-proxy/index.js &
