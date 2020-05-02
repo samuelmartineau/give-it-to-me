@@ -53,7 +53,6 @@ module.exports = Object.freeze({
   PICTURES_BASE_URL: 'pictures',
   API_BASE_URL: '/api',
   API_URL: SERVER_URL,
-  CORS_CONFIG: { origin: true, credentials: true, allowedHeaders: '*' },
   cellar,
   wineTypes,
   utils,

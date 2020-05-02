@@ -1,12 +1,12 @@
 const SSE = require('sse');
 
 const logger = require('./utils/logger');
-const { getCellar } = require('./wine/services');
+const { wineServices } = require('./wine/services');
 
-const clients = [];
-
-const handleChanges = (serverHttp) => {
+function updateDispatcher(serverHttp, db) {
   const sse = new SSE(serverHttp);
+  const { getCellar } = wineServices(db);
+  const clients = [];
 
   sse.on('connection', (stream) => {
     logger.info('📲  SSE Opened connection');
@@ -17,16 +17,17 @@ const handleChanges = (serverHttp) => {
       logger.info('😱 SSE Closed connection');
     });
   });
-};
 
-const updateClients = async () => {
-  const cellar = await getCellar();
-  clients.forEach((stream) => {
-    stream.send(JSON.stringify({ cellar }));
-  });
-};
+  const updateClients = async () => {
+    const cellar = await getCellar();
+    clients.forEach((stream) => {
+      stream.send(JSON.stringify({ cellar }));
+    });
+  };
+
+  return { updateClients };
+}
 
 module.exports = {
-  handleChanges,
-  updateClients,
+  updateDispatcher,
 };

@@ -1,6 +1,4 @@
-const { db } = require('../utils/db');
-
-const getWineFamilies = () => {
+const getWineFamilies = (db) => () => {
   return db.allAsync(
     `
     SELECT * FROM wineFamilies;
@@ -8,7 +6,7 @@ const getWineFamilies = () => {
   );
 };
 
-const createWineFamily = async (name) => {
+const createWineFamily = (db) => async (name) => {
   await db.runAsync(
     `INSERT INTO wineFamilies 
     (name)
@@ -28,6 +26,8 @@ const createWineFamily = async (name) => {
 };
 
 module.exports = {
-  getWineFamilies,
-  createWineFamily,
+  wineFamilyServices: (db) => ({
+    getWineFamilies: getWineFamilies(db),
+    createWineFamily: createWineFamily(db),
+  }),
 };

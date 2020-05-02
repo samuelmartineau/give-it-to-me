@@ -4,8 +4,7 @@ const Joi = require('@hapi/joi');
 const asyncHandler = require('express-async-handler');
 
 const config = require('../../config');
-const { removeBottles } = require('./services');
-const { updateClients } = require('../handleChanges');
+const { bottleServices } = require('./services');
 const logger = require('../utils/logger');
 const { validateParams } = require('../middlewares/validateParams');
 
@@ -15,19 +14,25 @@ const RemoveSchema = Joi.object({
   bottleIds: Joi.array().items(Joi.number()).min(1).required(),
 });
 
-router.route(urlJoin(config.ROUTES.BOTTLE)).delete(
-  validateParams(RemoveSchema, 'body'),
-  asyncHandler(async (req, res) => {
-    const { bottleIds } = req.body;
-    try {
-      await removeBottles(bottleIds);
-      updateClients();
-      res.status(200).json({ message: 'Bouteille supprimée avec succés' });
-    } catch (error) {
-      logger.error('error', error.stack);
-      res.status(500).json(error);
-    }
-  })
-);
+function bottleRoutes(db, updateClients) {
+  const { removeBottles } = bottleServices(db);
 
-module.exports = router;
+  router.route(urlJoin(config.ROUTES.BOTTLE)).delete(
+    validateParams(RemoveSchema, 'body'),
+    asyncHandler(async (req, res) => {
+      const { bottleIds } = req.body;
+      try {
+        await removeBottles(bottleIds);
+        updateClients();
+        res.status(200).json({ message: 'Bouteille supprimée avec succés' });
+      } catch (error) {
+        logger.error('error', error.stack);
+        res.status(500).json(error);
+      }
+    })
+  );
+
+  return router;
+}
+
+module.exports = bottleRoutes;
