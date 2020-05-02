@@ -1,8 +1,7 @@
 const path = require('path');
-const { db } = require('../utils/db');
 const config = require('../../config');
 
-const getCellar = async () => {
+const getCellar = (db) => async () => {
   const wines = await db.allAsync(`
   SELECT w.*, 
   (SELECT 
@@ -36,7 +35,7 @@ const getCellar = async () => {
   return wines;
 };
 
-const addWine = async (wine) => {
+const addWine = (db) => async (wine) => {
   const { bottles } = wine;
 
   await db.runAsync('BEGIN');
@@ -91,7 +90,7 @@ const addWine = async (wine) => {
   await db.run('COMMIT');
 };
 
-const removeOutsideBottles = (wineId, count) => {
+const removeOutsideBottles = (db) => (wineId, count) => {
   return db.runAsync(
     `
   UPDATE wines
@@ -106,7 +105,9 @@ const removeOutsideBottles = (wineId, count) => {
 };
 
 module.exports = {
-  getCellar,
-  addWine,
-  removeOutsideBottles,
+  wineServices: (db) => ({
+    getCellar: getCellar(db),
+    addWine: addWine(db),
+    removeOutsideBottles: removeOutsideBottles(db),
+  }),
 };

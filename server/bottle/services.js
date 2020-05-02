@@ -1,6 +1,4 @@
-const { db } = require('../utils/db');
-
-const removeBottles = (bottleIds) => {
+const removeBottles = (db) => (bottleIds) => {
   return db.runAsync(
     `
   UPDATE bottles
@@ -13,5 +11,7 @@ const removeBottles = (bottleIds) => {
 };
 
 module.exports = {
-  removeBottles,
+  bottleServices: (db) => ({
+    removeBottles: removeBottles(db),
+  }),
 };

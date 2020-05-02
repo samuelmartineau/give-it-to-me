@@ -1,6 +1,4 @@
-const { db } = require('../utils/db');
-
-const addToFavorite = (wineId) => {
+const addToFavorite = (db) => (wineId) => {
   return db.runAsync(
     `
   INSERT OR REPLACE INTO favorites (id, wineId, _deleted) 
@@ -14,7 +12,7 @@ const addToFavorite = (wineId) => {
   );
 };
 
-const removeFromFavorite = (wineId) => {
+const removeFromFavorite = (db) => (wineId) => {
   return db.runAsync(
     `
     UPDATE favorites
@@ -26,6 +24,8 @@ const removeFromFavorite = (wineId) => {
 };
 
 module.exports = {
-  addToFavorite,
-  removeFromFavorite,
+  favoriteServices: (db) => ({
+    addToFavorite: addToFavorite(db),
+    removeFromFavorite: removeFromFavorite(db),
+  }),
 };
