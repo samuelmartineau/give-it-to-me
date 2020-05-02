@@ -23,7 +23,6 @@ const CellSelectorStyled = styled(CellSelector)`
 `;
 
 export const Browse = () => {
-  throw new Error('samsam on browser');
   return (
     <Container>
       <BoxesSelector />
