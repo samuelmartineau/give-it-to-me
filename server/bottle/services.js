@@ -1,3 +1,16 @@
+const getBottlesByIds = (db) => async (bottleIds) => {
+  const bottles = await db.getAsync(
+    `
+  SELECT *
+  FROM bottles
+  WHERE
+    id IN (${bottleIds.map(() => '?')})
+  `,
+    bottleIds
+  );
+  return bottles || [];
+};
+
 const removeBottles = (db) => (bottleIds) => {
   return db.runAsync(
     `
@@ -12,6 +25,7 @@ const removeBottles = (db) => (bottleIds) => {
 
 module.exports = {
   bottleServices: (db) => ({
+    getBottlesByIds: getBottlesByIds(db),
     removeBottles: removeBottles(db),
   }),
 };

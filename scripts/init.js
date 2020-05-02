@@ -14,12 +14,12 @@ async function main() {
 
   try {
     const initScript = await fs.readFile(
-      path.resolve(__dirname, './database.sql'),
+      path.resolve(__dirname, '../data/database.sql'),
       'utf8'
     );
     await enhancedDB.exec(initScript);
     const wineFamiliesScript = await fs.readFile(
-      path.resolve(__dirname, './wineFamilies.sql'),
+      path.resolve(__dirname, '../data/wineFamilies.sql'),
       'utf8'
     );
     await enhancedDB.exec(wineFamiliesScript);
