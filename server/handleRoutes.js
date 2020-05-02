@@ -15,5 +15,8 @@ module.exports = (app) => {
   router.use(bottleRoutes);
   router.use(wineFamilyRoutes);
   router.get('/', (req, res) => res.send('API running'));
+  router.get('/debug-sentry', () => {
+    throw new Error('My first Sentry error!');
+  });
   app.use(config.API_BASE_URL, router);
 };

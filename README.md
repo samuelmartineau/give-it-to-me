@@ -38,7 +38,6 @@ GITM_PORT=3000 # server port
 GITM_FILE_DIRECTORY=/gitm/files # location where pictures are stored
 GITM_OWNER=Samuel # Cellar user
 GITM_DB_FILE=/db_v1.db # DB filename
-
 ```
 
 ```

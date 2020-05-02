@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const next = require('next');
-const config = require('./config');
 
+const config = require('./config');
 const server = require('./server/server');
 
 const permFolderPath = path.join(
