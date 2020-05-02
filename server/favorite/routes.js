@@ -1,6 +1,7 @@
 const Joi = require('@hapi/joi');
 const urlJoin = require('url-join');
 const express = require('express');
+const asyncHandler = require('express-async-handler');
 
 const logger = require('../utils/logger');
 const config = require('../../config');
@@ -14,9 +15,9 @@ const AddSchema = Joi.object({
   wineId: Joi.number().required(),
 });
 
-router
-  .route(config.ROUTES.FAVORITE)
-  .post(validateParams(AddSchema, 'body'), async (req, res) => {
+router.route(config.ROUTES.FAVORITE).post(
+  validateParams(AddSchema, 'body'),
+  asyncHandler(async (req, res) => {
     const { wineId } = req.body;
 
     try {
@@ -27,15 +28,16 @@ router
       logger.error(error.stack);
       res.status(500).json(error);
     }
-  });
+  })
+);
 
 const RemoveSchema = Joi.object({
   wineId: Joi.number().required(),
 });
 
-router
-  .route(urlJoin(config.ROUTES.FAVORITE, ':wineId'))
-  .delete(validateParams(RemoveSchema, 'params'), async (req, res) => {
+router.route(urlJoin(config.ROUTES.FAVORITE, ':wineId')).delete(
+  validateParams(RemoveSchema, 'params'),
+  asyncHandler(async (req, res) => {
     const { wineId } = req.params;
     try {
       await removeFromFavorite(wineId);
@@ -45,6 +47,7 @@ router
       logger.error(error.stack);
       res.status(500).json(error);
     }
-  });
+  })
+);
 
 module.exports = router;

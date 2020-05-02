@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const express = require('express');
+const asyncHandler = require('express-async-handler');
 
 const logger = require('../utils/logger');
 const config = require('../../config');
@@ -22,16 +23,15 @@ const upload = multer({ storage: storage });
 
 const router = express.Router();
 
-router
-  .route(config.ROUTES.PICTURE)
-  .post(upload.single(config.PICTURE_UPLOAD.FILE_NAME), async (req, res) => {
+router.route(config.ROUTES.PICTURE).post(
+  upload.single(config.PICTURE_UPLOAD.FILE_NAME),
+  asyncHandler(async (req, res) => {
     try {
       let thumbnailFile;
       const fileExtension = path.extname(req.file.originalname);
       const thumbnail = await generateThumbnail(req.file.path, fileExtension);
       thumbnailFile = thumbnail.name;
       const blur = await generateBlur(thumbnail.path);
-
       res.json({
         thumbnailFileName: path.join(
           config.FILE_URL_PATH,
@@ -49,6 +49,7 @@ router
       logger.error('error during picture processing', error);
       res.status(500).json({ error: error });
     }
-  });
+  })
+);
 
 module.exports = router;
