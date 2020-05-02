@@ -35,9 +35,9 @@ const RemoveSchema = Joi.object({
   wineId: Joi.number().required(),
 });
 
-router
-  .route(urlJoin(config.ROUTES.FAVORITE, ':wineId'))
-  .delete(validateParams(RemoveSchema, 'params'), async (req, res) => {
+router.route(urlJoin(config.ROUTES.FAVORITE, ':wineId')).delete(
+  validateParams(RemoveSchema, 'params'),
+  asyncHandler(async (req, res) => {
     const { wineId } = req.params;
     try {
       await removeFromFavorite(wineId);
@@ -47,6 +47,7 @@ router
       logger.error(error.stack);
       res.status(500).json(error);
     }
-  });
+  })
+);
 
 module.exports = router;

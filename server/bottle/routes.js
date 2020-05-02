@@ -1,6 +1,7 @@
 const urlJoin = require('url-join');
 const express = require('express');
 const Joi = require('@hapi/joi');
+const asyncHandler = require('express-async-handler');
 
 const config = require('../../config');
 const { removeBottles } = require('./services');
@@ -14,9 +15,9 @@ const RemoveSchema = Joi.object({
   bottleIds: Joi.array().items(Joi.number()).min(1).required(),
 });
 
-router
-  .route(urlJoin(config.ROUTES.BOTTLE))
-  .delete(validateParams(RemoveSchema, 'body'), async (req, res) => {
+router.route(urlJoin(config.ROUTES.BOTTLE)).delete(
+  validateParams(RemoveSchema, 'body'),
+  asyncHandler(async (req, res) => {
     const { bottleIds } = req.body;
     try {
       await removeBottles(bottleIds);
@@ -26,6 +27,7 @@ router
       logger.error('error', error.stack);
       res.status(500).json(error);
     }
-  });
+  })
+);
 
 module.exports = router;
