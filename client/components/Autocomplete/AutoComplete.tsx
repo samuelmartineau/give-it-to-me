@@ -65,7 +65,7 @@ function renderInput(inputProps) {
   return <TextField {...inputProps} />;
 }
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
+function renderSuggestion(suggestion) {
   return (
     <div>
       <span dangerouslySetInnerHTML={{ __html: suggestion.string }} />

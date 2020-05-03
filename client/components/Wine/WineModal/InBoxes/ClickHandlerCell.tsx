@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { connect } from 'react-redux';
 import { selectBottleToDelete, unselectBottleToDelete } from '~/client/store';
 import BoxCell from '~/client/components/Cellar/Box/BoxCell';
 import BoxCellSelectable from '~/client/components/Cellar/Box/BoxCellSelectable';

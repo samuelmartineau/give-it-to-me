@@ -144,7 +144,7 @@ class SearchFiltersModalFilters extends React.Component<Props> {
   };
 
   render() {
-    const { filters, onInputChange } = this.props;
+    const { filters } = this.props;
     return (
       <>
         <Label>

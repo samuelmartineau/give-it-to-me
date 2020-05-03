@@ -10,7 +10,6 @@ import {
 } from '~/client/store';
 import InBoxesModal from './InBoxes/InBoxesModal';
 import OutsideModal from './Outside/OutsideModal';
-import type { WineType } from '~/client/Cellar.type';
 
 const ButtonStyled = styled(Button)`
   display: flex;

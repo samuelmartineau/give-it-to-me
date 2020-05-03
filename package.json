@@ -50,8 +50,9 @@
     "build": "next build",
     "init": "node ./scripts/init.js --dbPath=./db_v1.db",
     "sample": "node ./scripts/sampleData.js --dbPath=./db_v1.db",
-    "lint": "eslint ./**/*.js",
-    "test:server": "jest server"
+    "test:server": "jest server",
+    "lint:server": "eslint server",
+    "lint:client": "eslint --ext .tsx --ext .ts client"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.150",
@@ -59,8 +60,9 @@
     "@types/react": "^16.9.34",
     "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
-    "babel-eslint": "^10.1.0",
     "babel-plugin-root-import": "^6.5.0",
     "babel-plugin-styled-components": "^1.10.7",
     "eslint": "^6.8.0",
