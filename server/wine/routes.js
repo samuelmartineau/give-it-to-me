@@ -1,4 +1,5 @@
 const express = require('express');
+const urlJoin = require('url-join');
 const asyncHandler = require('express-async-handler');
 
 const config = require('../../config');
@@ -16,7 +17,6 @@ function wineRoutes(db, updateClients) {
       asyncHandler(async (req, res) => {
         try {
           const cellar = await getCellar();
-          updateClients();
           res.status(200).json(cellar);
         } catch (error) {
           logger.error(error.stack);
@@ -45,7 +45,7 @@ function wineRoutes(db, updateClients) {
       })
     );
 
-  router.route(`${config.ROUTES.WINE}/:wineId`).delete(
+  router.route(urlJoin(config.ROUTES.WINE, ':wineId')).delete(
     asyncHandler(async (req, res) => {
       const { wineId } = req.params;
       try {

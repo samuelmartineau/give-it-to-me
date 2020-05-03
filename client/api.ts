@@ -22,7 +22,7 @@ function errorHandler(error) {
 }
 
 export const getCellar = () =>
-  fetch(`${apiBase}${config.ROUTES.WINE}`, { credentials: 'include' })
+  fetch(`${apiBase}${config.ROUTES.WINE}`)
     .then(checkStatus)
     .catch(errorHandler);
 
