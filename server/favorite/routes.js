@@ -6,6 +6,7 @@ const asyncHandler = require('express-async-handler');
 const logger = require('../utils/logger');
 const config = require('../../config');
 const { favoriteServices } = require('./services');
+const { wineServices } = require('../wine/services');
 const { validateParams } = require('../middlewares/validateParams');
 
 const router = express.Router();
@@ -20,10 +21,18 @@ const RemoveSchema = Joi.object({
 
 function favoriteRoutes(db, updateClients) {
   const { addToFavorite, removeFromFavorite } = favoriteServices(db);
+  const { getWineById } = wineServices(db);
+
   router.route(config.ROUTES.FAVORITE).post(
     validateParams(AddSchema, 'body'),
     asyncHandler(async (req, res) => {
       const { wineId } = req.body;
+
+      const wine = await getWineById(wineId);
+
+      if (!wine) {
+        return res.status(404).send({ error: 'Unknown wineId' });
+      }
 
       try {
         await addToFavorite(wineId);
@@ -40,6 +49,12 @@ function favoriteRoutes(db, updateClients) {
     validateParams(RemoveSchema, 'params'),
     asyncHandler(async (req, res) => {
       const { wineId } = req.params;
+
+      const wine = await getWineById(wineId);
+
+      if (!wine) {
+        return res.status(404).send({ error: 'Unknown wineId' });
+      }
       try {
         await removeFromFavorite(wineId);
         updateClients();
