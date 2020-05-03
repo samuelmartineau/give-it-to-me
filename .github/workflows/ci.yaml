@@ -30,9 +30,6 @@ jobs:
   server-tests:
     runs-on: ubuntu-latest
 
-    env:
-      GITM_FILE_DIRECTORY: ./fake/tmp/files
-      GITM_DB_FILE=: ./fake/fake_db.db
     steps:
       - uses: actions/checkout@v2
 

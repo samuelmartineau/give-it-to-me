@@ -1,23 +1,13 @@
-const fs = require('fs');
-const path = require('path');
 const next = require('next');
 
-const config = require('./config');
 const server = require('./server/server');
 
-const permFolderPath = path.join(
-  config.FILE_DIRECTORY,
-  config.UPLOADS_PERM_FOLDER
-);
-
-if (!fs.existsSync(permFolderPath)) {
-  fs.mkdirSync(permFolderPath);
-}
+const isProduction = process.env.NODE_ENV === 'production';
 
 // API REST
 // =============================================================================
 
-const app = next({ dev: !config.isProduction });
+const app = next({ dev: !isProduction });
 const handle = app.getRequestHandler();
 
 const URL_MAP = {
