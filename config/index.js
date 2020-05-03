@@ -26,7 +26,6 @@ module.exports = Object.freeze({
       },
     },
   },
-  debug: !process.env.DEBUG,
   PORT: defaultPort,
   LOGGER_INFO_FILE_PATH: 'info-logs.log',
   LOGGER_ERROR_FILE_PATH: 'error-logs.log',
