@@ -6,7 +6,6 @@ import CellarContainer from '~/client/components/Cellar/CellarContainer';
 import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
 import CellarBottles from '~/client/components/Cellar/CellarBottles';
 import CellarBox from '~/client/components/Cellar/CellarBox';
-import config from '~/config';
 import { YearsChart } from './YearsChart';
 import { RootState } from '~/client/store';
 

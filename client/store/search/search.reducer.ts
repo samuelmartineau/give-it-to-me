@@ -6,7 +6,6 @@ import {
   SYNC_URL_PARAMS,
   TOGGLE_OUTSIDE_BOXES_FILTER,
 } from './search.types';
-import { ArrayKeys } from './utils';
 import { SearchActions } from './search.actions';
 import config from '~/config';
 

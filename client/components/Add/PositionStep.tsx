@@ -4,7 +4,7 @@ import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
 import { RootState, toggleInBox } from '~/client/store/';
 import { Checkbox } from '~/client/components/Toolkit';
-import { Dispatch, AnyAction } from 'redux';
+import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 type Props = PropsFromRedux;

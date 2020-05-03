@@ -16,5 +16,5 @@ export default combineReducers({
   remove: removeReducer,
   wineFamilies: wineFamiliesReducer,
   favorites: favoritesReducer,
-  browse: browseReducer
+  browse: browseReducer,
 });

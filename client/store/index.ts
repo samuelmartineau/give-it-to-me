@@ -4,9 +4,11 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import * as api from '../api';
 
+type Compose = typeof compose;
+
 declare global {
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: Compose;
   }
 }
 
