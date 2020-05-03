@@ -1,29 +1,23 @@
-const fs = require('fs');
 const express = require('express');
-const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
 const request = require('supertest');
-const app = require('../app');
-const { enhanceDB } = require('../utils/enhanceDB');
 
-const samplingScript = fs.readFileSync(
-  path.resolve(__dirname, '../../data/database.sql'),
-  'utf8'
-);
+const app = require('../app');
+const { getFreshDB } = require('../tests/utils');
+const { wineServices } = require('../wine/services');
+const { wineFamilyServices } = require('../wineFamily/services');
 
 describe('Bottle suite test', () => {
-  let gitmApp = express();
+  let db;
 
-  beforeEach(async () => {
-    const db = new sqlite3.Database(':memory:');
-    const enhancedDB = enhanceDB(db);
-    const updateClients = jest.fn();
-
-    await enhancedDB.exec(samplingScript);
-    app(gitmApp, enhancedDB, updateClients);
+  beforeAll(async () => {
+    db = await getFreshDB();
   });
 
   it('should return a 422 if no bottleId provided', async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients);
+
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
       .set('Accept', 'application/json')
@@ -34,6 +28,10 @@ describe('Bottle suite test', () => {
   });
 
   it('should return a 422 if bottleId is empty', async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients);
+
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
       .set('Accept', 'application/json')
@@ -46,6 +44,10 @@ describe('Bottle suite test', () => {
   });
 
   it('should return a 422 if bottleId is not a number', async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients);
+
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
       .set('Accept', 'application/json')
@@ -56,6 +58,10 @@ describe('Bottle suite test', () => {
   });
 
   it("should return a 404 if one of bottleIds doesn`'t exist", async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients);
+
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
       .set('Accept', 'application/json')
@@ -63,5 +69,44 @@ describe('Bottle suite test', () => {
 
     expect(status).toEqual(404);
     expect(body).toEqual({ error: 'Unknown bottleIds' });
+  });
+
+  it('should return a 200 if success', async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients);
+
+    const { addWine } = wineServices(db);
+    const { createWineFamily } = wineFamilyServices(db);
+    const wineFamily = await createWineFamily('fake wine family');
+    const wine = await addWine({
+      name: 'Domaine test',
+      year: 2010,
+      wineFamily: wineFamily.id,
+      blur: 'fake blur',
+      thumbnailFileName: 'fake/path',
+      pictureFileName: 'fake/path',
+      wineType: 'RED',
+      wineCategory: 'REGULAR',
+      bottleType: 1,
+      isInBoxes: true,
+      bottlesCount: 3,
+      bottles: [
+        { box: 3, cell: 0 },
+        { box: 3, cell: 1 },
+        { box: 3, cell: 2 },
+      ],
+    });
+    const bottleIds = [wine.bottles[0].id, wine.bottles[1].id];
+    const { body, status } = await request(gitmApp)
+      .delete('/api/bottle')
+      .set('Accept', 'application/json')
+      .send({ bottleIds });
+
+    expect(status).toEqual(200);
+    expect(body).toEqual({ message: 'Bouteille supprimée avec succés' });
+    setTimeout(() => {
+      expect(updateClients).toHaveBeenCalled();
+    }, 0);
   });
 });

@@ -1,5 +1,5 @@
-const getBottlesByIds = (db) => async (bottleIds) => {
-  const bottles = await db.getAsync(
+const getBottlesByIds = (db) => (bottleIds) => {
+  return db.allAsync(
     `
   SELECT *
   FROM bottles
@@ -8,7 +8,6 @@ const getBottlesByIds = (db) => async (bottleIds) => {
   `,
     bottleIds
   );
-  return bottles || [];
 };
 
 const removeBottles = (db) => (bottleIds) => {

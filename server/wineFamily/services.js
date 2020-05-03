@@ -7,7 +7,7 @@ const getWineFamilies = (db) => () => {
 };
 
 const createWineFamily = (db) => async (name) => {
-  await db.runAsync(
+  const id = await db.insertAsync(
     `INSERT INTO wineFamilies 
     (name)
     VALUES($name);
@@ -19,8 +19,9 @@ const createWineFamily = (db) => async (name) => {
 
   const wineFamily = await db.getAsync(
     `
-    SELECT * from wineFamilies WHERE id = (select last_insert_rowid());
-  `
+    SELECT * from wineFamilies WHERE id = (?);
+  `,
+    id
   );
   return wineFamily;
 };
