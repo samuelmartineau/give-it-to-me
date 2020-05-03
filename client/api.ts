@@ -1,7 +1,7 @@
 import 'isomorphic-unfetch';
 import config from '~/config';
 
-const apiBase = `${config.API_URL}${config.API_BASE_URL}`;
+const apiBase = `${config.UNIVERSAL_API_URL}${config.API_BASE_URL}`;
 
 function parseJSON(response) {
   return response.json();

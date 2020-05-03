@@ -4,13 +4,14 @@ const asyncHandler = require('express-async-handler');
 
 const config = require('../../config');
 const { wineServices } = require('./services');
-const { moveWineToPermanentFolder } = require('../pictures/services');
+const { picturesServices } = require('../pictures/services');
 const logger = require('../utils/logger');
 
 const router = express.Router();
 
-function wineRoutes(db, updateClients) {
+function wineRoutes(db, updateClients, SERVER_VARIABLES) {
   const { getCellar, addWine, removeOutsideBottles } = wineServices(db);
+  const { moveWineToPermanentFolder } = picturesServices(SERVER_VARIABLES);
   router
     .route(config.ROUTES.WINE)
     .get(

@@ -1,17 +1,20 @@
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const config = require('../../config');
 const { enhanceDB } = require('./enhanceDB');
 
-const db = new sqlite3.Database(path.resolve(config.DB.filename));
+function getDB({ filename, showLogs }) {
+  const db = new sqlite3.Database(path.resolve(filename));
 
-if (!process.env.NODE_ENV) {
-  db.on('trace', (message) => {
-    console.log(message);
-  });
+  if (showLogs) {
+    db.on('trace', (message) => {
+      console.log(message);
+    });
+  }
+
+  return enhanceDB(db);
 }
 
 module.exports = {
-  db: enhanceDB(db),
+  getDB,
 };

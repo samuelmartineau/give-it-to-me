@@ -4,7 +4,7 @@ const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
 const defaultPort = process.env.GITM_PORT || 3000;
 
-const SERVER_URL =
+const UNIVERSAL_API_URL =
   typeof window !== 'undefined'
     ? window.location.origin
     : `http://localhost:${defaultPort}`;
@@ -12,7 +12,6 @@ const SERVER_URL =
 module.exports = Object.freeze({
   DB: {
     timeout: 5,
-    filename: process.env.GITM_DB_FILE,
     tables: {
       WINE: {
         name: 'wine',
@@ -26,10 +25,8 @@ module.exports = Object.freeze({
       },
     },
   },
-  PORT: defaultPort,
   LOGGER_INFO_FILE_PATH: 'info-logs.log',
   LOGGER_ERROR_FILE_PATH: 'error-logs.log',
-  FILE_DIRECTORY: process.env.GITM_FILE_DIRECTORY,
   FILE_URL_PATH: 'files',
   UPLOADS_PERM_FOLDER: 'uploads',
   UPLOADS_TMP_FOLDER: 'temp_uploads',
@@ -51,10 +48,9 @@ module.exports = Object.freeze({
   },
   PICTURES_BASE_URL: 'pictures',
   API_BASE_URL: '/api',
-  API_URL: SERVER_URL,
+  UNIVERSAL_API_URL,
   cellar,
   wineTypes,
   utils,
   bottleTypes,
-  isProduction: process.env.NODE_ENV === 'production',
 });

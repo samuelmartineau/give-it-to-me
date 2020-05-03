@@ -6,6 +6,10 @@ const { getFreshDB } = require('../tests/utils');
 const { wineServices } = require('../wine/services');
 const { wineFamilyServices } = require('../wineFamily/services');
 
+const context = {
+  FILE_DIRECTORY: './',
+};
+
 describe('Remove bottle suite test', () => {
   let db;
 
@@ -16,7 +20,7 @@ describe('Remove bottle suite test', () => {
   it('should return a 422 if no bottleId provided', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
@@ -30,7 +34,7 @@ describe('Remove bottle suite test', () => {
   it('should return a 422 if bottleId is empty', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
@@ -46,7 +50,7 @@ describe('Remove bottle suite test', () => {
   it('should return a 422 if bottleId is not a number', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
@@ -60,7 +64,7 @@ describe('Remove bottle suite test', () => {
   it("should return a 404 if one of bottleIds doesn`'t exist", async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
@@ -74,7 +78,7 @@ describe('Remove bottle suite test', () => {
   it('should return a 200 if success', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { addWine } = wineServices(db);
     const { createWineFamily } = wineFamilyServices(db);

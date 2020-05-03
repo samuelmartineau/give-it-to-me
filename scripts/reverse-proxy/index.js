@@ -1,18 +1,20 @@
 const express = require('express');
 const path = require('path');
 const proxy = require('express-http-proxy');
-const app = express();
 const config = require('../../config');
-const MAIN_PORT = 3005;
 
+const MAIN_PORT = 3005;
+const PORT = process.env.GITM_PORT || 3000;
 const limit = '50mb';
+
+const app = express();
 
 app.use(express.json({ limit }));
 
 app.use('/assets/', express.static(path.resolve(__dirname, '../../assets')));
 app.use('/files', express.static(process.env.GITM_FILE_DIRECTORY));
 
-const PROXY_URL = `http://localhost:${config.PORT}`;
+const PROXY_URL = `http://localhost:${PORT}`;
 
 const UPLOAD_URL = `${config.API_BASE_URL}${config.ROUTES.PICTURE}`;
 

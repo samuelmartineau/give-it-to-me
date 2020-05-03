@@ -6,6 +6,10 @@ const { getFreshDB } = require('../tests/utils');
 const { wineServices } = require('../wine/services');
 const { wineFamilyServices } = require('../wineFamily/services');
 
+const context = {
+  FILE_DIRECTORY: './',
+};
+
 describe('Remove from Favorite suite test', () => {
   let db;
 
@@ -16,7 +20,7 @@ describe('Remove from Favorite suite test', () => {
   it('should return a 404 if no wineId provided', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { status } = await request(gitmApp)
       .delete('/api/favorite')
@@ -29,7 +33,7 @@ describe('Remove from Favorite suite test', () => {
   it('should return a 422 if wineId is not a number', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
       .delete('/api/favorite/wrongId')
@@ -43,7 +47,7 @@ describe('Remove from Favorite suite test', () => {
   it("should return a 404 if one of wineId doesn`'t exist", async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
       .delete('/api/favorite/12')
@@ -57,7 +61,7 @@ describe('Remove from Favorite suite test', () => {
   it('should return a 200 if success', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
+    app(gitmApp, db, updateClients, context);
 
     const { addWine } = wineServices(db);
     const { createWineFamily } = wineFamilyServices(db);
