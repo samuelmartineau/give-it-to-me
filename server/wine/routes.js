@@ -8,8 +8,6 @@ const logger = require('../utils/logger');
 
 const router = express.Router();
 
-let test;
-
 function wineRoutes(db, updateClients) {
   const { getCellar, addWine, removeOutsideBottles } = wineServices(db);
   router
