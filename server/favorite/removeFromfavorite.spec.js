@@ -6,69 +6,52 @@ const { getFreshDB } = require('../tests/utils');
 const { wineServices } = require('../wine/services');
 const { wineFamilyServices } = require('../wineFamily/services');
 
-describe('Bottle suite test', () => {
+describe('Remove from Favorite suite test', () => {
   let db;
 
   beforeAll(async () => {
     db = await getFreshDB();
   });
 
-  it('should return a 422 if no bottleId provided', async () => {
+  it('should return a 404 if no wineId provided', async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients);
+
+    const { status } = await request(gitmApp)
+      .delete('/api/favorite')
+      .set('Accept', 'application/json')
+      .send();
+
+    expect(status).toEqual(404);
+  });
+
+  it('should return a 422 if wineId is not a number', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
     app(gitmApp, db, updateClients);
 
     const { body, status } = await request(gitmApp)
-      .delete('/api/bottle')
+      .delete('/api/favorite/wrongId')
       .set('Accept', 'application/json')
       .send();
 
     expect(status).toEqual(422);
-    expect(body).toEqual({ error: '"bottleIds" is required' });
+    expect(body).toEqual({ error: '"wineId" must be a number' });
   });
 
-  it('should return a 422 if bottleId is empty', async () => {
+  it("should return a 404 if one of wineId doesn`'t exist", async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
     app(gitmApp, db, updateClients);
 
     const { body, status } = await request(gitmApp)
-      .delete('/api/bottle')
+      .delete('/api/favorite/12')
       .set('Accept', 'application/json')
-      .send({ bottleIds: [] });
-
-    expect(status).toEqual(422);
-    expect(body).toEqual({
-      error: '"bottleIds" must contain at least 1 items',
-    });
-  });
-
-  it('should return a 422 if bottleId is not a number', async () => {
-    const gitmApp = express();
-    const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
-
-    const { body, status } = await request(gitmApp)
-      .delete('/api/bottle')
-      .set('Accept', 'application/json')
-      .send({ bottleIds: ['wrongId'] });
-
-    expect(status).toEqual(422);
-    expect(body).toEqual({ error: '"bottleIds[0]" must be a number' });
-  });
-
-  it("should return a 404 if one of bottleIds doesn`'t exist", async () => {
-    const gitmApp = express();
-    const updateClients = jest.fn();
-    app(gitmApp, db, updateClients);
-
-    const { body, status } = await request(gitmApp)
-      .delete('/api/bottle')
-      .set('Accept', 'application/json')
-      .send({ bottleIds: [12] });
+      .send();
 
     expect(status).toEqual(404);
-    expect(body).toEqual({ error: 'Unknown bottleIds' });
+    expect(body).toEqual({ error: 'Unknown wineId' });
   });
 
   it('should return a 200 if success', async () => {
@@ -97,14 +80,13 @@ describe('Bottle suite test', () => {
         { box: 3, cell: 2 },
       ],
     });
-    const bottleIds = [wine.bottles[0].id, wine.bottles[1].id];
     const { body, status } = await request(gitmApp)
-      .delete('/api/bottle')
+      .delete(`/api/favorite/${wine.id}`)
       .set('Accept', 'application/json')
-      .send({ bottleIds });
+      .send();
 
     expect(status).toEqual(200);
-    expect(body).toEqual({ message: 'Bouteille supprimée avec succés' });
+    expect(body).toEqual({ message: 'Vin supprimé avec succés des favoris' });
     setTimeout(() => {
       expect(updateClients).toHaveBeenCalled();
     }, 0);

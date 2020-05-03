@@ -137,5 +137,6 @@ module.exports = {
     getCellar: getCellar(db),
     addWine: addWine(db),
     removeOutsideBottles: removeOutsideBottles(db),
+    getWineById: getWineById(db),
   }),
 };
