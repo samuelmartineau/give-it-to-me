@@ -1,6 +1,41 @@
 const path = require('path');
 const config = require('../../config');
 
+function enhanceWine(wine) {
+  wine.bottles = JSON.parse(wine.bottles);
+  wine.thumbnailFileName = path.join(
+    config.FILE_URL_PATH,
+    config.UPLOADS_PERM_FOLDER,
+    wine.thumbnailFileName
+  );
+  wine.pictureFileName = path.join(
+    config.FILE_URL_PATH,
+    config.UPLOADS_PERM_FOLDER,
+    wine.pictureFileName
+  );
+}
+
+const getWineById = (db) => (id) => {
+  return db.getAsync(
+    `
+SELECT w.*, 
+(SELECT 
+  json_group_array(
+    json_object('id', id, 'box', box, 'cell', cell)
+  ) AS json_result
+  FROM (SELECT * FROM bottles AS b WHERE 
+    b.wineId = w.id
+    AND b._deleted = 0)
+) as bottles,
+ (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
+  FROM wines AS w
+  LEFT JOIN favorites AS f ON w.id = f.wineId
+  WHERE w.bottlesCount > 0 AND w.id = (?)
+`,
+    id
+  );
+};
+
 const getCellar = (db) => async () => {
   const wines = await db.allAsync(`
   SELECT w.*, 
@@ -10,27 +45,15 @@ const getCellar = (db) => async () => {
     ) AS json_result
     FROM (SELECT * FROM bottles AS b WHERE 
       b.wineId = w.id
-      AND b._deleted = 0  
-   )) as bottles,
+      AND b._deleted = 0)
+  ) as bottles,
    (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
     FROM wines AS w
     LEFT JOIN favorites AS f ON w.id = f.wineId
     WHERE w.bottlesCount > 0
 `);
 
-  wines.forEach((wine) => {
-    wine.bottles = JSON.parse(wine.bottles);
-    wine.thumbnailFileName = path.join(
-      config.FILE_URL_PATH,
-      config.UPLOADS_PERM_FOLDER,
-      wine.thumbnailFileName
-    );
-    wine.pictureFileName = path.join(
-      config.FILE_URL_PATH,
-      config.UPLOADS_PERM_FOLDER,
-      wine.pictureFileName
-    );
-  });
+  wines.forEach(enhanceWine);
 
   return wines;
 };
@@ -73,6 +96,7 @@ const addWine = (db) => async (wine) => {
       $positionComment: wine.positionComment,
     }
   );
+
   if (wine.isInBoxes) {
     const promises = bottles.map((bottle) => {
       return db.runAsync(
@@ -88,6 +112,10 @@ const addWine = (db) => async (wine) => {
     await Promise.all(promises);
   }
   await db.run('COMMIT');
+
+  const newWine = await getWineById(db)(wineId);
+  enhanceWine(newWine);
+  return newWine;
 };
 
 const removeOutsideBottles = (db) => (wineId, count) => {

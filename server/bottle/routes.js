@@ -15,13 +15,20 @@ const RemoveSchema = Joi.object({
 });
 
 function bottleRoutes(db, updateClients) {
-  const { removeBottles } = bottleServices(db);
+  const { removeBottles, getBottlesByIds } = bottleServices(db);
 
   router.route(urlJoin(config.ROUTES.BOTTLE)).delete(
     validateParams(RemoveSchema, 'body'),
     asyncHandler(async (req, res) => {
       const { bottleIds } = req.body;
+
       try {
+        const found = await getBottlesByIds(bottleIds);
+
+        if (found.length < bottleIds.length) {
+          return res.status(404).send({ error: 'Unknown bottleIds' });
+        }
+
         await removeBottles(bottleIds);
         updateClients();
         res.status(200).json({ message: 'Bouteille supprimée avec succés' });

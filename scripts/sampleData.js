@@ -13,7 +13,7 @@ async function main() {
   const enhancedDB = enhanceDB(db);
 
   const samplingScript = await fs.readFile(
-    path.resolve(__dirname, './sampling.sql'),
+    path.resolve(__dirname, '../data/sampling.sql'),
     'utf8'
   );
   await enhancedDB.exec(samplingScript);

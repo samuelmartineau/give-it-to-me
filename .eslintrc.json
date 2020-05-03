@@ -7,5 +7,13 @@
   "env": {
     "es6": true,
     "node": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }
