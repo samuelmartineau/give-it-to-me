@@ -1,7 +1,7 @@
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const { enhanceDB } = require('./enhanceDB');
+const { enhanceDB } = require('../../shared/enhanceDB');
 
 function getDB({ filename, showLogs }) {
   const db = new sqlite3.Database(path.resolve(filename));

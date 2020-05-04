@@ -12,6 +12,17 @@ const app = require('./app');
 const { updateDispatcher } = require('./updateDispatcher');
 const PORT = process.env.GITM_PORT || 3000;
 
+if (!process.env.GITM_FILE_DIRECTORY) {
+  throw new Error(
+    'Missing GITM_FILE_DIRECTORY environnement variable for files storage'
+  );
+}
+if (!process.env.GITM_DB_FILE) {
+  throw new Error(
+    'Missing GITM_DB_FILE environnement variable for sqlite 3 DB'
+  );
+}
+
 const SERVER_VARIABLES = {
   FILE_DIRECTORY: process.env.GITM_FILE_DIRECTORY,
 };

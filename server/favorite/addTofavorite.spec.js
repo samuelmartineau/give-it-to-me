@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('supertest');
 
 const app = require('../app');
-const { getFreshDB } = require('../tests/utils');
+const { getFreshDB } = require('../utils/getFreshDB');
 const { wineServices } = require('../wine/services');
 const { wineFamilyServices } = require('../wineFamily/services');
 

@@ -2,9 +2,8 @@ const express = require('express');
 const request = require('supertest');
 
 const app = require('../app');
-const { getFreshDB } = require('../tests/utils');
-const { wineServices } = require('../wine/services');
-const { wineFamilyServices } = require('../wineFamily/services');
+const { getFreshDB } = require('../utils/getFreshDB');
+const { createFakeWine, createFakeWineFamily } = require('../../shared/faker');
 
 const context = {
   FILE_DIRECTORY: './',
@@ -80,26 +79,32 @@ describe('Remove bottle suite test', () => {
     const updateClients = jest.fn();
     app(gitmApp, db, updateClients, context);
 
-    const { addWine } = wineServices(db);
-    const { createWineFamily } = wineFamilyServices(db);
-    const wineFamily = await createWineFamily('fake wine family');
-    const wine = await addWine({
-      name: 'Domaine test',
-      year: 2010,
-      wineFamily: wineFamily.id,
-      blur: 'fake blur',
-      thumbnailFileName: 'fake/path',
-      pictureFileName: 'fake/path',
-      wineType: 'RED',
-      wineCategory: 'REGULAR',
-      bottleType: 1,
-      isInBoxes: true,
-      bottlesCount: 3,
-      bottles: [
-        { box: 3, cell: 0 },
-        { box: 3, cell: 1 },
-        { box: 3, cell: 2 },
-      ],
+    const wineFamily = await createFakeWineFamily({
+      db,
+      name: 'fake wine family',
+    });
+
+    const wine = await createFakeWine({
+      db,
+      getWineFamilyId: () => wineFamily.id,
+      wine: {
+        name: 'Domaine test',
+        year: 2010,
+        wineFamily: wineFamily.id,
+        blur: 'fake blur',
+        thumbnailFileName: 'fake/path',
+        pictureFileName: 'fake/path',
+        wineType: 'RED',
+        wineCategory: 'REGULAR',
+        bottleType: 1,
+        isInBoxes: true,
+        bottlesCount: 3,
+        bottles: [
+          { box: 3, cell: 0 },
+          { box: 3, cell: 1 },
+          { box: 3, cell: 2 },
+        ],
+      },
     });
 
     const bottleIds = [wine.bottles[0].id, wine.bottles[1].id];

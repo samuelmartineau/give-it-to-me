@@ -27,7 +27,7 @@ describe('Add page spec', () => {
     });
   });
 
-  it.only('Should Add wine family', () => {
+  it('Should Add wine family', () => {
     cy.visit('/add');
     cy.get('button[name=addWineFamily]').click();
     cy.get('input[name=newWineFamily]').type('New AOC Name');

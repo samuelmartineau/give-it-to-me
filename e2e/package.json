@@ -14,6 +14,7 @@
     "eslint-plugin-cypress": "^2.10.3"
   },
   "dependencies": {
-    "cypress": "^4.0.0"
+    "cypress": "^4.0.0",
+    "sqlite3": "^4.2.0"
   }
 }

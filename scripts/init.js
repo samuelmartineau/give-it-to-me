@@ -3,7 +3,7 @@ const { promises: fs } = require('fs');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 
-const { enhanceDB } = require('../server/utils/enhanceDB');
+const { enhanceDB } = require('../shared/enhanceDB');
 
 const dbFilePath = argv.dbPath;
 
