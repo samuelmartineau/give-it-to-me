@@ -59,7 +59,7 @@ const generateBlur = (path) => {
   });
 };
 
-const moveWineToPermanentFolder = (context) => () => (
+const moveWineToPermanentFolder = (context) => (
   thumbnailFilePath,
   pictureFilePath
 ) => {
@@ -78,6 +78,7 @@ const moveWineToPermanentFolder = (context) => () => (
   const fileExtension = path.extname(pictureFileName);
   const newFileName = [uuidv4(), fileExtension].join('');
   const permPictureFileNamePath = path.resolve(context.PERM_DIR, newFileName);
+
   let promises = [
     fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath),
     fs.rename(tempPictureFileNamePath, permPictureFileNamePath),
