@@ -32,7 +32,7 @@
     "react-form": "4.0.1",
     "react-modal": "3.11.2",
     "react-redux": "7.2.0",
-    "recharts": "1.8.5",
+    "recharts": "2.1.14",
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "sqlite3": "4.2.0",
