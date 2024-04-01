@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { withRouter } from 'next/router';
 import { WithRouterProps } from 'next/dist/client/with-router';
 
-type RouteType = { label: string; href: string; icon: JSX.Element };
+type RouteType = { label: string; href: string; icon: React.ReactElement };
 
 const routes: RouteType[] = [
   {

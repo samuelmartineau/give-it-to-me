@@ -1,7 +1,7 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import { utils } from '~/config';
-import fuzzy from 'fuzzy';
+import fuzzy, { FilterOptions } from 'fuzzy';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 import { TextField } from '~/client/components/Toolkit';

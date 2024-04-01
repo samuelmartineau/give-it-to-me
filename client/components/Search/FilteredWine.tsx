@@ -10,7 +10,9 @@ const WineCardStyled = styled(WineCard)`
   justify-self: center;
 `;
 
-type Props = { children: (wine: WineEnhanced) => JSX.Element } & PropsFromRedux;
+type Props = {
+  children: (wine: WineEnhanced) => React.ReactElement;
+} & PropsFromRedux;
 
 class FilteredWine extends React.Component<Props> {
   state = {
