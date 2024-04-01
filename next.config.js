@@ -32,6 +32,10 @@ module.exports = withSourceMaps({
         source: '/sse',
         destination: `http://localhost:${GITM_PORT}/sse`,
       },
+      {
+        source: '/files/:path*',
+        destination: `http://localhost:3005/:path*`,
+      },
     ];
   },
   webpack: (config, options) => {
