@@ -7,6 +7,7 @@ HERE=`pwd`
 export GITM_FILE_DIRECTORY=$HERE/e2e/tmp/files
 export GITM_DB_FILE=$HERE/e2e/fake_db.db
 
+export NODE_ENV=production 
 
 echo create E2E folder 
 mkdir -p $HERE/e2e/tmp/files
@@ -18,10 +19,7 @@ echo "Create empty new DB"
 node scripts/init.js --dbPath=$GITM_DB_FILE
 
 echo "Build the client"
-NODE_ENV=production npm run build
+npm run build:front-server
 
-echo "Run the server"
-NODE_ENV=production node index.js &
+concurrently "node server/server.js" "next start"
 
-echo "Expose on entry URL"
-node scripts/reverse-proxy/index.js &

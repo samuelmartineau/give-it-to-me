@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "open": "cypress open"
   },
   "keywords": [],
@@ -14,6 +13,6 @@
     "eslint-plugin-cypress": "^2.10.3"
   },
   "dependencies": {
-    "cypress": "^4.0.0"
+    "cypress": "13.7.1"
   }
 }

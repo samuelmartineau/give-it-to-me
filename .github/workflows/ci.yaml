@@ -11,27 +11,24 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
         run: npm install
-
-      - name: Install reverse proxy for dev
-        run: npm run proxy
 
       # Runs a single command using the runners shell
       - name: Run the app
         run: npm run start:e2e
 
       - name: Cypress run
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v6
         with:
           working-directory: e2e
   server-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
         run: npm install
@@ -42,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
         run: npm install
@@ -53,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
         run: npm install
