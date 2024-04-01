@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 const Input = styled.input`
   position: absolute;
@@ -33,7 +33,7 @@ type Props = {
   className?: string;
 };
 
-export const Radio: FC<Props> = ({
+export const Radio: FC<React.PropsWithChildren<Props>> = ({
   children,
   value,
   onChange,

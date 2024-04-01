@@ -1,6 +1,6 @@
 {
   "plugins": ["react"],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "extends": ["plugin:react/recommended"],
   "rules": {
     "react/display-name": "off",

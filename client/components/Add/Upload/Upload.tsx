@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Dropzone, { DropEvent } from 'react-dropzone';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button } from '~/client/components/Toolkit';
 
 type Props = {

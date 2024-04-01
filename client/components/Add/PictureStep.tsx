@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Upload } from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
 import { PICTURE_UPLOAD } from '~/config';

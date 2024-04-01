@@ -9,11 +9,9 @@ type ReactModalAdapterProps = {
   modalClassName?: string;
 };
 
-const ReactModalAdapter: FC<ReactModalAdapterProps> = ({
-  className,
-  modalClassName,
-  ...props
-}) => {
+const ReactModalAdapter: FC<React.PropsWithChildren<
+  ReactModalAdapterProps
+>> = ({ className, modalClassName, ...props }) => {
   return (
     <ReactModal
       ariaHideApp={false}
@@ -79,7 +77,11 @@ type ModalProps = {
   onRequestClose: Function;
 };
 
-export const Modal: FC<ModalProps> = ({ isOpen, onRequestClose, children }) => {
+export const Modal: FC<React.PropsWithChildren<ModalProps>> = ({
+  isOpen,
+  onRequestClose,
+  children,
+}) => {
   return (
     <>
       <GlobalStyle />

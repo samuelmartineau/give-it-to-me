@@ -2,7 +2,8 @@ HERE=`pwd`
 
 export GITM_FILE_DIRECTORY=$HERE/files
 export GITM_DB_FILE=$HERE/'db_v1.db'
+export GITM_PORT=4000
 
-node scripts/reverse-proxy/index.js &
+nodemon server/server.js --watch server &
 
-nodemon index.js --watch server
+npx next dev

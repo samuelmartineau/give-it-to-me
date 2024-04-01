@@ -1,22 +1,6 @@
 import React from 'react';
 import * as Sentry from '@sentry/node';
 import Error, { ErrorProps } from 'next/error';
-import { NextPage } from 'next';
-
-const MyError: NextPage<ErrorProps & { hasGetInitialPropsRun: boolean }> = ({
-  statusCode,
-  hasGetInitialPropsRun,
-  ...err
-}) => {
-  if (!hasGetInitialPropsRun && err) {
-    // getInitialProps is not called in case of
-    // https://github.com/zeit/next.js/issues/8592. As a workaround, we pass
-    // err via _app.js so it can be captured
-    Sentry.captureException(err);
-  }
-
-  return <Error statusCode={statusCode} />;
-};
 
 MyError.getInitialProps = async ({ res, err, asPath }) => {
   // @ts-ignore
@@ -24,6 +8,7 @@ MyError.getInitialProps = async ({ res, err, asPath }) => {
 
   // Workaround for https://github.com/zeit/next.js/issues/8592, mark when
   // getInitialProps has run
+  // @ts-ignore
   errorInitialProps.hasGetInitialPropsRun = true;
 
   if (res) {
@@ -70,4 +55,17 @@ MyError.getInitialProps = async ({ res, err, asPath }) => {
   return errorInitialProps;
 };
 
-export default MyError;
+export default function MyError({
+  statusCode,
+  hasGetInitialPropsRun,
+  ...err
+}: ErrorProps & { hasGetInitialPropsRun: boolean }) {
+  if (!hasGetInitialPropsRun && err) {
+    // getInitialProps is not called in case of
+    // https://github.com/zeit/next.js/issues/8592. As a workaround, we pass
+    // err via _app.js so it can be captured
+    Sentry.captureException(err);
+  }
+
+  return <Error statusCode={statusCode} />;
+}

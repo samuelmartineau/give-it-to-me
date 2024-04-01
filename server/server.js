@@ -51,5 +51,3 @@ server.use(Sentry.Handlers.errorHandler());
 serverHttp.listen(PORT, () => {
   logger.info(`🚀  Server started on http://localhost:${PORT}`);
 });
-
-module.exports = server;

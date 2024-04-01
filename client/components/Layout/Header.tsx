@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import HomeIcon from '@material-ui/icons/Home';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import HomeIcon from '@mui/icons-material/Home';
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import styled from 'styled-components';
 import { withRouter } from 'next/router';
 import { WithRouterProps } from 'next/dist/client/with-router';
@@ -44,7 +44,7 @@ const List = styled.ul`
   display: flex;
   list-style-type: none;
 `;
-const ListItem = styled.a<{
+const ListItem = styled(Link)<{
   router: WithRouterProps['router'];
   route: RouteType;
 }>`
@@ -87,14 +87,15 @@ const Menu: FC<Props> = ({ router }) => (
     <List>
       {routes.map((route) => {
         return (
-          <Link key={route.href} href={route.href}>
-            <ListItem route={route} router={router} href={route.href}>
-              <ListItemIcon className="material-icons">
-                {route.icon}
-              </ListItemIcon>
-              <ListItemName>{route.label}</ListItemName>
-            </ListItem>
-          </Link>
+          <ListItem
+            key={route.href}
+            href={route.href}
+            route={route}
+            router={router}
+          >
+            <ListItemIcon className="material-icons">{route.icon}</ListItemIcon>
+            <ListItemName>{route.label}</ListItemName>
+          </ListItem>
         );
       })}
     </List>

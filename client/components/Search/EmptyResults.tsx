@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@mui/icons-material/Search';
 import { getWinesFiltered, RootState } from '~/client/store/';
 import { MessageManager } from '../MessageManager/MessageManager';
 

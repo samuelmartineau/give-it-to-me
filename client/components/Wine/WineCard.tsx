@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import tinycolor from 'tinycolor2';
 import styled from 'styled-components';
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
 import fontColorContrast from 'font-color-contrast';
 import { PICTURE_UPLOAD, wineTypes } from '~/config';
 

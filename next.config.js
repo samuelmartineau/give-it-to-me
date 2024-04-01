@@ -11,12 +11,28 @@ const {
   SENTRY_PROJECT,
   SENTRY_AUTH_TOKEN,
   NODE_ENV,
+  GITM_PORT,
 } = process.env;
 
 module.exports = withSourceMaps({
   env: {
     GITM_OWNER: process.env.GITM_OWNER,
     SENTRY_DSN: process.env.SENTRY_DSN,
+  },
+  compiler: {
+    styledComponents: true,
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `http://localhost:${GITM_PORT}/api/:path*`,
+      },
+      {
+        source: '/sse',
+        destination: `http://localhost:${GITM_PORT}/sse`,
+      },
+    ];
   },
   webpack: (config, options) => {
     // In `pages/_app.js`, Sentry is imported from @sentry/node. While

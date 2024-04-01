@@ -37,7 +37,10 @@ type Props = {
   title: string;
 };
 
-export const Layout: FC<Props> = ({ title, children }) => {
+export const Layout: FC<React.PropsWithChildren<Props>> = ({
+  title,
+  children,
+}) => {
   return (
     <App>
       <Header />

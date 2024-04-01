@@ -14,7 +14,11 @@ type Props = {
   className?: string;
 };
 
-const BoxContainer: FC<Props> = ({ boxId, children, className }) => {
+const BoxContainer: FC<React.PropsWithChildren<Props>> = ({
+  boxId,
+  children,
+  className,
+}) => {
   const box = CELLAR_SCHEMA[boxId];
   const canvasWidth = box.schema[0] * CELL_SIZE;
   const canvasHeigh = box.schema[1] * CELL_SIZE;

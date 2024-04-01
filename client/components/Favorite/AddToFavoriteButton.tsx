@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Button } from '~/client/components/Toolkit';
 import { addToFavorite, removeFromFavorite, RootState } from '~/client/store';
 import { ThunkDispatch } from 'redux-thunk';
