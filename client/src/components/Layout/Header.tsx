@@ -1,12 +1,10 @@
 import React, { FC } from 'react';
-import Link from 'next/link';
+import { Link, useLocation } from '@tanstack/react-router';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import styled from 'styled-components';
-import { withRouter } from 'next/router';
-import { WithRouterProps } from 'next/dist/client/with-router';
 
 type RouteType = { label: string; href: string; icon: React.ReactElement };
 
@@ -45,8 +43,7 @@ const List = styled.ul`
   list-style-type: none;
 `;
 const ListItem = styled(Link)<{
-  router: WithRouterProps['router'];
-  route: RouteType;
+  $isActive: boolean;
 }>`
   color: #f2f2f2;
   text-align: center;
@@ -63,8 +60,8 @@ const ListItem = styled(Link)<{
     background-color: ${(props) => props.theme.colors.primaryVarient};
     color: ${(props) => props.theme.colors.onPrimary};
   }
-  ${({ router, route, theme }) =>
-    router.pathname === route.href &&
+  ${({ $isActive, theme }) =>
+    $isActive &&
     `
     background: ${theme.colors.secondary};
     color: ${theme.colors.onSecondary};
@@ -80,26 +77,28 @@ display: none;
 `};
 `;
 
-type Props = WithRouterProps;
+const Menu: FC = () => {
+  const location = useLocation();
+  
+  return (
+    <Header>
+      <List>
+        {routes.map((route) => {
+          const isActive = location.pathname === route.href;
+          return (
+            <ListItem
+              key={route.href}
+              to={route.href}
+              $isActive={isActive}
+            >
+              <ListItemIcon className="material-icons">{route.icon}</ListItemIcon>
+              <ListItemName>{route.label}</ListItemName>
+            </ListItem>
+          );
+        })}
+      </List>
+    </Header>
+  );
+};
 
-const Menu: FC<Props> = ({ router }) => (
-  <Header>
-    <List>
-      {routes.map((route) => {
-        return (
-          <ListItem
-            key={route.href}
-            href={route.href}
-            route={route}
-            router={router}
-          >
-            <ListItemIcon className="material-icons">{route.icon}</ListItemIcon>
-            <ListItemName>{route.label}</ListItemName>
-          </ListItem>
-        );
-      })}
-    </List>
-  </Header>
-);
-
-export default withRouter(Menu);
+export default Menu;

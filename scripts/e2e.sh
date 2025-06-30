@@ -20,8 +20,7 @@ echo "Create empty new DB"
 node scripts/init.js --dbPath=$GITM_DB_FILE
 
 echo "Build the client"
-npm run build:front-server
+npm run build
 
 
-concurrently "serve $GITM_FILE_DIRECTORY -p 3005" "node server/server.js" "next start" &
-
+concurrently "serve $GITM_FILE_DIRECTORY -p 3005" "node server/server.js" "npm run preview" &
