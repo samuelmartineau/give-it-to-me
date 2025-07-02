@@ -2,9 +2,9 @@ import React from 'react';
 import Router from 'next/router';
 import { connect, ConnectedProps } from 'react-redux';
 import queryString from 'query-string';
-import { toggleCheckboxFilter, RootState } from '~/client/store/';
+import { toggleCheckboxFilter, RootState } from '@/store/';
 import { Label, Text } from './FiltersUtils';
-import WineFamilyMultipleSelector from '~/client/components/Autocomplete/WineFamilyMultipleSelector';
+import WineFamilyMultipleSelector from '@/components/Autocomplete/WineFamilyMultipleSelector';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

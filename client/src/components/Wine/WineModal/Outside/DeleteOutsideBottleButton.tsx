@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Button } from '~/client/components/Toolkit';
+import { Button } from '@/components/Toolkit';
 
-import { removeOutsideBottles, RootState } from '~/client/store';
+import { removeOutsideBottles, RootState } from '@/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

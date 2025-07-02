@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import tinycolor from 'tinycolor2';
 import { connect, ConnectedProps } from 'react-redux';
-import Bottle from '~/client/components/Cellar/Bottle';
-import { getBottleByPosition, RootState } from '~/client/store';
-import { getBottleInfos, getBottleId } from '~/client/components/Cellar/utils';
+import Bottle from '@/components/Cellar/Bottle';
+import { getBottleByPosition, RootState } from '@/store';
+import { getBottleInfos, getBottleId } from '@/components/Cellar/utils';
 
 type RawProps = {
   boxId: number;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '~/client/components/Toolkit';
+import { Button } from '@/components/Toolkit';
 import RemoveOutsideBottleForm from './RemoveOutsideBottleForm';
 import DeleteOutsideBottleButton from './DeleteOutsideBottleButton';
 import {
@@ -8,8 +8,8 @@ import {
   ModalHeader,
   ModalContent,
   ModalActions,
-} from '~/client/components/Modal';
-import { WineEnhanced } from '~/client/Cellar.type';
+} from '@/components/Modal';
+import { WineEnhanced } from '@/Cellar.type';
 
 const Actions = styled.div`
   display: flex;

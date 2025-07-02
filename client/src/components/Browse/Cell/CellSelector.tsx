@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { getBottlesInBox, unselectBox, RootState } from '~/client/store';
+import { getBottlesInBox, unselectBox, RootState } from '@/store';
 import styled from 'styled-components';
-import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
+import BoxContainer from '@/components/Cellar/Box/BoxContainer';
 import { BoxCellsWizard } from './BoxCellsWizard';
-import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
+import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import ClickHandlerCell from './ClickHandlerCell';
 
 const Wrapper = styled.div``;

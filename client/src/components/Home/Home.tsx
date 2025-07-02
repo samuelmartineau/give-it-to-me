@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 
-import CellarContainer from '~/client/components/Cellar/CellarContainer';
-import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
-import CellarBottles from '~/client/components/Cellar/CellarBottles';
-import CellarBox from '~/client/components/Cellar/CellarBox';
+import CellarContainer from '@/components/Cellar/CellarContainer';
+import CellarBoxes from '@/components/Cellar/CellarBoxes';
+import CellarBottles from '@/components/Cellar/CellarBottles';
+import CellarBox from '@/components/Cellar/CellarBox';
 import { YearsChart } from './YearsChart';
-import { RootState } from '~/client/store';
+import { RootState } from '@/store';
 
 const Title = styled.div`
   font-size: 30px;

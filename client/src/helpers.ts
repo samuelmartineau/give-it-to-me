@@ -1,4 +1,5 @@
 import config from '~/config';
+
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 const { BOTTLE_TYPES } = config.bottleTypes;
 

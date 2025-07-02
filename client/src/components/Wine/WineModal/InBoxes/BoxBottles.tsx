@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import tinycolor from 'tinycolor2';
 import { connect, ConnectedProps } from 'react-redux';
-import Bottle from '~/client/components/Cellar/Bottle';
-import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
+import Bottle from '@/components/Cellar/Bottle';
+import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import {
   getBottleByPosition,
   isBottleSelectedToBeRemoved,
   RootState,
-} from '~/client/store';
+} from '@/store';
 import {
   getCellId,
   getBottleInfos,
   getBottleId,
-} from '~/client/components/Cellar/utils';
+} from '@/components/Cellar/utils';
 
 const BoxBottles: FC<{
   boxId: number;

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
-import WineFamilySingleSelector from '~/client/components/Autocomplete/WineFamilySingleSelector';
-import { TextField } from '~/client/components/Toolkit';
+import WineFamilySingleSelector from '@/components/Autocomplete/WineFamilySingleSelector';
+import { TextField } from '@/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
-import { updateModel, RootState } from '~/client/store/';
+import { updateModel, RootState } from '@/store/';
 
 const Label = styled.label`
   display: block;

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
 import { WineFamilySuggestion } from './WineFamilySuggestion';
 import WineFamilyFormater from './WineFamilyFormater';
-import { Button } from '~/client/components/Toolkit';
-import { RootState } from '~/client/store';
+import { Button } from '@/components/Toolkit';
+import { RootState } from '@/store';
 
 const ButtonStyled = styled(Button)`
   margin: auto 1em;

@@ -5,8 +5,8 @@ import { PictureStepConnected } from './PictureStep';
 import { MetaStepConnected } from './MetaStep';
 import { PositionStepConnected } from './PositionStep';
 import { TypesStepConnected } from './TypesStep';
-import { Button, Spinner } from '~/client/components/Toolkit';
-import { isModelValid, addWine, RootState } from '~/client/store/';
+import { Button, Spinner } from '@/components/Toolkit';
+import { isModelValid, addWine, RootState } from '@/store/';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

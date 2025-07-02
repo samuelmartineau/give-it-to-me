@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
-import { Button } from '~/client/components/Toolkit';
+import { Button } from '@/components/Toolkit';
 import {
   resetRemoveState,
   getWineById,
   selectWineToRemove,
   RootState,
-} from '~/client/store';
+} from '@/store';
 import InBoxesModal from './InBoxes/InBoxesModal';
 import OutsideModal from './Outside/OutsideModal';
 

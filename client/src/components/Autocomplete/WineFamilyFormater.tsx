@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { utils } from '~/config';
-import { RootState } from '~/client/store';
+import config from '~/config';
+import { RootState } from '@/store';
 
 type Props = {
   children: (
@@ -13,7 +13,7 @@ const WineFamilyFormater: FC<Props> = ({ wineFamilies, children }) => {
   const areasFormated = wineFamilies.map((wineFamily) => ({
     id: wineFamily.id,
     label: wineFamily.name,
-    searchKey: utils.cleanString(wineFamily.name),
+    searchKey: config.utils.cleanString(wineFamily.name),
   }));
 
   return <>{children(areasFormated)}</>;

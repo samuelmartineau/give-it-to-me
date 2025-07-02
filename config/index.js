@@ -2,12 +2,8 @@ const cellar = require('./cellar');
 const wineTypes = require('./wineTypes');
 const bottleTypes = require('./bottleTypes');
 const utils = require('./utils');
-const defaultPort = process.env.GITM_PORT || 3000;
 
-const UNIVERSAL_API_URL =
-  typeof window !== 'undefined'
-    ? window.location.origin
-    : `http://localhost:${defaultPort}`;
+const UNIVERSAL_API_URL = '';
 
 module.exports = Object.freeze({
   DB: {

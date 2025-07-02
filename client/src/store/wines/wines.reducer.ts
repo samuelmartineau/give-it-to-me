@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { CELLAR_RECEIVED } from './wines.types';
 import { WinesActions } from './wines.actions';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { WineEnhanced } from '@/Cellar.type';
 
 export type MapType = {
   [id: number]: WineEnhanced;

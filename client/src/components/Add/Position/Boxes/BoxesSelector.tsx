@@ -1,9 +1,9 @@
 import React from 'react';
-import CellarContainer from '~/client/components/Cellar/CellarContainer';
-import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
-import CellarBottles from '~/client/components/Cellar/CellarBottles';
-import { getCellId } from '~/client/components/Cellar/utils';
-import CellarCells from '~/client/components/Cellar/Cells/CellarCells';
+import CellarContainer from '@/components/Cellar/CellarContainer';
+import CellarBoxes from '@/components/Cellar/CellarBoxes';
+import CellarBottles from '@/components/Cellar/CellarBottles';
+import { getCellId } from '@/components/Cellar/utils';
+import CellarCells from '@/components/Cellar/Cells/CellarCells';
 import ClickHandlerBox from './ClickHandlerBox';
 import SelectedCell from './SelectedCell';
 

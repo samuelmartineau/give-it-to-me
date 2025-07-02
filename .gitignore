@@ -113,3 +113,4 @@ bundles
 
 files
 tmp
+tsconfig.tsbuildinfo

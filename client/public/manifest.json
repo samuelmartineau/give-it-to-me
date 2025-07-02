@@ -8,7 +8,7 @@
   "description": "A simple cellar manager.",
   "icons": [
     {
-      "src": "/assets/favicon.png",
+      "src": "/favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

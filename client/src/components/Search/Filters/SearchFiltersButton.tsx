@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '~/client/components/Toolkit';
+import { Button } from '@/components/Toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { getFiltersCount, RootState } from '~/client/store/';
+import { getFiltersCount, RootState } from '@/store/';
 import SearchFiltersModal from './SearchFiltersModal';
 
 type State = {

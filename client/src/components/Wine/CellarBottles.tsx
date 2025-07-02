@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '../Cellar/Bottle';
-import { getWineBottles, RootState } from '~/client/store';
+import { getWineBottles, RootState } from '@/store';
 import { getBottleInfos, getBottleId } from '../Cellar/utils';
 
 const Cell = ({ bottle }) => {

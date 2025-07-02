@@ -1,9 +1,9 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import React from 'react'
 import Home from '../components/Home/Home'
 import { Layout } from '../components/Layout/Layout'
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createFileRoute('/')({
   component: IndexPage,
 })
 

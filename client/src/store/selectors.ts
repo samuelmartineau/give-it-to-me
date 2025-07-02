@@ -6,7 +6,7 @@ import * as remove from './remove/remove.selectors';
 import * as browse from './browse/browse.selectors';
 import { getBoxCells } from '../components/Cellar/utils';
 import { RootState } from '.';
-import { EnhancedBottleType } from '~/client/Cellar.type';
+import { EnhancedBottleType } from '@/Cellar.type';
 
 export const getWineById = (state: RootState, wineId: number) =>
   wines.getWineById(state.wines.map, wineId);

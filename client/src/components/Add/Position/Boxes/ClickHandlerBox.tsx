@@ -6,9 +6,9 @@ import {
   selectBox,
   unselectBox,
   RootState,
-} from '~/client/store';
-import CellarBox from '~/client/components/Cellar/CellarBox';
-import CellarBoxSelectable from '~/client/components/Cellar/CellarBoxSelectable';
+} from '@/store';
+import CellarBox from '@/components/Cellar/CellarBox';
+import CellarBoxSelectable from '@/components/Cellar/CellarBoxSelectable';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

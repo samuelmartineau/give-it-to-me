@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { WineCard } from '~/client/components/Wine/WineCard';
-import { WineContentCard } from '~/client/components/Wine/WineContentCard';
-import { getBrowsedWine, RootState } from '~/client/store';
+import { WineCard } from '@/components/Wine/WineCard';
+import { WineContentCard } from '@/components/Wine/WineContentCard';
+import { getBrowsedWine, RootState } from '@/store';
 
 type Props = PropsFromRedux;
 

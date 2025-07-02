@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
-import { TextField } from '~/client/components/Toolkit';
-import { setRemoveCount, RootState } from '~/client/store';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { TextField } from '@/components/Toolkit';
+import { setRemoveCount, RootState } from '@/store';
+import { WineEnhanced } from '@/Cellar.type';
 
 const Wrapper = styled.div``;
 

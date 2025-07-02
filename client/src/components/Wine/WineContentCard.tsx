@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import CellarContainer from '~/client/components/Cellar/CellarContainer';
-import CellarBoxes from '~/client/components/Cellar/CellarBoxes';
-import WineModalButton from '~/client/components/Wine/WineModal/WineModalButton';
-import AddToFavoriteButton from '~/client/components/Favorite/AddToFavoriteButton';
+import CellarContainer from '@/components/Cellar/CellarContainer';
+import CellarBoxes from '@/components/Cellar/CellarBoxes';
+import WineModalButton from '@/components/Wine/WineModal/WineModalButton';
+import AddToFavoriteButton from '@/components/Favorite/AddToFavoriteButton';
 import { CellarBoxConnected } from './CellarBox';
 import CellarBottles from './CellarBottles';
 import WineDetails from './WineDetails';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { WineEnhanced } from '@/Cellar.type';
 
 const WineActions = styled.div`
   display: flex;

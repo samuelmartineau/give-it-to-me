@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import CellarBox from '../Cellar/CellarBox';
-import { isWineInBox, RootState } from '~/client/store';
+import { isWineInBox, RootState } from '@/store';
 import styled from 'styled-components';
 
 const CellarBoxStyled = styled(CellarBox)<{ isWineInBox: boolean }>`

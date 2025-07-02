@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import config from '~/config';
-import { RootState } from '~/client/store';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { RootState } from '@/store';
+import { WineEnhanced } from '@/Cellar.type';
 const { BOTTLE_TYPES } = config.bottleTypes;
 
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;

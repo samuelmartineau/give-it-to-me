@@ -1,7 +1,7 @@
-import { cellar } from '~/config';
+import config from '~/config';
 import range from 'lodash/range';
 
-const { CELL_SIZE, CELLAR_SCHEMA, BOX_BORDER_SIZE } = cellar;
+const { CELL_SIZE, CELLAR_SCHEMA, BOX_BORDER_SIZE } = config.cellar;
 const boxBaseId = 'box-';
 const cellBaseId = 'cell-';
 const bottleBaseId = 'bottle-';

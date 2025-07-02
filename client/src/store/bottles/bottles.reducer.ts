@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import { CELLAR_RECEIVED } from '../wines/wines.types';
-import { wineTypes } from '~/config';
-import { WinesActions } from '~/client/store/wines/wines.actions';
-import { EnhancedBottleType, CellarType } from '~/client/Cellar.type';
+import config from '~/config';
+import { WinesActions } from '@/store/wines/wines.actions';
+import { EnhancedBottleType, CellarType } from '@/Cellar.type';
+console.log(config)
 
 function getBottles(wines: CellarType) {
   return wines.reduce<EnhancedBottleType[]>(
@@ -11,7 +12,7 @@ function getBottles(wines: CellarType) {
         wine.bottles.map((bottle) => ({
           wine_id: wine.id,
           ...bottle,
-          color: wineTypes.WINE_TYPES[wine.wineType].color,
+          color: config.wineTypes.WINE_TYPES[wine.wineType].color,
         }))
       ),
     []

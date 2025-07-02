@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { connect } from 'react-redux';
-import { selectBottleToDelete, unselectBottleToDelete } from '~/client/store';
-import BoxCell from '~/client/components/Cellar/Box/BoxCell';
-import BoxCellSelectable from '~/client/components/Cellar/Box/BoxCellSelectable';
+import { selectBottleToDelete, unselectBottleToDelete } from '@/store';
+import BoxCell from '@/components/Cellar/Box/BoxCell';
+import BoxCellSelectable from '@/components/Cellar/Box/BoxCellSelectable';
 
 type RawProps = {
   bottleId: number;

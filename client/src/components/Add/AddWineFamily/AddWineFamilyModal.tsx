@@ -1,14 +1,14 @@
 import React, { FC, useState, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
-import { TextField, Button } from '~/client/components/Toolkit';
+import { TextField, Button } from '@/components/Toolkit';
 import {
   Modal,
   ModalHeader,
   ModalContent,
   ModalActions,
-} from '~/client/components/Modal';
-import { createWineFamily } from '~/client/store';
+} from '@/components/Modal';
+import { createWineFamily } from '@/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

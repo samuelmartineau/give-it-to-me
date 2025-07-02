@@ -1,4 +1,4 @@
-const urlJoin = require('url-join');
+const urlJoin = require('url-join').default;
 const express = require('express');
 const Joi = require('@hapi/joi');
 const asyncHandler = require('express-async-handler');

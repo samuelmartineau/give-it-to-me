@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { cellar } from '~/config';
+import config from '~/config';
 
 const Svg = styled.svg`
   width: 100%;
   height: auto;
 `;
 
-const { CELL_SIZE, CELLAR_SCHEMA, FULL_BOX_WIDTH_CELLS } = cellar;
+const { CELL_SIZE, CELLAR_SCHEMA, FULL_BOX_WIDTH_CELLS } = config.cellar;
 
 type Props = {
   boxId: number;

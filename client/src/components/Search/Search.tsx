@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSearch } from '@tanstack/react-router';
 import WinesList from './WinesList';
-import { syncUrlParams, getWinesFiltered, RootState } from '~/client/store';
+import { syncUrlParams, getWinesFiltered, RootState } from '@/store';
 import SearchFiltersButton from './Filters/SearchFiltersButton';
 import EmptyResults from './EmptyResults';
 

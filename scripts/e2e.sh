@@ -6,7 +6,7 @@ HERE=`pwd`
 
 export GITM_FILE_DIRECTORY=$HERE/e2e/tmp/files
 export GITM_DB_FILE=$HERE/e2e/fake_db.db
-export GITM_PORT=4000
+export GITM_SERVER_PORT=4000
 
 export NODE_ENV=production 
 

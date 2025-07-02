@@ -1,7 +1,7 @@
 import React from 'react';
-import { cellar } from '~/config';
+import config from '~/config';
 
-const { CANVAS_WIDTH, CANVAS_HEIGHT } = cellar;
+const { CANVAS_WIDTH, CANVAS_HEIGHT } = config.cellar;
 
 type Props = {
   children: any;

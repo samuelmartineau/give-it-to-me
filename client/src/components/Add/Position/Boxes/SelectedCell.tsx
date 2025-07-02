@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { isCellSelected, RootState } from '~/client/store';
-import Bottle from '~/client/components/Cellar/Bottle';
-import { getBottleInfos } from '~/client/components/Cellar/utils';
+import { isCellSelected, RootState } from '@/store';
+import Bottle from '@/components/Cellar/Bottle';
+import { getBottleInfos } from '@/components/Cellar/utils';
 
 type RawProps = {
   boxId: number;

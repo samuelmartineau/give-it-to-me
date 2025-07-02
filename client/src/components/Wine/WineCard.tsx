@@ -3,21 +3,21 @@ import tinycolor from 'tinycolor2';
 import styled from 'styled-components';
 import MenuIcon from '@mui/icons-material/Menu';
 import fontColorContrast from 'font-color-contrast';
-import { PICTURE_UPLOAD, wineTypes } from '~/config';
+import config from '~/config';
 
 import { Image } from '../Image/Image';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { WineEnhanced } from '@/Cellar.type';
 
-const { WINE_TYPES } = wineTypes;
+const { WINE_TYPES } = config.wineTypes;
 const openInfosHeight = 90;
 const closeInfosHeight = 90;
 const paddingInfos = 10;
 
 const WineCardWrapper = styled.div`
-  width: ${PICTURE_UPLOAD.THUMBNAIL.WIDTH}px;
+  width: ${config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}px;
   display: inline-block;
   position: relative;
-  height: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px;
+  height: ${config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px;
   margin: 1em;
   ${(props) => props.theme.media.handheld`
   margin: 0.5em 0;
@@ -89,7 +89,7 @@ const WineCorner = styled.div<{ open: boolean }>`
   border-left-color: transparent;
   border-top-color: transparent;
   bottom: auto;
-  top: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT - 16}px;
+  top: ${config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT - 16}px;
   ${({ open }) =>
     open &&
     `
@@ -112,11 +112,11 @@ const WinePane = styled.div<{ open: boolean }>`
   justify-content: center;
   align-items: center;
   display: flex;
-  top: ${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px;
+  top: ${config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px;
   ${({ open }) =>
     open &&
     `
-    transform: translate(0px, -${PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px);
+    transform: translate(0px, -${config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}px);
     height: ${openInfosHeight}px;
     padding-left: 80px;
     padding-right: 80px;
@@ -157,8 +157,8 @@ export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
       >
         <WineImage
           open={open}
-          width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
-          height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+          width={config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+          height={config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
           src={wine.thumbnailFileName}
           lazyLoader={wine.blur}
         />

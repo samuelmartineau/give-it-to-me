@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import config from '~/config';
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 const { BOTTLE_TYPES } = config.bottleTypes;
-import { updateModel, RootState } from '~/client/store/';
-import { Radio } from '~/client/components/Toolkit';
-import { WINE_TYPES_ALL, BOTTLE_TYPES_ALL } from '~/client/helpers';
+import { updateModel, RootState } from '@/store/';
+import { Radio } from '@/components/Toolkit';
+import { WINE_TYPES_ALL, BOTTLE_TYPES_ALL } from '@/helpers';
 
 const Text = styled.span`
   font-style: italic;

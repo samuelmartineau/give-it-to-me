@@ -1,7 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
-import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
+import commonjs from 'vite-plugin-commonjs'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import path from 'path';
 
 // https://vitejs.dev/config/
@@ -14,7 +15,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       // TanStack Router plugin for file-based route generation
-      TanStackRouterVite(),
+      tanstackRouter(),
+      commonjs(),
       react({
         // Add babel plugin for styled-components to replace Next.js's SWC transform
         babel: {
@@ -53,6 +55,7 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, 'src'),
       },
     },
+
     // Replaces the `rewrites` option in next.config.js
     server: {
       // Next.js runs on 3000 by default, let's keep it consistent
@@ -60,11 +63,11 @@ export default defineConfig(({ mode }) => {
       // Proxy API requests to the backend server during development
       proxy: {
         '/api': {
-          target: `http://localhost:${env.GITM_PORT || 3001}`,
+          target: `http://localhost:${env.GITM_SERVER_PORT}`,
           changeOrigin: true,
         },
         '/sse': {
-          target: `http://localhost:${env.GITM_PORT || 3001}`,
+          target: `http://localhost:${env.GITM_SERVER_PORT}`,
           changeOrigin: true,
         },
         '/files': {
@@ -82,6 +85,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.SENTRY_DSN': JSON.stringify(env.SENTRY_DSN),
       'process.env.GITM_OWNER': JSON.stringify(env.GITM_OWNER),
+      global: 'globalThis',
     },
   };
 });

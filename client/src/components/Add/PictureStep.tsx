@@ -3,11 +3,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Upload } from './Upload/Upload';
 import { uploadWinePicture } from '../../api';
-import { PICTURE_UPLOAD } from '~/config';
+import config from '~/config';
 import { Image } from '../Image/Image';
-import { Button, Spinner } from '~/client/components/Toolkit';
+import { Button, Spinner } from '@/components/Toolkit';
 import styled from 'styled-components';
-import { updateModel, RootState } from '~/client/store/';
+import { updateModel, RootState } from '@/store/';
 
 const Wrapper = styled.div`
   text-align: center;
@@ -54,8 +54,8 @@ export const PictureStep: FC<Props> = ({
     render = (
       <BlurWrapper data-e2e="picture">
         <Image
-          width={PICTURE_UPLOAD.THUMBNAIL.WIDTH}
-          height={PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+          width={config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+          height={config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
           src={thumbnailFileName}
           lazyLoader={blur}
         />

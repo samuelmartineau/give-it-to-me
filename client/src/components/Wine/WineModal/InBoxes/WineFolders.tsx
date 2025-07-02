@@ -5,12 +5,12 @@ import {
   getWineBottlesAsMap,
   getRemovedBottles,
   RootState,
-} from '~/client/store';
-import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
-import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
+} from '@/store';
+import BoxContainer from '@/components/Cellar/Box/BoxContainer';
+import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import BoxBottles from './BoxBottles';
 import ClickHandlerCell from './ClickHandlerCell';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { WineEnhanced } from '@/Cellar.type';
 
 const Wrapper = styled.div`
   display: flex;

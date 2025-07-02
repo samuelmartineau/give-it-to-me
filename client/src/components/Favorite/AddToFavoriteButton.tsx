@@ -4,8 +4,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Button } from '~/client/components/Toolkit';
-import { addToFavorite, removeFromFavorite, RootState } from '~/client/store';
+import { Button } from '@/components/Toolkit';
+import { addToFavorite, removeFromFavorite, RootState } from '@/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

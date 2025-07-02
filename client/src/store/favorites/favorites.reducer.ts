@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { CELLAR_RECEIVED } from '../wines/wines.types';
-import { WinesActions } from '~/client/store/wines/wines.actions';
+import { WinesActions } from '@/store/wines/wines.actions';
 
 export const allReducer = (state: number[] = [], action: WinesActions) => {
   switch (action.type) {

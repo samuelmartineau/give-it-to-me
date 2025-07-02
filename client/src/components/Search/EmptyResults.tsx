@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
-import { getWinesFiltered, RootState } from '~/client/store/';
+import { getWinesFiltered, RootState } from '@/store/';
 import { MessageManager } from '../MessageManager/MessageManager';
 
 type Props = PropsFromRedux;

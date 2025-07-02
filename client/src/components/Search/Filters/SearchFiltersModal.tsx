@@ -5,10 +5,10 @@ import {
   ModalHeader,
   ModalContent,
   ModalActions,
-} from '~/client/components/Modal';
+} from '@/components/Modal';
 import SearchFiltersModalFilters from './SearchFiltersModalFilters';
-import { Button } from '~/client/components/Toolkit';
-import { getWinesFiltered, getFiltersCount, RootState } from '~/client/store/';
+import { Button } from '@/components/Toolkit';
+import { getWinesFiltered, getFiltersCount, RootState } from '@/store/';
 
 type Props = PropsFromRedux & {
   modalIsOpen: boolean;

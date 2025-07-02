@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "source ../scripts/set_dev.sh && nodemon server.js --watch .",
+    "dev": "bash -c 'source ./../scripts/set_dev.sh && nodemon server.js --watch .'",
     "start": "node server.js",
     "test": "jest",
     "lint": "eslint ."

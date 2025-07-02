@@ -2,9 +2,9 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import throttle from 'lodash/throttle';
 import FilteredWine from './FilteredWine';
-import { WineList } from '~/client/components/Toolkit';
-import { getNextHits, RootState } from '~/client/store';
-import { WineContentCard } from '~/client/components/Wine/WineContentCard';
+import { WineList } from '@/components/Toolkit';
+import { getNextHits, RootState } from '@/store';
+import { WineContentCard } from '@/components/Wine/WineContentCard';
 
 type Props = PropsFromRedux;
 

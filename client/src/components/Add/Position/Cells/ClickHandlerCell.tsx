@@ -6,9 +6,9 @@ import {
   selectCell,
   unselectCell,
   RootState,
-} from '~/client/store';
-import BoxCell from '~/client/components/Cellar/Box/BoxCell';
-import BoxCellSelectable from '~/client/components/Cellar/Box/BoxCellSelectable';
+} from '@/store';
+import BoxCell from '@/components/Cellar/Box/BoxCell';
+import BoxCellSelectable from '@/components/Cellar/Box/BoxCellSelectable';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

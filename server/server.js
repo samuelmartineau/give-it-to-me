@@ -10,7 +10,7 @@ const logger = require('./utils/logger');
 const { getDB } = require('./utils/db');
 const app = require('./app');
 const { updateDispatcher } = require('./updateDispatcher');
-const PORT = process.env.GITM_PORT || 3000;
+const PORT = process.env.GITM_SERVER_PORT || 3000;
 
 const SERVER_VARIABLES = {
   FILE_DIRECTORY: process.env.GITM_FILE_DIRECTORY,
@@ -34,9 +34,6 @@ const server = express();
 
 Sentry.init({ dsn: process.env.GITM_API_SENTRY_DSN });
 
-// The request handler must be the first middleware on the app
-server.use(Sentry.Handlers.requestHandler());
-
 server.use(compression());
 
 const serverHttp = createServer(server);
@@ -44,9 +41,6 @@ const serverHttp = createServer(server);
 const { updateClients } = updateDispatcher(serverHttp, db);
 
 app(server, db, updateClients, SERVER_VARIABLES);
-
-// The error handler must be before any other error middleware and after all controllers
-server.use(Sentry.Handlers.errorHandler());
 
 serverHttp.listen(PORT, () => {
   logger.info(`🚀  Server started on http://localhost:${PORT}`);

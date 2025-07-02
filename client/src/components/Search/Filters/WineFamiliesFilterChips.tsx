@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import Router from 'next/router';
 import { connect, ConnectedProps } from 'react-redux';
 import queryString from 'query-string';
-import { toggleCheckboxFilter, RootState } from '~/client/store/';
-import { Button } from '~/client/components/Toolkit';
-import { WineFamilyType } from '~/client/Cellar.type';
+import { toggleCheckboxFilter, RootState } from '@/store/';
+import { Button } from '@/components/Toolkit';
+import { WineFamilyType } from '@/Cellar.type';
 
 const Wrapper = styled.div`
   margin: 1rem;

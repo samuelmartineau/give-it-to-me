@@ -6,9 +6,9 @@ import {
   selectBoxToBrowse,
   unselectBoxToBrowse,
   RootState,
-} from '~/client/store';
-import CellarBox from '~/client/components/Cellar/CellarBox';
-import CellarBoxSelectable from '~/client/components/Cellar/CellarBoxSelectable';
+} from '@/store';
+import CellarBox from '@/components/Cellar/CellarBox';
+import CellarBoxSelectable from '@/components/Cellar/CellarBoxSelectable';
 
 const SelectableBox = connect(null, (dispatch) => ({
   onSelect: (boxId) => {

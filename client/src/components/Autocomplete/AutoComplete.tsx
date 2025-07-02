@@ -1,18 +1,11 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
-import { utils } from '~/config';
+import config from '~/config';
 import fuzzy, { FilterOptions } from 'fuzzy';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
-import { TextField } from '~/client/components/Toolkit';
+import { TextField } from '@/components/Toolkit';
 
-declare module 'fuzzy' {
-  function filter<T>(
-    pattern: string,
-    arr: T[],
-    opts?: FilterOptions<T>
-  ): ReturnType<FilterOptions<T>['extract']>[];
-}
 
 const classNames = {
   container: 'react-autosuggest__container',
@@ -31,7 +24,7 @@ const classNames = {
   sectionTitle: 'react-autosuggest__section-title',
 };
 
-const AutosuggestWrapper = styled.div.attrs(classNames)`
+const AutosuggestWrapper = styled.div`
   .${classNames.container} {
     position: relative;
   }
@@ -112,7 +105,7 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
 
   loadSuggestions = (value) => {
     const { datas, extract } = this.props;
-    const inputValue = utils.cleanString(value);
+    const inputValue = config.utils.cleanString(value);
     const inputLength = inputValue.length;
     const suggestions =
       inputLength === 0

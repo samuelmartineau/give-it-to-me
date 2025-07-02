@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 import config from '~/config';
 import styled from 'styled-components';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { WineEnhanced } from '@/Cellar.type';
 
 const { WINE_TYPES } = config.wineTypes;
 

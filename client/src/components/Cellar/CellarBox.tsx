@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { cellar } from '~/config';
+import config from '~/config';
 
-const { CELLAR_SCHEMA, BOX_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = cellar;
+const { CELLAR_SCHEMA, BOX_BORDER_SIZE, BOX_BORDER_COLOR, BOX_COLOR } = config.cellar;
 
 type Props = {
   boxId: number;

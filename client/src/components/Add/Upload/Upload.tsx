@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useDropzone, DropEvent, FileRejection } from 'react-dropzone';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import { Button } from '~/client/components/Toolkit';
+import { Button } from '@/components/Toolkit';
 
 type Props = {
   onDrop: <T extends File>(

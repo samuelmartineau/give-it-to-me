@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { isBoxSelected, unselectBox, RootState } from '~/client/store';
+import { isBoxSelected, unselectBox, RootState } from '@/store';
 import styled from 'styled-components';
-import BoxContainer from '~/client/components/Cellar/Box/BoxContainer';
-import BoxBottles from '~/client/components/Cellar/Box/BoxBottles';
-import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
-import { getCellId } from '~/client/components/Cellar/utils';
+import BoxContainer from '@/components/Cellar/Box/BoxContainer';
+import BoxBottles from '@/components/Cellar/Box/BoxBottles';
+import BoxCells from '@/components/Cellar/Cells/BoxCells';
+import { getCellId } from '@/components/Cellar/utils';
 import ClickHandlerCell from './ClickHandlerCell';
 import SelectedCell from './SelectedCell';
 

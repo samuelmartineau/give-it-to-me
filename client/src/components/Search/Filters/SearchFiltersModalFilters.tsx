@@ -9,7 +9,7 @@ import {
   toggleFavoritesFilter,
   toggleOutsideBoxesFilter,
   RootState,
-} from '~/client/store/';
+} from '@/store/';
 import config from '~/config';
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
@@ -17,12 +17,12 @@ import {
   Checkbox,
   TextField,
   CheckboxProps,
-} from '~/client/components/Toolkit';
+} from '@/components/Toolkit';
 import WineFamiliesFilter from './WineFamiliesFilter';
 import WineFamiliesFilterChips from './WineFamiliesFilterChips';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { WINE_CATEGORIES_ALL, WINE_TYPES_ALL } from '~/client/helpers';
+import { WINE_CATEGORIES_ALL, WINE_TYPES_ALL } from '@/helpers';
 
 const Label = styled.label`
   margin: 1rem;

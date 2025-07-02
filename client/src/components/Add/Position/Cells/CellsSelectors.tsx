@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CellsSelector from './CellsSelector';
-import { boxes } from '~/client/components/Cellar/utils';
+import { boxes } from '@/components/Cellar/utils';
 
 const Wrapper = styled.div`
   display: grid;

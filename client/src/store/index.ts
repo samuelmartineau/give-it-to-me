@@ -1,28 +1,20 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import withRedux from 'next-redux-wrapper';
-import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import * as api from '../api';
 
-type Compose = typeof compose;
-
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: Compose;
-  }
-}
-
-const composeEnhancers =
-  (typeof window !== 'undefined' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
-
-export const makeStore = (initialState: RootState) => {
-  return createStore(
+export const makeStore = (preloadedState?: RootState) => {
+  return configureStore({
     reducer,
-    initialState,
-    composeEnhancers(applyMiddleware(thunkMiddleware.withExtraArgument(api)))
-  );
+    preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        thunk: {
+          extraArgument: api,
+        },
+      }),
+    devTools: process.env.NODE_ENV !== 'production',
+  });
 };
 
 export const reduxPage = withRedux(makeStore);
@@ -87,3 +79,5 @@ export {
 } from './selectors';
 
 export type RootState = ReturnType<typeof reducer>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore['dispatch'];

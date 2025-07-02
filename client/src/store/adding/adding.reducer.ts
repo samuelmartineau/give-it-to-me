@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import config from '~/config';
-import { WINE_TYPES_ALL } from '~/client/helpers';
+import { WINE_TYPES_ALL } from '@/helpers';
 import {
   SELECT_BOX,
   UNSELECT_BOX,

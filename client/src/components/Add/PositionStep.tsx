@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
-import { RootState, toggleInBox } from '~/client/store/';
-import { Checkbox } from '~/client/components/Toolkit';
+import { RootState, toggleInBox } from '@/store/';
+import { Checkbox } from '@/components/Toolkit';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 

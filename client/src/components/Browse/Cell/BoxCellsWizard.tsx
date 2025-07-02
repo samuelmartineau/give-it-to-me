@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import BoxCells from '~/client/components/Cellar/Cells/BoxCells';
-import { getCellId } from '~/client/components/Cellar/utils';
+import BoxCells from '@/components/Cellar/Cells/BoxCells';
+import { getCellId } from '@/components/Cellar/utils';
 import CellWizard from './CellWizard';
 
 type Props = {

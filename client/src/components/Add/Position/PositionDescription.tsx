@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TextField } from '~/client/components/Toolkit';
+import { TextField } from '@/components/Toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { updateModel, RootState } from '~/client/store/';
+import { updateModel, RootState } from '@/store/';
 
 const Label = styled.label`
   display: block;

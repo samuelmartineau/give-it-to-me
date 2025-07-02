@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
-import { WineCard } from '~/client/components/Wine/WineCard';
-import { getWineById, isWineFiltered, RootState } from '~/client/store';
-import { WineEnhanced } from '~/client/Cellar.type';
+import { WineCard } from '@/components/Wine/WineCard';
+import { getWineById, isWineFiltered, RootState } from '@/store';
+import { WineEnhanced } from '@/Cellar.type';
 
 const WineCardStyled = styled(WineCard)`
   align-self: center;

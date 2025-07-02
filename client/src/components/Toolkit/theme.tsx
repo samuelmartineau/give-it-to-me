@@ -2,8 +2,10 @@ import {
   css,
   DefaultTheme,
   CSSObject,
-  SimpleInterpolation,
+  Interpolation,
 } from 'styled-components';
+
+type SimpleInterpolation = Interpolation<object>;
 
 export const media = {
   handheld: (
