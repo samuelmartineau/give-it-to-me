@@ -5,7 +5,10 @@ import { toggleCheckboxFilter, RootState } from '@/store/';
 import { Label, Text } from './FiltersUtils';
 import WineFamilyMultipleSelector from '@/components/Autocomplete/WineFamilyMultipleSelector';
 import { FilterResult } from 'fuzzy';
-import { SearchableWineFamily } from '@/components/Autocomplete/WineFamilySuggestion';
+import {
+  OnSuggestionSelectedData,
+  SearchableWineFamily,
+} from '@/components/Autocomplete/WineFamilySuggestion';
 import { SearchParams } from '@/routes/search';
 
 const WineFamiliesFilter: React.FC = () => {
@@ -16,11 +19,8 @@ const WineFamiliesFilter: React.FC = () => {
     (state: RootState) => state.search.wineFamilies,
   );
 
-  const selectWineFamily = (
-    evt: Event,
-    item: FilterResult<SearchableWineFamily>,
-  ) => {
-    const { id } = item.original;
+  const selectWineFamily = (evt: Event, item: OnSuggestionSelectedData) => {
+    const { id } = item.suggestion.original;
     const value = id.toString();
 
     let previousFilter = searchParams.wineFamilies;
@@ -41,6 +41,7 @@ const WineFamiliesFilter: React.FC = () => {
         ...prev,
         wineFamilies: newFilter.length ? newFilter : undefined,
       }),
+      replace: true,
     });
 
     dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));

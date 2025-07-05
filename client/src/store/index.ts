@@ -78,3 +78,6 @@ export {
 export type RootState = ReturnType<typeof reducer>;
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppDispatch = AppStore['dispatch'];
+
+// Create store
+export const store = makeStore();

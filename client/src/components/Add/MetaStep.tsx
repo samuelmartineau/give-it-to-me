@@ -6,7 +6,10 @@ import { TextField } from '@/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
 import { updateModel, RootState } from '@/store/';
 import { FilterResult } from 'fuzzy';
-import { SearchableWineFamily } from '../Autocomplete/WineFamilySuggestion';
+import {
+  OnSuggestionSelectedData,
+  SearchableWineFamily,
+} from '../Autocomplete/WineFamilySuggestion';
 
 const Label = styled.label`
   display: block;
@@ -113,8 +116,10 @@ const connector = connect(
     ) {
       dispatch(updateModel(data));
     },
-    onFamilyChange(evt: Event, data: FilterResult<SearchableWineFamily>) {
-      dispatch(updateModel({ name: 'wineFamily', value: data.original.id }));
+    onFamilyChange(evt: Event, data: OnSuggestionSelectedData) {
+      dispatch(
+        updateModel({ name: 'wineFamily', value: data.suggestion.original.id }),
+      );
     },
     onFamilyClear() {
       dispatch(updateModel({ name: 'wineFamily', value: undefined }));

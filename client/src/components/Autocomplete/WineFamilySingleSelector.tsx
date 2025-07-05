@@ -2,13 +2,12 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
 import {
-  SearchableWineFamily,
+  OnSuggestionSelectedData,
   WineFamilySuggestion,
 } from './WineFamilySuggestion';
 import WineFamilyFormater from './WineFamilyFormater';
 import { Button } from '@/components/Toolkit';
 import { RootState } from '@/store';
-import { FilterResult } from 'fuzzy';
 
 const ButtonStyled = styled(Button)`
   margin: auto 1em;
@@ -23,10 +22,7 @@ type RawProps = {
 
 type Props = RawProps &
   PropsFromRedux & {
-    onSuggestionSelected: (
-      evt: Event,
-      data: FilterResult<SearchableWineFamily>,
-    ) => void;
+    onSuggestionSelected: (evt: Event, data: OnSuggestionSelectedData) => void;
     onClear: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   };
 

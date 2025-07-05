@@ -43,6 +43,7 @@ const WineFamiliesFilterChips: React.FC = () => {
         ...prev,
         wineFamilies: newFilters.length > 0 ? newFilters : undefined,
       }),
+      replace: true,
     });
 
     dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));

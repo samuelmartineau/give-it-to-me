@@ -7,7 +7,7 @@ import BoxBottles from '@/components/Cellar/Box/BoxBottles';
 import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import { getCellId } from '@/components/Cellar/utils';
 import SelectedCell from './SelectedCell';
-import BoxCell from '@/components/Cellar/Box/BoxCell';
+import ClickHandlerCell from './ClickHandlerCell';
 
 const Wrapper = styled.div``;
 const Actions = styled.div`
@@ -51,7 +51,9 @@ const CellsSelector: FC<Props> = ({ boxId, isBoxSelected, onUnselect }) => {
       </Actions>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
-          {(cellId) => <BoxCell key={cellId} cellId={cellId} />}
+          {(cellId) => (
+            <ClickHandlerCell key={cellId} boxId={boxId} cellId={cellId} />
+          )}
         </BoxCells>
         <BoxBottles boxId={boxId} />
         <g>

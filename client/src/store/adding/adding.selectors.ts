@@ -52,19 +52,19 @@ export const getAddModel = (
   if (model.isInBoxes) {
     return {
       ...common,
-      positionComment,
-      count,
+      bottles: Object.keys(selectedCells).reduce((acc, box) => {
+        return acc.concat(
+          selectedCells[box].map((cell) => ({
+            box,
+            cell,
+          })),
+        );
+      }, []),
     };
   }
   return {
     ...common,
-    bottles: Object.keys(selectedCells).reduce((acc, box) => {
-      return acc.concat(
-        selectedCells[box].map((cell) => ({
-          box,
-          cell,
-        })),
-      );
-    }, []),
+    positionComment,
+    count,
   };
 };

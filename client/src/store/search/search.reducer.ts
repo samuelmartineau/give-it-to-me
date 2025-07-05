@@ -120,6 +120,14 @@ export default (state: State = defaultState, action: SearchActions): State => {
 
       return {
         ...newState,
+        minYear:
+          'minYear' in params && params.minYear !== undefined
+            ? params.minYear
+            : defaultState.minYear,
+        maxYear:
+          'maxYear' in params && params.maxYear !== undefined
+            ? params.maxYear
+            : defaultState.maxYear,
         favorites:
           'favorites' in params && params.favorites !== undefined
             ? params.favorites

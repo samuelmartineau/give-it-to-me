@@ -51,6 +51,8 @@ type Params = {
   wineCategories?: (keyof typeof WINE_CATEGORIES)[];
   wineFamilies?: string[];
   wineTypes: (keyof typeof WINE_TYPES)[];
+  minYear?: number;
+  maxYear?: number;
 };
 
 export const syncUrlParams = (params: Params) =>

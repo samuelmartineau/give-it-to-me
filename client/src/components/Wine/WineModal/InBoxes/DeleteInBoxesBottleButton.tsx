@@ -5,6 +5,7 @@ import { Button } from '@/components/Toolkit';
 import { removeBottles, RootState } from '@/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { getCellar } from '@/store/wines/wines.actions';
 
 type Props = PropsFromRedux;
 
@@ -21,10 +22,11 @@ const connector = connect(
     count: remove.bottleIds.length,
   }),
   (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-    onRemove() {
-      dispatch(removeBottles());
+    async onRemove() {
+      await dispatch(removeBottles());
+      await dispatch(getCellar());
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

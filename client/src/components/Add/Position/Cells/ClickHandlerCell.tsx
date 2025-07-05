@@ -18,19 +18,19 @@ const SelectableCell = connect(
     onSelect: () => {
       dispatch(selectCell(boxId, cellId));
     },
-  })
+  }),
 )(BoxCellSelectable);
 
 const UnSelectableCell = connect(
   null,
   (
     dispatch: ThunkDispatch<{}, {}, AnyAction>,
-    { boxId, cellId }: RawProps
+    { boxId, cellId }: RawProps,
   ) => ({
     onSelect: () => {
       dispatch(unselectCell(boxId, cellId));
     },
-  })
+  }),
 )(BoxCellSelectable);
 
 type RawProps = {

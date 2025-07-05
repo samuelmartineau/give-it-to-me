@@ -8,12 +8,14 @@ export type SearchableWineFamily = {
   searchKey: string;
 };
 
+export type OnSuggestionSelectedData = {
+  method: string;
+  suggestion: FilterResult<SearchableWineFamily>;
+};
+
 type Props = {
   wineFamilies: SearchableWineFamily[];
-  onSuggestionSelected: (
-    evt: Event,
-    data: FilterResult<SearchableWineFamily>,
-  ) => void;
+  onSuggestionSelected: (evt: Event, data: OnSuggestionSelectedData) => void;
 };
 
 export class WineFamilySuggestion extends React.Component<Props> {

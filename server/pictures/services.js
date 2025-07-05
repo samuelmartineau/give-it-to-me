@@ -59,35 +59,48 @@ const generateBlur = (path) => {
   });
 };
 
-const moveWineToPermanentFolder = (context) => (
-  thumbnailFilePath,
-  pictureFilePath
-) => {
-  const thumbnailFileName = path.basename(thumbnailFilePath);
-  const pictureFileName = path.basename(pictureFilePath);
-  const tempThumbnailFileNamePath = path.join(
-    context.TEMP_DIR,
-    thumbnailFileName
-  );
-  const permThumbnailFileNamePath = path.join(
-    context.PERM_DIR,
-    thumbnailFileName
-  );
-  const tempPictureFileNamePath = path.join(context.TEMP_DIR, pictureFileName);
+const moveWineToPermanentFolder =
+  (context) => (thumbnailFilePath, pictureFilePath) => {
+    const thumbnailFileName = path.basename(thumbnailFilePath);
+    const pictureFileName = path.basename(pictureFilePath);
+    const tempThumbnailFileNamePath = path.join(
+      context.TEMP_DIR,
+      thumbnailFileName
+    );
+    const permThumbnailFileNamePath = path.join(
+      context.PERM_DIR,
+      thumbnailFileName
+    );
+    const tempPictureFileNamePath = path.join(
+      context.TEMP_DIR,
+      pictureFileName
+    );
 
-  const fileExtension = path.extname(pictureFileName);
-  const newFileName = [uuidv4(), fileExtension].join('');
-  const permPictureFileNamePath = path.resolve(context.PERM_DIR, newFileName);
+    const fileExtension = path.extname(pictureFileName);
+    const newFileName = [uuidv4(), fileExtension].join('');
+    const permPictureFileNamePath = path.resolve(context.PERM_DIR, newFileName);
 
-  let promises = [
-    fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath),
-    fs.rename(tempPictureFileNamePath, permPictureFileNamePath),
-  ];
+    console.log({
+      tempThumbnailFileNamePath,
+      permThumbnailFileNamePath,
+      tempPictureFileNamePath,
+      permPictureFileNamePath,
+    });
 
-  return Promise.all(promises).then(() => {
-    return { thumbnailFileName, pictureFileName: newFileName };
-  });
-};
+    let promises = [
+      fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath),
+      fs.rename(tempPictureFileNamePath, permPictureFileNamePath),
+    ];
+
+    return Promise.all(promises)
+      .then(() => {
+        return { thumbnailFileName, pictureFileName: newFileName };
+      })
+      .catch((error) => {
+        logger.error(error);
+        throw new Error('Error on moving file to permanent folder');
+      });
+  };
 
 module.exports = {
   picturesServices: (SERVER_VARIABLES) => {

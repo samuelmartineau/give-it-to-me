@@ -41,22 +41,23 @@ const SearchFiltersModalFilters: React.FC = () => {
   const filters = useSelector((state: RootState) => state.search);
 
   const onRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const data = event.currentTarget as
+    const data = event.target as
       | { value: string; name: 'minYear' }
       | { value: string; name: 'maxYear' };
     if (data.value.length > 4) {
       return;
     }
+
+    // dispatch(
+    //   updateInputFilter({ name: data.name, value: parseInt(data.value, 10) }),
+    // );
     navigate({
       search: (prev: SearchParams) => ({
         ...prev,
         [data.name]: data.value ? parseInt(data.value) : undefined,
       }),
+      replace: true,
     });
-
-    dispatch(
-      updateInputFilter({ name: data.name, value: parseInt(data.value, 10) }),
-    );
   };
 
   const updateCheckbox = (evt: React.FormEvent<HTMLInputElement>) => {
@@ -89,14 +90,15 @@ const SearchFiltersModalFilters: React.FC = () => {
       nextUrlValue = [data.value];
     }
 
+    dispatch(toggleCheckboxFilter(data));
+
     navigate({
       search: (prev: SearchParams) => ({
         ...prev,
         [data.name]: nextUrlValue.length ? nextUrlValue : undefined,
       }),
+      replace: true,
     });
-
-    dispatch(toggleCheckboxFilter(data));
   };
 
   const handleToggleFavoritesFilter = (
@@ -104,14 +106,15 @@ const SearchFiltersModalFilters: React.FC = () => {
   ) => {
     const { checked } = evt.currentTarget;
 
+    dispatch(toggleFavoritesFilter());
+
     navigate({
       search: (prev: SearchParams) => ({
         ...prev,
         favorites: checked ?? undefined,
       }),
+      replace: true,
     });
-
-    dispatch(toggleFavoritesFilter());
   };
 
   const handleToggleOutsideBoxesFilter = (
@@ -119,14 +122,14 @@ const SearchFiltersModalFilters: React.FC = () => {
   ) => {
     const { checked } = evt.currentTarget;
 
+    dispatch(toggleOutsideBoxesFilter());
     navigate({
       search: (prev: SearchParams) => ({
         ...prev,
         outsideBoxes: checked ?? undefined,
       }),
+      replace: true,
     });
-
-    dispatch(toggleOutsideBoxesFilter());
   };
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -175,14 +178,14 @@ const SearchFiltersModalFilters: React.FC = () => {
             onChange={onRangeChange}
             type="number"
             name="minYear"
-            value={filters.minYear}
+            value={filters.minYear !== undefined ? filters.minYear : ''}
             placeholder="Borne inf (ex: 1970)"
           />
           <TextField
             onChange={onRangeChange}
             type="number"
             name="maxYear"
-            value={filters.maxYear}
+            value={filters.maxYear !== undefined ? filters.maxYear : ''}
             placeholder="Borne sup (ex: 2019)"
           />
         </Periode>

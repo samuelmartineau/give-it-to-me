@@ -9,6 +9,7 @@ import { Button, Spinner } from '@/components/Toolkit';
 import { isModelValid, addWine, RootState } from '@/store/';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { getCellar } from '@/store/wines/wines.actions';
 
 const Form = styled.form`
   max-width: 800px;
@@ -51,10 +52,11 @@ const AddSteps: FC<Props> = ({ isModelValid, addWine }) => {
 const connector = connect(
   (state: RootState) => ({ isModelValid: isModelValid(state) }),
   (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-    addWine() {
-      return dispatch(addWine());
+    async addWine() {
+      await dispatch(addWine());
+      await dispatch(getCellar());
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
