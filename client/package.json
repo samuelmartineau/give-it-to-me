@@ -34,7 +34,8 @@
     "redux-thunk": "^3.1.0",
     "styled-components": "^6.1.11",
     "tinycolor2": "^1.6.0",
-    "vite-plugin-commonjs": "^0.10.4"
+    "vite-plugin-commonjs": "^0.10.4",
+    "zod": "^3.25.74"
   },
   "devDependencies": {
     "@sentry/vite-plugin": "^2.16.1",

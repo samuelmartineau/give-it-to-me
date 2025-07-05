@@ -48,11 +48,9 @@ export const toggleOutsideBoxesFilter = () =>
 type Params = {
   favorites?: boolean;
   outsideBoxes?: boolean;
-  wineCategories?:
-    | (keyof typeof WINE_CATEGORIES)[]
-    | keyof typeof WINE_CATEGORIES;
-  wineFamilies?: string[] | string;
-  wineTypes: (keyof typeof WINE_TYPES)[] | keyof typeof WINE_TYPES;
+  wineCategories?: (keyof typeof WINE_CATEGORIES)[];
+  wineFamilies?: string[];
+  wineTypes: (keyof typeof WINE_TYPES)[];
 };
 
 export const syncUrlParams = (params: Params) =>

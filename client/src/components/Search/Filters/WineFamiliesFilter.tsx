@@ -1,40 +1,47 @@
 import React from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import queryString from 'query-string';
 import { toggleCheckboxFilter, RootState } from '@/store/';
 import { Label, Text } from './FiltersUtils';
 import WineFamilyMultipleSelector from '@/components/Autocomplete/WineFamilyMultipleSelector';
+import { FilterResult } from 'fuzzy';
+import { SearchableWineFamily } from '@/components/Autocomplete/WineFamilySuggestion';
+import { SearchParams } from '@/routes/search';
 
 const WineFamiliesFilter: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate({ from: '/search' });
+  const searchParams = useSearch({ from: '/search' });
   const dispatch = useDispatch();
-  const wineFamilies = useSelector((state: RootState) => state.search.wineFamilies);
+  const wineFamilies = useSelector(
+    (state: RootState) => state.search.wineFamilies,
+  );
 
-  const selectWineFamily = (evt, item) => {
-    const { id } = item.suggestion.original;
-    const name = 'wineFamilies';
+  const selectWineFamily = (
+    evt: Event,
+    item: FilterResult<SearchableWineFamily>,
+  ) => {
+    const { id } = item.original;
     const value = id.toString();
 
-    const parsed = queryString.parse(location.search);
-
-    let previousFilter = parsed[name];
+    let previousFilter = searchParams.wineFamilies;
+    let newFilter: string[] = [];
 
     if (previousFilter) {
-      previousFilter = [].concat(previousFilter);
-      if (previousFilter.includes(value)) {
-        previousFilter = previousFilter.filter((key) => key !== value);
-        if (previousFilter.length === 0) {
-          delete parsed[name];
-        }
+      newFilter = [...previousFilter];
+      if (newFilter.includes(value)) {
+        newFilter = newFilter.filter((key) => key !== value);
       } else {
-        previousFilter.push(value);
+        newFilter.push(value);
       }
     } else {
-      parsed[name] = [value];
+      newFilter.push(value);
     }
-    const url = `/search?${queryString.stringify(parsed)}`;
-    navigate({ to: url, replace: true });
+    navigate({
+      search: (prev: SearchParams) => ({
+        ...prev,
+        wineFamilies: newFilter.length ? newFilter : undefined,
+      }),
+    });
 
     dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));
   };

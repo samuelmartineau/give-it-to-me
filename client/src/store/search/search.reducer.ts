@@ -61,7 +61,7 @@ export default (state: State = defaultState, action: SearchActions): State => {
           return {
             ...state,
             wineCategories: state.wineCategories.filter(
-              (item) => item !== data.value
+              (item) => item !== data.value,
             ),
           };
         } else {
@@ -77,7 +77,7 @@ export default (state: State = defaultState, action: SearchActions): State => {
           return {
             ...state,
             wineFamilies: state.wineFamilies.filter(
-              (item) => item !== data.value
+              (item) => item !== data.value,
             ),
           };
         } else {
@@ -121,22 +121,24 @@ export default (state: State = defaultState, action: SearchActions): State => {
       return {
         ...newState,
         favorites:
-          'favorites' in params ? params.favorites : defaultState.favorites,
+          'favorites' in params && params.favorites !== undefined
+            ? params.favorites
+            : defaultState.favorites,
         outsideBoxes:
-          'outsideBoxes' in params
+          'outsideBoxes' in params && params.outsideBoxes !== undefined
             ? params.outsideBoxes
             : defaultState.outsideBoxes,
         wineCategories:
-          'wineCategories' in params
-            ? [].concat(params.wineCategories)
+          'wineCategories' in params && params.wineCategories !== undefined
+            ? [...params.wineCategories]
             : defaultState.wineCategories,
         wineFamilies:
-          'wineFamilies' in params
-            ? [].concat(params.wineFamilies).map((id) => parseInt(id, 10))
+          'wineFamilies' in params && params.wineFamilies !== undefined
+            ? [...params.wineFamilies].map((id) => parseInt(id, 10))
             : defaultState.wineFamilies,
         wineTypes:
           'wineTypes' in params
-            ? [].concat(params.wineTypes)
+            ? [...params.wineTypes]
             : defaultState.wineTypes,
       };
     }

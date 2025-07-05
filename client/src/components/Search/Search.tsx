@@ -8,11 +8,14 @@ import EmptyResults from './EmptyResults';
 
 export const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const count = useSelector((state: RootState) => getWinesFiltered(state).length);
-  const searchParams = useSearch({ strict: false });
+  const count = useSelector(
+    (state: RootState) => getWinesFiltered(state).length,
+  );
+  const searchParams = useSearch({ from: '/search' });
 
   useEffect(() => {
     // Sync URL params with Redux store when search params change
+    //@ts-ignore
     dispatch(syncUrlParams(searchParams));
   }, [searchParams, dispatch]);
 

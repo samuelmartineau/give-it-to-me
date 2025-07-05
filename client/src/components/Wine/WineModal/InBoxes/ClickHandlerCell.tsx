@@ -1,7 +1,5 @@
-import { FC } from 'react';
 import { connect } from 'react-redux';
 import { selectBottleToDelete, unselectBottleToDelete } from '@/store';
-import BoxCell from '@/components/Cellar/Box/BoxCell';
 import BoxCellSelectable from '@/components/Cellar/Box/BoxCellSelectable';
 
 type RawProps = {
@@ -14,10 +12,10 @@ const connectorSelectable = connect(
     onSelect: () => {
       dispatch(selectBottleToDelete(bottleId));
     },
-  })
+  }),
 );
 
-const SelectableCell = connectorSelectable(BoxCellSelectable);
+export const SelectableCell = connectorSelectable(BoxCellSelectable);
 
 const connectorUnselectable = connect(
   null,
@@ -25,34 +23,7 @@ const connectorUnselectable = connect(
     onSelect: () => {
       dispatch(unselectBottleToDelete(bottleId));
     },
-  })
+  }),
 );
 
-const UnSelectableCell = connectorUnselectable(BoxCellSelectable);
-
-type CellProps = {
-  boxId: number;
-  cellId: number;
-  isCellSelected: boolean;
-  isCellSelectable: boolean;
-  bottleId?: number;
-};
-
-const ClickHandlerCell: FC<CellProps> = ({
-  isCellSelected,
-  isCellSelectable,
-  boxId,
-  cellId,
-  bottleId,
-}) => {
-  if (isCellSelected) {
-    return (
-      <UnSelectableCell bottleId={bottleId} boxId={boxId} cellId={cellId} />
-    );
-  } else if (isCellSelectable) {
-    return <SelectableCell bottleId={bottleId} boxId={boxId} cellId={cellId} />;
-  }
-  return <BoxCell cellId={cellId} />;
-};
-
-export default ClickHandlerCell;
+export const UnSelectableCell = connectorUnselectable(BoxCellSelectable);

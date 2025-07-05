@@ -2,22 +2,33 @@ import React from 'react';
 import { AutoComplete } from './AutoComplete';
 import { FilterResult } from 'fuzzy';
 
-type SearchableWineFamily = { id: number; label: string; searchKey: string };
+export type SearchableWineFamily = {
+  id: number;
+  label: string;
+  searchKey: string;
+};
 
 type Props = {
   wineFamilies: SearchableWineFamily[];
-  onSuggestionSelected: Function;
+  onSuggestionSelected: (
+    evt: Event,
+    data: FilterResult<SearchableWineFamily>,
+  ) => void;
 };
 
 export class WineFamilySuggestion extends React.Component<Props> {
-  onSelect = (evt, ...args) => {
+  onSelect = (evt, item) => {
     const { onSuggestionSelected } = this.props;
     evt.preventDefault();
-    onSuggestionSelected(evt, ...args);
+    onSuggestionSelected(evt, item);
   };
 
-  extract = (item: FilterResult<SearchableWineFamily>) => {
+  formatDisplay = (item: FilterResult<SearchableWineFamily>) => {
     return item.original.searchKey;
+  };
+
+  extract = (item: SearchableWineFamily) => {
+    return item.searchKey;
   };
 
   render() {
@@ -26,8 +37,9 @@ export class WineFamilySuggestion extends React.Component<Props> {
     return (
       <AutoComplete<SearchableWineFamily>
         name="wineFamily"
-        extract={this.extract}
+        formatDisplay={this.formatDisplay}
         datas={wineFamilies}
+        extract={this.extract}
         onSuggestionSelected={this.onSelect}
         placeholder="Commencer à taper le nom de l'appellation"
       />

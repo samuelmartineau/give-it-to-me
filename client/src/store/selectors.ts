@@ -24,7 +24,7 @@ export const getSelectedCellsInBox = (state: RootState, boxId: number) =>
 export const isCellSelected = (
   state: RootState,
   boxId: number,
-  cellId: number
+  cellId: number,
 ) => adding.isCellSelected(state.adding.selectedCells, boxId, cellId);
 export const isBoxSelected = (state: RootState, boxId: number) =>
   adding.isBoxSelected(state.adding.selectedBoxes, boxId);
@@ -41,7 +41,7 @@ export const isBoxSelectable = (state: RootState, boxId: number) => {
 export const isCellSelectable = (
   state: RootState,
   boxId: number,
-  cellId: number
+  cellId: number,
 ) => {
   const alreadySelected = isCellSelected(state, boxId, cellId);
   const cellIds = getCellsUsedInBox(state, boxId);
@@ -60,7 +60,7 @@ export const getFiltersCount = (state: RootState) =>
 export const isWineInBox = (
   state: RootState,
   boxId: number,
-  wineId: number
+  wineId: number,
 ) => {
   const wineIds = getBottlesInBox(state, boxId).map((bottle) => bottle.wine_id);
   return wineIds.includes(wineId);
@@ -72,13 +72,16 @@ export const getWineBottles = (state: RootState, wineId: number) => {
 };
 
 export const getWineBottlesAsMap = (state: RootState, wineId: number) => {
-  return getWineBottles(state, wineId).reduce((acc, bottle) => {
-    if (!acc[bottle.box]) {
-      acc[bottle.box] = {};
-    }
-    acc[bottle.box][bottle.cell] = bottle;
-    return acc;
-  }, <{ [boxId: number]: { [cellId: number]: EnhancedBottleType } }>{});
+  return getWineBottles(state, wineId).reduce(
+    (acc, bottle) => {
+      if (!acc[bottle.box]) {
+        acc[bottle.box] = {};
+      }
+      acc[bottle.box][bottle.cell] = bottle;
+      return acc;
+    },
+    <{ [boxId: number]: { [cellId: number]: EnhancedBottleType } }>{},
+  );
 };
 
 export const getRemovedBottles = (state: RootState) =>
@@ -86,7 +89,7 @@ export const getRemovedBottles = (state: RootState) =>
 
 export const isBottleSelectedToBeRemoved = (
   state: RootState,
-  bottleId: number
+  bottleId: number,
 ) => remove.isBottleSelectedToBeRemoved(state.remove, bottleId);
 
 export const isBoxBrowsed = (state: RootState, boxId: number) =>
@@ -100,6 +103,7 @@ export const isBoxBrowseable = (state: RootState, boxId: number) => {
 
 export const getBrowsedWine = (state: RootState) => {
   const { boxId, cellId } = state.browse;
+  if (!boxId || !cellId) return null;
   const bottle = getBottleByPosition(state, boxId, cellId);
   return bottle && getWineById(state, bottle.wine_id);
 };

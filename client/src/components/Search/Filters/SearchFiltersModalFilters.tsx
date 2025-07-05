@@ -1,8 +1,7 @@
 import React from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import queryString from 'query-string';
 import {
   toggleCheckboxFilter,
   updateInputFilter,
@@ -17,6 +16,7 @@ import { Checkbox, TextField, CheckboxProps } from '@/components/Toolkit';
 import WineFamiliesFilter from './WineFamiliesFilter';
 import WineFamiliesFilterChips from './WineFamiliesFilterChips';
 import { WINE_CATEGORIES_ALL, WINE_TYPES_ALL } from '@/helpers';
+import { SearchParams } from '@/routes/search';
 
 const Label = styled.label`
   margin: 1rem;
@@ -35,8 +35,9 @@ const CheckboxStyled = styled(Checkbox)<CheckboxProps>`
 `;
 
 const SearchFiltersModalFilters: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate({ from: '/search' });
+  const searchParams = useSearch({ from: '/search' });
   const filters = useSelector((state: RootState) => state.search);
 
   const onRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,18 +47,16 @@ const SearchFiltersModalFilters: React.FC = () => {
     if (data.value.length > 4) {
       return;
     }
-    if (data.value.length === 4) {
-      const parsed = queryString.parse(location.search);
-      const url = `/search?${queryString.stringify(parsed)}`;
-      navigate({ to: url, replace: true });
-    } else {
-      const parsed = queryString.parse(location.search);
-      delete parsed[data.name];
-      const url = `/search?${queryString.stringify(parsed)}`;
-      navigate({ to: url, replace: true });
-    }
+    navigate({
+      search: (prev: SearchParams) => ({
+        ...prev,
+        [data.name]: data.value ? parseInt(data.value) : undefined,
+      }),
+    });
 
-    dispatch(updateInputFilter({ name: data.name, value: parseInt(data.value, 10) }));
+    dispatch(
+      updateInputFilter({ name: data.name, value: parseInt(data.value, 10) }),
+    );
   };
 
   const updateCheckbox = (evt: React.FormEvent<HTMLInputElement>) => {
@@ -68,14 +67,15 @@ const SearchFiltersModalFilters: React.FC = () => {
         }
       | { name: 'wineCategories'; value: keyof typeof WINE_CATEGORIES };
 
-    const parsed = queryString.parse(location.search);
     const keyName = data.name;
 
-    let newFilters = [];
-    const isCategoryAlreadySet = !!parsed[keyName];
+    let newFilters: string[] = [];
 
-    if (isCategoryAlreadySet) {
-      let previousFilters = [].concat(parsed[keyName]);
+    const urlValue = searchParams[keyName];
+    let nextUrlValue: string[] = [];
+
+    if (!!urlValue) {
+      let previousFilters: string[] = [...urlValue];
       const alreadySelected = previousFilters.includes(data.value);
       if (alreadySelected) {
         newFilters = previousFilters.filter((key) => key !== data.value);
@@ -83,48 +83,48 @@ const SearchFiltersModalFilters: React.FC = () => {
         // New value selected
         newFilters = [...previousFilters, data.value];
       }
-      parsed[keyName] = newFilters;
+      nextUrlValue = newFilters;
     } else {
       // First value selected in this category
-      parsed[keyName] = [data.value];
+      nextUrlValue = [data.value];
     }
 
-    if (parsed[keyName].length === 0) {
-      delete parsed[keyName];
-    }
-
-    const url = `/search?${queryString.stringify(parsed)}`;
-    navigate({ to: url, replace: true });
+    navigate({
+      search: (prev: SearchParams) => ({
+        ...prev,
+        [data.name]: nextUrlValue.length ? nextUrlValue : undefined,
+      }),
+    });
 
     dispatch(toggleCheckboxFilter(data));
   };
 
-  const handleToggleFavoritesFilter = (evt: React.FormEvent<HTMLInputElement>) => {
+  const handleToggleFavoritesFilter = (
+    evt: React.FormEvent<HTMLInputElement>,
+  ) => {
     const { checked } = evt.currentTarget;
 
-    const parsed = queryString.parse(location.search);
-    if (checked) {
-      parsed.favorites = 'true';
-    } else {
-      delete parsed.favorites;
-    }
-    const url = `/search?${queryString.stringify(parsed)}`;
-    navigate({ to: url, replace: true });
+    navigate({
+      search: (prev: SearchParams) => ({
+        ...prev,
+        favorites: checked ?? undefined,
+      }),
+    });
 
     dispatch(toggleFavoritesFilter());
   };
 
-  const handleToggleOutsideBoxesFilter = (evt: React.FormEvent<HTMLInputElement>) => {
+  const handleToggleOutsideBoxesFilter = (
+    evt: React.FormEvent<HTMLInputElement>,
+  ) => {
     const { checked } = evt.currentTarget;
 
-    const parsed = queryString.parse(location.search);
-    if (checked) {
-      parsed.outsideBoxes = 'true';
-    } else {
-      delete parsed.outsideBoxes;
-    }
-    const url = `/search?${queryString.stringify(parsed)}`;
-    navigate({ to: url, replace: true });
+    navigate({
+      search: (prev: SearchParams) => ({
+        ...prev,
+        outsideBoxes: checked ?? undefined,
+      }),
+    });
 
     dispatch(toggleOutsideBoxesFilter());
   };

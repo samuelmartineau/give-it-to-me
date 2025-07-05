@@ -6,8 +6,8 @@ import BoxContainer from '@/components/Cellar/Box/BoxContainer';
 import BoxBottles from '@/components/Cellar/Box/BoxBottles';
 import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import { getCellId } from '@/components/Cellar/utils';
-import ClickHandlerCell from './ClickHandlerCell';
 import SelectedCell from './SelectedCell';
+import BoxCell from '@/components/Cellar/Box/BoxCell';
 
 const Wrapper = styled.div``;
 const Actions = styled.div`
@@ -51,9 +51,7 @@ const CellsSelector: FC<Props> = ({ boxId, isBoxSelected, onUnselect }) => {
       </Actions>
       <BoxContainer boxId={boxId}>
         <BoxCells boxId={boxId}>
-          {(cellId) => (
-            <ClickHandlerCell key={cellId} boxId={boxId} cellId={cellId} />
-          )}
+          {(cellId) => <BoxCell key={cellId} cellId={cellId} />}
         </BoxCells>
         <BoxBottles boxId={boxId} />
         <g>
@@ -78,7 +76,7 @@ const connector = connect(
   }),
   (dispatch, { boxId }: RawProps) => ({
     onUnselect: () => dispatch(unselectBox(boxId)),
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

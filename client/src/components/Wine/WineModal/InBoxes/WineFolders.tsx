@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
-import {
-  getWineBottlesAsMap,
-  getRemovedBottles,
-  RootState,
-} from '@/store';
+import { getWineBottlesAsMap, getRemovedBottles, RootState } from '@/store';
 import BoxContainer from '@/components/Cellar/Box/BoxContainer';
 import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import BoxBottles from './BoxBottles';
-import ClickHandlerCell from './ClickHandlerCell';
+import { SelectableCell, UnSelectableCell } from './ClickHandlerCell';
 import { WineEnhanced } from '@/Cellar.type';
+import BoxCell from '@/components/Cellar/Box/BoxCell';
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,14 +39,21 @@ class WineModalFolders extends React.PureComponent<Props> {
               <BoxCells boxId={parseInt(boxId, 10)}>
                 {(cellId) => {
                   const bottle = bottles[boxId] ? bottles[boxId][cellId] : null;
+                  if (!bottle) {
+                    return <BoxCell cellId={cellId} />;
+                  }
+                  if (removedBottles.includes(bottle.id)) {
+                    return (
+                      <UnSelectableCell
+                        bottleId={bottle.id}
+                        boxId={parseInt(boxId, 10)}
+                        cellId={cellId}
+                      />
+                    );
+                  }
                   return (
-                    <ClickHandlerCell
-                      key={cellId}
-                      isCellSelected={
-                        !!bottle && removedBottles.includes(bottle.id)
-                      }
-                      isCellSelectable={!!bottle}
-                      bottleId={bottle ? bottle.id : null}
+                    <SelectableCell
+                      bottleId={bottle.id}
                       boxId={parseInt(boxId, 10)}
                       cellId={cellId}
                     />

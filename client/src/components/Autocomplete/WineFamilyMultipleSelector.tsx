@@ -1,10 +1,17 @@
 import React, { FC } from 'react';
-import { WineFamilySuggestion } from './WineFamilySuggestion';
+import {
+  SearchableWineFamily,
+  WineFamilySuggestion,
+} from './WineFamilySuggestion';
 import WineFamilyFormater from './WineFamilyFormater';
+import { FilterResult } from 'fuzzy';
 
 type Props = {
   selectedFamilyIds: Array<any>;
-  onSuggestionSelected: Function;
+  onSuggestionSelected: (
+    evt: any,
+    data: FilterResult<SearchableWineFamily>,
+  ) => void;
 };
 
 const WineFamilyMultipleSelector: FC<Props> = ({
@@ -15,7 +22,7 @@ const WineFamilyMultipleSelector: FC<Props> = ({
     <WineFamilyFormater>
       {(wineFamilies) => {
         const excluded = wineFamilies.filter(
-          (item) => !selectedFamilyIds.includes(item.id)
+          (item) => !selectedFamilyIds.includes(item.id),
         );
         return (
           <WineFamilySuggestion

@@ -54,10 +54,11 @@ const AutosuggestWrapper = styled.div`
 `;
 
 function renderInput(inputProps) {
-  return <TextField {...inputProps} />;
+  const { key, ...rest } = inputProps;
+  return <TextField key={key} {...rest} />;
 }
 
-function renderSuggestion(suggestion) {
+function renderSuggestion<T>(suggestion: FilterResult<T>) {
   return (
     <div>
       <span dangerouslySetInnerHTML={{ __html: suggestion.string }} />
@@ -67,8 +68,13 @@ function renderSuggestion(suggestion) {
 
 function renderSuggestionsContainer(options) {
   const { containerProps, children } = options;
+  const { key, ...rest } = containerProps;
 
-  return <div {...containerProps}>{children}</div>;
+  return (
+    <div key={key} {...rest}>
+      {children}
+    </div>
+  );
 }
 
 function getSuggestionValue() {
@@ -78,17 +84,18 @@ function getSuggestionValue() {
 type Props<T> = {
   name: string;
   datas: T[];
-  extract: (item: FilterResult<T>) => string;
-  onSuggestionSelected: Function;
+  formatDisplay: (item: FilterResult<T>) => string;
+  extract: (item: T) => string;
+  onSuggestionSelected: (evt: Event, data: FilterResult<T>) => void;
   placeholder: string;
 };
 
-type State = {
-  suggestions: string[];
+type State<T> = {
+  suggestions: FilterResult<T>[];
   value: string;
 };
 
-export class AutoComplete<T> extends React.Component<Props<T>, State> {
+export class AutoComplete<T> extends React.Component<Props<T>, State<T>> {
   debouncedLoadSuggestions: Function;
 
   constructor(props) {
@@ -103,7 +110,7 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
   }
 
   loadSuggestions = (value) => {
-    const { datas, extract } = this.props;
+    const { datas, formatDisplay, extract } = this.props;
     const inputValue = config.utils.cleanString(value);
     const inputLength = inputValue.length;
     const suggestions =
@@ -113,9 +120,10 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
             .filter<T>(inputValue, datas, {
               pre: '<b>',
               post: '</b>',
+              extract,
             })
-            .slice(0, 5)
-            .map(extract);
+            .slice(0, 5);
+
     this.setState({
       suggestions,
     });
@@ -148,7 +156,7 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
           renderSuggestionsContainer={renderSuggestionsContainer}
           getSuggestionValue={getSuggestionValue}
           onSuggestionSelected={onSuggestionSelected}
-          renderSuggestion={renderSuggestion}
+          renderSuggestion={renderSuggestion<T>}
           inputProps={{
             name,
             type: 'text',

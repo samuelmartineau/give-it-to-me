@@ -6,6 +6,11 @@ import BoxContainer from '@/components/Cellar/Box/BoxContainer';
 import { BoxCellsWizard } from './BoxCellsWizard';
 import BoxCells from '@/components/Cellar/Cells/BoxCells';
 import ClickHandlerCell from './ClickHandlerCell';
+import BoxCell from '@/components/Cellar/Box/BoxCell';
+import {
+  SelectableCell,
+  UnSelectableCell,
+} from '@/components/Wine/WineModal/InBoxes/ClickHandlerCell';
 
 const Wrapper = styled.div``;
 
@@ -26,11 +31,21 @@ const CellSelector: FC<Props> = ({ boxId, cellId, bottles, className }) => {
             const bottle = bottles.find(
               (bottle) => bottle.cell === boxCellId && bottle.box === boxId,
             );
+            if (!bottle) {
+              return <BoxCell cellId={boxCellId} />;
+            }
+            if (cellId === boxCellId) {
+              return (
+                <UnSelectableCell
+                  bottleId={bottle.id}
+                  boxId={boxId}
+                  cellId={boxCellId}
+                />
+              );
+            }
             return (
-              <ClickHandlerCell
-                key={boxCellId}
-                isCellSelected={cellId === boxCellId}
-                isCellSelectable={!!bottle}
+              <SelectableCell
+                bottleId={bottle.id}
                 boxId={boxId}
                 cellId={boxCellId}
               />

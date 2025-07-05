@@ -5,6 +5,8 @@ import WineFamilySingleSelector from '@/components/Autocomplete/WineFamilySingle
 import { TextField } from '@/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
 import { updateModel, RootState } from '@/store/';
+import { FilterResult } from 'fuzzy';
+import { SearchableWineFamily } from '../Autocomplete/WineFamilySuggestion';
 
 const Label = styled.label`
   display: block;
@@ -107,22 +109,17 @@ const connector = connect(
         | {
             name: 'source';
             value: string;
-          }
+          },
     ) {
       dispatch(updateModel(data));
     },
-    onFamilyChange(
-      evt,
-      { suggestion }: { suggestion: { original: { id: number } } }
-    ) {
-      dispatch(
-        updateModel({ name: 'wineFamily', value: suggestion.original.id })
-      );
+    onFamilyChange(evt: Event, data: FilterResult<SearchableWineFamily>) {
+      dispatch(updateModel({ name: 'wineFamily', value: data.original.id }));
     },
     onFamilyClear() {
       dispatch(updateModel({ name: 'wineFamily', value: undefined }));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

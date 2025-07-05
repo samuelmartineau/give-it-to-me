@@ -3,7 +3,6 @@ import { CELLAR_RECEIVED } from '../wines/wines.types';
 import config from '~/config';
 import { WinesActions } from '@/store/wines/wines.actions';
 import { EnhancedBottleType, CellarType } from '@/Cellar.type';
-console.log(config)
 
 function getBottles(wines: CellarType) {
   return wines.reduce<EnhancedBottleType[]>(
@@ -13,9 +12,9 @@ function getBottles(wines: CellarType) {
           wine_id: wine.id,
           ...bottle,
           color: config.wineTypes.WINE_TYPES[wine.wineType].color,
-        }))
+        })),
       ),
-    []
+    [],
   );
 }
 
@@ -32,7 +31,7 @@ export const mapReducer = (state: MapType = {}, action: WinesActions) => {
           Object.assign(acc, {
             [bottle.id]: bottle,
           }),
-        {}
+        {},
       );
     }
     default:
