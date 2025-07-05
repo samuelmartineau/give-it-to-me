@@ -5,7 +5,7 @@ import CellWizard from './CellWizard';
 
 type Props = {
   boxId: number;
-  selectedCell: { boxId: number; cellId: number };
+  selectedCell: { boxId: number; cellId?: number };
 };
 
 export const BoxCellsWizard: FC<Props> = ({ boxId, selectedCell }) => {

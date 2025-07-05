@@ -53,7 +53,7 @@ const WineFamilySingleSelector: FC<Props> = ({
 };
 
 const connector = connect((state: RootState, { selected }: RawProps) => ({
-  selectedFamily: state.wineFamilies.map[selected],
+  selectedFamily: selected ? state.wineFamilies.map[selected] : undefined,
 }));
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

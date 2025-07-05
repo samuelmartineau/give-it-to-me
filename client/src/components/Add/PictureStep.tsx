@@ -50,7 +50,7 @@ export const PictureStep: FC<Props> = ({
 
   let render;
 
-  if (blur) {
+  if (blur && thumbnailFileName) {
     render = (
       <BlurWrapper data-e2e="picture">
         <Image
@@ -89,10 +89,10 @@ const connector = connect(
       blur: string;
     }) {
       dispatch(
-        updateModel({ name: 'thumbnailFileName', value: thumbnailFileName })
+        updateModel({ name: 'thumbnailFileName', value: thumbnailFileName }),
       );
       dispatch(
-        updateModel({ name: 'pictureFileName', value: pictureFileName })
+        updateModel({ name: 'pictureFileName', value: pictureFileName }),
       );
       dispatch(updateModel({ name: 'blur', value: blur }));
     },
@@ -101,7 +101,7 @@ const connector = connect(
       dispatch(updateModel({ name: 'pictureFileName', value: '' }));
       dispatch(updateModel({ name: 'blur', value: '' }));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

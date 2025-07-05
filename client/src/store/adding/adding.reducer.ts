@@ -22,7 +22,7 @@ const defaultSelectedTypes = {
 
 export const selectedBoxesReducer = (
   state: number[] = [],
-  action: AddingActions
+  action: AddingActions,
 ) => {
   switch (action.type) {
     case SELECT_BOX: {
@@ -49,7 +49,7 @@ export type SelectedCellsType = {
 
 export const selectedCellsReducer = (
   state: SelectedCellsType = {},
-  action: AddingActions
+  action: AddingActions,
 ) => {
   switch (action.type) {
     case SELECT_BOX: {
@@ -93,15 +93,14 @@ const defaultModel = {
   source: '',
   positionComment: '',
   count: 0,
+  bottles: [],
 };
 
 export type ModelType = {
-  isInBoxes: boolean;
   name: string;
   year?: number;
   source?: string;
-  positionComment: string;
-  count: number;
+
   pictureFileName?: string;
   thumbnailFileName?: string;
   wineType: keyof typeof WINE_TYPES;
@@ -109,11 +108,19 @@ export type ModelType = {
   bottleType: keyof typeof BOTTLE_TYPES;
   blur?: string;
   wineFamily?: number;
+
+  isInBoxes: boolean;
+  bottles: {
+    cell: number;
+    box: number;
+  }[];
+  positionComment: string;
+  count: number;
 };
 
 export const modelReducer = (
   state: ModelType = { ...defaultModel },
-  action: AddingActions
+  action: AddingActions,
 ): ModelType => {
   switch (action.type) {
     case UPDATE_MODEL: {

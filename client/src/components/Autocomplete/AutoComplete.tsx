@@ -1,11 +1,10 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import config from '~/config';
-import fuzzy, { FilterOptions } from 'fuzzy';
+import fuzzy, { FilterResult } from 'fuzzy';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 import { TextField } from '@/components/Toolkit';
-
 
 const classNames = {
   container: 'react-autosuggest__container',
@@ -79,7 +78,7 @@ function getSuggestionValue() {
 type Props<T> = {
   name: string;
   datas: T[];
-  extract: (item: T) => string;
+  extract: (item: FilterResult<T>) => string;
   onSuggestionSelected: Function;
   placeholder: string;
 };
@@ -114,9 +113,9 @@ export class AutoComplete<T> extends React.Component<Props<T>, State> {
             .filter<T>(inputValue, datas, {
               pre: '<b>',
               post: '</b>',
-              extract,
             })
-            .slice(0, 5);
+            .slice(0, 5)
+            .map(extract);
     this.setState({
       suggestions,
     });

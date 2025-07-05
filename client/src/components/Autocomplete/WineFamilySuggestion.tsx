@@ -1,5 +1,6 @@
 import React from 'react';
 import { AutoComplete } from './AutoComplete';
+import { FilterResult } from 'fuzzy';
 
 type SearchableWineFamily = { id: number; label: string; searchKey: string };
 
@@ -15,8 +16,8 @@ export class WineFamilySuggestion extends React.Component<Props> {
     onSuggestionSelected(evt, ...args);
   };
 
-  extract = (item: SearchableWineFamily) => {
-    return item.searchKey;
+  extract = (item: FilterResult<SearchableWineFamily>) => {
+    return item.original.searchKey;
   };
 
   render() {

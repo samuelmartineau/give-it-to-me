@@ -8,7 +8,7 @@ import { getBottleInfos, getBottleId } from '@/components/Cellar/utils';
 type RawProps = {
   boxId: number;
   cellId: number;
-  selectedCell: { boxId: number; cellId: number };
+  selectedCell: { boxId: number; cellId?: number };
 };
 
 type Props = PropsFromRedux & RawProps;
@@ -59,7 +59,7 @@ const connector = connect(
       isSelected,
       isSelectable: !!bottle && !isSelected,
     };
-  }
+  },
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

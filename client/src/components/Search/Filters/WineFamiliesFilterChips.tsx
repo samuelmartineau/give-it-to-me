@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Router from 'next/router';
-import { connect, ConnectedProps } from 'react-redux';
+import { useNavigate } from '@tanstack/react-router';
+import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
 import { toggleCheckboxFilter, RootState } from '@/store/';
 import { Button } from '@/components/Toolkit';
@@ -12,12 +12,15 @@ const Wrapper = styled.div`
   margin: 1rem;
 `;
 
-type Props = PropsFromRedux;
+const WineFamiliesFilterChips: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const wineFamilies = useSelector(({ search, wineFamilies }: RootState) => 
+    search.wineFamilies.map((id) => wineFamilies.map[id])
+  );
 
-class WineFamiliesFilterChips extends React.Component<Props> {
-  unselectWineFamily = (wineFamily: WineFamilyType) => () => {
+  const unselectWineFamily = (wineFamily: WineFamilyType) => () => {
     const { id } = wineFamily;
-    const { removeWineFamilies } = this.props;
     const value = id.toString();
 
     const parsed = queryString.parse(location.search);
@@ -45,40 +48,24 @@ class WineFamiliesFilterChips extends React.Component<Props> {
     }
 
     const url = `/search?${queryString.stringify(parsed)}`;
-    Router.push(url, url, { shallow: true });
+    navigate({ to: url, replace: true });
 
-    removeWineFamilies(id);
+    dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));
   };
 
-  render() {
-    const { wineFamilies } = this.props;
-    return (
-      <Wrapper>
-        {wineFamilies.map((wineFamily) => (
-          <Button
-            key={wineFamily.id}
-            onClick={this.unselectWineFamily(wineFamily)}
-            type="button"
-          >
-            {wineFamily.name}
-          </Button>
-        ))}
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      {wineFamilies.map((wineFamily) => (
+        <Button
+          key={wineFamily.id}
+          onClick={unselectWineFamily(wineFamily)}
+          type="button"
+        >
+          {wineFamily.name}
+        </Button>
+      ))}
+    </Wrapper>
+  );
+};
 
-const connector = connect(
-  ({ search, wineFamilies }: RootState) => ({
-    wineFamilies: search.wineFamilies.map((id) => wineFamilies.map[id]),
-  }),
-  (dispatch) => ({
-    removeWineFamilies(id: number) {
-      dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));
-    },
-  })
-);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-export default connector(WineFamiliesFilterChips);
+export default WineFamiliesFilterChips;

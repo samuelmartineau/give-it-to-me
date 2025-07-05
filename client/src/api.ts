@@ -1,4 +1,3 @@
-import 'isomorphic-unfetch';
 import config from '~/config';
 
 const apiBase = `${config.UNIVERSAL_API_URL}${config.API_BASE_URL}`;
@@ -12,7 +11,7 @@ function checkStatus(response) {
     return parseJSON(response);
   }
   return parseJSON(response).then((result) =>
-    Promise.reject(new Error(result.message))
+    Promise.reject(new Error(result.message)),
   );
 }
 

@@ -62,7 +62,7 @@ type UpdateModelData =
     }
   | {
       readonly name: 'wineFamily';
-      value: number;
+      value: number | undefined;
     }
   | {
       readonly name: 'thumbnailFileName';
@@ -105,20 +105,22 @@ export const toggleInBox = () => {
       updateModel({
         name: 'isInBoxes',
         value: !getState().adding.model.isInBoxes,
-      })
+      }),
     );
   };
 };
 
-export const addWine = (wineModel) => async (dispatch, _, { addWine }) => {
-  try {
-    await addWine(wineModel);
-    dispatch(resetAddWine());
-    alert('Ajout avec succès');
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const addWine =
+  (wineModel) =>
+  async (dispatch, _, { addWine }) => {
+    try {
+      await addWine(wineModel);
+      dispatch(resetAddWine());
+      alert('Ajout avec succès');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export type AddingActions = ReturnType<
   | typeof selectBox

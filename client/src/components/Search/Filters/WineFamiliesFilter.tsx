@@ -1,19 +1,18 @@
 import React from 'react';
-import Router from 'next/router';
-import { connect, ConnectedProps } from 'react-redux';
+import { useNavigate } from '@tanstack/react-router';
+import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
 import { toggleCheckboxFilter, RootState } from '@/store/';
 import { Label, Text } from './FiltersUtils';
 import WineFamilyMultipleSelector from '@/components/Autocomplete/WineFamilyMultipleSelector';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 
-type Props = PropsFromRedux;
+const WineFamiliesFilter: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const wineFamilies = useSelector((state: RootState) => state.search.wineFamilies);
 
-class WineFamiliesFilter extends React.Component<Props> {
-  selectWineFamily = (evt, item) => {
+  const selectWineFamily = (evt, item) => {
     const { id } = item.suggestion.original;
-    const { updateWineFamilies } = this.props;
     const name = 'wineFamilies';
     const value = id.toString();
 
@@ -35,36 +34,20 @@ class WineFamiliesFilter extends React.Component<Props> {
       parsed[name] = [value];
     }
     const url = `/search?${queryString.stringify(parsed)}`;
-    Router.push(url, url, { shallow: true });
+    navigate({ to: url, replace: true });
 
-    updateWineFamilies(id);
+    dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));
   };
 
-  render() {
-    const { wineFamilies } = this.props;
-    return (
-      <Label>
-        <Text>Appelation</Text>
-        <WineFamilyMultipleSelector
-          selectedFamilyIds={wineFamilies}
-          onSuggestionSelected={this.selectWineFamily}
-        />
-      </Label>
-    );
-  }
-}
+  return (
+    <Label>
+      <Text>Appelation</Text>
+      <WineFamilyMultipleSelector
+        selectedFamilyIds={wineFamilies}
+        onSuggestionSelected={selectWineFamily}
+      />
+    </Label>
+  );
+};
 
-const connector = connect(
-  (state: RootState) => ({
-    wineFamilies: state.search.wineFamilies,
-  }),
-  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => ({
-    updateWineFamilies(id: number) {
-      dispatch(toggleCheckboxFilter({ name: 'wineFamilies', value: id }));
-    },
-  })
-);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-export default connector(WineFamiliesFilter);
+export default WineFamiliesFilter;

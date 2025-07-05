@@ -24,7 +24,7 @@ const CellSelector: FC<Props> = ({ boxId, cellId, bottles, className }) => {
         <BoxCells boxId={boxId}>
           {(boxCellId) => {
             const bottle = bottles.find(
-              (bottle) => bottle.cell === boxCellId && bottle.box === boxId
+              (bottle) => bottle.cell === boxCellId && bottle.box === boxId,
             );
             return (
               <ClickHandlerCell
@@ -58,8 +58,12 @@ const connector = connect(
       : [],
   }),
   (dispatch, { boxId }: RawProps) => ({
-    onUnselect: () => dispatch(unselectBox(boxId)),
-  })
+    onUnselect: () => {
+      if (boxId) {
+        dispatch(unselectBox(boxId));
+      }
+    },
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

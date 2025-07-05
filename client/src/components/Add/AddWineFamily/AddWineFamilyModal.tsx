@@ -52,7 +52,9 @@ const AddWineFamilyModal: FC<Props> = ({
     evt.stopPropagation();
     await onSubmit(wineFamily);
     setWineFamily('');
-    inputEl.current.value = '';
+    if (inputEl.current) {
+      inputEl.current.value = '';
+    }
   };
 
   return (
@@ -92,7 +94,7 @@ const connector = connect(
     onSubmit(name) {
       return dispatch(createWineFamily(name));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

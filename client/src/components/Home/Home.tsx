@@ -22,7 +22,7 @@ const Home: FC<Props> = ({ wines, bottles }) => {
   return (
     <div>
       <Title>
-        Bonjour {process.env.GITM_OWNER},
+        Bonjour {import.meta.env.GITM_OWNER},
         {hasWines && (
           <>
             il te reste {wines.length} vin

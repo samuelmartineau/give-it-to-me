@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import withRedux from 'next-redux-wrapper';
 import reducer from './reducer';
 import * as api from '../api';
 
@@ -16,8 +15,6 @@ export const makeStore = (preloadedState?: RootState) => {
     devTools: process.env.NODE_ENV !== 'production',
   });
 };
-
-export const reduxPage = withRedux(makeStore);
 
 export {
   setCellar,
