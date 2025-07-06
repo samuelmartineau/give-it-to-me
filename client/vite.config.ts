@@ -1,8 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
-import commonjs from 'vite-plugin-commonjs'
-import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import commonjs from 'vite-plugin-commonjs';
+import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import path from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
 
@@ -10,6 +10,7 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig(({ mode }) => {
   // Load all env variables from .env files into process.env
   const env = loadEnv(mode, process.cwd(), '');
+  console.log({ env });
 
   const isProduction = mode === 'production';
 
@@ -84,8 +85,8 @@ export default defineConfig(({ mode }) => {
     },
     // Replaces the `env` block in next.config.js
     define: {
-      'process.env.SENTRY_DSN': JSON.stringify(env.SENTRY_DSN),
-      'process.env.GITM_OWNER': JSON.stringify(env.GITM_OWNER),
+      'import.meta.env.SENTRY_DSN': JSON.stringify(env.SENTRY_DSN),
+      'import.meta.env.GITM_OWNER': JSON.stringify(env.GITM_OWNER),
       global: 'globalThis',
     },
   };
