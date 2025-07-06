@@ -1,0 +1,31 @@
+{
+  "name": "give-it-to-me-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bash -c 'source ./../scripts/set_dev.sh && nodemon server.js --watch .'",
+    "start": "node server.js",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@hapi/joi": "17.1.1",
+    "@sentry/node": "^8.7.0",
+    "body-parser": "^1.20.2",
+    "bunyan": "^1.8.15",
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "gm": "1.25.0",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "5.1.7",
+    "sse": "^0.0.8",
+    "url-join": "^5.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.2",
+    "supertest": "^6.3.4"
+  }
+}

@@ -6,7 +6,7 @@ HERE=`pwd`
 
 export GITM_FILE_DIRECTORY=$HERE/e2e/tmp/files
 export GITM_DB_FILE=$HERE/e2e/fake_db.db
-export GITM_PORT=4000
+export GITM_SERVER_PORT=4000
 
 export NODE_ENV=production 
 
@@ -20,8 +20,7 @@ echo "Create empty new DB"
 node scripts/init.js --dbPath=$GITM_DB_FILE
 
 echo "Build the client"
-npm run build:front-server
+npm run build
 
 
-concurrently "serve $GITM_FILE_DIRECTORY -p 3005" "node server/server.js" "next start" &
-
+concurrently "serve $GITM_FILE_DIRECTORY -p 3005" "node server/server.js" "npm run preview" &

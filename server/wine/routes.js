@@ -1,5 +1,5 @@
 const express = require('express');
-const urlJoin = require('url-join');
+const urlJoin = require('url-join').default;
 const asyncHandler = require('express-async-handler');
 
 const config = require('../../config');
