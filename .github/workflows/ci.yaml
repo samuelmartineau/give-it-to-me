@@ -13,12 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install NPM dependencies
-        run: npm install
+      - name: Install NPM scripts dependencies
+        run: npm install --prefix scripts
+
+      - name: Install NPM e2e dependencies
+        run: npm install --prefix e2e
 
       # Runs a single command using the runners shell
       - name: Run the app
-        run: npm run start:e2e
+        run: npm run start --prefix e2e
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -42,10 +45,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
-        run: npm install
+        run: npm install --prefix server
 
       - name: Run the linter
-        run: npm run lint:server
+        run: npm run lint --prefix server
   client-linter:
     runs-on: ubuntu-latest
 
@@ -53,7 +56,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
-        run: npm install
+        run: npm install --prefix client
 
       - name: Run the linter
-        run: npm run lint:client
+        run: npm run lint --prefix client

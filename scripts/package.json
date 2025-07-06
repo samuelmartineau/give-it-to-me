@@ -1,0 +1,12 @@
+{
+  "name": "give-it-to-me-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "minimist": "^1.2.8",
+    "sqlite3": "5.1.7"
+  },
+  "license": "MIT",
+  "author": "<martineau.samuel.1990@gmail.com>"
+}
