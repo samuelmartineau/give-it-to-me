@@ -1,7 +1,6 @@
 import multer from 'multer';
 import path from 'path';
 import express from 'express';
-import asyncHandler from 'express-async-handler';
 
 import logger from '../utils/logger.js';
 import config from '../../config/index.js';
@@ -27,9 +26,9 @@ function picturesRoutes(SERVER_VARIABLES) {
   const { generateThumbnail, generateBlur } =
     picturesServices(SERVER_VARIABLES);
 
-  router.route(config.ROUTES.PICTURE).post(
-    upload.single(config.PICTURE_UPLOAD.FILE_NAME),
-    asyncHandler(async (req, res) => {
+  router
+    .route(config.ROUTES.PICTURE)
+    .post(upload.single(config.PICTURE_UPLOAD.FILE_NAME), async (req, res) => {
       try {
         const fileExtension = path.extname(req.file.originalname);
         const thumbnail = await generateThumbnail(req.file.path, fileExtension);
@@ -48,8 +47,7 @@ function picturesRoutes(SERVER_VARIABLES) {
         logger.error('error during picture processing', error);
         res.status(500).json({ error });
       }
-    }),
-  );
+    });
 
   return router;
 }

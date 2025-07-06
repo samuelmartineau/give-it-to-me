@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import commonjs from 'vite-plugin-commonjs';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
-import path from 'node:path';
+import path from 'path';
 import { fileURLToPath } from 'node:url';
 
 // https://vitejs.dev/config/

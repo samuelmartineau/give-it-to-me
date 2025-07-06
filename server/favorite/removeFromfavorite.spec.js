@@ -1,5 +1,6 @@
 import express from 'express';
 import request from 'supertest';
+import { beforeAll, describe, expect, it, jest } from '@jest/globals';
 
 import app from '../app.js';
 import { getFreshDB } from '../tests/utils.js';
@@ -91,8 +92,6 @@ describe('Remove from Favorite suite test', () => {
 
     expect(status).toEqual(200);
     expect(body).toEqual({ message: 'Vin supprimé avec succés des favoris' });
-    setTimeout(() => {
-      expect(updateClients).toHaveBeenCalled();
-    }, 0);
+    expect(updateClients).toHaveBeenCalled();
   });
 });

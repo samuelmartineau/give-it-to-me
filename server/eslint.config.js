@@ -10,8 +10,6 @@ export default [
         console: 'readonly',
         process: 'readonly',
         Buffer: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
         global: 'readonly',
         module: 'readonly',
         require: 'readonly',
@@ -45,18 +43,5 @@ export default [
   },
   {
     files: ['**/*.test.js', '**/*.spec.js'],
-    languageOptions: {
-      globals: {
-        describe: 'readonly',
-        it: 'readonly',
-        test: 'readonly',
-        expect: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        beforeAll: 'readonly',
-        afterAll: 'readonly',
-        jest: 'readonly',
-      },
-    },
   },
 ];

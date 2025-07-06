@@ -1,25 +1,24 @@
 import urlJoin from 'url-join';
 import express from 'express';
 import Joi from '@hapi/joi';
-import asyncHandler from 'express-async-handler';
 
 import config from '../../config/index.js';
 import { bottleServices } from './services.js';
 import logger from '../utils/logger.js';
 import { validateParams } from '../middlewares/validateParams.js';
 
-const router = express.Router();
-
 const RemoveSchema = Joi.object({
   bottleIds: Joi.array().items(Joi.number()).min(1).required(),
 });
 
 function bottleRoutes(db, updateClients) {
+  const router = express.Router();
+
   const { removeBottles, getBottlesByIds } = bottleServices(db);
 
-  router.route(urlJoin(config.ROUTES.BOTTLE)).delete(
-    validateParams(RemoveSchema, 'body'),
-    asyncHandler(async (req, res) => {
+  router
+    .route(urlJoin(config.ROUTES.BOTTLE))
+    .delete(validateParams(RemoveSchema, 'body'), async (req, res) => {
       const { bottleIds } = req.body;
 
       try {
@@ -36,8 +35,7 @@ function bottleRoutes(db, updateClients) {
         logger.error('error', error.stack);
         res.status(500).json(error);
       }
-    }),
-  );
+    });
 
   return router;
 }
