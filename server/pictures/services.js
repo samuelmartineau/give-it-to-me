@@ -81,13 +81,6 @@ const moveWineToPermanentFolder =
     const newFileName = [uuidv4(), fileExtension].join('');
     const permPictureFileNamePath = path.resolve(context.PERM_DIR, newFileName);
 
-    console.log({
-      tempThumbnailFileNamePath,
-      permThumbnailFileNamePath,
-      tempPictureFileNamePath,
-      permPictureFileNamePath,
-    });
-
     const promises = [
       fs.rename(tempThumbnailFileNamePath, permThumbnailFileNamePath),
       fs.rename(tempPictureFileNamePath, permPictureFileNamePath),

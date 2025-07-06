@@ -13,6 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install NPM client dependencies
+        run: npm install --prefix client
+
+      - name: Install NPM server dependencies
+        run: npm install --prefix server
+
       - name: Install NPM scripts dependencies
         run: npm install --prefix scripts
 
@@ -34,10 +40,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install NPM dependencies
-        run: npm install
+        run: npm install --prefix server
 
       - name: Run the tests
-        run: npm run test:server
+        run: npm run test --prefix server
   server-linter:
     runs-on: ubuntu-latest
 

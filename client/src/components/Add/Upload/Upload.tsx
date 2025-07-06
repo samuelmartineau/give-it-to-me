@@ -24,7 +24,7 @@ export const Upload: FC<Props> = ({ onDrop }) => {
     <div>
       <p>Cliquez sur le bouton pour prendre la photo</p>
       <div {...getRootProps()}>
-        <input {...getInputProps()} />
+        <input {...getInputProps()} name="picture" />
         <Button type="button">
           <AddAPhotoIcon />
         </Button>

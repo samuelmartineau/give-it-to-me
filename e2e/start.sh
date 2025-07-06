@@ -5,6 +5,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 export GITM_FILE_DIRECTORY=$SCRIPT_DIR/tmp/files
+export GITM_CLIENT_DIRECTORY=$SCRIPT_DIR/../client/dist
 export GITM_DB_FILE=$SCRIPT_DIR/fake_db.db
 export GITM_SERVER_PORT=4000
 
@@ -22,5 +23,4 @@ echo "Create empty new DB"
 node ./scripts/init.js --dbPath=$GITM_DB_FILE
 
 echo "Build the client"
-npm run build --prefix client
-concurrently "serve $GITM_FILE_DIRECTORY -p 3005" "node server/server.js" &
+concurrently "npm run dev --prefix client " "serve -p 3005 $GITM_FILE_DIRECTORY" "node server/server.js" &
