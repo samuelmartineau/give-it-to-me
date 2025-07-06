@@ -1,11 +1,11 @@
-const cellar = require('./cellar');
-const wineTypes = require('./wineTypes');
-const bottleTypes = require('./bottleTypes');
-const utils = require('./utils');
+import cellar from './cellar.js';
+import wineTypes from './wineTypes.js';
+import bottleTypes from './bottleTypes.js';
+import utils from './utils.js';
 
 const UNIVERSAL_API_URL = '';
 
-module.exports = Object.freeze({
+export default Object.freeze({
   DB: {
     timeout: 5,
     tables: {

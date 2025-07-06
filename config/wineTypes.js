@@ -51,7 +51,7 @@ const WINE_CATEGORIES = Object.freeze({
   },
 });
 
-module.exports = Object.freeze({
+export default Object.freeze({
   WINE_TYPES,
   WINE_CATEGORIES,
 });

@@ -21,6 +21,6 @@ const BOTTLE_TYPES = {
   },
 };
 
-module.exports = Object.freeze({
+export default Object.freeze({
   BOTTLE_TYPES,
 });

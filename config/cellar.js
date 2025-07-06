@@ -515,7 +515,7 @@ const CELLAR_SCHEMA = [
   ),
 ];
 
-module.exports = Object.freeze({
+export default Object.freeze({
   CELLAR_SCHEMA,
   BOX_COLOR,
   BOX_BORDER_SIZE,

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   cleanString: (str) => {
     let s = str.toLowerCase();
     if (s.normalize !== undefined) {
