@@ -25,6 +25,12 @@ jobs:
       - name: Install NPM e2e dependencies
         run: npm install --prefix e2e
 
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          sudo apt-get install -y graphicsmagick
+
       # Runs a single command using the runners shell
       - name: Run the app
         run: npm run start --prefix e2e
