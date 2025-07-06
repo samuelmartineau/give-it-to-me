@@ -52,6 +52,4 @@ function enhanceDB(db) {
   return db;
 }
 
-module.exports = {
-  enhanceDB,
-};
+export { enhanceDB };

@@ -1,10 +1,11 @@
-const { subClass } = require('gm');
-const { v4: uuidv4 } = require('uuid');
-const path = require('path');
-const { promises: fs } = require('fs');
+import gmPkg from 'gm';
+const { subClass } = gmPkg;
+import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
+import { promises as fs } from 'fs';
 
-const config = require('../../config');
-const logger = require('../utils/logger');
+import config from '../../config/index.js';
+import logger from '../utils/logger.js';
 
 const gm = subClass({ imageMagick: true });
 
@@ -102,26 +103,24 @@ const moveWineToPermanentFolder =
       });
   };
 
-module.exports = {
-  picturesServices: (SERVER_VARIABLES) => {
-    const TEMP_DIR = path.join(
-      SERVER_VARIABLES.FILE_DIRECTORY,
-      config.UPLOADS_TMP_FOLDER
-    );
-    const PERM_DIR = path.join(
-      SERVER_VARIABLES.FILE_DIRECTORY,
-      config.UPLOADS_PERM_FOLDER
-    );
+export const picturesServices = (SERVER_VARIABLES) => {
+  const TEMP_DIR = path.join(
+    SERVER_VARIABLES.FILE_DIRECTORY,
+    config.UPLOADS_TMP_FOLDER
+  );
+  const PERM_DIR = path.join(
+    SERVER_VARIABLES.FILE_DIRECTORY,
+    config.UPLOADS_PERM_FOLDER
+  );
 
-    const context = {
-      TEMP_DIR,
-      PERM_DIR,
-    };
+  const context = {
+    TEMP_DIR,
+    PERM_DIR,
+  };
 
-    return {
-      generateThumbnail: generateThumbnail(context),
-      moveWineToPermanentFolder: moveWineToPermanentFolder(context),
-      generateBlur,
-    };
-  },
+  return {
+    generateThumbnail: generateThumbnail(context),
+    moveWineToPermanentFolder: moveWineToPermanentFolder(context),
+    generateBlur,
+  };
 };

@@ -13,4 +13,4 @@ const validateParams = (schema, property) => {
     }
   };
 };
-module.exports = { validateParams };
+export { validateParams };

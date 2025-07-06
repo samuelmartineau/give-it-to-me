@@ -26,9 +26,7 @@ const createWineFamily = (db) => async (name) => {
   return wineFamily;
 };
 
-module.exports = {
-  wineFamilyServices: (db) => ({
-    getWineFamilies: getWineFamilies(db),
-    createWineFamily: createWineFamily(db),
-  }),
-};
+export const wineFamilyServices = (db) => ({
+  getWineFamilies: getWineFamilies(db),
+  createWineFamily: createWineFamily(db),
+});

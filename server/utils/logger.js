@@ -1,5 +1,5 @@
-const bunyan = require('bunyan');
-const config = require('../../config');
+import bunyan from 'bunyan';
+import config from '../../config/index.js';
 
 const logger = bunyan.createLogger({
   name: 'give-it-to-me',
@@ -15,4 +15,4 @@ const logger = bunyan.createLogger({
   ],
 });
 
-module.exports = logger;
+export default logger;

@@ -1,11 +1,11 @@
-const express = require('express');
-const Joi = require('@hapi/joi');
-const asyncHandler = require('express-async-handler');
+import express from 'express';
+import Joi from '@hapi/joi';
+import asyncHandler from 'express-async-handler';
 
-const config = require('../../config');
-const { wineFamilyServices } = require('./services');
-const logger = require('../utils/logger');
-const { validateParams } = require('../middlewares/validateParams');
+import config from '../../config/index.js';
+import { wineFamilyServices } from './services.js';
+import logger from '../utils/logger.js';
+import { validateParams } from '../middlewares/validateParams.js';
 
 const router = express.Router();
 
@@ -42,4 +42,4 @@ function wineFamilyRoutes(db) {
   return router;
 }
 
-module.exports = wineFamilyRoutes;
+export default wineFamilyRoutes;

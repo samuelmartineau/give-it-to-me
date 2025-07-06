@@ -1,5 +1,5 @@
-const path = require('path');
-const config = require('../../config');
+import path from 'path';
+import config from '../../config/index.js';
 
 function enhanceWine(wine) {
   wine.bottles = JSON.parse(wine.bottles);
@@ -132,11 +132,9 @@ const removeOutsideBottles = (db) => (wineId, count) => {
   );
 };
 
-module.exports = {
-  wineServices: (db) => ({
-    getCellar: getCellar(db),
-    addWine: addWine(db),
-    removeOutsideBottles: removeOutsideBottles(db),
-    getWineById: getWineById(db),
-  }),
-};
+export const wineServices = (db) => ({
+  getCellar: getCellar(db),
+  addWine: addWine(db),
+  removeOutsideBottles: removeOutsideBottles(db),
+  getWineById: getWineById(db),
+});

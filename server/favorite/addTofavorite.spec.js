@@ -1,10 +1,10 @@
-const express = require('express');
-const request = require('supertest');
+import express from 'express';
+import request from 'supertest';
 
-const app = require('../app');
-const { getFreshDB } = require('../tests/utils');
-const { wineServices } = require('../wine/services');
-const { wineFamilyServices } = require('../wineFamily/services');
+import app from '../app.js';
+import { getFreshDB } from '../tests/utils.js';
+import { wineServices } from '../wine/services.js';
+import { wineFamilyServices } from '../wineFamily/services.js';
 
 const context = {
   FILE_DIRECTORY: './',

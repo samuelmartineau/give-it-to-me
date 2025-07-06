@@ -1,11 +1,11 @@
-const multer = require('multer');
-const path = require('path');
-const express = require('express');
-const asyncHandler = require('express-async-handler');
+import multer from 'multer';
+import path from 'path';
+import express from 'express';
+import asyncHandler from 'express-async-handler';
 
-const logger = require('../utils/logger');
-const config = require('../../config');
-const { picturesServices } = require('./services');
+import logger from '../utils/logger.js';
+import config from '../../config/index.js';
+import { picturesServices } from './services.js';
 
 const router = express.Router();
 
@@ -24,9 +24,8 @@ function picturesRoutes(SERVER_VARIABLES) {
 
   const upload = multer({ storage });
 
-  const { generateThumbnail, generateBlur } = picturesServices(
-    SERVER_VARIABLES
-  );
+  const { generateThumbnail, generateBlur } =
+    picturesServices(SERVER_VARIABLES);
 
   router.route(config.ROUTES.PICTURE).post(
     upload.single(config.PICTURE_UPLOAD.FILE_NAME),
@@ -56,4 +55,4 @@ function picturesRoutes(SERVER_VARIABLES) {
   return router;
 }
 
-module.exports = picturesRoutes;
+export default picturesRoutes;

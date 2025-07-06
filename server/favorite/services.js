@@ -23,9 +23,7 @@ const removeFromFavorite = (db) => (wineId) => {
   );
 };
 
-module.exports = {
-  favoriteServices: (db) => ({
-    addToFavorite: addToFavorite(db),
-    removeFromFavorite: removeFromFavorite(db),
-  }),
-};
+export const favoriteServices = (db) => ({
+  addToFavorite: addToFavorite(db),
+  removeFromFavorite: removeFromFavorite(db),
+});

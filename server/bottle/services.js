@@ -22,9 +22,7 @@ const removeBottles = (db) => (bottleIds) => {
   );
 };
 
-module.exports = {
-  bottleServices: (db) => ({
-    getBottlesByIds: getBottlesByIds(db),
-    removeBottles: removeBottles(db),
-  }),
-};
+export const bottleServices = (db) => ({
+  getBottlesByIds: getBottlesByIds(db),
+  removeBottles: removeBottles(db),
+});

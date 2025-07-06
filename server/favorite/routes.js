@@ -1,13 +1,13 @@
-const Joi = require('@hapi/joi');
-const urlJoin = require('url-join').default;
-const express = require('express');
-const asyncHandler = require('express-async-handler');
+import Joi from '@hapi/joi';
+import urlJoin from 'url-join';
+import express from 'express';
+import asyncHandler from 'express-async-handler';
 
-const logger = require('../utils/logger');
-const config = require('../../config');
-const { favoriteServices } = require('./services');
-const { wineServices } = require('../wine/services');
-const { validateParams } = require('../middlewares/validateParams');
+import logger from '../utils/logger.js';
+import config from '../../config/index.js';
+import { favoriteServices } from './services.js';
+import { wineServices } from '../wine/services.js';
+import { validateParams } from '../middlewares/validateParams.js';
 
 const router = express.Router();
 
@@ -70,4 +70,4 @@ function favoriteRoutes(db, updateClients) {
   return router;
 }
 
-module.exports = favoriteRoutes;
+export default favoriteRoutes;

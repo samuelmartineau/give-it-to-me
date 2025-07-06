@@ -1,15 +1,15 @@
-const express = require('express');
-const compression = require('compression');
-const config = require('../config');
-const { createServer } = require('http');
-const Sentry = require('@sentry/node');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import compression from 'compression';
+import config from '../config/index.js';
+import { createServer } from 'http';
+import * as Sentry from '@sentry/node';
+import fs from 'fs';
+import path from 'path';
 
-const logger = require('./utils/logger');
-const { getDB } = require('./utils/db');
-const app = require('./app');
-const { updateDispatcher } = require('./updateDispatcher');
+import logger from './utils/logger.js';
+import { getDB } from './utils/db.js';
+import app from './app.js';
+import { updateDispatcher } from './updateDispatcher.js';
 const PORT = process.env.GITM_SERVER_PORT || 3000;
 
 const SERVER_VARIABLES = {

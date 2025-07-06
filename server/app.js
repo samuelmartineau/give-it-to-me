@@ -1,14 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const wineRoutes = require('./wine/routes');
-const wineFamilyRoutes = require('./wineFamily/routes');
-const favoriteRoutes = require('./favorite/routes');
-const pictureRoutes = require('./pictures/routes');
-const bottleRoutes = require('./bottle/routes');
-const config = require('../config');
+import wineRoutes from './wine/routes.js';
+import wineFamilyRoutes from './wineFamily/routes.js';
+import favoriteRoutes from './favorite/routes.js';
+import pictureRoutes from './pictures/routes.js';
+import bottleRoutes from './bottle/routes.js';
+import config from '../config/index.js';
 
-module.exports = (app, db, updateClients, SERVER_VARIABLES) => {
+export default (app, db, updateClients, SERVER_VARIABLES) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 

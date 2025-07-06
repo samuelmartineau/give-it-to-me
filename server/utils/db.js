@@ -1,10 +1,11 @@
-const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
+import path from 'path';
+import sqlite3 from 'sqlite3';
 
-const { enhanceDB } = require('./enhanceDB');
+import { enhanceDB } from './enhanceDB.js';
 
 function getDB({ filename, showLogs }) {
-  const db = new sqlite3.Database(path.resolve(filename));
+  const client = sqlite3.verbose();
+  const db = new client.Database(path.resolve(filename));
 
   if (showLogs) {
     db.on('trace', (message) => {
@@ -15,6 +16,4 @@ function getDB({ filename, showLogs }) {
   return enhanceDB(db);
 }
 
-module.exports = {
-  getDB,
-};
+export { getDB };

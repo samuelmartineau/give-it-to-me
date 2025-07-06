@@ -1,7 +1,7 @@
-const SSE = require('sse');
+import SSE from 'sse';
 
-const logger = require('./utils/logger');
-const { wineServices } = require('./wine/services');
+import logger from './utils/logger.js';
+import { wineServices } from './wine/services.js';
 
 function updateDispatcher(serverHttp, db) {
   const sse = new SSE(serverHttp);
@@ -28,6 +28,4 @@ function updateDispatcher(serverHttp, db) {
   return { updateClients };
 }
 
-module.exports = {
-  updateDispatcher,
-};
+export { updateDispatcher };

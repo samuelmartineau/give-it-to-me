@@ -1,11 +1,11 @@
-const express = require('express');
-const urlJoin = require('url-join').default;
-const asyncHandler = require('express-async-handler');
+import express from 'express';
+import urlJoin from 'url-join';
+import asyncHandler from 'express-async-handler';
 
-const config = require('../../config');
-const { wineServices } = require('./services');
-const { picturesServices } = require('../pictures/services');
-const logger = require('../utils/logger');
+import config from '../../config/index.js';
+import { wineServices } from './services.js';
+import { picturesServices } from '../pictures/services.js';
+import logger from '../utils/logger.js';
 
 const router = express.Router();
 
@@ -62,4 +62,4 @@ function wineRoutes(db, updateClients, SERVER_VARIABLES) {
   return router;
 }
 
-module.exports = wineRoutes;
+export default wineRoutes;
