@@ -1,4 +1,3 @@
-import commonjs from 'vite-plugin-commonjs';
 import { ModelType, SelectedCellsType } from './adding.reducer';
 
 const requiredKeys = [

@@ -49,7 +49,7 @@ const Cell: FC<Props> = ({ hasBottle, bottleColor, boxId, cellId }) => {
 
 const connector = connect((state: RootState, { boxId, cellId }: RawProps) => {
   const bottle = getBottleByPosition(state, boxId, cellId);
-  if (!!bottle) {
+  if (bottle) {
     return {
       hasBottle: true as const,
       bottleColor: bottle.color,

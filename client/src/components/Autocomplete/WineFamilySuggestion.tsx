@@ -25,10 +25,6 @@ export class WineFamilySuggestion extends React.Component<Props> {
     onSuggestionSelected(evt, item);
   };
 
-  formatDisplay = (item: FilterResult<SearchableWineFamily>) => {
-    return item.original.searchKey;
-  };
-
   extract = (item: SearchableWineFamily) => {
     return item.searchKey;
   };
@@ -39,7 +35,6 @@ export class WineFamilySuggestion extends React.Component<Props> {
     return (
       <AutoComplete<SearchableWineFamily>
         name="wineFamily"
-        formatDisplay={this.formatDisplay}
         datas={wineFamilies}
         extract={this.extract}
         onSuggestionSelected={this.onSelect}

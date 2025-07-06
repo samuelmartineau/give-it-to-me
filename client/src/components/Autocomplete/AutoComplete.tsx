@@ -84,7 +84,6 @@ function getSuggestionValue() {
 type Props<T> = {
   name: string;
   datas: T[];
-  formatDisplay: (item: FilterResult<T>) => string;
   extract: (item: T) => string;
   onSuggestionSelected: (evt: Event, data: FilterResult<T>) => void;
   placeholder: string;
@@ -110,7 +109,7 @@ export class AutoComplete<T> extends React.Component<Props<T>, State<T>> {
   }
 
   loadSuggestions = (value) => {
-    const { datas, formatDisplay, extract } = this.props;
+    const { datas, extract } = this.props;
     const inputValue = config.utils.cleanString(value);
     const inputLength = inputValue.length;
     const suggestions =

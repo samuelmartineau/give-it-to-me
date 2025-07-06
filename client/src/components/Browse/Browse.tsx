@@ -10,9 +10,12 @@ const Container = styled.div`
 `;
 
 const Actions = styled.div`
+  margin-top: 8px;
   display: flex;
+  justify-content: space-between;
   ${(props) => props.theme.media.handheld`
   flex-direction: column;
+  align-self: center; 
 `};
 `;
 

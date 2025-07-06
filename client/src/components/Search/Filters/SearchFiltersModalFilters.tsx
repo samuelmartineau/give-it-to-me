@@ -10,6 +10,8 @@ import {
   RootState,
 } from '@/store/';
 import config from '~/config';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
 import { Checkbox, TextField, CheckboxProps } from '@/components/Toolkit';
@@ -75,7 +77,7 @@ const SearchFiltersModalFilters: React.FC = () => {
     const urlValue = searchParams[keyName];
     let nextUrlValue: string[] = [];
 
-    if (!!urlValue) {
+    if (urlValue) {
       let previousFilters: string[] = [...urlValue];
       const alreadySelected = previousFilters.includes(data.value);
       if (alreadySelected) {

@@ -103,7 +103,7 @@ export const isBoxBrowseable = (state: RootState, boxId: number) => {
 
 export const getBrowsedWine = (state: RootState) => {
   const { boxId, cellId } = state.browse;
-  if (!boxId || !cellId) return null;
+  if (boxId === undefined || cellId === undefined) return null;
   const bottle = getBottleByPosition(state, boxId, cellId);
   return bottle && getWineById(state, bottle.wine_id);
 };

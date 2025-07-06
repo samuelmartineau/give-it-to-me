@@ -10,7 +10,6 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig(({ mode }) => {
   // Load all env variables from .env files into process.env
   const env = loadEnv(mode, process.cwd(), '');
-  console.log({ env });
 
   const isProduction = mode === 'production';
 

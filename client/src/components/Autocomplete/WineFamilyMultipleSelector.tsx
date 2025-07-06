@@ -4,7 +4,6 @@ import {
   WineFamilySuggestion,
 } from './WineFamilySuggestion';
 import WineFamilyFormater from './WineFamilyFormater';
-import { FilterResult } from 'fuzzy';
 
 type Props = {
   selectedFamilyIds: Array<any>;

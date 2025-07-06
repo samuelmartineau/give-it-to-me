@@ -4,10 +4,10 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button } from '@/components/Toolkit';
 
 type Props = {
-  onDrop: <T extends File>(
+  onDrop: (
     acceptedFiles: File[],
     fileRejections: FileRejection[],
-    event: DropEvent
+    event: DropEvent,
   ) => void;
 };
 

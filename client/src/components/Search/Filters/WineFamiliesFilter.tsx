@@ -4,11 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleCheckboxFilter, RootState } from '@/store/';
 import { Label, Text } from './FiltersUtils';
 import WineFamilyMultipleSelector from '@/components/Autocomplete/WineFamilyMultipleSelector';
-import { FilterResult } from 'fuzzy';
-import {
-  OnSuggestionSelectedData,
-  SearchableWineFamily,
-} from '@/components/Autocomplete/WineFamilySuggestion';
+import { OnSuggestionSelectedData } from '@/components/Autocomplete/WineFamilySuggestion';
 import { SearchParams } from '@/routes/search';
 
 const WineFamiliesFilter: React.FC = () => {

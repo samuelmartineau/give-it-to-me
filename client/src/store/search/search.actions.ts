@@ -7,6 +7,8 @@ import {
   TOGGLE_OUTSIDE_BOXES_FILTER,
 } from './search.types';
 import config from '~/config';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
 type FilterType =

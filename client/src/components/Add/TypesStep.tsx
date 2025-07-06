@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import config from '~/config';
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { BOTTLE_TYPES } = config.bottleTypes;
 import { updateModel, RootState } from '@/store/';
 import { Radio } from '@/components/Toolkit';
@@ -94,7 +95,7 @@ const connector = connect(
           };
       dispatch(updateModel(data));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

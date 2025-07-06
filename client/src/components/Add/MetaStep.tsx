@@ -5,11 +5,7 @@ import WineFamilySingleSelector from '@/components/Autocomplete/WineFamilySingle
 import { TextField } from '@/components/Toolkit';
 import { AddWineFamilyButton } from './AddWineFamily/AddWineFamilyButton';
 import { updateModel, RootState } from '@/store/';
-import { FilterResult } from 'fuzzy';
-import {
-  OnSuggestionSelectedData,
-  SearchableWineFamily,
-} from '../Autocomplete/WineFamilySuggestion';
+import { OnSuggestionSelectedData } from '../Autocomplete/WineFamilySuggestion';
 
 const Label = styled.label`
   display: block;

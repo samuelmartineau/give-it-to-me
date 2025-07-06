@@ -11,7 +11,9 @@ import {
   RESET_ADD_WINE,
 } from './adding.types';
 import { AddingActions } from './adding.actions';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { BOTTLE_TYPES } = config.bottleTypes;
 
 const defaultSelectedTypes = {

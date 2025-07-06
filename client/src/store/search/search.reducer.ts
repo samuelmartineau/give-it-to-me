@@ -9,6 +9,7 @@ import {
 import { SearchActions } from './search.actions';
 import config from '~/config';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 
 const hitsByPage = 10;

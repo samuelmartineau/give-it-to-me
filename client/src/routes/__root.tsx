@@ -1,11 +1,10 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../components/Toolkit/theme';
 import ServerSentEventDispatcher from '../store/ServerSentEventDispatcher';
 import * as Sentry from '@sentry/react';
-import { store, getCellar, getWineFamilies } from '@/store';
 
 // Initialize Sentry
 Sentry.init({

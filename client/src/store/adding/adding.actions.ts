@@ -8,7 +8,10 @@ import {
 } from './adding.types';
 import config from '~/config';
 import { ModelType } from './adding.reducer';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { BOTTLE_TYPES } = config.bottleTypes;
 
 export const selectBox = (boxId: number, cellId: number) =>
