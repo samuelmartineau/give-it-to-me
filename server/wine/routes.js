@@ -23,15 +23,15 @@ function wineRoutes(db, updateClients, SERVER_VARIABLES) {
           logger.error(error.stack);
           res.status(500).json(error);
         }
-      })
+      }),
     )
     .post(
       asyncHandler(async (req, res) => {
         const fileUploaded = await moveWineToPermanentFolder(
           req.body.wine.thumbnailFileName,
-          req.body.wine.pictureFileName
+          req.body.wine.pictureFileName,
         );
-        let computeWineData = {
+        const computeWineData = {
           ...req.body.wine,
           ...fileUploaded,
         };
@@ -43,7 +43,7 @@ function wineRoutes(db, updateClients, SERVER_VARIABLES) {
           logger.error(error.stack);
           res.status(500).json({ message: 'Error adding bottles' });
         }
-      })
+      }),
     );
 
   router.route(urlJoin(config.ROUTES.WINE, ':wineId')).delete(
@@ -57,7 +57,7 @@ function wineRoutes(db, updateClients, SERVER_VARIABLES) {
         logger.error(error.stack);
         res.status(500).json(error);
       }
-    })
+    }),
   );
   return router;
 }

@@ -2,7 +2,7 @@ const getWineFamilies = (db) => () => {
   return db.allAsync(
     `
     SELECT * FROM wineFamilies;
-  `
+  `,
   );
 };
 
@@ -14,14 +14,14 @@ const createWineFamily = (db) => async (name) => {
   `,
     {
       $name: name,
-    }
+    },
   );
 
   const wineFamily = await db.getAsync(
     `
     SELECT * from wineFamilies WHERE id = (?);
   `,
-    id
+    id,
   );
   return wineFamily;
 };

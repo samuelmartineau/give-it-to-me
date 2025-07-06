@@ -25,7 +25,7 @@ function wineFamilyRoutes(db) {
         logger.error('error during picture processing', error);
         res.status(500).json(error);
       }
-    })
+    }),
   );
 
   router.route(config.ROUTES.WINE_FAMILY).post(
@@ -37,7 +37,7 @@ function wineFamilyRoutes(db) {
       } catch (error) {
         res.status(500).json(error);
       }
-    })
+    }),
   );
   return router;
 }

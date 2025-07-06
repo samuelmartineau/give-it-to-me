@@ -5,7 +5,7 @@ import { enhanceDB } from '../utils/enhanceDB.js';
 
 const databaseScript = fs.readFileSync(
   path.resolve(__dirname, '../../data/database.sql'),
-  'utf8'
+  'utf8',
 );
 
 async function getFreshDB() {
@@ -15,6 +15,4 @@ async function getFreshDB() {
   return enhancedDB;
 }
 
-export {
-  getFreshDB,
-};
+export { getFreshDB };

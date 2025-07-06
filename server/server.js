@@ -23,7 +23,7 @@ const db = getDB({
 
 const permFolderPath = path.join(
   SERVER_VARIABLES.FILE_DIRECTORY,
-  config.UPLOADS_PERM_FOLDER
+  config.UPLOADS_PERM_FOLDER,
 );
 
 if (!fs.existsSync(permFolderPath)) {

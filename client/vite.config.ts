@@ -4,7 +4,7 @@ import { sentryVitePlugin } from '@sentry/vite-plugin';
 import commonjs from 'vite-plugin-commonjs';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import path from 'node:path';
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {

@@ -6,7 +6,7 @@ const getBottlesByIds = (db) => (bottleIds) => {
   WHERE
     id IN (${bottleIds.map(() => '?')})
   `,
-    bottleIds
+    bottleIds,
   );
 };
 
@@ -18,7 +18,7 @@ const removeBottles = (db) => (bottleIds) => {
   WHERE
     id IN (${bottleIds.map(() => '?')})
   `,
-    bottleIds
+    bottleIds,
   );
 };
 

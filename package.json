@@ -2,6 +2,7 @@
   "name": "give-it-to-me",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev:cdn": "serve files -p 3005",
     "dev": "concurrently \"npm:dev:server\" \"npm:dev:cdn\" \"npm:dev:client\"",

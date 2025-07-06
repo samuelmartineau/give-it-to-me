@@ -8,7 +8,7 @@ const addToFavorite = (db) => (wineId) => {
     '0'
       )
   `,
-    { $wineId: wineId }
+    { $wineId: wineId },
   );
 };
 
@@ -19,7 +19,7 @@ const removeFromFavorite = (db) => (wineId) => {
     SET _deleted = 1
     WHERE wineId = (?)
     `,
-    wineId
+    wineId,
   );
 };
 

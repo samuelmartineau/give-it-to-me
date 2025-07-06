@@ -36,7 +36,7 @@ function bottleRoutes(db, updateClients) {
         logger.error('error', error.stack);
         res.status(500).json(error);
       }
-    })
+    }),
   );
 
   return router;

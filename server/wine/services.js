@@ -6,12 +6,12 @@ function enhanceWine(wine) {
   wine.thumbnailFileName = path.join(
     config.FILE_URL_PATH,
     config.UPLOADS_PERM_FOLDER,
-    wine.thumbnailFileName
+    wine.thumbnailFileName,
   );
   wine.pictureFileName = path.join(
     config.FILE_URL_PATH,
     config.UPLOADS_PERM_FOLDER,
-    wine.pictureFileName
+    wine.pictureFileName,
   );
 }
 
@@ -32,7 +32,7 @@ SELECT w.*,
   LEFT JOIN favorites AS f ON w.id = f.wineId
   WHERE w.bottlesCount > 0 AND w.id = (?)
 `,
-    id
+    id,
   );
 };
 
@@ -94,7 +94,7 @@ const addWine = (db) => async (wine) => {
       $bottlesCount: wine.isInBoxes ? wine.bottles.length : wine.count,
       $source: wine.source,
       $positionComment: wine.positionComment,
-    }
+    },
   );
 
   if (wine.isInBoxes) {
@@ -105,7 +105,7 @@ const addWine = (db) => async (wine) => {
           $wineId: wineId,
           $box: bottle.box,
           $cell: bottle.cell,
-        }
+        },
       );
     });
 
@@ -128,7 +128,7 @@ const removeOutsideBottles = (db) => (wineId, count) => {
     {
       $wineId: wineId,
       $count: count,
-    }
+    },
   );
 };
 

@@ -42,7 +42,7 @@ function favoriteRoutes(db, updateClients) {
         logger.error(error.stack);
         res.status(500).json(error);
       }
-    })
+    }),
   );
 
   router.route(urlJoin(config.ROUTES.FAVORITE, ':wineId')).delete(
@@ -65,7 +65,7 @@ function favoriteRoutes(db, updateClients) {
         logger.error(error.stack);
         res.status(500).json(error);
       }
-    })
+    }),
   );
   return router;
 }

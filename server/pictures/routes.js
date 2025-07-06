@@ -12,12 +12,12 @@ const router = express.Router();
 function picturesRoutes(SERVER_VARIABLES) {
   const pathToTmpAssets = path.join(
     SERVER_VARIABLES.FILE_DIRECTORY,
-    config.UPLOADS_TMP_FOLDER
+    config.UPLOADS_TMP_FOLDER,
   );
 
   const storage = multer.diskStorage({
     destination: pathToTmpAssets,
-    filename: function (req, file, cb) {
+    filename: function filename(req, file, cb) {
       cb(null, file.originalname);
     },
   });
@@ -31,14 +31,13 @@ function picturesRoutes(SERVER_VARIABLES) {
     upload.single(config.PICTURE_UPLOAD.FILE_NAME),
     asyncHandler(async (req, res) => {
       try {
-        let thumbnailFile;
         const fileExtension = path.extname(req.file.originalname);
         const thumbnail = await generateThumbnail(req.file.path, fileExtension);
-        thumbnailFile = thumbnail.name;
+        const thumbnailFile = thumbnail.name;
         const blur = await generateBlur(thumbnail.path);
         const temporyFolder = path.join(
           config.FILE_URL_PATH,
-          config.UPLOADS_TMP_FOLDER
+          config.UPLOADS_TMP_FOLDER,
         );
         res.json({
           thumbnailFileName: path.join(temporyFolder, thumbnailFile),
@@ -47,9 +46,9 @@ function picturesRoutes(SERVER_VARIABLES) {
         });
       } catch (error) {
         logger.error('error during picture processing', error);
-        res.status(500).json({ error: error });
+        res.status(500).json({ error });
       }
-    })
+    }),
   );
 
   return router;
