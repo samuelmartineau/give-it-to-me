@@ -22,13 +22,13 @@ const Home: FC<Props> = ({ wines, bottles }) => {
   return (
     <div>
       <Title>
-        Bonjour {import.meta.env.GITM_OWNER},
+        <div>Bonjour {import.meta.env.GITM_OWNER}.</div>
         {hasWines && (
-          <>
-            il te reste {wines.length} vin
+          <div>
+            Il te reste {wines.length} vin
             {wines.length && 's'} pour un total de {bottles.length} bouteille
             {bottles.length && 's'} 😃
-          </>
+          </div>
         )}
       </Title>
       <CellarContainer>
