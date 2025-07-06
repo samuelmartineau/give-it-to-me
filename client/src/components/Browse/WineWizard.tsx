@@ -4,12 +4,14 @@ import { WineCard } from '@/components/Wine/WineCard';
 import { WineContentCard } from '@/components/Wine/WineContentCard';
 import { getBrowsedWine, RootState } from '@/store';
 
-type Props = PropsFromRedux;
+type Props = PropsFromRedux & { className?: string };
 
-const CellWizard: FC<Props> = ({ wine }) => {
+const CellWizard: FC<Props> = ({ wine, className }) => {
   if (!wine) return null;
   return (
-    <WineCard wine={wine}>{(wine) => <WineContentCard wine={wine} />}</WineCard>
+    <WineCard className={className} wine={wine}>
+      {(wine) => <WineContentCard wine={wine} />}
+    </WineCard>
   );
 };
 

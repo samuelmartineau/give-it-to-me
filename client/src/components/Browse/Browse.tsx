@@ -15,7 +15,6 @@ const Actions = styled.div`
   justify-content: space-between;
   ${(props) => props.theme.media.handheld`
   flex-direction: column;
-  align-self: center; 
 `};
 `;
 
@@ -25,13 +24,19 @@ const CellSelectorStyled = styled(CellSelector)`
 `};
 `;
 
+const WineWizardStyled = styled(WineWizard)`
+  ${(props) => props.theme.media.handheld`
+  align-self: center;
+`};
+`;
+
 export const Browse = () => {
   return (
     <Container>
       <BoxesSelector />
       <Actions>
         <CellSelectorStyled />
-        <WineWizard />
+        <WineWizardStyled />
       </Actions>
     </Container>
   );
