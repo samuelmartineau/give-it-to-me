@@ -90,6 +90,13 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
+      - name: Add remote host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "$REMOTE_HOST" >> ~/.ssh/known_hosts
+        env:
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+
       - name: Deploy to server
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
