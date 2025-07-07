@@ -25,8 +25,8 @@ describe('Remove bottle suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
-      .set('Accept', 'application/json')
-      .send();
+      .set('Content-Type', 'application/json')
+      .send({});
 
     expect(status).toEqual(422);
     expect(body).toEqual({ error: '"bottleIds" is required' });
@@ -39,7 +39,7 @@ describe('Remove bottle suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ bottleIds: [] });
 
     expect(status).toEqual(422);
@@ -55,7 +55,7 @@ describe('Remove bottle suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ bottleIds: ['wrongId'] });
 
     expect(status).toEqual(422);
@@ -69,7 +69,7 @@ describe('Remove bottle suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ bottleIds: [12] });
 
     expect(status).toEqual(404);
@@ -106,7 +106,7 @@ describe('Remove bottle suite test', () => {
     const bottleIds = [wine.bottles[0].id, wine.bottles[1].id];
     const { body, status } = await request(gitmApp)
       .delete('/api/bottle')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ bottleIds });
 
     expect(status).toEqual(200);

@@ -9,7 +9,7 @@ import bottleRoutes from './bottle/routes.js';
 import config from '../../config/index.js';
 
 export default (app, db, updateClients, SERVER_VARIABLES) => {
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded());
   app.use(bodyParser.json());
 
   const router = express.Router();

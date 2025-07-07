@@ -26,7 +26,6 @@ function favoriteRoutes(db, updateClients) {
     .route(config.ROUTES.FAVORITE)
     .post(validateParams(AddSchema, 'body'), async (req, res) => {
       const { wineId } = req.body;
-
       const wine = await getWineById(wineId);
 
       if (!wine) {

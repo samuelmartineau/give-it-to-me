@@ -25,7 +25,7 @@ describe('Remove from Favorite suite test', () => {
 
     const { status } = await request(gitmApp)
       .delete('/api/favorite')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send();
 
     expect(status).toEqual(404);
@@ -38,7 +38,7 @@ describe('Remove from Favorite suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .delete('/api/favorite/wrongId')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send();
 
     expect(status).toEqual(422);
@@ -52,7 +52,7 @@ describe('Remove from Favorite suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .delete('/api/favorite/12')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send();
 
     expect(status).toEqual(404);
@@ -87,7 +87,7 @@ describe('Remove from Favorite suite test', () => {
     });
     const { body, status } = await request(gitmApp)
       .delete(`/api/favorite/${wine.id}`)
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send();
 
     expect(status).toEqual(200);

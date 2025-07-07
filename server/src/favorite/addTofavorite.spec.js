@@ -25,7 +25,7 @@ describe('Add to Favorite suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .post('/api/favorite')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send();
 
     expect(status).toEqual(422);
@@ -39,7 +39,7 @@ describe('Add to Favorite suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .post('/api/favorite')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ wineId: 'wrongId' });
 
     expect(status).toEqual(422);
@@ -53,7 +53,7 @@ describe('Add to Favorite suite test', () => {
 
     const { body, status } = await request(gitmApp)
       .post('/api/favorite')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ wineId: 12 });
 
     expect(status).toEqual(404);
@@ -88,7 +88,7 @@ describe('Add to Favorite suite test', () => {
     });
     const { body, status } = await request(gitmApp)
       .post('/api/favorite')
-      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
       .send({ wineId: wine.id });
 
     expect(status).toEqual(200);
