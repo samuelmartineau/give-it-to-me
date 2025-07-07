@@ -1,9 +1,4 @@
-import {
-  css,
-  DefaultTheme,
-  CSSObject,
-  Interpolation,
-} from 'styled-components';
+import { css, DefaultTheme, CSSObject, Interpolation } from 'styled-components';
 
 type SimpleInterpolation = Interpolation<object>;
 
@@ -41,8 +36,8 @@ const theme: DefaultTheme = {
   colors: {
     primary: '#5e0231',
     primaryVarient: '#dbc3d0',
-    secondary: '#856046',
-    secondaryVarient: '#c7a693',
+    secondary: '#466e85',
+    secondaryVarient: '#6db9a7',
     onPrimary: '#000000',
     onSecondary: '#ffffff',
   },
