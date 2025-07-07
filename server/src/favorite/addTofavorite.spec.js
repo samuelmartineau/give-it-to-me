@@ -3,7 +3,7 @@ import request from 'supertest';
 import { beforeAll, describe, expect, it, jest } from '@jest/globals';
 
 import app from '../app.js';
-import { getFreshDB } from '../tests/utils.js';
+import { getFreshDB } from '../../tests/utils.js';
 import { wineServices } from '../wine/services.js';
 import { wineFamilyServices } from '../wineFamily/services.js';
 

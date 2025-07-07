@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bash -c 'source ./../scripts/set_dev.sh && nodemon server.js --watch .'",
+    "dev": "bash -c 'source ./../scripts/set_dev.sh && nodemon src/server.js --watch .'",
     "start": "node server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint ."

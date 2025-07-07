@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { promises as fs } from 'fs';
 
-import config from '../../config/index.js';
+import config from '../../../config/index.js';
 import logger from '../utils/logger.js';
 
 const gm = subClass({ imageMagick: true });

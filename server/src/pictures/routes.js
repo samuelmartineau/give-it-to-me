@@ -3,7 +3,7 @@ import path from 'path';
 import express from 'express';
 
 import logger from '../utils/logger.js';
-import config from '../../config/index.js';
+import config from '../../../config/index.js';
 import { picturesServices } from './services.js';
 
 const router = express.Router();

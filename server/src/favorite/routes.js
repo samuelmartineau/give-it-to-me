@@ -3,7 +3,7 @@ import urlJoin from 'url-join';
 import express from 'express';
 
 import logger from '../utils/logger.js';
-import config from '../../config/index.js';
+import config from '../../../config/index.js';
 import { favoriteServices } from './services.js';
 import { wineServices } from '../wine/services.js';
 import { validateParams } from '../middlewares/validateParams.js';

@@ -1,7 +1,7 @@
 import express from 'express';
 import urlJoin from 'url-join';
 
-import config from '../../config/index.js';
+import config from '../../../config/index.js';
 import { wineServices } from './services.js';
 import { picturesServices } from '../pictures/services.js';
 import logger from '../utils/logger.js';

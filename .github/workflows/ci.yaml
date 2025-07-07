@@ -72,3 +72,29 @@ jobs:
 
       - name: Run the linter
         run: npm run lint --prefix client
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [e2e, server-tests, server-linter, client-linter]
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install NPM client dependencies
+        run: npm install --prefix client
+
+      - name: Build client
+        run: npm run build --prefix client
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Deploy to server
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_CLIENT_PATH: ${{ secrets.REMOTE_CLIENT_PATH }}
+          REMOTE_SERVER_PATH: ${{ secrets.REMOTE_SERVER_PATH }}
+        run: chmod +x deploy.sh && ./deploy.sh

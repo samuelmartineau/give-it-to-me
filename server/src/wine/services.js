@@ -1,5 +1,5 @@
 import path from 'path';
-import config from '../../config/index.js';
+import config from '../../../config/index.js';
 
 function enhanceWine(wine) {
   wine.bottles = JSON.parse(wine.bottles);

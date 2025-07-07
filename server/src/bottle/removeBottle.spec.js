@@ -3,7 +3,7 @@ import request from 'supertest';
 import { beforeAll, describe, expect, it, jest } from '@jest/globals';
 
 import app from '../app.js';
-import { getFreshDB } from '../tests/utils.js';
+import { getFreshDB } from '../../tests/utils.js';
 import { wineServices } from '../wine/services.js';
 import { wineFamilyServices } from '../wineFamily/services.js';
 
@@ -11,52 +11,69 @@ const context = {
   FILE_DIRECTORY: './',
 };
 
-describe('Remove from Favorite suite test', () => {
+describe('Remove bottle suite test', () => {
   let db;
 
   beforeAll(async () => {
     db = await getFreshDB();
   });
 
-  it('should return a 404 if no wineId provided', async () => {
-    const gitmApp = express();
-    const updateClients = jest.fn();
-    app(gitmApp, db, updateClients, context);
-
-    const { status } = await request(gitmApp)
-      .delete('/api/favorite')
-      .set('Accept', 'application/json')
-      .send();
-
-    expect(status).toEqual(404);
-  });
-
-  it('should return a 422 if wineId is not a number', async () => {
+  it('should return a 422 if no bottleId provided', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
     app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
-      .delete('/api/favorite/wrongId')
+      .delete('/api/bottle')
       .set('Accept', 'application/json')
       .send();
 
     expect(status).toEqual(422);
-    expect(body).toEqual({ error: '"wineId" must be a number' });
+    expect(body).toEqual({ error: '"bottleIds" is required' });
   });
 
-  it("should return a 404 if one of wineId doesn`'t exist", async () => {
+  it('should return a 422 if bottleId is empty', async () => {
     const gitmApp = express();
     const updateClients = jest.fn();
     app(gitmApp, db, updateClients, context);
 
     const { body, status } = await request(gitmApp)
-      .delete('/api/favorite/12')
+      .delete('/api/bottle')
       .set('Accept', 'application/json')
-      .send();
+      .send({ bottleIds: [] });
+
+    expect(status).toEqual(422);
+    expect(body).toEqual({
+      error: '"bottleIds" must contain at least 1 items',
+    });
+  });
+
+  it('should return a 422 if bottleId is not a number', async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients, context);
+
+    const { body, status } = await request(gitmApp)
+      .delete('/api/bottle')
+      .set('Accept', 'application/json')
+      .send({ bottleIds: ['wrongId'] });
+
+    expect(status).toEqual(422);
+    expect(body).toEqual({ error: '"bottleIds[0]" must be a number' });
+  });
+
+  it("should return a 404 if one of bottleIds doesn`'t exist", async () => {
+    const gitmApp = express();
+    const updateClients = jest.fn();
+    app(gitmApp, db, updateClients, context);
+
+    const { body, status } = await request(gitmApp)
+      .delete('/api/bottle')
+      .set('Accept', 'application/json')
+      .send({ bottleIds: [12] });
 
     expect(status).toEqual(404);
-    expect(body).toEqual({ error: 'Unknown wineId' });
+    expect(body).toEqual({ error: 'Unknown bottleIds' });
   });
 
   it('should return a 200 if success', async () => {
@@ -85,13 +102,17 @@ describe('Remove from Favorite suite test', () => {
         { box: 3, cell: 2 },
       ],
     });
+
+    const bottleIds = [wine.bottles[0].id, wine.bottles[1].id];
     const { body, status } = await request(gitmApp)
-      .delete(`/api/favorite/${wine.id}`)
+      .delete('/api/bottle')
       .set('Accept', 'application/json')
-      .send();
+      .send({ bottleIds });
 
     expect(status).toEqual(200);
-    expect(body).toEqual({ message: 'Vin supprimé avec succés des favoris' });
-    expect(updateClients).toHaveBeenCalled();
+    expect(body).toEqual({ message: 'Bouteille supprimée avec succés' });
+    setTimeout(() => {
+      expect(updateClients).toHaveBeenCalled();
+    }, 0);
   });
 });

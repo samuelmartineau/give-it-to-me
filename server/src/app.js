@@ -6,7 +6,7 @@ import wineFamilyRoutes from './wineFamily/routes.js';
 import favoriteRoutes from './favorite/routes.js';
 import pictureRoutes from './pictures/routes.js';
 import bottleRoutes from './bottle/routes.js';
-import config from '../config/index.js';
+import config from '../../config/index.js';
 
 export default (app, db, updateClients, SERVER_VARIABLES) => {
   app.use(bodyParser.urlencoded({ extended: true }));

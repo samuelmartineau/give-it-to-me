@@ -2,7 +2,7 @@ import urlJoin from 'url-join';
 import express from 'express';
 import Joi from '@hapi/joi';
 
-import config from '../../config/index.js';
+import config from '../../../config/index.js';
 import { bottleServices } from './services.js';
 import logger from '../utils/logger.js';
 import { validateParams } from '../middlewares/validateParams.js';

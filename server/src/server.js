@@ -1,6 +1,6 @@
 import express from 'express';
 import compression from 'compression';
-import config from '../config/index.js';
+import config from '../../config/index.js';
 import { createServer } from 'http';
 import * as Sentry from '@sentry/node';
 import fs from 'fs';
