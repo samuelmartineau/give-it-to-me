@@ -6,6 +6,7 @@ import wineFamilyRoutes from './wineFamily/routes.js';
 import favoriteRoutes from './favorite/routes.js';
 import pictureRoutes from './pictures/routes.js';
 import bottleRoutes from './bottle/routes.js';
+import transactionRoutes from './transaction/routes.js';
 import config from '../../config/index.js';
 
 export default (app, db, updateClients, SERVER_VARIABLES) => {
@@ -18,6 +19,7 @@ export default (app, db, updateClients, SERVER_VARIABLES) => {
   router.use(favoriteRoutes(db, updateClients));
   router.use(pictureRoutes(SERVER_VARIABLES));
   router.use(bottleRoutes(db, updateClients));
+  router.use(transactionRoutes(db, updateClients));
   router.get('/', (req, res) => res.send('API running'));
   router.get('/debug-sentry', () => {
     throw new Error('Sentry test error!');

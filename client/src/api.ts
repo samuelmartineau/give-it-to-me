@@ -123,3 +123,9 @@ export const removeOutsideBottles = (wineId, count) => {
     .then(checkStatus)
     .catch(errorHandler);
 };
+
+export const getTransactions = (page = 1, limit = 10) => {
+  return fetch(`${apiBase}${config.ROUTES.TRANSACTION}?page=${page}&limit=${limit}`)
+    .then(checkStatus)
+    .catch(errorHandler);
+};

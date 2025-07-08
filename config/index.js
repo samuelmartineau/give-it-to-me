@@ -33,6 +33,7 @@ export default Object.freeze({
     FAVORITE: '/favorite',
     BOTTLE: '/bottle',
     WINE_FAMILY: '/wineFamily',
+    TRANSACTION: '/transactions',
   },
   PICTURE_UPLOAD: {
     FILE_NAME: 'winePicture',

@@ -110,14 +110,14 @@ CREATE TRIGGER wine_deleted_transaction
 AFTER UPDATE On wines
 WHEN new.bottlesCount = 0
 BEGIN
-   INSERT INTO transactions (bottleId, type) VALUES (NEW.id, 'DELETED');
+   INSERT INTO transactions (wineId, type) VALUES (NEW.id, 'DELETED');
 END;
 
 CREATE TRIGGER bottle_deleted_transaction
 AFTER UPDATE On bottles
 WHEN new._deleted <> old._deleted AND new._deleted = 1
 BEGIN
-   INSERT INTO transactions (wineId, type) VALUES (NEW.id, 'DELETED');
+   INSERT INTO transactions (bottleId, type) VALUES (NEW.id, 'DELETED');
 END;
 
 CREATE TRIGGER favorite_added_transaction

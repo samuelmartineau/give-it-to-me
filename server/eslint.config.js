@@ -36,7 +36,7 @@ export default [
       'comma-dangle': ['error', 'always-multiline'],
       semi: ['error', 'always'],
       quotes: ['error', 'single', { avoidEscape: true }],
-      indent: ['error', 2],
+      indent: 'off',
       'no-multiple-empty-lines': ['error', { max: 2 }],
       'eol-last': 'error',
     },

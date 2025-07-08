@@ -8,6 +8,7 @@ import CellarBottles from '@/components/Cellar/CellarBottles';
 import CellarBox from '@/components/Cellar/CellarBox';
 import { YearsChart } from './YearsChart';
 import { RootState } from '@/store';
+import { Transactions } from '../Transaction/Transactions';
 
 const Title = styled.div`
   font-size: 30px;
@@ -38,6 +39,7 @@ const Home: FC<Props> = ({ wines, bottles }) => {
         <CellarBottles />
       </CellarContainer>
       <YearsChart wines={wines} />
+      <Transactions />
     </div>
   );
 };
