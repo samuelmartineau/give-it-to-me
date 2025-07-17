@@ -5,8 +5,15 @@ const getTransactions =
 
     const transactions = await db.allAsync(
       `
-    SELECT t.*
+    SELECT t.*,
+           CASE 
+             WHEN t.bottleId IS NOT NULL THEN b.wineId
+             WHEN t.favoriteId IS NOT NULL THEN f.wineId
+             ELSE t.wineId
+           END as relatedWineId
     FROM transactions AS t
+    LEFT JOIN bottles b ON t.bottleId = b.id
+    LEFT JOIN favorites f ON t.favoriteId = f.id
     ORDER BY t.createdAt DESC
     LIMIT $limit OFFSET $offset
   `,

@@ -92,6 +92,7 @@ interface Transaction {
   bottleId?: number;
   wineFamilyId?: number;
   favoriteId?: number;
+  relatedWineId?: number;
 }
 
 interface TransactionResponse {
@@ -201,6 +202,9 @@ export const Transactions = () => {
                 <TransactionDate>
                   {formatDate(transaction.createdAt)}
                 </TransactionDate>
+                {transaction.relatedWineId && (
+                  <a href={`/wine/${transaction.relatedWineId}`}>Voir le vin</a>
+                )}
               </TransactionInfo>
             </TransactionItem>
           ))

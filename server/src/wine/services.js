@@ -17,24 +17,24 @@ function enhanceWine(wine) {
 
 const getWineById =
   (db) =>
-  async ({ id, withDeletedBottles = false }) => {
+  async ({ id, withDeletedData = false }) => {
     const wine = await db.getAsync(
       `
 SELECT w.*, 
 (SELECT 
   json_group_array(
-    json_object('id', id, 'box', box, 'cell', cell)
+    json_object('id', id, 'box', box, 'cell', cell, 'deleted', _deleted)
   ) AS json_result
   FROM (SELECT * FROM bottles AS b WHERE 
     b.wineId = w.id
-    AND b._deleted = $bottleState)
+    AND b._deleted = $deleteState)
 ) as bottles,
  (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
   FROM wines AS w
   LEFT JOIN favorites AS f ON w.id = f.wineId
-  WHERE w.bottlesCount > 0 AND w.id = $id
+  WHERE w.id = $id ${withDeletedData ? '' : 'AND w.bottlesCount > 0 '}
 `,
-      { $id: id, $bottleState: withDeletedBottles ? 1 : 0 },
+      { $id: id, $deleteState: withDeletedData ? 1 : 0 },
     );
 
     if (wine) {

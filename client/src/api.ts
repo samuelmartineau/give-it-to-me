@@ -26,10 +26,8 @@ export const getCellar = () =>
     .catch(errorHandler);
 
 export const getWineById = (id, includeDeleted = false) => {
-  const url = `${apiBase}${config.ROUTES.WINE}/${id}${includeDeleted ? '?includeDeleted=true' : ''}`;
-  return fetch(url)
-    .then(checkStatus)
-    .catch(errorHandler);
+  const url = `${apiBase}${config.ROUTES.WINE}/${id}${includeDeleted ? '?withDeletedData=true' : ''}`;
+  return fetch(url).then(checkStatus).catch(errorHandler);
 };
 
 export const uploadWinePicture = (picture) => {
@@ -132,7 +130,9 @@ export const removeOutsideBottles = (wineId, count) => {
 };
 
 export const getTransactions = (page = 1, limit = 10) => {
-  return fetch(`${apiBase}${config.ROUTES.TRANSACTION}?page=${page}&limit=${limit}`)
+  return fetch(
+    `${apiBase}${config.ROUTES.TRANSACTION}?page=${page}&limit=${limit}`,
+  )
     .then(checkStatus)
     .catch(errorHandler);
 };

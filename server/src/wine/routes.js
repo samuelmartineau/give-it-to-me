@@ -9,7 +9,8 @@ import logger from '../utils/logger.js';
 function wineRoutes(db, updateClients, SERVER_VARIABLES) {
   const router = express.Router();
 
-  const { getCellar, addWine, removeOutsideBottles, getWineById } = wineServices(db);
+  const { getCellar, addWine, removeOutsideBottles, getWineById } =
+    wineServices(db);
   const { moveWineToPermanentFolder } = picturesServices(SERVER_VARIABLES);
   router
     .route(config.ROUTES.WINE)
@@ -45,11 +46,11 @@ function wineRoutes(db, updateClients, SERVER_VARIABLES) {
     .route(urlJoin(config.ROUTES.WINE, ':wineId'))
     .get(async (req, res) => {
       const { wineId } = req.params;
-      const { includeDeleted } = req.query;
+      const { withDeletedData } = req.query;
       try {
         const wine = await getWineById({
           id: wineId,
-          withDeletedBottles: includeDeleted === 'true',
+          withDeletedData: withDeletedData === 'true',
         });
         if (!wine) {
           return res.status(404).json({ message: 'Wine not found' });
