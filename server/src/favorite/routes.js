@@ -26,7 +26,7 @@ function favoriteRoutes(db, updateClients) {
     .route(config.ROUTES.FAVORITE)
     .post(validateParams(AddSchema, 'body'), async (req, res) => {
       const { wineId } = req.body;
-      const wine = await getWineById(wineId);
+      const wine = await getWineById({ id: wineId });
 
       if (!wine) {
         return res.status(404).send({ error: 'Unknown wineId' });
@@ -47,7 +47,7 @@ function favoriteRoutes(db, updateClients) {
     .delete(validateParams(RemoveSchema, 'params'), async (req, res) => {
       const { wineId } = req.params;
 
-      const wine = await getWineById(wineId);
+      const wine = await getWineById({ id: wineId });
 
       if (!wine) {
         return res.status(404).send({ error: 'Unknown wineId' });

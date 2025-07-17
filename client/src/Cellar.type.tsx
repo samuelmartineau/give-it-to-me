@@ -1,4 +1,6 @@
-export type CellarType = (WineType & { bottles: BottleType[] })[];
+export type CellarType = WineAndBottles[];
+
+export type WineAndBottles = WineType & { bottles: BottleType[] };
 
 export type WineType = {
   id: number;

@@ -19,7 +19,7 @@ const Cell = ({ bottle }) => {
 
 type RawProps = { wineId: number };
 
-type Props = RawProps & PropsFromRedux;
+type Props = { bottles: PropsFromRedux['bottles'] };
 
 export const CellarBottles: FC<Props> = ({ bottles }) => {
   return (

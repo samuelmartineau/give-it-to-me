@@ -25,6 +25,13 @@ export const getCellar = () =>
     .then(checkStatus)
     .catch(errorHandler);
 
+export const getWineById = (id, includeDeleted = false) => {
+  const url = `${apiBase}${config.ROUTES.WINE}/${id}${includeDeleted ? '?includeDeleted=true' : ''}`;
+  return fetch(url)
+    .then(checkStatus)
+    .catch(errorHandler);
+};
+
 export const uploadWinePicture = (picture) => {
   const data = new window.FormData();
   data.append(config.PICTURE_UPLOAD.FILE_NAME, picture);

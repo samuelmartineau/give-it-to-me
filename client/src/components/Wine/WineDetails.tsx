@@ -21,15 +21,15 @@ const Highlight = styled.span<{ wine: WineEnhanced }>`
   color: ${({ wine }) => (wine.wineType !== 'RED' ? 'black' : 'white')};
 `;
 
-type RawProps = { wine: WineEnhanced };
+type RawProps = { wine: WineEnhanced; className?: string };
 
 type Props = RawProps & PropsFromRedux;
 
-const WineDetails: FC<Props> = ({ wine, wineFamily }) => {
+const WineDetails: FC<Props> = ({ wine, wineFamily, className }) => {
   const type = WINE_TYPES[wine.wineType];
   const category = WINE_CATEGORIES[wine.wineCategory];
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <Text wine={wine}>
         Il reste{' '}
         <Highlight wine={wine}>

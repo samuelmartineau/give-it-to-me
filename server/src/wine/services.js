@@ -15,9 +15,11 @@ function enhanceWine(wine) {
   );
 }
 
-const getWineById = (db) => (id) => {
-  return db.getAsync(
-    `
+const getWineById =
+  (db) =>
+  async ({ id, withDeletedBottles = false }) => {
+    const wine = await db.getAsync(
+      `
 SELECT w.*, 
 (SELECT 
   json_group_array(
@@ -25,16 +27,22 @@ SELECT w.*,
   ) AS json_result
   FROM (SELECT * FROM bottles AS b WHERE 
     b.wineId = w.id
-    AND b._deleted = 0)
+    AND b._deleted = $bottleState)
 ) as bottles,
  (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
   FROM wines AS w
   LEFT JOIN favorites AS f ON w.id = f.wineId
-  WHERE w.bottlesCount > 0 AND w.id = (?)
+  WHERE w.bottlesCount > 0 AND w.id = $id
 `,
-    id,
-  );
-};
+      { $id: id, $bottleState: withDeletedBottles ? 1 : 0 },
+    );
+
+    if (wine) {
+      enhanceWine(wine);
+    }
+
+    return wine;
+  };
 
 const getCellar = (db) => async () => {
   const wines = await db.allAsync(`
@@ -113,8 +121,7 @@ const addWine = (db) => async (wine) => {
   }
   await db.run('COMMIT');
 
-  const newWine = await getWineById(db)(wineId);
-  enhanceWine(newWine);
+  const newWine = await getWineById(db)({ id: wineId });
   return newWine;
 };
 

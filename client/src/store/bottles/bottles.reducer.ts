@@ -4,15 +4,19 @@ import config from '~/config';
 import { WinesActions } from '@/store/wines/wines.actions';
 import { EnhancedBottleType, CellarType } from '@/Cellar.type';
 
+export const enhanceBottle = (bottle, wineId, wineType) => ({
+  ...bottle,
+  wine_id: wineId,
+  color: config.wineTypes.WINE_TYPES[wineType].color,
+});
+
 function getBottles(wines: CellarType) {
   return wines.reduce<EnhancedBottleType[]>(
     (acc, wine) =>
       acc.concat(
-        wine.bottles.map((bottle) => ({
-          wine_id: wine.id,
-          ...bottle,
-          color: config.wineTypes.WINE_TYPES[wine.wineType].color,
-        })),
+        wine.bottles.map((bottle) =>
+          enhanceBottle(bottle, wine.id, wine.wineType),
+        ),
       ),
     [],
   );

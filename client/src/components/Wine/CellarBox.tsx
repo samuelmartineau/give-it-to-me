@@ -4,7 +4,7 @@ import CellarBox from '../Cellar/CellarBox';
 import { isWineInBox, RootState } from '@/store';
 import styled from 'styled-components';
 
-const CellarBoxStyled = styled(CellarBox)<{ isWineInBox: boolean }>`
+export const CellarBoxStyled = styled(CellarBox)<{ isWineInBox: boolean }>`
   opacity: 0.5;
   ${({ isWineInBox }) =>
     isWineInBox &&
