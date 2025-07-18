@@ -85,6 +85,8 @@ jobs:
         run: npm install --prefix client
 
       - name: Build client
+        env:
+          GITM_OWNER: ${{ secrets.GITM_OWNER }}
         run: npm run build --prefix client
 
       - name: Install sshpass
