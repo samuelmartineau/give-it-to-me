@@ -14,7 +14,7 @@ const getTransactions =
     FROM transactions AS t
     LEFT JOIN bottles b ON t.bottleId = b.id
     LEFT JOIN favorites f ON t.favoriteId = f.id
-    ORDER BY t.createdAt DESC
+    ORDER BY t.id DESC
     LIMIT $limit OFFSET $offset
   `,
       {

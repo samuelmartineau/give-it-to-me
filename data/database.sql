@@ -108,7 +108,7 @@ END;
 
 CREATE TRIGGER wine_deleted_transaction
 AFTER UPDATE On wines
-WHEN new.bottlesCount = 0
+WHEN old.bottlesCount > 0 AND new.bottlesCount = 0
 BEGIN
    INSERT INTO transactions (wineId, type) VALUES (NEW.id, 'DELETED');
 END;
