@@ -31,6 +31,7 @@ export type BottleType = {
   wineId: number;
   box: number;
   cell: number;
+  deleted: boolean;
 };
 
 export type WineFamilyType = {

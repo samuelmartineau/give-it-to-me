@@ -7,10 +7,7 @@ import { EnhancedBottleType, CellarType } from '@/Cellar.type';
 export const enhanceBottle = (bottle, wineId, wineType) => ({
   ...bottle,
   wine_id: wineId,
-  color:
-    bottle.deleted === 1
-      ? 'black'
-      : config.wineTypes.WINE_TYPES[wineType].color,
+  color: config.wineTypes.WINE_TYPES[wineType].color,
 });
 
 function getBottles(wines: CellarType) {

@@ -3,16 +3,16 @@ import config from '../../../config/index.js';
 
 function enhanceWine(wine) {
   wine.bottles = JSON.parse(wine.bottles);
-  wine.thumbnailFileName = path.join(
+  wine.thumbnailFileName = `/${path.join(
     config.FILE_URL_PATH,
     config.UPLOADS_PERM_FOLDER,
     wine.thumbnailFileName,
-  );
-  wine.pictureFileName = path.join(
+  )}`;
+  wine.pictureFileName = `/${path.join(
     config.FILE_URL_PATH,
     config.UPLOADS_PERM_FOLDER,
     wine.pictureFileName,
-  );
+  )}`;
 }
 
 const getWineById =
@@ -27,14 +27,16 @@ SELECT w.*,
   ) AS json_result
   FROM (SELECT * FROM bottles AS b WHERE 
     b.wineId = w.id
-    AND b._deleted = $deleteState)
+   
+    ${withDeletedData ? '' : ' AND b._deleted = 0'}
+    )
 ) as bottles,
  (CASE WHEN f._deleted = '0' THEN 1 ELSE 0 END) AS isFavorite
   FROM wines AS w
   LEFT JOIN favorites AS f ON w.id = f.wineId
   WHERE w.id = $id ${withDeletedData ? '' : 'AND w.bottlesCount > 0 '}
 `,
-      { $id: id, $deleteState: withDeletedData ? 1 : 0 },
+      { $id: id },
     );
 
     if (wine) {

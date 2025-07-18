@@ -3,8 +3,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '../Cellar/Bottle';
 import { getWineBottles, RootState } from '@/store';
 import { getBottleInfos, getBottleId } from '../Cellar/utils';
+import { EnhancedBottleType } from '@/Cellar.type';
 
-const Cell = ({ bottle }) => {
+const Cell: FC<{ bottle: EnhancedBottleType }> = ({ bottle }) => {
   const bottleInfos = getBottleInfos(bottle.box, bottle.cell);
   return (
     <Bottle
@@ -13,6 +14,7 @@ const Cell = ({ bottle }) => {
       cell={bottle.cell}
       box={bottle.box}
       color={bottle.color}
+      deleted={bottle.deleted}
     />
   );
 };
