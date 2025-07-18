@@ -11,7 +11,7 @@ type Props = {
   color: string;
   cx: number;
   cy: number;
-  deleted: boolean;
+  deleted?: boolean;
 };
 
 const Bottle = ({ box, cell, color, deleted, ...rest }: Props) => {
