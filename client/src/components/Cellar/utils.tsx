@@ -49,14 +49,18 @@ export const getAvailableBoxes = (bottles) => {
     }
     return acc;
   }, {});
-  return CELLAR_SCHEMA.map((boxSchema, index) => ({ ...boxSchema, id: index }))
-    .filter((boxSchema, index) => {
-      return (
-        !bottlesCount[index] ||
-        getCellsCountFromSchema(boxSchema.schema) > bottlesCount[index]
-      );
-    })
-    .map((box) => box.id);
+  return (
+    Object.entries(CELLAR_SCHEMA)
+      //@ts-ignore
+      .map(([id, boxSchema]) => ({ ...boxSchema, id }))
+      .filter((boxSchema, index) => {
+        return (
+          !bottlesCount[index] ||
+          getCellsCountFromSchema(boxSchema.schema) > bottlesCount[index]
+        );
+      })
+      .map((box) => box.id)
+  );
 };
 
 export const getAvailableCells = (boxId, bottles) => {
