@@ -18,6 +18,10 @@ const { WINE_TYPES } = config.wineTypes;
 
 const WinePageHeader = styled.div`
   display: flex;
+  ${(props) => props.theme.media.handheld`
+     align-items: center;
+    flex-direction: column;
+`};
 `;
 
 const StyledImage = styled(Image)`
@@ -46,12 +50,14 @@ const WinePage: React.FC<WinePageProps> = ({ wine }) => {
   return (
     <div style={{ background: softColor, color: textColor }}>
       <WinePageHeader>
-        <StyledImage
-          width={config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}
-          height={config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
-          src={wine.thumbnailFileName}
-          lazyLoader={wine.blur}
-        />
+        <a href={wine.pictureFileName} target="_blank">
+          <StyledImage
+            width={config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}
+            height={config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
+            src={wine.thumbnailFileName}
+            lazyLoader={wine.blur}
+          />
+        </a>
         <StyledWineDetails wine={enhanceWine(wine)} />
       </WinePageHeader>
 
