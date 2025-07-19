@@ -70,5 +70,3 @@ export const getBoxCells = (boxId: number) => {
   const column = boxSchema[1];
   return range(0, row * column, 1);
 };
-
-export const boxes = range(0, CELLAR_SCHEMA.length);

@@ -1,12 +1,16 @@
 import React, { FC } from 'react';
-import { boxes } from './utils';
+import config from '~/config';
+
+const { CELLAR_SCHEMA } = config.cellar;
 
 type Props = {
   children: (boxId: number) => React.ReactNode;
 };
 
 const CellarBoxes: FC<Props> = ({ children }) => {
-  return <g>{boxes.map((boxId) => children(boxId))}</g>;
+  return (
+    <g>{Object.keys(CELLAR_SCHEMA).map((id) => children(parseInt(id)))}</g>
+  );
 };
 
 export default CellarBoxes;

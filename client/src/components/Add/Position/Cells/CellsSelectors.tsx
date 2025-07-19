@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CellsSelector from './CellsSelector';
-import { boxes } from '@/components/Cellar/utils';
+import CellarBoxes from '@/components/Cellar/CellarBoxes';
 
 const Wrapper = styled.div`
   display: grid;
@@ -12,9 +12,9 @@ const Wrapper = styled.div`
 const CellsSelectors = () => {
   return (
     <Wrapper>
-      {boxes.map((boxId: number) => (
-        <CellsSelector key={boxId} boxId={boxId} />
-      ))}
+      <CellarBoxes>
+        {(boxId) => <CellsSelector key={boxId} boxId={boxId} />}
+      </CellarBoxes>
     </Wrapper>
   );
 };
