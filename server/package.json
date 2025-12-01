@@ -15,7 +15,7 @@
     "body-parser": "^2.2.0",
     "bunyan": "^1.8.15",
     "compression": "^1.7.4",
-    "express": "^5.1.0",
+    "express": "^5.2.0",
     "gm": "1.25.0",
     "multer": "^2.0.1",
     "sqlite3": "5.1.7",
