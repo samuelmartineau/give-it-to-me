@@ -14,6 +14,7 @@ const BoxCell: FC<Props> = ({ cellId, onSelect = () => {}, className }) => {
   const row = cellId % 3;
   return (
     <rect
+      data-id={cellId}
       className={className}
       onClick={onSelect}
       x={column * CELL_SIZE}

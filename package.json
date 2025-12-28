@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:cdn": "serve files -p 3005",
-    "dev": "concurrently \"npm:dev:server\" \"npm:dev:cdn\" \"npm:dev:client\"",
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm:dev:cdn\" \"npm --prefix client run dev\"",
     "init": "node ./scripts/init.js --dbPath=./db_v1.db",
     "sample": "node ./scripts/sampleData.js --dbPath=./db_v1.db",
     "prepare": "husky"

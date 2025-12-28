@@ -14,7 +14,7 @@ const CellarContainer = ({ children }: Props) => {
       <text x="6" y="6" fill="black" font-size="5">
         {ZONE_B_SCHEMA.label}
       </text>
-      <text x="6" y="60" fill="black" font-size="5">
+      <text x="6" y="80" fill="black" font-size="5">
         {ZONE_A_SCHEMA.label}
       </text>
       {children}

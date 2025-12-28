@@ -13,6 +13,7 @@ const CellarBox: FC<Props> = ({ boxId, onSelect, className }) => {
   const box = CELLAR_SCHEMA[boxId];
   return (
     <rect
+      data-id={boxId}
       className={className}
       onClick={onSelect}
       x={box.x}
