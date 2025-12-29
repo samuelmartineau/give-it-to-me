@@ -137,6 +137,13 @@ const SearchFiltersModalFilters: React.FC = () => {
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const data = event.currentTarget as { name: 'name'; value: string };
     dispatch(updateInputFilter(data));
+    navigate({
+      search: (prev: SearchParams) => ({
+        ...prev,
+        name: data.value,
+      }),
+      replace: true,
+    });
   };
 
   return (

@@ -149,6 +149,7 @@ export default (state: State = defaultState, action: SearchActions): State => {
           'wineTypes' in params
             ? [...params.wineTypes]
             : defaultState.wineTypes,
+        name: 'name' in params ? params.name : defaultState.name
       };
     }
 

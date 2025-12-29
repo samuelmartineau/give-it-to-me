@@ -10,6 +10,7 @@ const searchSchema = z.object({
   wineTypes: z.array(z.string()).optional(),
   favorites: z.boolean().optional(),
   outsideBoxes: z.boolean().optional(),
+  name: z.string().optional()
 });
 
 export type SearchParams = z.infer<typeof searchSchema>;
