@@ -71,12 +71,12 @@ const ZONE_A_SCHEMA = {
       ...BOXES_SIZES['FULL_BOX'],
     },
     4: {
-      x: 7 * FULL_BOX_WIDTH,
+      x: 6 * FULL_BOX_WIDTH,
       y: FULL_BOX_HEIGHT,
       ...BOXES_SIZES['FULL_BOX'],
     },
     5: {
-      x: 6 * FULL_BOX_WIDTH,
+      x: 7 * FULL_BOX_WIDTH,
       y: FULL_BOX_HEIGHT,
       ...BOXES_SIZES['FULL_BOX'],
     },
