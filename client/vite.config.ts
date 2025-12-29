@@ -13,42 +13,46 @@ export default defineConfig(({ mode }) => {
 
   const isProduction = mode === 'production';
 
-  return {
-    plugins: [
-      // TanStack Router plugin for file-based route generation
-      tanstackRouter(),
-      commonjs(),
-      react({
-        // Add babel plugin for styled-components to replace Next.js's SWC transform
-        babel: {
-          plugins: [
-            [
-              'babel-plugin-styled-components',
-              {
-                ssr: false, // We are doing client-side rendering
-                displayName: !isProduction, // Show component names in dev for easier debugging
-                pure: true,
-              },
-            ],
+  const plugins = [   // TanStack Router plugin for file-based route generation
+    tanstackRouter(),
+    commonjs(),
+    react({
+      // Add babel plugin for styled-components to replace Next.js's SWC transform
+      babel: {
+        plugins: [
+          [
+            'babel-plugin-styled-components',
+            {
+              ssr: false, // We are doing client-side rendering
+              displayName: !isProduction, // Show component names in dev for easier debugging
+              pure: true,
+            },
           ],
+        ],
+      },
+    }),];
+
+
+  if (isProduction &&
+    env.SENTRY_ORG &&
+    env.SENTRY_PROJECT &&
+    env.SENTRY_AUTH_TOKEN) {
+    // Sentry plugin for uploading source maps.
+    // This is only run for production builds and if Sentry variables are set.
+    plugins.push(
+      sentryVitePlugin({
+        org: env.SENTRY_ORG,
+        project: env.SENTRY_PROJECT,
+        authToken: env.SENTRY_AUTH_TOKEN,
+        sourcemaps: {
+          // Specify the assets to include in the Sentry release.
+          assets: './dist/**',
         },
-      }),
-      // Sentry plugin for uploading source maps.
-      // This is only run for production builds and if Sentry variables are set.
-      isProduction &&
-        env.SENTRY_ORG &&
-        env.SENTRY_PROJECT &&
-        env.SENTRY_AUTH_TOKEN &&
-        sentryVitePlugin({
-          org: env.SENTRY_ORG,
-          project: env.SENTRY_PROJECT,
-          authToken: env.SENTRY_AUTH_TOKEN,
-          sourcemaps: {
-            // Specify the assets to include in the Sentry release.
-            assets: './dist/**',
-          },
-        }),
-    ],
+      }))
+  }
+
+  return {
+    plugins,
     // Configure path aliases for imports
     resolve: {
       alias: {
