@@ -35,7 +35,7 @@ class SearchFiltersButton extends React.PureComponent<Props, State> {
     return (
       <>
         <ButtonStyled onClick={this.openModal}>
-          Filtres: {filtersCount} sélectionné{filtersCount > 1 && 's'}
+          Filtres ({filtersCount})
         </ButtonStyled>
         <SearchFiltersModal
           modalIsOpen={modalIsOpen}

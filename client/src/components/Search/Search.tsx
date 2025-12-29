@@ -4,6 +4,7 @@ import { useSearch } from '@tanstack/react-router';
 import WinesList from './WinesList';
 import { syncUrlParams, getWinesFiltered, RootState } from '@/store';
 import SearchFiltersButton from './Filters/SearchFiltersButton';
+import SelectedFiltersChips from './Filters/SelectedFiltersChips';
 import EmptyResults from './EmptyResults';
 
 export const Search: React.FC = () => {
@@ -22,6 +23,7 @@ export const Search: React.FC = () => {
   return (
     <div>
       <SearchFiltersButton />
+      <SelectedFiltersChips />
       <h2>
         {count} vin{count > 1 && 's'}
       </h2>

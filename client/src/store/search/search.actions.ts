@@ -27,10 +27,10 @@ export const toggleCheckboxFilter = (data: FilterType) =>
 
 type InputType =
   | {
-      value: number;
+      value: number | undefined;
       name: 'minYear';
     }
-  | { value: number; name: 'maxYear' }
+  | { value: number | undefined; name: 'maxYear' }
   | { name: 'name'; value: string };
 
 export const updateInputFilter = (data: InputType) =>
