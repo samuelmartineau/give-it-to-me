@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '@/components/Toolkit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   resetRemoveState,
   getWineById,
@@ -52,7 +53,7 @@ class WineModalButton extends React.PureComponent<Props, State> {
     return (
       <>
         <ButtonStyled type="button" onClick={this.openModal}>
-          Bouteilles
+          <DeleteIcon />
         </ButtonStyled>
         {!!wine.isInBoxes && (
           <InBoxesModal

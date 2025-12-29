@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { Link } from '@tanstack/react-router';
 import CellarContainer from '@/components/Cellar/CellarContainer';
 import CellarBoxes from '@/components/Cellar/CellarBoxes';
 import WineModalButton from '@/components/Wine/WineModal/WineModalButton';
 import AddToFavoriteButton from '@/components/Favorite/AddToFavoriteButton';
+import { Button } from '@/components/Toolkit';
+import LinkIcon from '@mui/icons-material/Link';
 import { CellarBoxConnected } from './CellarBox';
 import CellarBottles from './CellarBottles';
 import WineDetails from './WineDetails';
@@ -40,8 +43,11 @@ export const WineContentCard: FC<Props> = ({ wine }) => {
       )}
       <WineDetails wine={wine} />
       <WineActions>
-        <WineModalButton wineId={wine.id} />
         <AddToFavoriteButton wineId={wine.id} />
+        <WineModalButton wineId={wine.id} />
+        <Link to="/wine/$id" target='_blank' params={{ id: wine.id.toString() }}>
+          <Button type="button"><LinkIcon /></Button>
+        </Link>
       </WineActions>
     </>
   );

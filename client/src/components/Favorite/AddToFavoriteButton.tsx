@@ -29,7 +29,6 @@ const AddToFavoriteButton: FC<Props> = ({
   return (
     <StyledButton onClick={action} isFavorite={isFavorite}>
       {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-      Favoris
     </StyledButton>
   );
 };
