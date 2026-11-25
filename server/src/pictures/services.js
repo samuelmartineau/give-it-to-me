@@ -1,5 +1,4 @@
-import gmPkg from 'gm';
-const { subClass } = gmPkg;
+import sharp from 'sharp';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { promises as fs } from 'fs';
@@ -7,57 +6,50 @@ import { promises as fs } from 'fs';
 import config from '../../../config/index.js';
 import logger from '../utils/logger.js';
 
-const gm = subClass({ imageMagick: true });
+const OUTPUT_FORMAT_ALIASES = { jpg: 'jpeg', jpe: 'jpeg', tif: 'tiff' };
 
-const generateThumbnail = (context) => (sourcePath, extension) => {
-  return new Promise((resolve, reject) => {
-    const filename = [uuidv4(), extension].join('');
-    const tmpFileName = path.join(context.TEMP_DIR, filename);
-    gm(sourcePath)
-      .resize(
-        config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
-        config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT,
-        '^',
-      )
-      .gravity('Center')
-      .crop(
-        config.PICTURE_UPLOAD.THUMBNAIL.WIDTH,
-        config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT,
-      )
-      .autoOrient()
-      .quality(config.PICTURE_UPLOAD.THUMBNAIL.QUALITY)
-      .on('error', (error) => {
-        logger.error(error);
-        return reject('Erreur de paramètre avec l’image uploadée');
-      })
-      .write(tmpFileName, (error) => {
-        if (error) {
-          logger.error(error);
-          return reject({
-            message: 'Erreur lors de la génération de la miniature',
-          });
-        }
-        return resolve({ name: filename, path: tmpFileName });
-      });
-  });
+const outputFormatFromExtension = (extension) => {
+  const name = extension.replace(/^\./, '').toLowerCase();
+  const format = OUTPUT_FORMAT_ALIASES[name] || name;
+  return sharp.format[format]?.output.file ? format : null;
 };
-const generateBlur = (path) => {
-  return new Promise((resolve, reject) => {
-    gm(path)
-      .resize(3, 3)
-      .toBuffer('GIF', (error, buffer) => {
-        if (error) {
-          logger.error(error);
-          return reject({ message: 'Erreur lors de la génération du flou' });
-        }
 
-        return resolve(`data:image/gif;base64,${buffer.toString('base64')}`);
-      })
-      .on('error', (error) => {
-        logger.error(error);
-        return reject('Erreur de paramètre avec le flou');
-      });
-  });
+const generateThumbnail = (context) => async (sourcePath, extension) => {
+  const filename = [uuidv4(), extension].join('');
+  const tmpFileName = path.join(context.TEMP_DIR, filename);
+  const { WIDTH, HEIGHT, QUALITY } = config.PICTURE_UPLOAD.THUMBNAIL;
+  const format = outputFormatFromExtension(extension);
+
+  if (!format) {
+    logger.error(`Unsupported thumbnail extension: ${extension}`);
+    throw { message: 'Erreur de paramètre avec l’image uploadée' };
+  }
+
+  try {
+    await sharp(sourcePath)
+      .autoOrient()
+      .resize(WIDTH, HEIGHT, { fit: 'cover', position: 'centre' })
+      .toFormat(format, { quality: QUALITY })
+      .toFile(tmpFileName);
+  } catch (error) {
+    logger.error(error);
+    throw { message: 'Erreur lors de la génération de la miniature' };
+  }
+
+  return { name: filename, path: tmpFileName };
+};
+
+const generateBlur = async (path) => {
+  try {
+    const buffer = await sharp(path)
+      .resize(3, 3, { fit: 'inside' })
+      .gif()
+      .toBuffer();
+    return `data:image/gif;base64,${buffer.toString('base64')}`;
+  } catch (error) {
+    logger.error(error);
+    throw { message: 'Erreur lors de la génération du flou' };
+  }
 };
 
 const moveWineToPermanentFolder =

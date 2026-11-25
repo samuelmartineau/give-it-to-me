@@ -1,14 +1,8 @@
 # Give It To Me
 
-## Dependencies
+## Requirements
 
-### imagemagick
-
-[imagemagick!](http://www.imagemagick.org)
-
-### graphicsmagick
-
-[graphicsmagick!](http://www.graphicsmagick.org/)
+Node.js 26 (see `.nvmrc`). Image processing uses [sharp](https://sharp.pixelplumbing.com/), which ships its own prebuilt binaries, so ImageMagick and GraphicsMagick are no longer needed.
 
 ## Developpement
 
