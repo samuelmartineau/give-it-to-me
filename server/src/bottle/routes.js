@@ -1,6 +1,6 @@
 import urlJoin from 'url-join';
 import express from 'express';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 
 import config from '../../../config/index.js';
 import { bottleServices } from './services.js';

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=26"
+  },
   "scripts": {
     "dev:cdn": "serve files -p 3005",
     "dev": "concurrently \"npm --prefix server run dev\" \"npm:dev:cdn\" \"npm --prefix client run dev\"",
