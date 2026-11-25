@@ -1,7 +1,7 @@
 import React from 'react';
 import config from '~/config';
 import tinycolor from 'tinycolor2';
-import fontColorContrast from 'font-color-contrast';
+import { fontColorContrast } from '@/helpers';
 
 import WineDetails from '../WineDetails';
 import { WineAndBottles } from '@/Cellar.type';

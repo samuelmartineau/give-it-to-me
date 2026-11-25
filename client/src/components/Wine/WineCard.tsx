@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import tinycolor from 'tinycolor2';
 import styled from 'styled-components';
 import MenuIcon from '@mui/icons-material/Menu';
-import fontColorContrast from 'font-color-contrast';
+import { fontColorContrast } from '@/helpers';
 import config from '~/config';
 
 import { Image } from '../Image/Image';
