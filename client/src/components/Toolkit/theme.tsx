@@ -31,16 +31,29 @@ export const media = {
 
 const theme: DefaultTheme = {
   size: {
-    maxWidth: '1260px',
+    maxWidth: '1320px',
+    radius: '14px',
+    tapTarget: '52px',
   },
   colors: {
-    primary: '#5e0231',
-    primaryVarient: '#dbc3d0',
-    secondary: '#466e85',
-    secondaryVarient: '#6db9a7',
-    onPrimary: '#000000',
+    // Wine red: main brand colour, used for primary actions and the header.
+    primary: '#7a1f3d',
+    primaryDark: '#5c1530',
+    primaryVarient: '#f6e9ee',
+    // Slate blue: secondary actions and selection.
+    secondary: '#2f5d73',
+    secondaryVarient: '#e3eef3',
+    onPrimary: '#ffffff',
     onSecondary: '#ffffff',
+    background: '#f7f3ee',
+    surface: '#ffffff',
+    text: '#1d1a1b',
+    textMuted: '#5a5356',
+    border: '#e2d9d1',
+    focus: '#f2b134',
+    danger: '#b3261e',
   },
+  shadow: '0 1px 2px rgba(40, 20, 25, 0.06), 0 4px 16px rgba(40, 20, 25, 0.06)',
   media,
 };
 

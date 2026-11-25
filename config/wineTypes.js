@@ -2,12 +2,12 @@ const WINE_TYPES = Object.freeze({
   RED: {
     label: 'rouge',
     categories: Object.freeze(['REGULAR', 'SPARKLING', 'DRY']),
-    color: '#9C27B0',
+    color: '#8b1a3c',
   },
   WHITE: {
     label: 'blanc',
     categories: Object.freeze(['REGULAR', 'SPARKLING', 'LIQUOROUS', 'DRY']),
-    color: '#CDDC39',
+    color: '#e2bf35',
   },
   CHAMPAGNE: {
     label: 'champagne',
@@ -17,7 +17,7 @@ const WINE_TYPES = Object.freeze({
       'BLANC_DE_NOIRS',
       'PINK',
     ]),
-    color: '#9E9E9E',
+    color: '#97a1ab',
   },
 });
 

@@ -29,14 +29,22 @@ const AutosuggestWrapper = styled.div`
   }
   .${classNames.suggestionsContainerOpen} {
     display: block;
-    background: #dedede;
+    background: ${({ theme }) => theme.colors.surface};
+    border: 2px solid ${({ theme }) => theme.colors.border};
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-height: 320px;
+    overflow-y: auto;
     position: absolute;
     left: 0;
     right: 0;
+    margin-top: 4px;
     z-index: 2;
   }
   .${classNames.suggestion} {
-    padding: 1em;
+    padding: 14px 16px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   }
   .${classNames.suggestionsList} {
     list-style-type: none;
@@ -48,9 +56,8 @@ const AutosuggestWrapper = styled.div`
     color: ${({ theme }) => theme.colors.onSecondary};
   }
   .${classNames.suggestion} {
-    cusor: pointer;
+    cursor: pointer;
   }
-}
 `;
 
 function renderInput(inputProps) {

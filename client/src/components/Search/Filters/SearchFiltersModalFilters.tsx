@@ -21,19 +21,22 @@ import { WINE_CATEGORIES_ALL, WINE_TYPES_ALL } from '@/helpers';
 import { SearchParams } from '@/routes/search';
 
 const Label = styled.label`
-  margin: 1rem;
+  margin: 0 0 24px;
   display: block;
 `;
 
 const Text = styled.div`
-  font-style: italic;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
 `;
 
 const Periode = styled.div`
   display: flex;
+  gap: 12px;
 `;
 const CheckboxStyled = styled(Checkbox)<CheckboxProps>`
-  margin: auto 0.5em;
+  margin: 0 8px 8px 0;
 `;
 
 const SearchFiltersModalFilters: React.FC = () => {
@@ -44,8 +47,7 @@ const SearchFiltersModalFilters: React.FC = () => {
 
   const onRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const data = event.target as
-      | { value: string; name: 'minYear' }
-      | { value: string; name: 'maxYear' };
+      { value: string; name: 'minYear' } | { value: string; name: 'maxYear' };
     if (data.value.length > 4) {
       return;
     }
@@ -164,7 +166,7 @@ const SearchFiltersModalFilters: React.FC = () => {
         ))}
       </Label>
       <Label>
-        <Text>Texture</Text>
+        <Text>Type</Text>
         {WINE_CATEGORIES_ALL.map((category) => {
           return (
             <CheckboxStyled
@@ -181,21 +183,21 @@ const SearchFiltersModalFilters: React.FC = () => {
         })}
       </Label>
       <Label>
-        <Text>Periode</Text>
+        <Text>Années</Text>
         <Periode>
           <TextField
             onChange={onRangeChange}
             type="number"
             name="minYear"
             value={filters.minYear !== undefined ? filters.minYear : ''}
-            placeholder="Borne inf (ex: 1970)"
+            placeholder="De (ex : 1970)"
           />
           <TextField
             onChange={onRangeChange}
             type="number"
             name="maxYear"
             value={filters.maxYear !== undefined ? filters.maxYear : ''}
-            placeholder="Borne sup (ex: 2019)"
+            placeholder="À (ex : 2019)"
           />
         </Periode>
       </Label>
@@ -212,7 +214,7 @@ const SearchFiltersModalFilters: React.FC = () => {
         />
       </Label>
       <Label>
-        <Text>Restreindre aux favoris</Text>
+        <Text>Favoris</Text>
         <CheckboxStyled
           onChange={handleToggleFavoritesFilter}
           name="favorites"
@@ -220,11 +222,11 @@ const SearchFiltersModalFilters: React.FC = () => {
           id="search-filters"
           checked={filters.favorites}
         >
-          Favoris
+          Seulement mes favoris
         </CheckboxStyled>
       </Label>
       <Label>
-        <Text>Restreindre aux bouteilles hors casier</Text>
+        <Text>Rangement</Text>
         <CheckboxStyled
           onChange={handleToggleOutsideBoxesFilter}
           name="inBoxes"

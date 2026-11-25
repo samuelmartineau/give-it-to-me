@@ -3,7 +3,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { PositionDescriptionConnected } from './Position/PositionDescription';
 import PositionSelector from './Position/PositionSelector';
 import { RootState, toggleInBox } from '@/store/';
+import styled from 'styled-components';
 import { Checkbox } from '@/components/Toolkit';
+
+const Hint = styled.p`
+  margin: 16px 0 12px;
+  font-size: 1.05rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -19,10 +26,17 @@ export const PositionStep: FC<Props> = ({ isInBoxes, toggle }) => {
         value="inBoxes"
         checked={isInBoxes}
       >
-        Les bouteilles sont-elles dans les caisses?
+        Les bouteilles sont rangées dans les caisses
       </Checkbox>
       {!isInBoxes && <PositionDescriptionConnected />}
-      {isInBoxes && <PositionSelector />}
+      {isInBoxes && (
+        <>
+          <Hint>
+            Touchez une caisse, puis les cases où ranger chaque bouteille.
+          </Hint>
+          <PositionSelector />
+        </>
+      )}
     </>
   );
 };
@@ -33,7 +47,7 @@ const connector = connect(
     toggle() {
       dispatch(toggleInBox());
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

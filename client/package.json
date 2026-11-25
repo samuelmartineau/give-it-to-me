@@ -17,7 +17,6 @@
     "@reduxjs/toolkit": "^2.15.0",
     "@sentry/react": "^11.18.0",
     "@tanstack/react-router": "^1.170.46",
-    "font-color-contrast": "^11.1.0",
     "fuzzy": "0.1.3",
     "lodash": "^4.18.1",
     "react": "^19.3.1",

@@ -7,7 +7,7 @@ const BoxCellStyled = styled(BoxCell)`
   cursor: pointer;
 
   &:hover {
-    fill: #7098d6;
+    fill: #cfe0f5;
   }
 `;
 

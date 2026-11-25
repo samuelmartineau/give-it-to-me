@@ -5,15 +5,7 @@ import { Button } from '@/components/Toolkit';
 import AddWineFamilyModal from './AddWineFamilyModal';
 
 const ButtonStyled = styled(Button)`
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  & > svg {
-    font-size: 15px;
-  }
+  margin-top: -8px;
 `;
 
 export const AddWineFamilyButton: FC = () => {
@@ -29,8 +21,14 @@ export const AddWineFamilyButton: FC = () => {
 
   return (
     <>
-      <ButtonStyled type="button" onClick={openModal} name="addWineFamily">
+      <ButtonStyled
+        type="button"
+        variant="ghost"
+        onClick={openModal}
+        name="addWineFamily"
+      >
         <AddIcon />
+        Nouvelle appellation
       </ButtonStyled>
       <AddWineFamilyModal modalIsOpen={modalOpen} closeModal={closeModal} />
     </>

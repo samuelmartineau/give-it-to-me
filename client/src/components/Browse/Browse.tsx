@@ -1,43 +1,91 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import BoxesSelector from './Boxes/BoxesSelector';
 import CellSelector from './Cell/CellSelector';
 import WineWizard from './WineWizard';
+import { Card, Hint, Section, SectionTitle } from '@/components/Toolkit';
+import { RootState } from '@/store';
 
-const Container = styled.div`
-  max-width: 800px;
-  margin: auto;
+const Details = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: start;
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 `;
 
-const Actions = styled.div`
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
-  ${(props) => props.theme.media.handheld`
-  flex-direction: column;
-`};
+const BoxCard = styled(Card)`
+  width: 100%;
+
+  & svg {
+    max-width: 460px;
+    margin: 0 auto;
+    display: block;
+  }
 `;
 
-const CellSelectorStyled = styled(CellSelector)`
-  ${(props) => props.theme.media.screen`
-  width: 50%;
-`};
-`;
-
-const WineWizardStyled = styled(WineWizard)`
-  ${(props) => props.theme.media.handheld`
-  align-self: center;
-`};
+const Step = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  font-size: 1.1rem;
+  vertical-align: middle;
 `;
 
 export const Browse = () => {
+  const boxId = useSelector((state: RootState) => state.browse.boxId);
+  const cellId = useSelector((state: RootState) => state.browse.cellId);
+  const hasBox = boxId !== undefined && boxId !== null;
+  const hasCell = cellId !== undefined && cellId !== null;
+  const detailsRef = useRef<React.ComponentRef<'section'>>(null);
+
+  // On small screens the chosen box appears below the fold: bring it into view.
+  useEffect(() => {
+    if (hasBox) {
+      detailsRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [boxId, hasBox]);
+
   return (
-    <Container>
+    <div>
+      <SectionTitle>
+        <Step>1</Step>Choisissez une caisse
+      </SectionTitle>
+      <Hint>Touchez une caisse qui contient des bouteilles.</Hint>
       <BoxesSelector />
-      <Actions>
-        <CellSelectorStyled />
-        <WineWizardStyled />
-      </Actions>
-    </Container>
+
+      {hasBox && (
+        <Section ref={detailsRef}>
+          <SectionTitle>
+            <Step>2</Step>Choisissez une bouteille
+          </SectionTitle>
+          <Hint>
+            {hasCell
+              ? 'Voici le vin de la bouteille choisie (en bleu).'
+              : 'Touchez une bouteille pour voir de quel vin il s’agit.'}
+          </Hint>
+          <Details>
+            <BoxCard>
+              <CellSelector />
+            </BoxCard>
+            <WineWizard />
+          </Details>
+        </Section>
+      )}
+    </div>
   );
 };

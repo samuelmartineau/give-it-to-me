@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import TuneIcon from '@mui/icons-material/TuneRounded';
 import { Button } from '@/components/Toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { getFiltersCount, RootState } from '@/store/';
@@ -10,9 +11,8 @@ type State = {
 };
 
 const ButtonStyled = styled(Button)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: none;
+  min-height: 60px;
 `;
 type Props = PropsFromRedux;
 
@@ -34,8 +34,9 @@ class SearchFiltersButton extends React.PureComponent<Props, State> {
     const { modalIsOpen } = this.state;
     return (
       <>
-        <ButtonStyled onClick={this.openModal}>
-          Filtres ({filtersCount})
+        <ButtonStyled type="button" onClick={this.openModal}>
+          <TuneIcon />
+          Filtres{filtersCount > 0 ? ` (${filtersCount})` : ''}
         </ButtonStyled>
         <SearchFiltersModal
           modalIsOpen={modalIsOpen}

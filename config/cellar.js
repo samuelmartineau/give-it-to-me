@@ -1,6 +1,6 @@
-const BOX_COLOR = '#d3414a';
-const BOX_BORDER_COLOR = '#992f2f';
-const SELECTED_COLOR = '#2196F3';
+const BOX_COLOR = '#f1e6d6';
+const BOX_BORDER_COLOR = '#8a6a4f';
+const SELECTED_COLOR = '#1e6fd9';
 const BOX_BORDER_SIZE = 1;
 const CELL_BORDER_SIZE = 0.2;
 

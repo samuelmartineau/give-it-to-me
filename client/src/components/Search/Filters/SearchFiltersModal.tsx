@@ -31,8 +31,8 @@ const SearchFiltersModal: FC<Props> = ({
         <SearchFiltersModalFilters />
       </ModalContent>
       <ModalActions>
-        <Button onClick={closeModal} type="button">
-          Fermer
+        <Button onClick={closeModal} type="button" primary>
+          Voir {count} résultat{count > 1 && 's'}
         </Button>
       </ModalActions>
     </Modal>

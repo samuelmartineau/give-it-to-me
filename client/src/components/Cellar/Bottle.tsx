@@ -24,6 +24,8 @@ const Bottle = ({ box, cell, color, deleted, ...rest }: Props) => {
       <circle
         r={bottleInfos.radius}
         fill={deleted ? 'black' : color}
+        stroke="rgba(0, 0, 0, 0.35)"
+        strokeWidth={0.25}
         pointerEvents="none"
         {...rest}
       />
@@ -35,7 +37,7 @@ const Bottle = ({ box, cell, color, deleted, ...rest }: Props) => {
             x2={x + CELL_SIZE}
             y2={y + CELL_SIZE}
             stroke="red"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <line
             x1={x}
@@ -43,7 +45,7 @@ const Bottle = ({ box, cell, color, deleted, ...rest }: Props) => {
             x2={x + CELL_SIZE}
             y2={y}
             stroke="red"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
         </>
       )}

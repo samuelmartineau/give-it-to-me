@@ -11,14 +11,17 @@ const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
 const Wrapper = styled.div``;
 
 const Text = styled.div<{ wine: WineEnhanced }>`
-  font-size: 20px;
-  color: ${({ wine }) => (wine.wineType !== 'RED' ? '#373737' : '#eee')};
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.textMuted};
+
+  & + & {
+    margin-top: 8px;
+  }
 `;
 const Highlight = styled.span<{ wine: WineEnhanced }>`
-  font-weight: bold;
-  font-size: 25px;
-  font-style: italic;
-  color: ${({ wine }) => (wine.wineType !== 'RED' ? 'black' : 'white')};
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 type RawProps = { wine: WineEnhanced; className?: string };
@@ -40,7 +43,7 @@ const WineDetails: FC<Props> = ({ wine, wineFamily, className }) => {
         <Highlight wine={wine}>
           {type.label} {wine.wineCategory !== 'REGULAR' && category.label}
         </Highlight>{' '}
-        de <Highlight wine={wine}>{wine.year}</Highlight> avec une appelation{' '}
+        de <Highlight wine={wine}>{wine.year}</Highlight> avec une appellation{' '}
         <Highlight wine={wine}>{wineFamily.name.toLowerCase()}</Highlight>{' '}
         {wine.source && (
           <>

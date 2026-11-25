@@ -6,7 +6,14 @@ import { updateModel, RootState } from '@/store/';
 
 const Label = styled.label`
   display: block;
-  margin: 1em auto;
+  margin: 20px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  & > input {
+    margin-top: 6px;
+    font-weight: 400;
+  }
 `;
 
 type Props = PropsFromRedux;
@@ -24,7 +31,7 @@ export const PositionDescription = ({ onChange, model }: Props) => (
       />
     </Label>
     <Label>
-      Nombre de bouteille
+      Nombre de bouteilles
       <TextField
         name="count"
         value={model.count}
@@ -53,7 +60,7 @@ const connector = connect(
           };
       dispatch(updateModel(data));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

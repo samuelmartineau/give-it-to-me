@@ -36,8 +36,8 @@ const WineFamilySingleSelector: FC<Props> = ({
       {selectedFamily && (
         <div>
           <SelectedFamily>{selectedFamily.name}</SelectedFamily>
-          <ButtonStyled type="button" primary onClick={onClear}>
-            changer
+          <ButtonStyled type="button" variant="ghost" onClick={onClear}>
+            Changer
           </ButtonStyled>
         </div>
       )}

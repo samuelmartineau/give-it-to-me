@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import config from '~/config';
 import { connect, ConnectedProps } from 'react-redux';
 import { isCellSelected, RootState } from '@/store';
 import Bottle from '@/components/Cellar/Bottle';
@@ -22,7 +23,7 @@ const SelectedCell: FC<Props> = ({ selected = false, boxId, cellId }) => {
       cy={bottleInfos.cy}
       cell={cellId}
       box={boxId}
-      color="blue"
+      color={config.cellar.SELECTED_COLOR}
     />
   );
 };
