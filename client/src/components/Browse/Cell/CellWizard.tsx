@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import config from '~/config';
 import tinycolor from 'tinycolor2';
 import { connect, ConnectedProps } from 'react-redux';
 import Bottle from '@/components/Cellar/Bottle';
@@ -28,7 +29,7 @@ const CellWizard: FC<Props> = ({
 
   let color: string;
   if (isSelected) {
-    color = 'blue';
+    color = config.cellar.SELECTED_COLOR;
   } else if (isSelectable) {
     color = bottle.color;
   } else {

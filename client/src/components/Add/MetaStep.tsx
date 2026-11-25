@@ -9,10 +9,13 @@ import { OnSuggestionSelectedData } from '../Autocomplete/WineFamilySuggestion';
 
 const Label = styled.label`
   display: block;
-  margin: 1em auto;
+  margin: 0 0 20px;
 `;
 const Text = styled.span`
-  font-style: italic;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
 `;
 const FamilyContainer = styled.div`
   position: relative;
@@ -67,7 +70,7 @@ const MetaStep: FC<Props> = ({
         />
       </Label>
       <Label>
-        <Text>Provenance</Text>
+        <Text>Provenance (facultatif)</Text>
         <TextField
           name="source"
           value={model.source}

@@ -11,16 +11,9 @@ import {
   Legend,
 } from 'recharts';
 import config from '~/config';
-import styled from 'styled-components';
 import { WineEnhanced } from '@/Cellar.type';
 
 const { WINE_TYPES } = config.wineTypes;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  margin: 1rem;
-`;
 
 type Props = { wines: WineEnhanced[] };
 
@@ -31,7 +24,7 @@ export const YearsChart: FC<Props> = ({ wines }) => {
   const extendedYears = range(
     yearsSorted[0],
     yearsSorted[yearsSorted.length - 1] + 1,
-    1
+    1,
   );
   const initialMap = extendedYears.reduce(
     (acc, year) => ({
@@ -43,7 +36,7 @@ export const YearsChart: FC<Props> = ({ wines }) => {
         CHAMPAGNE: 0,
       },
     }),
-    {}
+    {},
   );
   const map = wines.reduce((acc, wine) => {
     acc[wine.year][wine.wineType] += wine.bottlesCount;
@@ -53,19 +46,25 @@ export const YearsChart: FC<Props> = ({ wines }) => {
 
   return (
     <>
-      <Title>Distribution des bouteilles par année</Title>
       <ResponsiveContainer width="100%" height="100%" minHeight={300}>
         <BarChart
           width={600}
           height={300}
           data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          margin={{ top: 10, right: 10, left: -10, bottom: 5 }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="year" tick={{ fontSize: 15 }} />
+          <YAxis allowDecimals={false} tick={{ fontSize: 15 }} />
           <Tooltip />
-          <Legend />
+          <Legend
+            wrapperStyle={{ fontSize: 16, paddingTop: 8 }}
+            formatter={(value) => (
+              <span style={{ color: '#1d1a1b', textTransform: 'capitalize' }}>
+                {value}
+              </span>
+            )}
+          />
           <Bar
             name={WINE_TYPES.RED.label}
             dataKey="RED"

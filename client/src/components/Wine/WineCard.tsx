@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import tinycolor from 'tinycolor2';
 import styled from 'styled-components';
-import MenuIcon from '@mui/icons-material/Menu';
-import { fontColorContrast } from '@/helpers';
+import InfoIcon from '@mui/icons-material/InfoOutlined';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import config from '~/config';
 
 import { Image } from '../Image/Image';
@@ -17,6 +17,12 @@ const WineCardWrapper = styled.div`
   width: ${config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}px;
   display: inline-block;
   position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgba(40, 20, 25, 0.08),
+    0 6px 20px rgba(40, 20, 25, 0.12);
+  background: #fff;
   height: ${config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT + closeInfosHeight}px;
   margin: 1em;
   ${(props) => props.theme.media.handheld`
@@ -27,17 +33,23 @@ const WineCardWrapper = styled.div`
 const MenuButton = styled.button<{ open: boolean }>`
   cursor: pointer;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 10px;
-  z-index: 4;
-  transition: transform 0.2s;
-  ${({ open }) =>
-    open &&
-    `
-    padding: 5px;
-    transform: translate(20px,-20px);
-  `};
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+
+  & svg {
+    font-size: 1.4rem;
+  }
 `;
 const WineCardImageContainer = styled.a<{ open: boolean }>`
   position: absolute;
@@ -80,6 +92,8 @@ const WineCardContainer = styled.div`
   display: block;
   z-index: 2;
   right: 0px;
+  background: #ffffff;
+  color: #1d1a1b;
 `;
 
 const WineCorner = styled.div<{ open: boolean }>`
@@ -98,9 +112,10 @@ const WineCorner = styled.div<{ open: boolean }>`
   `};
 `;
 const WinePane = styled.div<{ open: boolean }>`
-  font-family: 'Ranga', cursive;
-  font-display: swap;
-  font-size: 20px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
   position: absolute;
   right: 0px;
   left: 0px;
@@ -136,8 +151,7 @@ export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
   const onToggle = () => setOpen((previous) => !previous);
 
   const wineColor = WINE_TYPES[wine.wineType].color;
-  const textColor = fontColorContrast(wineColor);
-  const softColor = tinycolor(wineColor).lighten(20).toString();
+  const textColor = tinycolor(wineColor).isLight() ? '#1d1a1b' : '#ffffff';
   const cornerColor = tinycolor(wineColor).darken(20).toString();
 
   return (
@@ -146,9 +160,12 @@ export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
         open={open}
         type="button"
         onClick={onToggle}
-        style={{ background: softColor, color: textColor }}
+        aria-expanded={open}
+        aria-label={open ? 'Fermer les détails' : 'Voir les détails'}
+        style={{ background: '#ffffff', color: '#1d1a1b' }}
       >
-        <MenuIcon />
+        {open ? <CloseIcon /> : <InfoIcon />}
+        {!open && 'Détails'}
       </MenuButton>
       <WineCardImageContainer
         open={open}
@@ -163,11 +180,7 @@ export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
           lazyLoader={wine.blur}
         />
       </WineCardImageContainer>
-      {open && (
-        <WineCardContainer style={{ background: softColor, color: textColor }}>
-          {children(wine)}
-        </WineCardContainer>
-      )}
+      {open && <WineCardContainer>{children(wine)}</WineCardContainer>}
       <WineCorner
         open={open}
         style={

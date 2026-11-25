@@ -27,7 +27,7 @@ class OutsideModal extends React.PureComponent<Props> {
     const { modalIsOpen, closeModal, wine } = this.props;
     return (
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <ModalHeader>Suppression de bouteille (hors casier)</ModalHeader>
+        <ModalHeader>Sortir des bouteilles (hors casier)</ModalHeader>
         <ModalContent>
           <RemoveOutsideBottleForm wine={wine} />
         </ModalContent>

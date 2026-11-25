@@ -12,11 +12,7 @@ import {
 import InBoxesModal from './InBoxes/InBoxesModal';
 import OutsideModal from './Outside/OutsideModal';
 
-const ButtonStyled = styled(Button)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+const ButtonStyled = styled(Button)``;
 
 type RawProps = {
   wineId: number;
@@ -54,6 +50,7 @@ class WineModalButton extends React.PureComponent<Props, State> {
       <>
         <ButtonStyled type="button" onClick={this.openModal}>
           <DeleteIcon />
+          Sortir
         </ButtonStyled>
         {!!wine.isInBoxes && (
           <InBoxesModal
@@ -85,7 +82,7 @@ const connector = connect(
     openOutsideModal() {
       dispatch(selectWineToRemove(wineId));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

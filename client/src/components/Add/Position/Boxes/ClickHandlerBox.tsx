@@ -18,7 +18,7 @@ const SelectableBox = connect(
     onSelect: (boxId) => {
       dispatch(selectBox(boxId));
     },
-  })
+  }),
 )(CellarBoxSelectable);
 
 const UnSelectableBox = connect(
@@ -27,7 +27,7 @@ const UnSelectableBox = connect(
     onSelect: (boxId) => {
       dispatch(unselectBox(boxId));
     },
-  })
+  }),
 )(CellarBoxSelectable);
 
 type RawProps = {
@@ -42,7 +42,7 @@ const ClickHandlerBox: FC<Props> = ({
   boxId,
 }) => {
   if (isBoxSelected) {
-    return <UnSelectableBox boxId={boxId} />;
+    return <UnSelectableBox boxId={boxId} selected />;
   } else if (isBoxSelectable) {
     return <SelectableBox boxId={boxId} />;
   }

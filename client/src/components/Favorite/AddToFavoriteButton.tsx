@@ -13,11 +13,17 @@ type RawProps = { wineId: number };
 
 type Props = PropsFromRedux & RawProps;
 
-const StyledButton = styled(Button)<{ isFavorite: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${({ isFavorite }) => !isFavorite && 'transparent'};
+const StyledButton = styled(Button)<{ $isFavorite: boolean }>`
+  background: ${({ $isFavorite, theme }) =>
+    $isFavorite ? theme.colors.primary : theme.colors.surface};
+  color: ${({ $isFavorite, theme }) =>
+    $isFavorite ? theme.colors.onPrimary : theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary};
+
+  &:hover {
+    background: ${({ $isFavorite, theme }) =>
+      $isFavorite ? theme.colors.primaryDark : theme.colors.primaryVarient};
+  }
 `;
 
 const AddToFavoriteButton: FC<Props> = ({
@@ -27,8 +33,14 @@ const AddToFavoriteButton: FC<Props> = ({
 }) => {
   const action = isFavorite ? removeFromFavorite : addToFavorite;
   return (
-    <StyledButton onClick={action} isFavorite={isFavorite}>
+    <StyledButton
+      type="button"
+      onClick={action}
+      $isFavorite={isFavorite}
+      aria-pressed={isFavorite}
+    >
       {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      Favori
     </StyledButton>
   );
 };
@@ -44,7 +56,7 @@ const connector = connect(
     removeFromFavorite() {
       dispatch(removeFromFavorite(wineId));
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

@@ -40,7 +40,7 @@ export const removeBottles = (bottleIds) => async (
   try {
     await removeBottles(bottleIds);
     dispatch(resetRemoveState());
-    alert('Suppréssion avec succès');
+    alert('C’est noté, bonne dégustation !');
   } catch (error) {
     console.error(error);
   }
@@ -54,7 +54,7 @@ export const removeOutsideBottles = (wineId, count) => async (
   try {
     await removeOutsideBottles(wineId, count);
     dispatch(resetRemoveState());
-    alert('Suppréssion avec succès');
+    alert('C’est noté, bonne dégustation !');
   } catch (error) {
     console.error(error);
   }

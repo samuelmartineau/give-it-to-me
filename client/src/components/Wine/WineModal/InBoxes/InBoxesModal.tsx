@@ -27,7 +27,7 @@ class InBoxesModal extends React.PureComponent<Props> {
     const { modalIsOpen, closeModal, wine } = this.props;
     return (
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <ModalHeader>Suppression de bouteille</ModalHeader>
+        <ModalHeader>Sortir des bouteilles</ModalHeader>
         <ModalContent>
           <WineFolders wine={wine} />
         </ModalContent>

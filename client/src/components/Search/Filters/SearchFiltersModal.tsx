@@ -24,15 +24,16 @@ const SearchFiltersModal: FC<Props> = ({
   return (
     <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
       <ModalHeader>
-        {filtersCount} filtre{filtersCount > 1 && 's'} affiche
-        {filtersCount > 1 && 'nt'} {count} résultat{count > 1 && 's'}
+        Affiner la recherche
+        {filtersCount > 0 &&
+          ` (${filtersCount} filtre${filtersCount > 1 ? 's' : ''})`}
       </ModalHeader>
       <ModalContent>
         <SearchFiltersModalFilters />
       </ModalContent>
       <ModalActions>
-        <Button onClick={closeModal} type="button">
-          Fermer
+        <Button onClick={closeModal} type="button" primary>
+          Voir {count} résultat{count > 1 && 's'}
         </Button>
       </ModalActions>
     </Modal>

@@ -6,22 +6,32 @@ import CellarBoxes from '@/components/Cellar/CellarBoxes';
 import WineModalButton from '@/components/Wine/WineModal/WineModalButton';
 import AddToFavoriteButton from '@/components/Favorite/AddToFavoriteButton';
 import { Button } from '@/components/Toolkit';
-import LinkIcon from '@mui/icons-material/Link';
+import OpenInNewIcon from '@mui/icons-material/OpenInNewRounded';
 import { CellarBoxConnected } from './CellarBox';
 import CellarBottles from './CellarBottles';
 import WineDetails from './WineDetails';
 import { WineEnhanced } from '@/Cellar.type';
 
 const WineActions = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin: 1em auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px;
   position: absolute;
   right: 0;
   left: 0;
   bottom: 0;
   z-index: 1;
-}
+
+  & > button,
+  & > a > button {
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    min-height: 60px;
+    padding: 4px;
+    font-size: 0.85rem;
+  }
 `;
 
 type Props = {
@@ -32,7 +42,7 @@ export const WineContentCard: FC<Props> = ({ wine }) => {
   return (
     <>
       {!!wine.isInBoxes && (
-        <CellarContainer>
+        <CellarContainer compact>
           <CellarBoxes>
             {(boxId) => (
               <CellarBoxConnected boxId={boxId} wineId={wine.id} key={boxId} />
@@ -45,8 +55,15 @@ export const WineContentCard: FC<Props> = ({ wine }) => {
       <WineActions>
         <AddToFavoriteButton wineId={wine.id} />
         <WineModalButton wineId={wine.id} />
-        <Link to="/wine/$id" target='_blank' params={{ id: wine.id.toString() }}>
-          <Button type="button"><LinkIcon /></Button>
+        <Link
+          to="/wine/$id"
+          target="_blank"
+          params={{ id: wine.id.toString() }}
+        >
+          <Button type="button" tabIndex={-1}>
+            <OpenInNewIcon />
+            Fiche
+          </Button>
         </Link>
       </WineActions>
     </>

@@ -10,16 +10,23 @@ import { Radio } from '@/components/Toolkit';
 import { WINE_TYPES_ALL, BOTTLE_TYPES_ALL } from '@/helpers';
 
 const Text = styled.span`
-  font-style: italic;
   display: block;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
 `;
 
-const Label = styled.label`
+const Label = styled.div`
   display: block;
-  margin: 1em auto;
+  margin: 0 0 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 const RadioStyled = styled(Radio)`
-  margin: 0.5em;
+  margin: 0 8px 8px 0;
+  text-transform: capitalize;
 `;
 
 type Props = PropsFromRedux;
@@ -28,7 +35,7 @@ const TypesStep: FC<Props> = ({ model, onTypeChange }) => {
   return (
     <>
       <Label>
-        <Text>Famile</Text>
+        <Text>Couleur</Text>
         {WINE_TYPES_ALL.map((wineType) => (
           <RadioStyled
             key={wineType.id}

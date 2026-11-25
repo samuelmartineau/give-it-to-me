@@ -1,4 +1,3 @@
-import fontColorContrastModule from 'font-color-contrast';
 import config from '~/config';
 
 const { WINE_TYPES, WINE_CATEGORIES } = config.wineTypes;
@@ -25,12 +24,3 @@ export const BOTTLE_TYPES_ALL = Object.keys(BOTTLE_TYPES).map(
   }),
 );
 
-// font-color-contrast is a CommonJS module that sets `exports.default`.
-// Vite 8 (rolldown) follows Node's interop rules, so the default import is the
-// whole `exports` object rather than the function: unwrap it here.
-
-type FontColorContrast = typeof fontColorContrastModule;
-
-export const fontColorContrast: FontColorContrast =
-  (fontColorContrastModule as unknown as { default?: FontColorContrast })
-    .default ?? fontColorContrastModule;

@@ -1,7 +1,6 @@
 import React from 'react';
 import config from '~/config';
 import tinycolor from 'tinycolor2';
-import { fontColorContrast } from '@/helpers';
 
 import WineDetails from '../WineDetails';
 import { WineAndBottles } from '@/Cellar.type';
@@ -13,29 +12,37 @@ import { enhanceBottle } from '@/store/bottles/bottles.reducer';
 import { enhanceWine } from '@/store/wines/wines.reducer';
 import { Image } from '@/components/Image/Image';
 import styled from 'styled-components';
+import { Card, Section, SectionTitle } from '@/components/Toolkit';
 
 const { WINE_TYPES } = config.wineTypes;
 
-const WinePageHeader = styled.div`
+const Header = styled(Card)`
   display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  border-top: 10px solid var(--wine-color);
+
   ${(props) => props.theme.media.handheld`
-     align-items: center;
     flex-direction: column;
-`};
+    align-items: center;
+    gap: 16px;
+  `};
 `;
 
 const StyledImage = styled(Image)`
-  margin: 16px;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
 `;
 
-const StyledWineDetails = styled(WineDetails)`
-  margin: 16px;
-  align-items: center;
-`;
-
-const Cellar = styled.div`
-  padding: 16px;
-  display: flex;
+const Badge = styled.span`
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 12px;
 `;
 
 interface WinePageProps {
@@ -44,13 +51,12 @@ interface WinePageProps {
 
 const WinePage: React.FC<WinePageProps> = ({ wine }) => {
   const wineColor = WINE_TYPES[wine.wineType].color;
-  const textColor = fontColorContrast(wineColor);
-  const softColor = tinycolor(wineColor).lighten(20).toString();
+  const textColor = tinycolor(wineColor).isLight() ? '#1d1a1b' : '#ffffff';
 
   return (
-    <div style={{ background: softColor, color: textColor }}>
-      <WinePageHeader>
-        <a href={wine.pictureFileName} target="_blank">
+    <div style={{ '--wine-color': wineColor } as React.CSSProperties}>
+      <Header>
+        <a href={wine.pictureFileName} target="_blank" rel="noreferrer">
           <StyledImage
             width={config.PICTURE_UPLOAD.THUMBNAIL.WIDTH}
             height={config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT}
@@ -58,15 +64,22 @@ const WinePage: React.FC<WinePageProps> = ({ wine }) => {
             lazyLoader={wine.blur}
           />
         </a>
-        <StyledWineDetails wine={enhanceWine(wine)} />
-      </WinePageHeader>
+        <div>
+          <Badge style={{ background: wineColor, color: textColor }}>
+            {WINE_TYPES[wine.wineType].label} · {wine.year}
+          </Badge>
+          <WineDetails wine={enhanceWine(wine)} />
+        </div>
+      </Header>
 
       {!!wine.isInBoxes && (
-        <Cellar>
+        <Section>
+          <SectionTitle>Emplacement dans la cave</SectionTitle>
           <CellarContainer>
             <CellarBoxes>
               {(boxId) => (
                 <CellarBoxStyled
+                  key={boxId}
                   boxId={boxId}
                   isWineInBox={
                     !!wine.bottles.find((bottle) => bottle.box === boxId)
@@ -80,7 +93,7 @@ const WinePage: React.FC<WinePageProps> = ({ wine }) => {
               )}
             />
           </CellarContainer>
-        </Cellar>
+        </Section>
       )}
     </div>
   );

@@ -11,8 +11,15 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
 
-  &:focus + label {
-    outline: -webkit-focus-ring-color auto 5px;
+  &:focus-visible + label {
+    outline: 3px solid ${(props) => props.theme.colors.focus};
+    outline-offset: 2px;
+  }
+
+  &:checked + label {
+    border-color: ${(props) => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.primaryVarient};
+    font-weight: 700;
   }
 
   &:checked + label > svg {
@@ -20,8 +27,22 @@ const Input = styled.input`
   }
 `;
 const Label = styled.label`
-  vertical-align: bottom;
   display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 6px 16px 6px 10px;
+  border: 2px solid ${(props) => props.theme.colors.border};
+  border-radius: 999px;
+  background: ${(props) => props.theme.colors.surface};
+  font-size: 1.05rem;
+  cursor: pointer;
+  user-select: none;
+
+  & > svg {
+    font-size: 1.6rem;
+    color: ${(props) => props.theme.colors.textMuted};
+  }
 `;
 
 type Props = {

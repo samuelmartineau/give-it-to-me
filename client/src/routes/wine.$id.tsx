@@ -4,6 +4,7 @@ import { Layout } from '../components/Layout/Layout';
 import WinePage from '../components/Wine/WinePage/WinePage';
 import { getWineById } from '../api';
 import { WineAndBottles } from '../Cellar.type';
+import { Spinner } from '../components/Toolkit';
 
 export const Route = createFileRoute('/wine/$id')({
   component: WineIdPage,
@@ -33,19 +34,31 @@ function WineIdPage() {
   }, [id]);
 
   if (loading) {
-    return <div>Loading wine...</div>;
+    return (
+      <Layout title="Chargement…">
+        <Spinner />
+      </Layout>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <Layout title="Vin introuvable">
+        <p>Impossible de charger ce vin : {error}</p>
+      </Layout>
+    );
   }
 
   if (!wine) {
-    return <div>Wine not found</div>;
+    return (
+      <Layout title="Vin introuvable">
+        <p>Ce vin n’existe pas ou plus.</p>
+      </Layout>
+    );
   }
 
   return (
-    <Layout title={`Vin ${wine.id} - ${wine.name}`}>
+    <Layout title={wine.name}>
       <WinePage wine={wine} />
     </Layout>
   );

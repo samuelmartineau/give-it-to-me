@@ -9,9 +9,9 @@ type ReactModalAdapterProps = {
   modalClassName?: string;
 };
 
-const ReactModalAdapter: FC<React.PropsWithChildren<
-  ReactModalAdapterProps
->> = ({ className, modalClassName, ...props }) => {
+const ReactModalAdapter: FC<
+  React.PropsWithChildren<ReactModalAdapterProps>
+> = ({ className, modalClassName, ...props }) => {
   return (
     <ReactModal
       ariaHideApp={false}
@@ -48,28 +48,50 @@ const StyledModal = styled(ReactModalAdapter).attrs({
     justify-content: center;
   }
   .Modal {
-    background: white;
+    background: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.text};
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     max-width: 800px;
     display: flex;
     flex-direction: column;
+    border-radius: ${({ theme }) => theme.size.radius};
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    outline: none;
+    overflow: hidden;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
   }
 `;
 
 export const ModalHeader = styled.div`
-  font-size: 21px;
-  margin: 1rem;
-  text-align: center;
+  padding: 20px 24px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 export const ModalContent = styled.div`
-  margin: 1rem;
+  padding: 24px;
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 `;
 export const ModalActions = styled.div`
-  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.background};
+
+  & > button {
+    min-width: 140px;
+  }
 `;
 
 type ModalProps = {
