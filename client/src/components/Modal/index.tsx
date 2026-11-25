@@ -51,8 +51,8 @@ const StyledModal = styled(ReactModalAdapter).attrs({
     background: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.text};
     width: calc(100% - 4rem);
-    height: calc(100% - 4rem);
-    max-width: 800px;
+    max-height: calc(100% - 4rem);
+    max-width: 720px;
     display: flex;
     flex-direction: column;
     border-radius: ${({ theme }) => theme.size.radius};
@@ -63,6 +63,7 @@ const StyledModal = styled(ReactModalAdapter).attrs({
     @media (max-width: 600px) {
       width: 100%;
       height: 100%;
+      max-height: none;
       border-radius: 0;
     }
   }

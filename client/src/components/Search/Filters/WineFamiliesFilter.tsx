@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCheckboxFilter, RootState } from '@/store/';
-import { Label, Text } from './FiltersUtils';
 import WineFamilyMultipleSelector from '@/components/Autocomplete/WineFamilyMultipleSelector';
 import { OnSuggestionSelectedData } from '@/components/Autocomplete/WineFamilySuggestion';
 import { SearchParams } from '@/routes/search';
@@ -44,13 +43,12 @@ const WineFamiliesFilter: React.FC = () => {
   };
 
   return (
-    <Label>
-      <Text>Appelation</Text>
+    <div aria-label="Appellation">
       <WineFamilyMultipleSelector
         selectedFamilyIds={wineFamilies}
         onSuggestionSelected={selectWineFamily}
       />
-    </Label>
+    </div>
   );
 };
 

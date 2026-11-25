@@ -4,12 +4,20 @@ import styled from 'styled-components';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCheckboxFilter, RootState } from '@/store/';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import { Button } from '@/components/Toolkit';
 import { WineFamilyType } from '@/Cellar.type';
 import { SearchParams } from '@/routes/search';
 
 const Wrapper = styled.div`
-  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+
+  &:empty {
+    display: none;
+  }
 `;
 
 const WineFamiliesFilterChips: React.FC = () => {
@@ -56,8 +64,11 @@ const WineFamiliesFilterChips: React.FC = () => {
           key={wineFamily.id}
           onClick={unselectWineFamily(wineFamily)}
           type="button"
+          variant="ghost"
+          aria-label={`Retirer ${wineFamily.name}`}
         >
           {wineFamily.name}
+          <CloseIcon />
         </Button>
       ))}
     </Wrapper>

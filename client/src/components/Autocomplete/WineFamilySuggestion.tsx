@@ -38,7 +38,7 @@ export class WineFamilySuggestion extends React.Component<Props> {
         datas={wineFamilies}
         extract={this.extract}
         onSuggestionSelected={this.onSelect}
-        placeholder="Commencer à taper le nom de l'appellation"
+        placeholder="Tape le nom de l’appellation"
       />
     );
   }

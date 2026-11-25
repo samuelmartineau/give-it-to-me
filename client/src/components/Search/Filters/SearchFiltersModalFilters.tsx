@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   toggleCheckboxFilter,
-  updateInputFilter,
   toggleFavoritesFilter,
   toggleOutsideBoxesFilter,
   RootState,
@@ -20,24 +19,60 @@ import WineFamiliesFilterChips from './WineFamiliesFilterChips';
 import { WINE_CATEGORIES_ALL, WINE_TYPES_ALL } from '@/helpers';
 import { SearchParams } from '@/routes/search';
 
-const Label = styled.label`
-  margin: 0 0 24px;
-  display: block;
+const Group = styled.fieldset`
+  margin: 0;
+  padding: 20px 0;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
 `;
 
-const Text = styled.div`
-  margin-bottom: 8px;
-  font-size: 1.1rem;
+const Legend = styled.legend`
+  float: left;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: 1.15rem;
   font-weight: 700;
+
+  & + * {
+    clear: both;
+  }
 `;
 
-const Periode = styled.div`
+const Options = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const Years = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
 `;
-const CheckboxStyled = styled(Checkbox)<CheckboxProps>`
-  margin: 0 8px 8px 0;
+
+const YearLabel = styled.label`
+  display: block;
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+
+  & > input {
+    margin-top: 4px;
+  }
 `;
+
+const CheckboxStyled = styled(Checkbox)<CheckboxProps>``;
+
+const capitalize = (label: string) =>
+  label.charAt(0).toUpperCase() + label.slice(1);
 
 const SearchFiltersModalFilters: React.FC = () => {
   const dispatch = useDispatch();
@@ -136,39 +171,43 @@ const SearchFiltersModalFilters: React.FC = () => {
     });
   };
 
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const data = event.currentTarget as { name: 'name'; value: string };
-    dispatch(updateInputFilter(data));
-    navigate({
-      search: (prev: SearchParams) => ({
-        ...prev,
-        name: data.value,
-      }),
-      replace: true,
-    });
-  };
+  // Only offer the types that exist for the chosen colours (keep any type
+  // already ticked so it can still be unticked).
+  const visibleCategories = filters.wineTypes.length
+    ? WINE_CATEGORIES_ALL.filter(
+        (category) =>
+          filters.wineCategories.includes(category.id) ||
+          filters.wineTypes.some((type) =>
+            (WINE_TYPES[type].categories as readonly string[]).includes(
+              category.id,
+            ),
+          ),
+      )
+    : WINE_CATEGORIES_ALL;
 
   return (
     <>
-      <Label>
-        <Text>Couleur</Text>
-        {WINE_TYPES_ALL.map((type) => (
-          <CheckboxStyled
-            key={type.id}
-            onChange={updateCheckbox}
-            name="wineTypes"
-            id={`search-filters${type.id}`}
-            value={type.id}
-            checked={filters.wineTypes.includes(type.id)}
-          >
-            {type.label}
-          </CheckboxStyled>
-        ))}
-      </Label>
-      <Label>
-        <Text>Type</Text>
-        {WINE_CATEGORIES_ALL.map((category) => {
-          return (
+      <Group>
+        <Legend>Couleur</Legend>
+        <Options>
+          {WINE_TYPES_ALL.map((type) => (
+            <CheckboxStyled
+              key={type.id}
+              onChange={updateCheckbox}
+              name="wineTypes"
+              id={`search-filters${type.id}`}
+              value={type.id}
+              checked={filters.wineTypes.includes(type.id)}
+            >
+              {capitalize(type.label)}
+            </CheckboxStyled>
+          ))}
+        </Options>
+      </Group>
+      <Group>
+        <Legend>Type</Legend>
+        <Options>
+          {visibleCategories.map((category) => (
             <CheckboxStyled
               key={category.id}
               onChange={updateCheckbox}
@@ -177,66 +216,66 @@ const SearchFiltersModalFilters: React.FC = () => {
               value={category.id}
               checked={filters.wineCategories.includes(category.id)}
             >
-              {category.label}
+              {capitalize(category.label)}
             </CheckboxStyled>
-          );
-        })}
-      </Label>
-      <Label>
-        <Text>Années</Text>
-        <Periode>
-          <TextField
-            onChange={onRangeChange}
-            type="number"
-            name="minYear"
-            value={filters.minYear !== undefined ? filters.minYear : ''}
-            placeholder="De (ex : 1970)"
-          />
-          <TextField
-            onChange={onRangeChange}
-            type="number"
-            name="maxYear"
-            value={filters.maxYear !== undefined ? filters.maxYear : ''}
-            placeholder="À (ex : 2019)"
-          />
-        </Periode>
-      </Label>
-      <WineFamiliesFilter />
-      <WineFamiliesFilterChips />
-      <Label>
-        <Text>Nom du vin</Text>
-        <TextField
-          onChange={onNameChange}
-          type="text"
-          name="name"
-          value={filters.name}
-          placeholder="Nom"
-        />
-      </Label>
-      <Label>
-        <Text>Favoris</Text>
-        <CheckboxStyled
-          onChange={handleToggleFavoritesFilter}
-          name="favorites"
-          value="favorites"
-          id="search-filters"
-          checked={filters.favorites}
-        >
-          Seulement mes favoris
-        </CheckboxStyled>
-      </Label>
-      <Label>
-        <Text>Rangement</Text>
-        <CheckboxStyled
-          onChange={handleToggleOutsideBoxesFilter}
-          name="inBoxes"
-          value="inBoxes"
-          id="search-filters-in-boxes"
-          checked={filters.outsideBoxes}
-        >
-          Seulement hors casier
-        </CheckboxStyled>
-      </Label>
+          ))}
+        </Options>
+      </Group>
+      <Group>
+        <Legend>Afficher seulement</Legend>
+        <Options>
+          <CheckboxStyled
+            onChange={handleToggleFavoritesFilter}
+            name="favorites"
+            value="favorites"
+            id="search-filters"
+            checked={filters.favorites}
+          >
+            Mes favoris
+          </CheckboxStyled>
+          <CheckboxStyled
+            onChange={handleToggleOutsideBoxesFilter}
+            name="inBoxes"
+            value="inBoxes"
+            id="search-filters-in-boxes"
+            checked={filters.outsideBoxes}
+          >
+            Hors casier
+          </CheckboxStyled>
+        </Options>
+      </Group>
+      <Group>
+        <Legend>Années</Legend>
+        <Years>
+          <YearLabel>
+            De
+            <TextField
+              onChange={onRangeChange}
+              type="number"
+              inputMode="numeric"
+              name="minYear"
+              value={filters.minYear !== undefined ? filters.minYear : ''}
+              placeholder="1970"
+            />
+          </YearLabel>
+          <YearLabel>
+            À
+            <TextField
+              onChange={onRangeChange}
+              type="number"
+              inputMode="numeric"
+              name="maxYear"
+              value={filters.maxYear !== undefined ? filters.maxYear : ''}
+              placeholder="2024"
+            />
+          </YearLabel>
+        </Years>
+      </Group>
+      <Group>
+        <Legend>Appellation</Legend>
+        <WineFamiliesFilter />
+        <WineFamiliesFilterChips />
+      </Group>
     </>
   );
 };

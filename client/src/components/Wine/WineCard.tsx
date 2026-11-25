@@ -73,7 +73,9 @@ const WineCardImageContainer = styled.a<{ open: boolean }>`
 `;
 
 const WineImage = styled(Image)<{ open: boolean }>`
-  margin-left: 16px;
+  display: block;
+  width: 100%;
+  object-fit: cover;
   ${({ open }) =>
     open &&
     `
@@ -87,7 +89,7 @@ const WineCardContainer = styled.div`
   position: absolute;
   top: ${openInfosHeight}px;
   padding: 10px;
-  left: 16px;
+  left: 0px;
   bottom: 0px;
   display: block;
   z-index: 2;
@@ -96,21 +98,6 @@ const WineCardContainer = styled.div`
   color: #1d1a1b;
 `;
 
-const WineCorner = styled.div<{ open: boolean }>`
-  position: absolute;
-  border: 8px solid;
-  transition: transform 0.2s;
-  border-left-color: transparent;
-  border-top-color: transparent;
-  bottom: auto;
-  top: ${config.PICTURE_UPLOAD.THUMBNAIL.HEIGHT - 16}px;
-  ${({ open }) =>
-    open &&
-    `
-    border-bottom-color: transparent;
-    transform: translate(0px, -294px);
-  `};
-`;
 const WinePane = styled.div<{ open: boolean }>`
   font-size: 1.25rem;
   font-weight: 700;
@@ -152,7 +139,6 @@ export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
 
   const wineColor = WINE_TYPES[wine.wineType].color;
   const textColor = tinycolor(wineColor).isLight() ? '#1d1a1b' : '#ffffff';
-  const cornerColor = tinycolor(wineColor).darken(20).toString();
 
   return (
     <WineCardWrapper className={className}>
@@ -181,17 +167,6 @@ export const WineCard: FC<WineCardProps> = ({ wine, className, children }) => {
         />
       </WineCardImageContainer>
       {open && <WineCardContainer>{children(wine)}</WineCardContainer>}
-      <WineCorner
-        open={open}
-        style={
-          open
-            ? { borderRightColor: cornerColor, borderTopColor: cornerColor }
-            : {
-                borderRightColor: cornerColor,
-                borderBottomColor: cornerColor,
-              }
-        }
-      />
       <WinePane open={open} style={{ background: wineColor, color: textColor }}>
         {wine.name}
       </WinePane>
