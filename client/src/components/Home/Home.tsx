@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Link } from '@tanstack/react-router';
 import AddIcon from '@mui/icons-material/AddCircleRounded';
 import SearchIcon from '@mui/icons-material/SearchRounded';
-import config from '~/config';
 
 import CellarContainer from '@/components/Cellar/CellarContainer';
 import CellarBoxes from '@/components/Cellar/CellarBoxes';
@@ -14,10 +13,6 @@ import { Card, Section, SectionTitle } from '@/components/Toolkit';
 import { YearsChart } from './YearsChart';
 import { RootState } from '@/store';
 import { Transactions } from '../Transaction/Transactions';
-
-const TOTAL_PLACES = Object.values(
-  config.cellar.CELLAR_SCHEMA as Record<string, { schema: number[] }>,
-).reduce((acc, box) => acc + box.schema[0] * box.schema[1], 0);
 
 const Greeting = styled.p`
   margin: -12px 0 24px;
@@ -38,13 +33,12 @@ const Top = styled.div`
 
 const Stats = styled.dl`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin: 0;
 
   ${({ theme }) => theme.media.handheld`
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
   `};
 `;
 
@@ -133,15 +127,14 @@ const ActionLink = styled(Link)<{ $primary?: boolean }>`
 
 type Props = PropsFromRedux;
 
-const Home: FC<Props> = ({ wines, bottlesInBoxes, favoritesCount }) => {
+const Home: FC<Props> = ({ wines, favoritesCount }) => {
   const bottlesCount = wines.reduce((acc, wine) => acc + wine.bottlesCount, 0);
-  const freePlaces = Math.max(TOTAL_PLACES - bottlesInBoxes, 0);
   const owner = import.meta.env.GITM_OWNER;
 
   return (
     <div>
       <Greeting>
-        Bonjour{owner ? ` ${owner}` : ''}, voici l’état de ta cave.
+        Bonjour{owner ? ` ${owner}` : ''} ! Voici où en est ta cave.
       </Greeting>
 
       <Top>
@@ -152,15 +145,11 @@ const Home: FC<Props> = ({ wines, bottlesInBoxes, favoritesCount }) => {
           </Stat>
           <Stat as="div">
             <StatValue>{wines.length}</StatValue>
-            <StatLabel>Vins différents</StatLabel>
+            <StatLabel>Vins</StatLabel>
           </Stat>
           <Stat as="div">
             <StatValue>{favoritesCount}</StatValue>
             <StatLabel>Favoris</StatLabel>
-          </Stat>
-          <Stat as="div">
-            <StatValue>{freePlaces}</StatValue>
-            <StatLabel>Places libres</StatLabel>
           </Stat>
         </Stats>
         <Actions>
@@ -201,10 +190,9 @@ const Home: FC<Props> = ({ wines, bottlesInBoxes, favoritesCount }) => {
   );
 };
 
-const connector = connect(({ wines, bottles, favorites }: RootState) => {
+const connector = connect(({ wines, favorites }: RootState) => {
   return {
     wines: wines.all.map((id) => wines.map[id]),
-    bottlesInBoxes: bottles.all.length,
     favoritesCount: favorites.all.length,
   };
 });

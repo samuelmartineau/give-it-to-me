@@ -119,7 +119,7 @@ export const addWine =
     try {
       await addWine(wineModel);
       dispatch(resetAddWine());
-      alert('Ajout avec succès');
+      alert('C’est fait, tes bouteilles sont dans la cave !');
     } catch (error) {
       console.error(error);
     }

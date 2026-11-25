@@ -28,7 +28,7 @@ const RemoveOutsideBottleForm: FC<Props> = ({ wine, count, updateCount }) => {
         Ce vin à {wine.bottlesCount} bouteille{wine.bottlesCount > 1 && 's'}
       </h2>
       <Label>
-        <Text>Combien voulez-vous supprimer de bouteille?</Text>
+        <Text>Combien de bouteilles veux-tu sortir ?</Text>
         <TextField onChange={updateCount} type="number" value={count} />
       </Label>
     </Wrapper>
@@ -46,7 +46,7 @@ const connector = connect(
         dispatch(setRemoveCount(value));
       }
     },
-  })
+  }),
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

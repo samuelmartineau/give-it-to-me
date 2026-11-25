@@ -13,7 +13,7 @@ const EmptyResults: FC<Props> = ({ hasNoResult }) => {
     <MessageManager
       icon={<SearchIcon />}
       title="Aucun vin trouvé"
-      message="Impossible de trouver un vin. Peut être que tu as mis trop de filtres?"
+      message="Rien ne correspond. Essaie d’enlever un filtre ou de chercher un autre nom."
     />
   );
 };

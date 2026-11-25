@@ -135,7 +135,7 @@ const CellarContainer = ({ children, compact }: Props) => {
           </Legend>
           <ScrollHint>
             <SwipeIcon />
-            Glissez pour voir toute la cave
+            Glisse pour voir toute la cave
           </ScrollHint>
         </Footer>
       )}

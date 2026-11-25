@@ -61,7 +61,7 @@ const AddSteps: FC<Props> = ({ isModelValid, addWine }) => {
   const onSubmit = async (evt) => {
     evt.preventDefault();
     if (!isModelValid) {
-      alert('Il manque des champs');
+      alert('Il manque quelques infos, jette un œil au formulaire.');
     } else {
       setSending(true);
       await addWine();

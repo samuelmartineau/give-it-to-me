@@ -200,7 +200,7 @@ export const Transactions = () => {
       setTransactions(response.transactions);
       setPagination(response.pagination);
     } catch (err) {
-      setError('Impossible de charger les dernières activités.');
+      setError('Oups, impossible de charger l’historique pour le moment.');
       console.error('Error fetching transactions:', err);
     } finally {
       setLoading(false);

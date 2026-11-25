@@ -63,20 +63,20 @@ export const Browse = () => {
   return (
     <div>
       <SectionTitle>
-        <Step>1</Step>Choisissez une caisse
+        <Step>1</Step>Choisis une caisse
       </SectionTitle>
-      <Hint>Touchez une caisse qui contient des bouteilles.</Hint>
+      <Hint>Touche une caisse où il y a des bouteilles.</Hint>
       <BoxesSelector />
 
       {hasBox && (
         <Section ref={detailsRef}>
           <SectionTitle>
-            <Step>2</Step>Choisissez une bouteille
+            <Step>2</Step>Choisis une bouteille
           </SectionTitle>
           <Hint>
             {hasCell
-              ? 'Voici le vin de la bouteille choisie (en bleu).'
-              : 'Touchez une bouteille pour voir de quel vin il s’agit.'}
+              ? 'Voilà le vin de la bouteille en bleu.'
+              : 'Touche une bouteille pour savoir quel vin c’est.'}
           </Hint>
           <Details>
             <BoxCard>

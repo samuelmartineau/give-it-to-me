@@ -32,7 +32,7 @@ export const PositionStep: FC<Props> = ({ isInBoxes, toggle }) => {
       {isInBoxes && (
         <>
           <Hint>
-            Touchez une caisse, puis les cases où ranger chaque bouteille.
+            Touche une caisse, puis les cases où tu ranges les bouteilles.
           </Hint>
           <PositionSelector />
         </>
