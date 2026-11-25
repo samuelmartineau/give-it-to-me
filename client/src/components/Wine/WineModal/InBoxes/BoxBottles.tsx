@@ -57,7 +57,7 @@ const Cell: FC<Props> = ({
 
   const bottleInfos = getBottleInfos(boxId, cellId);
 
-  let color = bottle.color;
+  let color: string;
   if (isSelected) {
     color = 'blue';
   } else if (isSelectable) {

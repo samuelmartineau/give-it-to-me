@@ -72,7 +72,7 @@ const SearchFiltersModalFilters: React.FC = () => {
 
     const keyName = data.name;
 
-    let newFilters: string[] = [];
+    let newFilters: string[];
 
     const urlValue = searchParams[keyName];
     let nextUrlValue: string[] = [];

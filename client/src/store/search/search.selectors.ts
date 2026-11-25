@@ -6,8 +6,7 @@ function nameMatch(filter, name) {
 }
 
 function hasFiltersSet(filters) {
-  let has = false;
-  has = ['wineFamilies', 'wineTypes', 'wineCategories'].some(
+  const has = ['wineFamilies', 'wineTypes', 'wineCategories'].some(
     (key) => filters[key].length > 0
   );
   return (

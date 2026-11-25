@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import babel from '@rolldown/plugin-babel';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import commonjs from 'vite-plugin-commonjs';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
@@ -13,30 +14,32 @@ export default defineConfig(({ mode }) => {
 
   const isProduction = mode === 'production';
 
-  const plugins = [   // TanStack Router plugin for file-based route generation
+  const plugins = [
+    // TanStack Router plugin for file-based route generation
     tanstackRouter(),
     commonjs(),
-    react({
-      // Add babel plugin for styled-components to replace Next.js's SWC transform
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-styled-components',
-            {
-              ssr: false, // We are doing client-side rendering
-              displayName: !isProduction, // Show component names in dev for easier debugging
-              pure: true,
-            },
-          ],
+    react(),
+    // Babel plugin for styled-components (displayName, pure annotations)
+    babel({
+      plugins: [
+        [
+          'babel-plugin-styled-components',
+          {
+            ssr: false, // We are doing client-side rendering
+            displayName: !isProduction, // Show component names in dev for easier debugging
+            pure: true,
+          },
         ],
-      },
-    }),];
+      ],
+    }),
+  ];
 
-
-  if (isProduction &&
+  if (
+    isProduction &&
     env.SENTRY_ORG &&
     env.SENTRY_PROJECT &&
-    env.SENTRY_AUTH_TOKEN) {
+    env.SENTRY_AUTH_TOKEN
+  ) {
     // Sentry plugin for uploading source maps.
     // This is only run for production builds and if Sentry variables are set.
     plugins.push(
@@ -48,7 +51,8 @@ export default defineConfig(({ mode }) => {
           // Specify the assets to include in the Sentry release.
           assets: './dist/**',
         },
-      }))
+      }),
+    );
   }
 
   return {
