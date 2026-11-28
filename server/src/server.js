@@ -27,7 +27,7 @@ const permFolderPath = path.join(
 );
 
 if (!fs.existsSync(permFolderPath)) {
-  fs.mkdirSync(permFolderPath);
+  fs.mkdirSync(permFolderPath, { recursive: true });
 }
 
 const server = express();

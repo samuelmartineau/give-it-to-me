@@ -50,7 +50,7 @@ starts, in parallel:
 - a static file server for pictures on port 3005 (serves `files/`)
 - the Vite client dev server on http://localhost:3000, which proxies `/api` and `/sse` to the API server and `/files` to the picture server
 
-The dev environment (`GITM_SERVER_PORT`, `GITM_DB_FILE`, `GITM_FILE_DIRECTORY`) is set by `scripts/set_dev.sh`.
+The dev environment (`GITM_SERVER_PORT`, `GITM_DB_FILE`, `GITM_FILE_DIRECTORY`) lives in `scripts/dev.env` and is loaded with `node --env-file`, so it works the same on Windows, macOS and Linux without bash. The `files/` folder is created on first start.
 
 ### Scripts
 
