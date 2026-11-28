@@ -29,6 +29,8 @@ export {
   unselectBoxToBrowse,
   selectCellToBrowse,
   unselectCellToBrowse,
+  selectOutsideWineToBrowse,
+  unselectOutsideWineToBrowse,
 } from './browse/browse.actions';
 export {
   addToFavorite,

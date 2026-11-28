@@ -6,13 +6,14 @@ import CellarCells from '@/components/Cellar/Cells/CellarCells';
 import { getCellId } from '@/components/Cellar/utils';
 import ClickHandlerBox from './ClickHandlerBox';
 import SelectedCell from './SelectedCell';
+import OutsideWines from '../Outside/OutsideWines';
 
 type BoxesSelectorProps = {};
 
 class BoxesSelector extends React.Component<BoxesSelectorProps> {
   render() {
     return (
-      <CellarContainer>
+      <CellarContainer extra={<OutsideWines />}>
         <CellarBoxes>
           {(boxId) => <ClickHandlerBox key={boxId} boxId={boxId} />}
         </CellarBoxes>

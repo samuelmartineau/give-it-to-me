@@ -19,6 +19,14 @@ const Details = styled.div`
   }
 `;
 
+const OutsideDetails = styled.div`
+  max-width: 360px;
+
+  @media (max-width: 760px) {
+    margin: 0 auto;
+  }
+`;
+
 const BoxCard = styled(Card)`
   width: 100%;
 
@@ -48,24 +56,31 @@ export const Browse = () => {
   const cellId = useSelector((state: RootState) => state.browse.cellId);
   const hasBox = boxId !== undefined && boxId !== null;
   const hasCell = cellId !== undefined && cellId !== null;
+  const outsideWineId = useSelector(
+    (state: RootState) => state.browse.outsideWineId,
+  );
+  const hasOutsideWine = outsideWineId !== undefined;
   const detailsRef = useRef<React.ComponentRef<'section'>>(null);
 
   // On small screens the chosen box appears below the fold: bring it into view.
   useEffect(() => {
-    if (hasBox) {
+    if (hasBox || hasOutsideWine) {
       detailsRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
       });
     }
-  }, [boxId, hasBox]);
+  }, [boxId, hasBox, outsideWineId, hasOutsideWine]);
 
   return (
     <div>
       <SectionTitle>
-        <Step>1</Step>Choisis une caisse
+        <Step>1</Step>Choisis une caisse ou une bouteille
       </SectionTitle>
-      <Hint>Touche une caisse où il y a des bouteilles.</Hint>
+      <Hint>
+        Touche une caisse où il y a des bouteilles, ou une bouteille rangée hors
+        des caisses.
+      </Hint>
       <BoxesSelector />
 
       {hasBox && (
@@ -84,6 +99,18 @@ export const Browse = () => {
             </BoxCard>
             <WineWizard />
           </Details>
+        </Section>
+      )}
+
+      {hasOutsideWine && (
+        <Section ref={detailsRef}>
+          <SectionTitle>
+            <Step>2</Step>Le vin choisi
+          </SectionTitle>
+          <Hint>Ce vin est rangé hors des caisses.</Hint>
+          <OutsideDetails>
+            <WineWizard />
+          </OutsideDetails>
         </Section>
       )}
     </div>
