@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import * as wines from './wines/wines.selectors';
 import * as bottles from './bottles/bottles.selectors';
 import * as adding from './adding/adding.selectors';
@@ -102,8 +103,31 @@ export const isBoxBrowseable = (state: RootState, boxId: number) => {
 };
 
 export const getBrowsedWine = (state: RootState) => {
-  const { boxId, cellId } = state.browse;
+  const { boxId, cellId, outsideWineId } = state.browse;
+  if (outsideWineId !== undefined) {
+    return getWineById(state, outsideWineId) ?? null;
+  }
   if (boxId === undefined || cellId === undefined) return null;
   const bottle = getBottleByPosition(state, boxId, cellId);
   return bottle && getWineById(state, bottle.wine_id);
 };
+
+/**
+ * Wines stored outside the boxes (no box nor cell, only a written position),
+ * biggest bottles first, that still have bottles left.
+ */
+export const getOutsideWines = createSelector(
+  [
+    (state: RootState) => state.wines.all,
+    (state: RootState) => state.wines.map,
+  ],
+  (all, map) =>
+    all
+      .map((id) => map[id])
+      .filter((wine) => wine && !wine.isInBoxes && wine.bottlesCount > 0)
+      .sort(
+        (a, b) =>
+          Number(b.bottleType) - Number(a.bottleType) ||
+          a.name.localeCompare(b.name),
+      ),
+);

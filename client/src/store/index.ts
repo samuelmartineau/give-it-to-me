@@ -39,6 +39,8 @@ export {
   unselectBoxToBrowse,
   selectCellToBrowse,
   unselectCellToBrowse,
+  selectOutsideWineToBrowse,
+  unselectOutsideWineToBrowse,
   createWineFamily,
   syncUrlParams,
   setRemoveCount,
@@ -72,6 +74,7 @@ export {
   isBoxBrowsed,
   isBoxBrowseable,
   getBrowsedWine,
+  getOutsideWines,
   getFiltersCount,
 } from './selectors';
 

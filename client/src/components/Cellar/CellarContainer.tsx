@@ -98,9 +98,11 @@ type Props = {
   children: React.ReactNode;
   /** Small inline version (inside a wine card): no frame, legend or scroll. */
   compact?: boolean;
+  /** Rendered under the cellar plan, above the legend. */
+  extra?: React.ReactNode;
 };
 
-const CellarContainer = ({ children, compact }: Props) => {
+const CellarContainer = ({ children, compact, extra }: Props) => {
   return (
     <Wrapper $compact={compact}>
       <Scroller $compact={compact}>
@@ -119,6 +121,7 @@ const CellarContainer = ({ children, compact }: Props) => {
           {children}
         </svg>
       </Scroller>
+      {extra}
       {!compact && (
         <Footer>
           <Legend aria-label="Légende">
